@@ -1,0 +1,12 @@
+{
+  "prettier": {
+    "allowed": true,
+    "tabWidth": 2,
+    "printWidth": 120
+  },
+  "languages": {
+    "CSS": {
+      "formatter": "prettier"
+    }
+  }
+}
