@@ -1,0 +1,125 @@
+.dads-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  text-underline-offset: 3px;
+}
+
+.dads-button[data-type="solid-fill"] {
+  border: 4px double transparent;
+  background-color: var(--color-primitive-blue-900);
+  color: var(--color-neutral-white);
+}
+
+.dads-button[data-type="solid-fill"]:hover {
+  background-color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+}
+
+.dads-button[data-type="solid-fill"]:active {
+  background-color: var(--color-primitive-blue-1200);
+  text-decoration: underline;
+}
+
+.dads-button[data-type="outline"] {
+  border: 1px solid currentColor;
+  background-color: var(--color-neutral-white);
+  color: var(--color-primitive-blue-900);
+}
+
+.dads-button[data-type="outline"]:hover {
+  background-color: var(--color-primitive-blue-200);
+  color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+}
+
+.dads-button[data-type="outline"]:active {
+  background-color: var(--color-primitive-blue-300);
+  color: var(--color-primitive-blue-1200);
+  text-decoration: underline;
+}
+
+.dads-button[data-type="text"] {
+  border: 0;
+  background-color: transparent;
+  color: var(--color-primitive-blue-900);
+  text-decoration: underline;
+}
+
+.dads-button[data-type="text"]:hover {
+  background-color: var(--color-primitive-blue-50);
+  color: var(--color-primitive-blue-1000);
+  text-decoration-thickness: 3px;
+}
+
+.dads-button[data-type="text"]:active {
+  background-color: var(--color-primitive-blue-100);
+  color: var(--color-primitive-blue-1200);
+}
+
+.dads-button[data-type="text"]:focus-visible {
+  background-color: var(--color-primitive-yellow-300);
+}
+
+.dads-button[data-size="lg"] {
+  min-width: calc(136 / 16 * 1rem);
+  min-height: 3.5rem;
+  border-radius: var(--border-radius-8);
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-100);
+}
+
+.dads-button[data-size="md"] {
+  min-width: 6rem;
+  min-height: 3rem;
+  border-radius: var(--border-radius-8);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-100);
+}
+
+.dads-button[data-size="sm"] {
+  position: relative;
+  min-width: 5rem;
+  min-height: 2.25rem;
+  border-radius: var(--border-radius-6);
+  padding-inline: 0.75rem;
+  padding-block: 0.125rem;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-100);
+}
+
+.dads-button[data-size="sm"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 2.75rem;
+}
+
+.dads-button[data-size="xs"] {
+  position: relative;
+  min-width: 4.5rem;
+  min-height: 1.75rem;
+  border-radius: var(--border-radius-4);
+  padding-inline: 0.5rem;
+  padding-block: 0.125rem;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-100);
+}
+
+.dads-button[data-size="xs"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 2.75rem;
+}

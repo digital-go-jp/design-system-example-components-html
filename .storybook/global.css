@@ -1,0 +1,60 @@
+:root {
+  --color-primitive-blue-50: #e8f1fe;
+  --color-primitive-blue-100: #d9e6ff;
+  --color-primitive-blue-200: #c5d7fb;
+  --color-primitive-blue-300: #9db7f9;
+  --color-primitive-blue-400: #7096f8;
+  --color-primitive-blue-500: #4979f5;
+  --color-primitive-blue-600: #3460fb;
+  --color-primitive-blue-700: #264af4;
+  --color-primitive-blue-800: #0031d8;
+  --color-primitive-blue-900: #0017c1;
+  --color-primitive-blue-1000: #00118f;
+  --color-primitive-blue-1100: #000071;
+  --color-primitive-blue-1200: #000060;
+  --color-neutral-white: #ffffff;
+  --color-neutral-black: #000000;
+  --color-neutral-solid-gray-300: #b3b3b3;
+  --font-weight-400: 400;
+  --font-weight-700: 700;
+  --font-family-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: "Noto Sans Mono", monospace;
+  --font-size-14: 0.875rem;
+  --font-size-16: 1rem;
+  --line-height-100: 1;
+  --border-radius-4: 0.25rem;
+  --border-radius-6: 0.375rem;
+  --border-radius-8: 0.5rem;
+}
+
+html {
+  font-family: var(--font-family-sans);
+}
+
+a {
+  color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:where(:visited) {
+  color: var(--color-primitive-magenta-900);
+}
+
+a:where(:hover) {
+  color: var(--color-primitive-blue-1000);
+  text-decoration-thickness: 3px;
+}
+
+a:where(:active) {
+  color: var(--color-primitive-orange-700);
+  text-decoration-thickness: 1px;
+}
+
+:focus-visible {
+  outline: 4px solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: var(--border-radius-4);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
