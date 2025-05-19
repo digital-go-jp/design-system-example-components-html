@@ -1,12 +1,8 @@
 {
-  "prettier": {
-    "allowed": true,
-    "tabWidth": 2,
-    "printWidth": 120
-  },
-  "languages": {
-    "CSS": {
-      "formatter": "prettier"
+  "formatter": {
+    "language_server": {
+      "name": "biome"
     }
-  }
+  },
+  "tab_size": 2
 }
