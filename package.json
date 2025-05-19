@@ -17,7 +17,9 @@
     "@storybook/html": "^8.6.12",
     "@storybook/html-vite": "^8.6.12",
     "@storybook/test": "^8.6.12",
+    "node-html-parser": "^7.0.1",
     "storybook": "^8.6.12",
+    "tailwindcss": "^4.1.7",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   }
