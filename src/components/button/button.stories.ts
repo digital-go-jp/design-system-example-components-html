@@ -17,7 +17,7 @@ interface ButtonProps {
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Component/ボタン",
+  title: "Components/ボタン",
   tags: ["autodocs"],
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-button");
