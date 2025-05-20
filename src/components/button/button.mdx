@@ -1,0 +1,17 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as ButtonStories from "./button.stories";
+import buttonCss from "./button.css?raw";
+
+<Meta of={ButtonStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={buttonCss} language="css" />

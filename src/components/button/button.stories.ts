@@ -18,7 +18,6 @@ interface ButtonProps {
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: "Components/ボタン",
-  tags: ["autodocs"],
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-button");
     const button = fragment.root;
@@ -60,7 +59,7 @@ export const Playground: Story = {
 };
 
 export const AllButtonsUsingButton = () =>
-  new HtmlFragment(allButtonsUsingButton, "body").toString();
+  new HtmlFragment(allButtonsUsingButton, "div").toString();
 
 export const AllButtonsUsingLink = () =>
-  new HtmlFragment(allButtonsUsingLink, "body").toString();
+  new HtmlFragment(allButtonsUsingLink, "div").toString();
