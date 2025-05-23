@@ -26,3 +26,7 @@ dist-ssr
 *storybook.log
 
 storybook-static/
+
+test-results/
+
+src/**/*-snapshots/

@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/html";
 
-import "./global.css";
+import "../src/global.css";
 
 const preview: Preview = {
   parameters: {
@@ -8,6 +8,37 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    options: {
+      storySort: {
+        order: [
+          "Components",
+          [
+            "アコーディオン",
+            "パンくずリスト",
+            "インプットテキスト",
+            "カレンダー",
+            "緊急時バナー",
+            "セレクトボックス",
+            "チェックボックス",
+            "テーブル",
+            "ディスクロージャー",
+            "ディバイダー",
+            "テキストエリア",
+            "ドロワー",
+            "ノティフィケーションバナー",
+            "ハンバーガーメニューボタン",
+            "日付ピッカー",
+            "ボタン",
+            "ユーティリティリンク",
+            "ラジオボタン",
+            "ランゲージセレクター",
+            "リスト",
+            "リンク",
+            "*",
+          ],
+        ],
       },
     },
   },
