@@ -2,6 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  column-gap: calc(4 / 16 * 1rem);
   font-weight: bold;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1;
@@ -168,4 +169,8 @@
   inset: 0;
   margin: auto;
   height: calc(44 / 16 * 1rem);
+}
+
+.dads-button__icon {
+  flex-shrink: 0;
 }
