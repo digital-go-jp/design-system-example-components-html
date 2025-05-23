@@ -91,5 +91,35 @@ export const resetCssVrt = (name, filePath) => {
         fullPage: true,
       });
     });
+
+    test("継承プロパティまたは要素へのスタイルが定義済みの時の表示に変化がないこと", async ({
+      page,
+    }) => {
+      await page.goto(`file://${filePath}`);
+
+      // Eric Mayer's Reset CSSを動的に追加
+      const css = await readFile(RESET_CSS_PATH, "utf-8");
+      await page.evaluate((cssText) => {
+        const style = document.createElement("style");
+        style.textContent = `
+body {
+  margin: 0;
+  color: red;
+  font: bold 18px / 2 fantasy;
+  letter-spacing: 0.1em;
+}
+a:any-link {
+  color: blue;
+  text-decoration: none;
+}
+`;
+        document.head.insertBefore(style, document.head.firstChild);
+      }, css);
+
+      await expect(page).toHaveScreenshot(`${name}.png`, {
+        maxDiffPixelRatio: 0,
+        fullPage: true,
+      });
+    });
   });
 };

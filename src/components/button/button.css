@@ -1,12 +1,16 @@
 .dads-button {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   column-gap: calc(4 / 16 * 1rem);
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
   font-weight: bold;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1;
   font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
   text-decoration: none;
   text-underline-offset: calc(3 / 16 * 1rem);
 }
@@ -117,7 +121,6 @@
 }
 
 .dads-button[data-size="lg"] {
-  box-sizing: border-box;
   min-width: calc(136 / 16 * 1rem);
   min-height: calc(56 / 16 * 1rem);
   border-radius: calc(8 / 16 * 1rem);
@@ -126,7 +129,6 @@
 }
 
 .dads-button[data-size="md"] {
-  box-sizing: border-box;
   min-width: calc(96 / 16 * 1rem);
   min-height: calc(48 / 16 * 1rem);
   border-radius: calc(8 / 16 * 1rem);
@@ -136,7 +138,6 @@
 
 .dads-button[data-size="sm"] {
   position: relative;
-  box-sizing: border-box;
   min-width: calc(80 / 16 * 1rem);
   min-height: calc(36 / 16 * 1rem);
   border-radius: calc(6 / 16 * 1rem);
@@ -154,7 +155,6 @@
 
 .dads-button[data-size="xs"] {
   position: relative;
-  box-sizing: border-box;
   min-width: calc(72 / 16 * 1rem);
   min-height: calc(28 / 16 * 1rem);
   border-radius: calc(4 / 16 * 1rem);
