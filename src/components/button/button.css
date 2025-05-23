@@ -26,9 +26,11 @@
   color: var(--color-neutral-white);
 }
 
-.dads-button[data-type="solid-fill"]:hover {
-  background-color: var(--color-primitive-blue-1000);
-  text-decoration: underline;
+@media (hover: hover) {
+  .dads-button[data-type="solid-fill"]:hover {
+    background-color: var(--color-primitive-blue-1000);
+    text-decoration: underline;
+  }
 }
 
 .dads-button[data-type="solid-fill"]:active {
@@ -57,10 +59,12 @@
   color: var(--color-primitive-blue-900);
 }
 
-.dads-button[data-type="outline"]:hover {
-  background-color: var(--color-primitive-blue-200);
-  color: var(--color-primitive-blue-1000);
-  text-decoration: underline;
+@media (hover: hover) {
+  .dads-button[data-type="outline"]:hover {
+    background-color: var(--color-primitive-blue-200);
+    color: var(--color-primitive-blue-1000);
+    text-decoration: underline;
+  }
 }
 
 .dads-button[data-type="outline"]:active {
@@ -91,10 +95,12 @@
   text-decoration: underline;
 }
 
-.dads-button[data-type="text"]:hover {
-  background-color: var(--color-primitive-blue-50);
-  color: var(--color-primitive-blue-1000);
-  text-decoration-thickness: calc(3 / 16 * 1rem);
+@media (hover: hover) {
+  .dads-button[data-type="text"]:hover {
+    background-color: var(--color-primitive-blue-50);
+    color: var(--color-primitive-blue-1000);
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
 }
 
 .dads-button[data-type="text"]:active {
