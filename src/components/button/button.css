@@ -130,16 +130,14 @@
   min-width: calc(136 / 16 * 1rem);
   min-height: calc(56 / 16 * 1rem);
   border-radius: calc(8 / 16 * 1rem);
-  padding-inline: calc(16 / 16 * 1rem);
-  padding-block: calc(12 / 16 * 1rem);
+  padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
 }
 
 .dads-button[data-size="md"] {
   min-width: calc(96 / 16 * 1rem);
   min-height: calc(48 / 16 * 1rem);
   border-radius: calc(8 / 16 * 1rem);
-  padding-inline: calc(16 / 16 * 1rem);
-  padding-block: calc(8 / 16 * 1rem);
+  padding: calc(8 / 16 * 1rem) calc(16 / 16 * 1rem);
 }
 
 .dads-button[data-size="sm"] {
@@ -147,8 +145,7 @@
   min-width: calc(80 / 16 * 1rem);
   min-height: calc(36 / 16 * 1rem);
   border-radius: calc(6 / 16 * 1rem);
-  padding-inline: calc(12 / 16 * 1rem);
-  padding-block: calc(2 / 16 * 1rem);
+  padding: calc(2 / 16 * 1rem) calc(12 / 16 * 1rem);
 }
 
 .dads-button[data-size="sm"]::after {
@@ -164,8 +161,7 @@
   min-width: calc(72 / 16 * 1rem);
   min-height: calc(28 / 16 * 1rem);
   border-radius: calc(4 / 16 * 1rem);
-  padding-inline: calc(8 / 16 * 1rem);
-  padding-block: calc(2 / 16 * 1rem);
+  padding: calc(2 / 16 * 1rem) calc(8 / 16 * 1rem);
   font-size: calc(14 / 16 * 1rem);
 }
 
