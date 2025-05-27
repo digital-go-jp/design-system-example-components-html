@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accordion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="accordion.css">
+</head>
+<body>
+
+<details class="dads-accordion">
+  <summary id="accordion-playground-1" class="dads-accordion__summary">
+    <span class="dads-accordion__icon">
+      <svg class="dads-accordion__icon-svg" width="24" height="24" viewbox="0 0 24 24" aria-hidden="true">
+        <path d="M3.3 7.3L12 16L20.7 7.3" fill="none" stroke="currentcolor" stroke-width="2"/>
+      </svg>
+    </span>
+    <h3>ダミーテキストとは何ですか？</h3>
+  </summary>
+  <div class="dads-accordion__content">
+    <div style="margin-bottom: 1lh;">これはダミーテキストです。</div>
+    <div style="margin-bottom: 1lh;">ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。</div>
+    <a href="#accordion-playground-1" class="dads-accordion__back-link">
+      <svg class="dads-accordion__back-link-icon" width="24" height="24" fill="none" aria-hidden="true">
+        <path d="M6 7V14.5C6 16.8 8.2 19 10.5 19C12.8 19 15 16.8 15 14.5V6M10.709 9.7L15 5.414L19.291 9.7" stroke="currentcolor" stroke-width="2" />
+      </svg>
+      「ダミーテキストとは何ですか？」の先頭に戻る
+    </a>
+  </div>
+</details>
+
+</body>
+</html>

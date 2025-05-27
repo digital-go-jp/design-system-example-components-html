@@ -1,0 +1,17 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as AccordionStories from "./accordion.stories";
+import accordionCss from "./accordion.css?raw";
+
+<Meta of={AccordionStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={accordionCss} language="css" />
