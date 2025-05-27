@@ -216,3 +216,432 @@ html {
   background-color: var(--color-primitive-yellow-300);
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
+
+.dads-u-visually-hidden {
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}
+
+:where(.dads-u-focus-outline):focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black) !important;
+  outline-offset: calc(2 / 16 * 1rem) !important;
+  border-radius: calc(4 / 16 * 1rem) !important;
+  background-color: var(--color-primitive-yellow-300) !important;
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300) !important;
+}
+
+@supports selector(:has(*)) {
+  :where(.dads-u-focus-within-outline):focus-visible,
+  :where(.dads-u-focus-within-outline):has(:focus-visible) {
+    outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black) !important;
+    outline-offset: calc(2 / 16 * 1rem) !important;
+    border-radius: calc(4 / 16 * 1rem) !important;
+    background-color: var(--color-primitive-yellow-300) !important;
+    box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300) !important;
+  }
+}
+@supports not selector(:has(*)) {
+  :where(.dads-u-focus-within-outline):focus-within {
+    outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black) !important;
+    outline-offset: calc(2 / 16 * 1rem) !important;
+    border-radius: calc(4 / 16 * 1rem) !important;
+    background-color: var(--color-primitive-yellow-300) !important;
+    box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300) !important;
+  }
+}
+
+.dads-u-dsp-64B-140 {
+  font-weight: bold !important;
+  font-size: calc(64 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dsp-57B-140 {
+  font-weight: bold !important;
+  font-size: calc(57 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dsp-48B-140 {
+  font-weight: bold !important;
+  font-size: calc(48 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dsp-64N-140 {
+  font-weight: normal !important;
+  font-size: calc(64 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dsp-57N-140 {
+  font-weight: normal !important;
+  font-size: calc(57 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dsp-48N-140 {
+  font-weight: normal !important;
+  font-size: calc(48 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-std-45B-140 {
+  font-weight: bold !important;
+  font-size: calc(45 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-std-36B-140 {
+  font-weight: bold !important;
+  font-size: calc(36 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-32B-150 {
+  font-weight: bold !important;
+  font-size: calc(32 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-28B-150 {
+  font-weight: bold !important;
+  font-size: calc(28 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-26B-150 {
+  font-weight: bold !important;
+  font-size: calc(26 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-24B-150 {
+  font-weight: bold !important;
+  font-size: calc(24 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-22B-150 {
+  font-weight: bold !important;
+  font-size: calc(22 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-20B-160 {
+  font-weight: bold !important;
+  font-size: calc(20 / 16 * 1rem) !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-20B-150 {
+  font-weight: bold !important;
+  font-size: calc(20 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-18B-160 {
+  font-weight: bold !important;
+  font-size: calc(18 / 16 * 1rem) !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-17B-170 {
+  font-weight: bold !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-16B-170 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-16B-175 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-45N-140 {
+  font-weight: normal !important;
+  font-size: calc(45 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-std-36N-140 {
+  font-weight: normal !important;
+  font-size: calc(36 / 16 * 1rem) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-32N-150 {
+  font-weight: normal !important;
+  font-size: calc(32 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-28N-150 {
+  font-weight: normal !important;
+  font-size: calc(28 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.dads-u-std-26N-150 {
+  font-weight: normal !important;
+  font-size: calc(26 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-24N-150 {
+  font-weight: normal !important;
+  font-size: calc(24 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-22N-150 {
+  font-weight: normal !important;
+  font-size: calc(22 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-20N-150 {
+  font-weight: normal !important;
+  font-size: calc(20 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-18N-160 {
+  font-weight: normal !important;
+  font-size: calc(18 / 16 * 1rem) !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-17N-170 {
+  font-weight: normal !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-16N-170 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-std-16N-175 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-dns-17B-130 {
+  font-weight: bold !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-17B-120 {
+  font-weight: bold !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-16B-130 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-16B-120 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-14B-130 {
+  font-weight: bold !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-14B-120 {
+  font-weight: bold !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-17N-130 {
+  font-weight: normal !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-17N-120 {
+  font-weight: normal !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-16N-130 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-16N-120 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-14N-130 {
+  font-weight: normal !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-dns-14N-120 {
+  font-weight: normal !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-oln-17B-100 {
+  font-weight: bold !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-oln-16B-100 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-oln-14B-100 {
+  font-weight: bold !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-oln-17N-100 {
+  font-weight: normal !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-oln-16N-100 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-oln-14N-100 {
+  font-weight: normal !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.dads-u-mono-17B-150 {
+  font-weight: bold !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-mono-16B-150 {
+  font-weight: bold !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-mono-14B-150 {
+  font-weight: bold !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-mono-17N-150 {
+  font-weight: normal !important;
+  font-size: calc(17 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-mono-16N-150 {
+  font-weight: normal !important;
+  font-size: calc(16 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
+
+.dads-u-mono-14N-150 {
+  font-weight: normal !important;
+  font-size: calc(14 / 16 * 1rem) !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-family-mono) !important;
+  letter-spacing: 0 !important;
+}
