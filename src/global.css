@@ -189,7 +189,7 @@ html {
 }
 
 :where(a):any-link {
-  color: var(--primitive-color-blue-1000);
+  color: var(--color-primitive-blue-1000);
   text-decoration: underline;
   text-decoration-thickness: calc(1 / 16 * 1rem);
   text-underline-offset: calc(3 / 16 * 1rem);
@@ -199,9 +199,11 @@ html {
   color: var(--color-primitive-magenta-900);
 }
 
-:where(a):hover {
-  color: var(--color-primitive-blue-1000);
-  text-decoration-thickness: calc(3 / 16 * 1rem);
+@media (hover: hover) {
+  :where(a):hover {
+    color: var(--color-primitive-blue-1000);
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
 }
 
 :where(a):active {
