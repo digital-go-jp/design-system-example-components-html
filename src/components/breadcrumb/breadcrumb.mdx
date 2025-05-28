@@ -1,0 +1,35 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as BreadcrumbStories from "./breadcrumb.stories";
+import breadcrumbCss from "./breadcrumb.css?raw";
+
+<Meta of={BreadcrumbStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用上の注意
+
+### 同一ページ内で`id`属性の重複を避ける
+
+`aria-labelledby`属性によってナビゲーションのラベルを`id="breadcrumb-label"`で指定しています。同一ページ内に複数のパンくずリストを配置する場合は、`id`値が重複しないようにユニークな値を付けてください。
+
+```html
+<!-- 例: 複数ある場合 -->
+<nav class="dads-breadcrumb" aria-labelledby="breadcrumb-2-label">
+  <span id="breadcrumb-2-label" class="dads-u-visually-hidden">現在位置</span>
+  …
+</nav>
+```
+
+### `aria-labelledby`属性でラベルと紐づける
+
+`<nav>`要素の`aria-labelledby`属性を使用し、ナビゲーションのラベルとして機能する要素と関連付けます。ページ内のランドマークとして名前をつけることで、支援技術ユーザーのナビゲーションの手掛かりになります。
+
+## CSS
+
+<Source code={breadcrumbCss} language="css" />
