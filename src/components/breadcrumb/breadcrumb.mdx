@@ -30,6 +30,8 @@ import breadcrumbCss from "./breadcrumb.css?raw";
 
 `<nav>`要素の`aria-labelledby`属性を使用し、ナビゲーションのラベルとして機能する要素と関連付けます。ページ内のランドマークとして名前をつけることで、支援技術ユーザーのナビゲーションの手掛かりになります。
 
+`aria-label`属性を使うことでも同様の結果を得られますが、自動翻訳ツールのサポートが万全でない場合があります。堅牢性の確保のため、原則として`aria-labelledby`属性を使用してください。
+
 ## CSS
 
 <Source code={breadcrumbCss} language="css" />
