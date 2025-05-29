@@ -35,11 +35,11 @@ const meta = {
   },
   argTypes: {
     variant: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["solid-fill", "outline", "text"],
     },
     size: {
-      control: { type: "select" },
+      control: { type: "radio" },
       options: ["lg", "md", "sm", "xs"],
     },
     label: { control: "text" },
