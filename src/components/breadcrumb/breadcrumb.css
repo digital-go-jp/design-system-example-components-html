@@ -61,7 +61,8 @@
 
 .dads-breadcrumb__separator-icon {
   display: inline-block;
-  margin-inline: calc(1 / 16 * 1rem);
+  margin-right: calc(1 / 16 * 1rem);
+  margin-left: calc(1 / 16 * 1rem);
   width: calc(12 / 16 * 1rem);
   height: calc(12 / 16 * 1rem);
   vertical-align: middle;
