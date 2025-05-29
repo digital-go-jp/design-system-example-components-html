@@ -112,6 +112,12 @@ a:any-link {
   color: blue;
   text-decoration: none;
 }
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
 `;
         document.head.insertBefore(style, document.head.firstChild);
       }, css);
