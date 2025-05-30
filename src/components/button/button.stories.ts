@@ -58,7 +58,7 @@ export const Playground: Story = {
 };
 
 export const AllButtonsUsingButton = () =>
-  new HtmlFragment(allButtonsUsingButton, "div").toString();
+  new HtmlFragment(allButtonsUsingButton, "body > div").toString();
 
 export const AllButtonsUsingLink = () =>
-  new HtmlFragment(allButtonsUsingLink, "div").toString();
+  new HtmlFragment(allButtonsUsingLink, "body > div").toString();

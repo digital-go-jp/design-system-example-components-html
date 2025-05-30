@@ -56,4 +56,5 @@ export const Playground: Story = {
   },
 };
 
-export const Stacked = () => new HtmlFragment(stacked, "body").toString();
+export const Stacked = () =>
+  new HtmlFragment(stacked, ".dads-accordion").toString();
