@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="checkbox.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+</head>
+<body>
+
+<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="error-text support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
+  <div>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">足立区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">荒川区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">板橋区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">江戸川区</span>
+    </label>
+  </div>
+  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
+</fieldset>
+
+</body>
+</html>

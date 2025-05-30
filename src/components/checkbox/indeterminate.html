@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="checkbox.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+</head>
+<body>
+
+<div data-js-indeterminate-example>
+  <label class="dads-checkbox" data-size="sm">
+    <span class="dads-checkbox__checkbox">
+      <input class="dads-checkbox__input" type="checkbox" data-js-check-all>
+    </span>
+    <span class="dads-checkbox__label">全てのスポーツ</span>
+  </label>
+
+  <div style="margin-top: calc(16 / 16 * 1rem);">
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" data-js-check>
+      </span>
+      <span class="dads-checkbox__label">サッカー</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" checked data-js-check>
+      </span>
+      <span class="dads-checkbox__label">バスケットボール</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" data-js-check>
+      </span>
+      <span class="dads-checkbox__label">テニス</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" checked data-js-check>
+      </span>
+      <span class="dads-checkbox__label">スイミング</span>
+    </label>
+  </div>
+</div>
+
+<script type="module">
+  document.querySelectorAll("[data-js-indeterminate-example]").forEach((el) => {
+    const checkAll = el.querySelector("[data-js-check-all]");
+    const checks = [...el.querySelectorAll("[data-js-check]")];
+
+    function checkOrUncheckAll(e) {
+      const checked = e.target.checked;
+      checks.forEach((check) => check.checked = checked);
+    }
+
+    function updateCheckAll() {
+      const allChecked = checks.every((check) => check.checked);
+      const noneChecked = checks.every((check) => !check.checked);
+      checkAll.checked = allChecked;
+      checkAll.indeterminate = !allChecked && !noneChecked;
+    }
+
+    checkAll.addEventListener("change", checkOrUncheckAll);
+    checks.forEach((check) => check.addEventListener("change", updateCheckAll));
+
+    updateCheckAll();
+  });
+</script>
+
+</body>
+</html>

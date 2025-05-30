@@ -1,0 +1,135 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as CheckboxStories from "./checkbox.stories";
+import checkboxCss from "./checkbox.css?raw";
+import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
+
+<Meta of={CheckboxStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用上の注意
+
+### 選択肢ラベルおよびチェックボックスのマークアップ
+
+原則として`<label>`要素を使用してチェックボックスおよび選択肢ラベルを関連付けます。これにより、チェックボックスのアクセシブルな名前として選択肢ラベルのテキストが設定されます。また、選択肢ラベルのテキスト部分がクリック範囲に含まれるようになるため、チェックボックスのクリックしやすさが向上します。
+
+```html
+<label class="dads-checkbox" data-size="sm">
+  <span class="dads-checkbox__checkbox">
+    <input class="dads-checkbox__input" type="checkbox">
+  </span>
+  <span class="dads-checkbox__label">ラベル</span>
+</label>
+```
+
+チェックボックスと選択肢ラベルを離して配置する場合、選択肢ラベルのみを`<label>`要素でマークアップし、チェックボックスに付与したIDを`for`属性に指定します。
+
+```html
+<tr>
+  <td>
+    <span class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input id="article-1-checkbox" class="dads-checkbox__input" type="checkbox">
+      </span>
+    </span>
+  </td>
+  <td>
+    <label for="article-1-checkbox">記事タイトル</label>
+  </td>
+  …
+</tr>
+```
+
+### `<label>`要素が使えない場合のマークアップ
+
+状況によっては`<label>`要素が使えない場合があります。例えば、選択肢ラベルに該当するテキストがリンクである場合です。その場合、選択肢ラベルに該当するテキストを含む要素に`aria-labelledby`属性を付与し、チェックボックスのアクセシブルな名前を指定します。`<label>`要素は使用しません。
+
+```html
+<tr>
+  <td>
+    <span class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-labelledby="article-1-title">
+      </span>
+    </span>
+  </td>
+  <td>
+    <a id="article-1-title" href>記事タイトル</a>
+  </td>
+  …
+</tr>
+```
+
+### 選択肢のグループ化
+
+複数の選択肢をもつチェックボックスは、`<fieldset>`要素で囲んでグループ化し、グループのラベルを`<legend>`要素で提供します。
+
+スクリーンリーダーは、グループに含まれるチェックボックスを読み上げる際、グループ名もあわせて読み上げます。これにより、スクリーンリーダーユーザーは入力対象について素早く理解できるようになります。
+
+また、サポートテキストおよびエラーテキストは`aria-describedby`属性を使用して`<fieldset>`要素と紐付けを行います。
+
+```html
+<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="error-text support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
+  <div>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">足立区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">荒川区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">板橋区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">江戸川区</span>
+    </label>
+  </div>
+  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキスト</p>
+</fieldset>
+```
+
+<aside>
+
+ℹ️ ブラウザ、支援技術、またはそれらの組み合わせによっては、説明文を適切に読み上げない場合があります。Chrome＋NVDAの組み合わせにおいて、チェックボックスのフォーカス時に説明文を読み上げない事象を認識しています。
+
+</aside>
+
+#### 参考情報
+
+- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
+- [ARIA: checkbox ロール - アクセシビリティ | MDN](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/checkbox_role)
+- [Checkbox Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/)
+- [aria-describedby not reported for group in browse mode · Issue #12718 · nvaccess/nvda](https://github.com/nvaccess/nvda/issues/12718)
+
+## CSS
+
+### checkbox.css
+
+<Source code={checkboxCss} language="css" />
+
+### form-control-label.css
+
+<Source code={formControlLabelCss} language="css" />
