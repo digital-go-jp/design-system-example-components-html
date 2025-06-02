@@ -1,0 +1,128 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as RadioStories from "./radio.stories";
+import radioCss from "./radio.css?raw";
+import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
+
+<Meta of={RadioStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用上の注意
+
+### 選択肢ラベルおよびラジオボタンのマークアップ
+
+原則として`<label>`要素を使用してラジオボタンおよび選択肢ラベルを関連付けます。これにより、ラジオボタンのアクセシブルな名前として選択肢ラベルのテキストが設定されます。また、選択肢ラベルのテキスト部分がクリック範囲に含まれるようになるため、ラジオボタンのクリックしやすさが向上します。
+
+```html
+<label class="dads-radio" data-size="sm">
+  <span class="dads-radio__radio">
+    <input class="dads-radio__input" type="radio" name="doc-1">
+  </span>
+  <span class="dads-radio__label">ラベル</span>
+</label>
+```
+
+ラジオボタンと選択肢ラベルを離して配置する場合、選択肢ラベルのみを`<label>`要素でマークアップし、ラジオボタンに付与したIDを`for`属性に指定します。
+
+```html
+<tr>
+  <td>
+    <span class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input id="row-1-radio" class="dads-radio__input" type="radio" name="doc-2">
+      </span>
+    </span>
+  </td>
+  <td>
+    <label for="row-1-radio">記事タイトル</label>
+  </td>
+  …
+</tr>
+```
+
+### `<label>`要素が使えない場合のマークアップ
+
+状況によっては`<label>`要素が使えない場合があります。例えば、選択肢ラベルに該当するテキストがリンクである場合です。その場合、選択肢ラベルに該当するテキストを含む要素に`aria-labelledby`属性を付与し、ラジオボタンのアクセシブルな名前を指定します。`<label>`要素は使用しません。
+
+```html
+<tr>
+  <td>
+    <span class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input id="row-1-radio" class="dads-radio__input" type="radio" name="doc-3" aria-labelledby="row-1-radio">
+      </span>
+    </span>
+  </td>
+  <td>
+    <a id="row-1-radio" href>記事タイトル</a>
+  </td>
+  …
+</tr>
+```
+
+### 選択肢のグループ化
+
+複数の選択肢をもつラジオボタンは、`<fieldset>`要素で囲んでグループ化し、グループのラベルを`<legend>`要素で提供します。
+
+スクリーンリーダーは、グループに含まれるラジオボタンを読み上げる際、グループ名もあわせて読み上げます。これにより、スクリーンリーダーユーザーは入力対象について素早く理解できるようになります。
+
+また、サポートテキストおよびエラーテキストは`aria-describedby`属性を使用して`<fieldset>`要素と紐付けを行います。
+
+```html
+<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="error-text support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
+  <div>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="doc-4">
+      </span>
+      <span class="dads-radio__label">足立区</span>
+    </label>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="doc-4">
+      </span>
+      <span class="dads-radio__label">荒川区</span>
+    </label>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="doc-4">
+      </span>
+      <span class="dads-radio__label">板橋区</span>
+    </label>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="doc-4">
+      </span>
+      <span class="dads-radio__label">江戸川区</span>
+    </label>
+  </div>
+  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキスト</p>
+</fieldset>
+```
+
+#### 参考情報
+
+- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
+- [ARIA: radio ロール - アクセシビリティ | MDN](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/radio_role)
+- [Radio Group Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
+
+## CSS
+
+### radio.css
+
+<Source code={radioCss} language="css" />
+
+### form-control-label.css
+
+<Source code={formControlLabelCss} language="css" />

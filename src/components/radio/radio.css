@@ -1,0 +1,159 @@
+.dads-radio {
+  display: flex;
+  align-items: start;
+  gap: var(--_gap);
+  width: fit-content;
+}
+
+.dads-radio:has(.dads-radio__label:not(:empty)) {
+  padding-block: calc(8 / 16 * 1rem);
+}
+
+.dads-radio[data-size="sm"] {
+  --_gap: calc(4 / 16 * 1rem);
+  --_radio-size: calc(24 / 16 * 1rem);
+  --_radio-outer-size: calc(20 / 16 * 1rem);
+  --_radio-inner-size: calc(10 / 16 * 1rem);
+  --_radio-border-width: calc(2 / 16 * 1rem);
+  --_label-padding-top: 1px;
+  --_label-font-size: calc(16 / 16 * 1rem);
+}
+
+.dads-radio[data-size="md"] {
+  --_gap: calc(8 / 16 * 1rem);
+  --_radio-size: calc(32 / 16 * 1rem);
+  --_radio-outer-size: calc(26 / 16 * 1rem);
+  --_radio-inner-size: calc(12 / 16 * 1rem);
+  --_radio-border-width: calc(2 / 16 * 1rem);
+  --_label-padding-top: calc(4 / 16 * 1rem);
+  --_label-font-size: calc(16 / 16 * 1rem);
+}
+
+.dads-radio[data-size="lg"] {
+  --_gap: calc(12 / 16 * 1rem);
+  --_radio-size: calc(44 / 16 * 1rem);
+  --_radio-outer-size: calc(36 / 16 * 1rem);
+  --_radio-inner-size: calc(16 / 16 * 1rem);
+  --_radio-border-width: calc(3 / 16 * 1rem);
+  --_label-padding-top: calc(10 / 16 * 1rem);
+  --_label-font-size: calc(17 / 16 * 1rem);
+}
+
+.dads-radio__radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--_radio-size);
+  height: var(--_radio-size);
+  border-radius: 51%;
+}
+
+@media (hover: hover) {
+  .dads-radio__radio:has(
+      :not(:focus, :disabled, [aria-disabled="true"]):hover
+    ) {
+    background-color: var(--color-neutral-solid-gray-420);
+  }
+}
+
+.dads-radio__input {
+  --_base-color: var(--color-neutral-white);
+  --_accent-color: var(--color-primitive-blue-900);
+  --_accent-hover-color: var(--color-primitive-blue-1100);
+  --_border-color: var(--color-neutral-solid-gray-600);
+  --_border-hover-color: var(--color-neutral-black);
+
+  position: relative;
+  margin: 0;
+  appearance: none;
+  width: var(--_radio-outer-size);
+  height: var(--_radio-outer-size);
+  border-radius: 51%;
+  background-color: var(--_base-color);
+  border: var(--_radio-border-width) solid var(--_border-color);
+}
+
+.dads-radio__input:focus {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+@media (hover: hover) {
+  .dads-radio__input:not(:disabled, [aria-disabled="true"]):hover {
+    border-color: var(--_border-hover-color);
+  }
+}
+
+.dads-radio__input:checked {
+  border-color: var(--_accent-color);
+}
+
+@media (hover: hover) {
+  .dads-radio__input:checked:not(:disabled, [aria-disabled="true"]):hover {
+    border-color: var(--_accent-hover-color);
+  }
+}
+
+.dads-radio__input:checked::before {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--_radio-inner-size);
+  height: var(--_radio-inner-size);
+  border-radius: 51%;
+  background-color: var(--_accent-color);
+  content: "";
+}
+
+@media (hover: hover) {
+  .dads-radio__input:checked:not(
+      :disabled,
+      [aria-disabled="true"]
+    ):hover::before {
+    background-color: var(--_accent-hover-color);
+  }
+}
+
+.dads-radio__input[aria-invalid="true"] {
+  --_accent-color: var(--color-semantic-error-1);
+  --_accent-hover-color: var(--color-primitive-red-1000);
+  --_border-color: var(--color-semantic-error-1);
+  --_border-hover-color: var(--color-primitive-red-1000);
+}
+
+.dads-radio__input:is(:disabled, [aria-disabled="true"]) {
+  --_base-color: var(--color-neutral-solid-gray-50);
+  --_accent-color: var(--color-neutral-solid-gray-300);
+  --_accent-hover-color: var(--color-neutral-solid-gray-300);
+  --_border-color: var(--color-neutral-solid-gray-300);
+  --_border-hover-color: var(--color-neutral-solid-gray-300);
+}
+
+@media (forced-colors: active) {
+  .dads-radio__input,
+  .dads-radio__input[aria-invalid="true"] {
+    --_accent-color: Highlight;
+    --_accent-hover-color: Highlight;
+    --_border-color: ButtonText;
+    --_border-hover-color: ButtonText;
+  }
+
+  .dads-radio__input:is(:disabled, [aria-disabled="true"]) {
+    --_accent-color: GrayText;
+    --_accent-hover-color: GrayText;
+    --_border-color: GrayText;
+    --_border-hover-color: GrayText;
+  }
+}
+
+.dads-radio__label {
+  padding-top: var(--_label-padding-top);
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: var(--_label-font-size);
+  line-height: 1.3;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0;
+}
