@@ -1,0 +1,17 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as DisclosureStories from "./disclosure.stories";
+import disclosureCss from "./disclosure.css?raw";
+
+<Meta of={DisclosureStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={disclosureCss} language="css" />

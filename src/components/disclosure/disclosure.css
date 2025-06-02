@@ -1,0 +1,97 @@
+.dads-disclosure {
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-disclosure__summary {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  gap: calc(8 / 16 * 1rem);
+  width: fit-content;
+  cursor: default;
+  list-style-type: none;
+}
+
+@media (hover: hover) {
+  .dads-disclosure__summary:hover {
+    text-decoration: underline;
+    text-underline-offset: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-disclosure__summary::marker {
+  content: "";
+}
+
+.dads-disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+
+.dads-disclosure__icon {
+  flex-shrink: 0;
+  margin-top: calc((1lh - 24px) / 2);
+  color: var(--color-primitive-blue-1000);
+}
+
+@media (forced-colors: active) {
+  .dads-disclosure__icon {
+    color: inherit;
+  }
+}
+
+.dads-disclosure[open] .dads-disclosure__icon {
+  rotate: 180deg;
+}
+
+.dads-disclosure__icon-hover {
+  display: none;
+}
+
+@media (hover: hover) {
+  .dads-disclosure__summary:hover .dads-disclosure__icon-circle {
+    fill: Canvas;
+  }
+
+  .dads-disclosure__summary:hover .dads-disclosure__icon-triangle {
+    fill: currentcolor;
+  }
+}
+
+.dads-disclosure__content {
+  padding-left: calc(32 / 16 * 1rem);
+  margin: calc(16 / 16 * 1rem) 0;
+}
+
+.dads-disclosure__back-link:any-link {
+  display: flex;
+  align-items: start;
+  gap: calc(6 / 16 * 1rem);
+  width: fit-content;
+  color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+  text-underline-offset: calc(3 / 16 * 1rem);
+  text-spacing-trim: trim-start;
+}
+
+@media (hover: hover) {
+  .dads-disclosure__back-link:hover {
+    color: var(--color-primitive-blue-1000);
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-disclosure__back-link:active {
+  color: var(--color-primitive-orange-700);
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+}
+
+.dads-disclosure__back-link-icon {
+  margin-top: calc((1lh - 24 / 16 * 1rem) / 2);
+  flex-shrink: 0;
+}
