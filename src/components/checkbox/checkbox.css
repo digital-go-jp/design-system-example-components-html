@@ -6,7 +6,8 @@
 }
 
 .dads-checkbox:has(.dads-checkbox__label:not(:empty)) {
-  padding-block: calc(8 / 16 * 1rem);
+  padding-top: calc(8 / 16 * 1rem);
+  padding-bottom: calc(8 / 16 * 1rem);
 }
 
 .dads-checkbox[data-size="sm"] {
