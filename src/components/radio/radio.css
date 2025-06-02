@@ -6,7 +6,8 @@
 }
 
 .dads-radio:has(.dads-radio__label:not(:empty)) {
-  padding-block: calc(8 / 16 * 1rem);
+  padding-top: calc(8 / 16 * 1rem);
+  padding-bottom: calc(8 / 16 * 1rem);
 }
 
 .dads-radio[data-size="sm"] {
@@ -46,7 +47,7 @@
   flex-shrink: 0;
   width: var(--_radio-size);
   height: var(--_radio-size);
-  border-radius: 51%;
+  border-radius: 50%;
 }
 
 @media (hover: hover) {
