@@ -1,0 +1,17 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as DividerStories from "./divider.stories";
+import accordionCss from "./divider.css?raw";
+
+<Meta of={DividerStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={accordionCss} language="css" />

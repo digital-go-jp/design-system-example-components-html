@@ -1,0 +1,42 @@
+.dads-divider {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid;
+  opacity: 1;
+}
+
+.dads-divider[data-color="solid-gray-420"] {
+  border-top-color: var(--color-neutral-solid-gray-420);
+}
+
+.dads-divider[data-color="solid-gray-536"] {
+  border-top-color: var(--color-neutral-solid-gray-536);
+}
+
+.dads-divider[data-color="black"] {
+  border-top-color: var(--color-neutral-black);
+}
+
+.dads-divider[data-style="solid"] {
+  border-top-style: solid;
+}
+
+.dads-divider[data-style="dashed"] {
+  border-top-style: dashed;
+}
+
+.dads-divider[data-width="1"] {
+  border-top-width: 1px;
+}
+
+.dads-divider[data-width="2"] {
+  border-top-width: 2px;
+}
+
+.dads-divider[data-width="3"] {
+  border-top-width: 3px;
+}
+
+.dads-divider[data-width="4"] {
+  border-top-width: 4px;
+}
