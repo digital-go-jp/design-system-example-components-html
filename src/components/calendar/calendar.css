@@ -1,0 +1,109 @@
+.dads-calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  border: 1px red;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-calendar__controls {
+  display: flex;
+  column-gap: calc(8 / 16 * 1rem);
+  padding: calc(16 / 16 * 1rem);
+}
+
+.dads-calendar__navigation {
+  display: flex;
+}
+
+.dads-calendar__nav-button.dads-button[data-size="sm"] {
+  width: calc(44 / 16 * 1rem);
+  min-width: 0;
+}
+
+.dads-calendar__current-month {
+  margin: 0;
+  align-self: center;
+  width: calc(56 / 16 * 1rem);
+  text-align: center;
+}
+
+.dads-calendar__table {
+  margin-right: calc(12 / 16 * 1rem);
+  margin-bottom: calc(8 / 16 * 1rem);
+  margin-left: calc(12 / 16 * 1rem);
+  width: auto;
+  border-collapse: collapse;
+}
+
+.dads-calendar__header-cell {
+  width: calc(48 / 16 * 1rem);
+  height: calc(48 / 16 * 1rem);
+  padding: 0;
+  color: var(--color-neutral-solid-gray-700);
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.dads-calendar__data-cell {
+  padding: 0;
+}
+
+.dads-calendar__date {
+  margin: calc(4 / 16 * 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: calc(40 / 16 * 1rem);
+  height: calc(40 / 16 * 1rem);
+  border-radius: 50%;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-underline-offset: calc(3 / 16 * 1rem);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .dads-calendar__date:hover {
+    background-color: var(--color-neutral-solid-gray-50);
+    text-decoration: underline;
+  }
+}
+
+.dads-calendar__date:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-calendar__date[data-selected] {
+  border: 1px solid transparent;
+  background-color: var(--color-primitive-blue-900);
+  color: var(--color-neutral-white);
+}
+
+.dads-calendar__date:disabled {
+  visibility: hidden;
+}
+
+.dads-calendar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: calc(16 / 16 * 1rem);
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(16 / 16 * 1rem);
+}

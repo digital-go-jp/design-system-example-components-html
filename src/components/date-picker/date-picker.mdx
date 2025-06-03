@@ -1,0 +1,155 @@
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as DatePickerStories from "./date-picker.stories";
+import buttonCss from "../button/button.css?raw";
+import calendarCss from "../calendar/calendar.css?raw";
+import calendarJs from "../calendar/calendar.js?raw";
+import datePickerCss from "./date-picker.css?raw";
+import datePickerJs from "./date-picker.js?raw";
+import selectCss from "../select/select.css?raw";
+
+<Meta of={DatePickerStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Canvas of={DatePickerStories.Playground} meta={DatePickerStories} />
+<Controls of={DatePickerStories.Playground} meta={DatePickerStories} />
+<Canvas of={DatePickerStories.PlaygroundSeparated} meta={DatePickerStories} />
+<Controls of={DatePickerStories.PlaygroundSeparated} meta={DatePickerStories} />
+
+## 使い方
+
+日付ピッカー／カレンダーコンポーネントをウェブページに導入するために必要なファイルや読み込み手順、利用時に注意すべきポイントをまとめます。
+
+### 必要なファイル
+
+- **共通（どちらのタイプでも必要）**
+	- `date-picker.css`  
+	- `date-picker.js`  
+- **カレンダー機能を使う場合に追加で必要**
+	- `button.css`  
+	- `calendar.css`  
+	- `calendar.js`  
+	- `select.css`  
+
+これらのファイルを読み込むことで、HTML 内に記述する `<dads-date-picker>` および内部の `<dads-calendar>` が正しく動作するようになります。
+
+これらのファイルを直接 `<link>` / `<script>` タグで読み込んでも、ビルドツールなどでバンドルしても構いません。
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+### ラベルのマークアップ
+
+日付ピッカーは複数の入力フィールドから成ります。日付ピッカーにラベルを付与する際は、`<fieldset>`要素で囲んでグループ化し、グループのラベルを`<legend>`要素で提供します。
+
+スクリーンリーダーは、グループに含まれるフィールドを読み上げる際、グループ名もあわせて読み上げます。これにより、スクリーンリーダーユーザーは入力対象について素早く理解できるようになります。
+
+また、サポートテキストおよびエラーテキストは`aria-describedby`属性を使用して`<fieldset>`要素と紐付けを行います。サポートテキストおよびエラーテキストの`id`属性はページ内で一意にする必要があります。
+
+```html
+<fieldset class="dads-form-control-label" data-size="md" aria-describedby="error-text support-text">
+  <legend class="dads-form-control-label__label">
+    生年月日
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">
+    西暦で記入してください。<br>
+    例）2021年09月01日
+  </p>
+  <div>
+    <dads-date-picker class="dads-date-picker" data-type="consolidated">
+      <div class="dads-date-picker__controls" data-size="md">
+        <div class="dads-date-picker__inputs">
+          <label class="dads-date-picker__year">
+            <span class="dads-date-picker__label">年</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" data-js-year-input>
+          </label>
+          <label class="dads-date-picker__month">
+            <span class="dads-date-picker__label">月</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" data-js-month-input>
+          </label>
+          <label class="dads-date-picker__day">
+            <span class="dads-date-picker__label">日</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" data-js-day-input>
+          </label>
+        </div>
+      </div>
+    </dads-date-picker>
+  </div>
+  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキスト</p>
+</fieldset>
+```
+
+#### 参考情報
+
+- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
+
+### 使用上の注意
+
+#### バリデーション
+
+- **`date-picker.js` には入力値のバリデーション機構を含みません。**
+	- すべての入力チェック（数値であること、妥当な範囲であることなど）は、開発者側でスクリプトをカスタマイズするか、サーバーサイドで行う必要があります。
+- **エラーをユーザーに表示する場合**
+	1. エラーメッセージを表示する要素（`.dads-date-picker__error-text`）に、あらかじめ `id` 属性を付与しておきます。`id` 属性はページ内で一意にする必要があります。
+	2. 各入力フィールド（年・月・日）に、以下のような ARIA 属性を設定します。
+		- `aria-invalid="true"`：入力が不正であることをスクリーンリーダーに伝える
+		- `aria-describedby="<エラーテキストのid>"`：エラーメッセージ要素の ID を参照し、どのテキストがエラー説明なのか示す
+
+## 機能仕様
+
+### 2タイプの日付ピッカー
+
+本コンポーネントには、大きく分けて以下の2つの「表示タイプ」が用意されています。表示タイプに応じて `data-type` 属性の値を `"consolidated"` または `"separated"` に設定してください。
+
+1. **Consolidated（統合型）**
+	- 年、月、日の 3 つの入力欄が横並びになっており、ひとつのまとまった操作領域として扱うスタイルです。
+	- キーボードの左右キーによるフィールド間のナビゲーションを実装しています。
+2. **Separated（分割型）**
+	- 年、月、日の各フィールドが視覚的に分割されているスタイルです。
+	- キーボードの左右キーによるフィールド間のナビゲーションは行えません。
+
+### 各 JavaScript ファイルの役割
+
+- **date-picker.js**
+	- カスタム要素 `<dads-date-picker>` を定義します。
+	- 年／月／日それぞれの入力フィールドを取得し、キーボードナビゲーション（←→キーによるフィールド間を移動）を実装しています（Consolidatedタイプのみ）。
+	- カレンダーアイコン（`data-js-calendar-button`）のクリックで、ポップアップ用の `<dads-calendar>` を開閉します。
+	- カレンダーで日付を選択すると、`date-selected` カスタムイベントを受け取り、年・月・日の各入力欄に値を反映します。
+	- カレンダーが閉じた後にフォーカスをカレンダーボタンに戻します。
+	- `Esc`キーによる閉じる操作、`Tab`キーによるフォーカストラップ（フォーカスできる範囲をポップアップ内に閉じ込める）をサポートします。
+	- バリデーション機構は含みません。
+- **calendar.js**
+	- カスタム要素 `<dads-calendar>` を定義します。
+	- 「最小日付」および「最大日付」を HTML 属性 `min-date` / `max-date` によって設定可能です。範囲外の日付は選択できません。
+	- 年の `<select>` 要素の選択肢を `min-date` および `max-date` から動的に生成します。
+	- 日付を選択すると `date-selected` カスタムイベントを発火します。選択された日付はイベントオブジェクトの `detail.date` に格納されます。
+	- 「前月／次月」「今日」「削除」ボタンのハンドリングを行い、月移動や日付クリアなどの操作をサポートします。
+	- カレンダーUIにおける標準的なキーボードナビゲーション、フォーカスの制御、および音声読み上げをサポートします。
+
+## CSS
+
+### date-picker.css
+
+<Source code={datePickerCss} language="css" />
+
+### date-picker.js
+
+<Source code={datePickerJs} language="javascript" />
+
+### calendar.css
+
+<Source code={calendarCss} language="css" />
+
+### calendar.js
+
+<Source code={calendarJs} language="javascript" />
+
+### button.css
+
+<Source code={buttonCss} language="css" />
+
+### select.css
+
+<Source code={selectCss} language="css" />
