@@ -22,7 +22,7 @@
 }
 
 .dads-form-control-label[data-size="lg"] {
-  gap: calc(12 / 16 * 1rem);
+  gap: calc(8 / 16 * 1rem);
 }
 
 .dads-form-control-label__label {
