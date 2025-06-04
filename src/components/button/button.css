@@ -94,8 +94,8 @@
 }
 
 @media (forced-colors: active) {
-  .dads-button:where[data-type="outline"]:disabled,
-  .dads-button:where[data-type="outline"][aria-disabled="true"] {
+  .dads-button[data-type="outline"]:disabled,
+  .dads-button[data-type="outline"][aria-disabled="true"] {
     border-color: GrayText;
     color: GrayText;
   }
