@@ -1,0 +1,24 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as SelectStories from "./select.stories";
+import selectCss from "./select.css?raw";
+import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
+
+<Meta of={SelectStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+### select.css
+
+<Source code={selectCss} language="css" />
+
+### form-control-label.css
+
+<Source code={formControlLabelCss} language="css" />

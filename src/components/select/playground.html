@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Select</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="select.css">
+</head>
+<body>
+
+<span class="dads-select">
+  <span class="dads-select__control">
+    <select class="dads-select__select" data-size="md" aria-invalid="true" aria-describedby="playground-error-text">
+      <option value="">選択してください</option>
+      <option value="1">選択肢1</option>
+      <option value="2">選択肢2</option>
+      <option value="3">選択肢3</option>
+    </select>
+    <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+    </svg>
+  </span>
+  <span id="playground-error-text" class="dads-select__error-text">＊エラーテキストが入ります。</span>
+</span>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+.dads-select {
+  display: block;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-select__control {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+
+.dads-select__select {
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-radius: calc(8 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-600);
+  background-color: var(--color-neutral-white);
+  padding-right: calc(40 / 16 * 1rem);
+  padding-left: calc(16 / 16 * 1rem);
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  letter-spacing: inherit;
+  appearance: none;
+}
+
+@media (hover: hover) {
+  .dads-select__select:hover {
+    border-color: var(--color-neutral-black);
+  }
+}
+
+.dads-select__select[data-size="sm"] {
+  height: calc(40 / 16 * 1rem);
+}
+
+.dads-select__select[data-size="md"] {
+  height: calc(48 / 16 * 1rem);
+}
+
+.dads-select__select[data-size="lg"] {
+  height: calc(56 / 16 * 1rem);
+}
+
+.dads-select__select[aria-invalid="true"] {
+  border-color: var(--color-semantic-error-1);
+}
+
+@media (hover: hover) {
+  .dads-select__select[aria-invalid="true"]:hover {
+    border-color: var(--color-primitive-red-1000);
+  }
+}
+
+.dads-select__select:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-select__select:disabled,
+.dads-select__select:disabled:hover {
+  border: 1px solid var(--color-neutral-solid-gray-300);
+  background-color: var(--color-neutral-solid-gray-50);
+  color: var(--color-neutral-solid-gray-420);
+}
+
+@media (forced-colors: active) {
+  .dads-select__select {
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+}
+
+.dads-select__chevron {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: calc(16 / 16 * 1rem);
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: calc(16 / 16 * 1rem);
+  height: calc(16 / 16 * 1rem);
+}
+
+.dads-select__select:disabled + .dads-select__chevron {
+  color: var(--color-neutral-solid-gray-420);
+}
+
+@media (forced-colors: active) {
+  .dads-select__chevron {
+    color: ButtonText;
+  }
+
+  .dads-select__select:disabled + .dads-select__chevron {
+    color: GrayText;
+  }
+}
+
+.dads-select__error-text {
+  margin: calc(8 / 16 * 1rem) 0 0 0;
+  display: block;
+  color: var(--color-semantic-error-1);
+}

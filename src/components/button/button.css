@@ -38,6 +38,13 @@
   text-decoration: underline;
 }
 
+.dads-button[data-type="solid-fill"]:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
 .dads-button[data-type="solid-fill"]:disabled,
 .dads-button[data-type="solid-fill"][aria-disabled="true"] {
   background-color: var(--color-neutral-solid-gray-300);
@@ -71,6 +78,12 @@
   background-color: var(--color-primitive-blue-300);
   color: var(--color-primitive-blue-1200);
   text-decoration: underline;
+}
+
+.dads-button[data-type="outline"]:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
 .dads-button[data-type="outline"]:disabled,
@@ -109,7 +122,10 @@
 }
 
 .dads-button[data-type="text"]:focus-visible {
-  background-color: var(--color-yellow-300);
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
 .dads-button[data-type="text"]:disabled,
