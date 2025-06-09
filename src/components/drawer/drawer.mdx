@@ -1,0 +1,89 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/blocks";
+ 
+import * as DrawerStories from "./drawer.stories";
+import drawerCss from "./drawer.css?raw";
+import hamburgerMenuButtonCss from "../hamburger-menu-button/hamburger-menu-button.css?raw";
+
+<Meta of={DrawerStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用上の注意
+
+### スクロールおよびリフローの制御
+
+本コードスニペットでは、ドロワーの実装に`<dialog>`要素によるモーダルダイアログを使用しています。モーダルダイアログを適切な形で提示するために、以下に対応する必要があります。
+
+1. モーダルダイアログが表示されている間、メインコンテンツのスクロールを抑制する
+2. モーダルダイアログの表示／非表示に伴うスクロールバーの有無の変化が引き起こすリフローを抑制する
+
+具体的には、グローバルCSSに以下のようなスタイルを追加します。
+
+```css
+html {
+  scrollbar-gutter: stable; /* 2 */
+}
+
+html:has(:modal) {
+  overflow: clip; /* 1 */
+  scrollbar-gutter: auto; /* 2 */
+}
+
+body:has(:modal) {
+  overflow: auto; /* 1 */
+  scrollbar-gutter: stable; /* 2 */
+}
+```
+
+コードスニペット（HTML版）では上記のコードが含まれた状態のグローバルCSSを提供しています。プロダクトの状況に応じて適宜書き換えて使用してください。
+
+### Invoker Commands APIポリフィルを使用する
+
+本コードスニペットでは、ドロワーの開閉にInvoker Commands APIを使用しています。このAPIを使用すると、ドロワーの開閉のためのJavaScriptコードが不要になります。提供時点でChromeおよびEdgeのみが対応しています。対応していないブラウザではドロワーを立ち上げることができませんが、ポリフィルライブラリを導入することで未対応ブラウザでも動作させることが可能です。
+
+将来的に、未対応ブラウザを使用するユーザーが十分に少なくなったと判断できたタイミングで、ポリフィルの読み込みを削除して構いません。
+
+以下に代表的なポリフィルの使用方法を記載します。
+
+#### 1. パッケージをダウンロードし使用する
+
+以下のコマンドでライブラリをダウンロードし、静的配信されるディレクトリに配置します。
+
+```
+curl -LO https://unpkg.com/invokers-polyfill/invoker.min.js
+```
+
+`<script>`タグでライブラリを読み込みます。
+
+```html
+<script src="path/to/invoker.min.js"></script>
+```
+
+#### 2. npmパッケージを使用する
+
+以下のコマンドでライブラリをインストールします。
+
+```sh
+npm install invokers-polyfill
+```
+
+エントリーポイントのJavaScriptから読み込みます。
+
+```js
+import "invokers-polyfill";
+```
+
+## CSS
+
+### drawer.css
+
+<Source code={drawerCss} language="css" />
+
+### hamburger-menu-button.css
+
+<Source code={hamburgerMenuButtonCss} language="css" />

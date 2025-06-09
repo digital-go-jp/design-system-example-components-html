@@ -1,0 +1,65 @@
+.dads-drawer {
+  margin: unset;
+  max-width: 100%;
+  max-height: unset;
+  box-sizing: border-box;
+  width: calc(288 / 16 * 1rem);
+  height: 100vh;
+  height: 100dvh;
+  box-shadow: var(--elevation-2);
+  background-color: var(--color-neutral-white);
+  border: 0;
+  padding: 0;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-drawer[data-placement="right"] {
+  left: auto;
+  border-left: 1px solid transparent;
+}
+
+.dads-drawer[data-placement="left"] {
+  right: auto;
+  border-right: 1px solid transparent;
+}
+
+.dads-drawer[open] {
+  display: grid;
+  grid-template: "header" auto "body" 1fr / 1fr;
+}
+
+.dads-drawer::backdrop {
+  background-color: var(--color-neutral-opacity-gray-100);
+}
+
+@media (forced-colors: active) {
+  .dads-drawer::backdrop {
+    background-color: #000b;
+  }
+}
+
+.dads-drawer__header {
+  display: flex;
+  grid-area: header;
+  padding: calc(20 / 16 * 1rem) calc(16 / 16 * 1rem);
+}
+
+.dads-drawer[data-placement="right"] .dads-drawer__header {
+  justify-content: end;
+}
+
+.dads-drawer[data-placement="left"] .dads-drawer__header {
+  justify-content: start;
+}
+
+.dads-drawer__body {
+  grid-area: body;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}

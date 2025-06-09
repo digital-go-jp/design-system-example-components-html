@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drawer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="drawer.css">
+<link rel="stylesheet" href="../hamburger-menu-button/hamburger-menu-button.css">
+<script src="https://unpkg.com/invokers-polyfill@0.4.8/invoker.js" integrity="sha384-Rk2ukr6H5QcOa4PI3lLWp0aLIfVbnwlQYVE9aqEvYJ/whu0aettCnmy/Euqt0IQj" crossorigin="anonymous"></script>
+<script type="module">
+  window["dads-drawer"].showModal();
+</script>
+</head>
+<body>
+
+<div style="position: fixed; top: 0; right: 0; left: 0; display: flex; padding: calc(20 / 16 * 1rem) calc(16 / 16 * 1rem);">
+  <button class="dads-hamburger-menu-button" type="button" command="show-modal" commandfor="dads-drawer">
+    <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 18V16H21V18H3ZM3 13V11H21V13H3ZM3 8V6H21V8H3Z" fill="currentcolor"/>
+    </svg>
+    メニュー
+  </button>
+</div>
+
+<dialog id="dads-drawer" class="dads-drawer" data-placement="right" aria-labelledby="dads-drawer-heading">
+  <h2 id="dads-drawer-heading" class="dads-u-visually-hidden">メニュー</h2>
+  <div class="dads-drawer__header">
+    <button class="dads-hamburger-menu-button" type="button" command="close" commandfor="dads-drawer">
+      <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M32 95L25 88L53 60L25 32L32 25L60 53L88 25L95 32L67 60L95 88L88 95L60 67L32 95Z" fill="currentcolor"/>
+      </svg>
+      閉じる
+    </button>
+  </div>
+  <div class="dads-drawer__body">
+    <div style="display: flex; flex-flow: column; row-gap: 1rem; padding: 1rem;">
+      <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+      <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+      <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+      <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+    </div>
+  </div>
+</dialog>
+
+<div style="margin-top: 4rem; display: flex; flex-flow: column; row-gap: 1rem;">
+  <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+  <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+  <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+  <div style="height: 5rem; background-color: var(--color-neutral-solid-gray-100);"></div>
+</div>
+
+</body>
+</html>

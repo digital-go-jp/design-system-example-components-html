@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/html";
 
+import "invokers-polyfill";
 import "../src/global.css";
 
 const preview: Preview = {

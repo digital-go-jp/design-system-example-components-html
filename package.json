@@ -21,6 +21,7 @@
     "@storybook/html-vite": "^8.6.12",
     "@storybook/test": "^8.6.12",
     "bootstrap": "^5.3.6",
+    "invokers-polyfill": "^0.5.5",
     "node-html-parser": "^7.0.1",
     "normalize.css": "^8.0.1",
     "reset-css": "^5.0.2",

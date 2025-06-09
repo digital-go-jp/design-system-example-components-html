@@ -185,7 +185,18 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   font-family: var(--font-family-sans);
+}
+
+html:has(:modal) {
+  overflow: clip;
+  scrollbar-gutter: auto;
+}
+
+body:has(:modal) {
+  overflow: auto;
+  scrollbar-gutter: stable;
 }
 
 :where(a):any-link {
