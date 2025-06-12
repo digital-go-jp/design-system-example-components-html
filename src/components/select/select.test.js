@@ -5,4 +5,7 @@ const { dirname } = import.meta;
 
 resetCssVrt("select-playground", path.join(dirname, "playground.html"));
 
-resetCssVrt("select-with-label", path.join(dirname, "with-label.html"));
+resetCssVrt(
+  "select-with-form-control-label",
+  path.join(dirname, "with-form-control-label.html"),
+);

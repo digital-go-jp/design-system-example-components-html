@@ -4,7 +4,7 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "../form-control-label/form-control-label.css";
 import "./select.css";
 import playground from "./playground.html?raw";
-import withLabel from "./with-label.html?raw";
+import withFormControlLabel from "./with-form-control-label.html?raw";
 
 type SelectSize = "sm" | "md" | "lg";
 
@@ -58,9 +58,12 @@ export const Playground: Story = {
   },
 };
 
-export const WithLabel: Story = {
+export const WithFormControlLabel: Story = {
   render: (args) => {
-    const fragment = new HtmlFragment(withLabel, ".dads-form-control-label");
+    const fragment = new HtmlFragment(
+      withFormControlLabel,
+      ".dads-form-control-label",
+    );
     const formControlLabel = fragment.root;
     const selectSelect = formControlLabel.querySelector(".dads-select__select");
 
