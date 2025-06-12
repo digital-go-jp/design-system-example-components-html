@@ -2,7 +2,7 @@ import type { StorybookConfig } from "@storybook/html-vite";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-essentials", "@storybook/addon-interactions"],
+  addons: ["@storybook/addon-docs"],
   framework: {
     name: "@storybook/html-vite",
     options: {},

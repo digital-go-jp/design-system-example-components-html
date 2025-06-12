@@ -14,20 +14,19 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@storybook/addon-essentials": "^8.6.12",
-    "@storybook/addon-interactions": "^8.6.12",
-    "@storybook/blocks": "^8.6.12",
-    "@storybook/html": "^8.6.12",
-    "@storybook/html-vite": "^8.6.12",
-    "@storybook/test": "^8.6.12",
+    "@storybook/addon-docs": "^9.0.8",
+    "@storybook/html-vite": "^9.0.8",
     "bootstrap": "^5.3.6",
     "invokers-polyfill": "^0.5.5",
     "node-html-parser": "^7.0.1",
     "normalize.css": "^8.0.1",
     "reset-css": "^5.0.2",
-    "storybook": "^8.6.12",
+    "storybook": "^9.0.8",
     "tailwindcss": "^4.1.7",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
+  },
+  "overrides": {
+    "storybook": "$storybook"
   }
 }
