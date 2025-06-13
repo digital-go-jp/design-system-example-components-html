@@ -5,7 +5,8 @@
   border: 0;
   border-radius: calc(4 / 16 * 1rem);
   background: transparent;
-  padding: calc(2 / 16 * 1rem);
+  padding: 0 calc(2 / 16 * 1rem) calc(2 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1;
@@ -25,12 +26,14 @@
 .dads-hamburger-menu-button:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
-  border-radius: calc(4 / 16 * 1rem);
   background-color: var(--color-primitive-yellow-300);
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
 .dads-hamburger-menu-button__icon {
+  margin-top: calc(2 / 16 * 1rem);
+  width: calc(24 / 16 * 1rem);
+  height: calc(24 / 16 * 1rem);
   flex-shrink: 0;
   color: var(--color-neutral-black);
 }

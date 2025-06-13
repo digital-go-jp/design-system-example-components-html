@@ -1,0 +1,30 @@
+.dads-hamburger-menu-icon-button {
+  display: block;
+  width: fit-content;
+  border: 0;
+  border-radius: calc(4 / 16 * 1rem);
+  background: transparent;
+  padding: 0;
+  color: var(--color-neutral-black);
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .dads-hamburger-menu-icon-button:hover {
+    outline: 1px solid;
+    background-color: var(--color-neutral-solid-gray-50);
+  }
+}
+
+.dads-hamburger-menu-icon-button:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-hamburger-menu-icon-button__icon {
+  display: block;
+  width: calc(44 / 16 * 1rem);
+  height: calc(44 / 16 * 1rem);
+}
