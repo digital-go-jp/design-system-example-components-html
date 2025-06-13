@@ -2,6 +2,8 @@ import type { Preview } from "@storybook/html-vite";
 
 import "invokers-polyfill";
 import "../src/global.css";
+import "../src/components/markup/markup.css";
+import "./markup-adjust.css";
 
 const preview: Preview = {
   parameters: {
