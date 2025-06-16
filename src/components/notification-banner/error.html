@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notification Banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="notification-banner.css">
+</head>
+<body>
+
+<div class="dads-notification-banner" data-style="standard" data-type="error">
+  <svg class="dads-notification-banner__icon" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="エラー">
+    <path d="M8.25 21 3 15.75v-7.5L8.25 3h7.5L21 8.25v7.5L15.75 21h-7.5Z" fill="currentcolor"/>
+    <path d="m12 13.4-2.85 2.85-1.4-1.4L10.6 12 7.75 9.15l1.4-1.4L12 10.6l2.85-2.85 1.4 1.4L13.4 12l2.85 2.85-1.4 1.4L12 13.4Z" fill="Canvas"/>
+  </svg>
+
+  <h2 class="dads-notification-banner__heading">操作を完了できませんでした</h2>
+  <button class="dads-notification-banner__close" type="button" aria-labelledby="error-close-label">
+    <svg class="dads-notification-banner__close-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m6.4 18.6-1-1 5.5-5.6-5.6-5.6 1.1-1 5.6 5.5 5.6-5.6 1 1.1L13 12l5.6 5.6-1 1L12 13l-5.6 5.6Z" fill="currentcolor"/>
+    </svg>
+    <span id="error-close-label" class="dads-notification-banner__close-label">閉じる</span>
+  </button>
+  <div class="dads-notification-banner__body">
+    <p class="dads-notification-banner__timestamp">
+      <time datetime="2024-07-01">2024年7月1日</time>
+    </p>
+    <p>ダミーテキストは、デザインの作成時に使用される仮の文章です。</p>
+  </div>
+  <div class="dads-notification-banner__actions">
+    <button class="dads-button" data-size="md" data-type="outline">アクションボタン</button>
+    <button class="dads-button" data-size="md" data-type="solid-fill">アクションボタン</button>
+  </div>
+</div>
+
+</body>
+</html>
