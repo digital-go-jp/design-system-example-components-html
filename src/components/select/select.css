@@ -29,12 +29,6 @@
   appearance: none;
 }
 
-@media (hover: hover) {
-  .dads-select__select:hover {
-    border-color: var(--color-neutral-black);
-  }
-}
-
 .dads-select__select[data-size="sm"] {
   height: calc(40 / 16 * 1rem);
 }
@@ -47,24 +41,30 @@
   height: calc(56 / 16 * 1rem);
 }
 
-.dads-select__select[aria-invalid="true"] {
-  border-color: var(--color-semantic-error-1);
-}
-
-@media (hover: hover) {
-  .dads-select__select[aria-invalid="true"]:hover {
-    border-color: var(--color-primitive-red-1000);
-  }
-}
-
 .dads-select__select:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
-.dads-select__select:disabled,
-.dads-select__select:disabled:hover {
+@media (hover: hover) {
+  .dads-select__select:hover {
+    border-color: var(--color-neutral-black);
+  }
+}
+
+.dads-select__select:is(:user-invalid, [aria-invalid="true"]) {
+  border-color: var(--color-semantic-error-1);
+}
+
+@media (hover: hover) {
+  .dads-select__select:is(:user-invalid, [aria-invalid="true"]):hover {
+    border-color: var(--color-primitive-red-1000);
+  }
+}
+
+.dads-select__select:is(:disabled, [aria-disabled="true"]),
+.dads-select__select:is(:disabled, [aria-disabled="true"]):hover {
   border: 1px solid var(--color-neutral-solid-gray-300);
   background-color: var(--color-neutral-solid-gray-50);
   color: var(--color-neutral-solid-gray-420);
@@ -74,6 +74,12 @@
   .dads-select__select {
     color: ButtonText;
     border-color: ButtonText;
+  }
+
+  .dads-select__select[aria-disabled="true"],
+  .dads-select__select[aria-disabled="true"]:hover {
+    border-color: GrayText;
+    color: GrayText;
   }
 }
 
