@@ -1,0 +1,67 @@
+import type { Meta, StoryObj } from "@storybook/html";
+import { HtmlFragment } from "../../helpers/html-fragment";
+
+import "./input-text.css";
+import "../form-control-label/form-control-label.css";
+import playground from "./playground.html?raw";
+import withFormControlLabel from "./with-form-control-label.html?raw";
+
+type InputTextSize = "sm" | "md" | "lg";
+
+interface InputTextProps {
+  size: InputTextSize;
+  errored: boolean;
+  disabled: boolean;
+  value?: string;
+}
+
+const meta = {
+  title: "Components/インプットテキスト",
+} satisfies Meta<InputTextProps>;
+
+export default meta;
+
+export const Playground: StoryObj<InputTextProps> = {
+  render: (args) => {
+    const fragment = new HtmlFragment(playground, ".dads-input-text");
+    const inputText = fragment.root;
+    const input = inputText.querySelector(".dads-input-text__input");
+    const errorText = inputText.querySelector(".dads-input-text__error-text");
+
+    if (!input) throw new Error();
+    if (!errorText) throw new Error();
+
+    input.setAttribute("data-size", args.size);
+
+    if (!args.errored) {
+      input.removeAttribute("aria-describedby");
+      input.removeAttribute("aria-invalid");
+      errorText.remove();
+    }
+
+    if (args.disabled) {
+      input.setAttribute("disabled", "");
+    }
+
+    if (args.value) {
+      input.setAttribute("value", args.value);
+    }
+
+    return fragment.toString();
+  },
+  argTypes: {
+    size: {
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
+    },
+  },
+  args: {
+    size: "sm",
+    errored: false,
+    disabled: false,
+    value: "",
+  },
+};
+
+export const WithFormControlLabel = () =>
+  new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();

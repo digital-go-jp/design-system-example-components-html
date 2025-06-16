@@ -1,0 +1,76 @@
+.dads-input-text {
+  display: block;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-input-text__input {
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 1px solid var(--color-neutral-solid-gray-600);
+  background-color: var(--color-neutral-white);
+  padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
+  border-radius: calc(8 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-900);
+  font: inherit;
+  line-height: 1;
+}
+
+.dads-input-text__input[data-size="sm"] {
+  height: 2.5rem;
+}
+
+.dads-input-text__input[data-size="md"] {
+  height: 3rem;
+}
+
+.dads-input-text__input[data-size="lg"] {
+  height: 3.5rem;
+}
+
+.dads-input-text__input:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+@media (hover: hover) {
+  .dads-input-text__input:hover {
+    border-color: var(--color-neutral-black);
+  }
+}
+
+.dads-input-text__input:is(:user-invalid, [aria-invalid="true"]) {
+  border-color: var(--color-semantic-error-1);
+}
+
+@media (hover: hover) {
+  .dads-input-text__input:is(:user-invalid, [aria-invalid="true"]):hover {
+    border-color: var(--color-primitive-red-1000);
+  }
+}
+
+.dads-input-text__input:is(:disabled, [aria-disabled="true"]),
+.dads-input-text__input:is(:disabled, [aria-disabled="true"]):hover {
+  border-color: var(--color-neutral-solid-gray-300);
+  background-color: var(--color-neutral-solid-gray-50);
+  color: var(--color-neutral-solid-gray-420);
+}
+
+@media (forced-colors: active) {
+  .dads-input-text__input[aria-disabled="true"],
+  .dads-input-text__input[aria-disabled="true"]:hover {
+    border-color: GrayText;
+    color: GrayText;
+  }
+}
+
+.dads-input-text__error-text {
+  margin: calc(8 / 16 * 1rem) 0 0 0;
+  display: block;
+  color: var(--color-semantic-error-1);
+}
