@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+
+<ul class="dads-list" data-spacing="4">
+  <li class="dads-list__item">短いテキスト</li>
+  <li class="dads-list__item">これは少し長めのテキストサンプルです。リストアイテムの中に含まれる文章の例として使用しています。</li>
+  <li class="dads-list__item">
+    ネストされたリスト
+    <ol class="dads-list" data-spacing="4">
+      <li class="dads-list__item">順序付きリストの最初の項目</li>
+      <li class="dads-list__item">二番目の項目で、これは比較的長い説明文を含んでいます。ネストされた構造の例として作成されました。</li>
+      <li class="dads-list__item">三番目</li>
+    </ol>
+  </li>
+  <li class="dads-list__item">
+    複雑な入れ子構造の例
+    <ul class="dads-list" data-spacing="4">
+      <li class="dads-list__item">サブリストA</li>
+      <li class="dads-list__item">
+        サブリストBで更にネスト
+        <ol class="dads-list" data-spacing="4">
+          <li class="dads-list__item">順序付きサブアイテム1</li>
+          <li class="dads-list__item">順序付きサブアイテム2（長めの説明付き：この項目は複数レベルの入れ子構造を示すために作成されています）</li>
+        </ol>
+      </li>
+      <li class="dads-list__item">サブリストC</li>
+    </ul>
+  </li>
+</ul>
+
+<ol class="dads-list" data-spacing="4">
+  <li class="dads-list__item">最初</li>
+  <li class="dads-list__item">二番目の項目として、長めの文章を含む例です。順序付きリストの中での文章の長さの違いを示しています。</li>
+  <li class="dads-list__item">
+    三番目（ネスト含む）
+    <ul class="dads-list" data-spacing="4">
+      <li class="dads-list__item">無順序サブリスト項目A</li>
+      <li class="dads-list__item">無順序サブリスト項目B（詳細説明付き）</li>
+      <li class="dads-list__item">
+        無順序サブリスト項目C
+        <ol class="dads-list" data-spacing="4">
+          <li class="dads-list__item">再び順序付きリスト</li>
+          <li class="dads-list__item">非常に長いテキストの例：この項目は複数レベルの入れ子構造における文章の長さの違いを示すために作成されたサンプルテキストです。実際の使用場面では、このような長い説明文が含まれることもあります。</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li class="dads-list__item">四番目</li>
+</ol>
+
+</body>
+</html>

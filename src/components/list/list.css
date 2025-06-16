@@ -1,0 +1,32 @@
+.dads-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: calc(32 / 16 * 1rem);
+  list-style-type: revert;
+}
+
+.dads-list > .dads-list__item {
+  --_spacing: 0;
+  padding-top: var(--_spacing);
+  padding-bottom: var(--_spacing);
+}
+
+.dads-list > .dads-list__item > :first-child {
+  margin-top: var(--_spacing);
+}
+
+.dads-list > .dads-list__item > :last-child {
+  margin-bottom: calc(-1 * var(--_spacing));
+}
+
+.dads-list[data-spacing="4"] > .dads-list__item {
+  --_spacing: calc(4 / 16 * 1rem);
+}
+
+.dads-list[data-spacing="8"] > .dads-list__item {
+  --_spacing: calc(8 / 16 * 1rem);
+}
+
+.dads-list[data-spacing="12"] > .dads-list__item {
+  --_spacing: calc(12 / 16 * 1rem);
+}
