@@ -1,4 +1,9 @@
 .dads-button {
+  --button-color: var(--color-primitive-blue-900);
+  --button-hover-color: var(--color-primitive-blue-1000);
+  --button-active-color: var(--color-primitive-blue-1200);
+  --button-outline-hover-bg-color: var(--color-primitive-blue-200);
+  --button-outline-active-bg-color: var(--color-primitive-blue-300);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,26 +27,25 @@
 
 .dads-button[data-type="solid-fill"] {
   border: 4px double transparent;
-  background-color: var(--color-primitive-blue-900);
+  background-color: var(--button-color);
   color: var(--color-neutral-white);
 }
 
 @media (hover: hover) {
   .dads-button[data-type="solid-fill"]:hover {
-    background-color: var(--color-primitive-blue-1000);
+    background-color: var(--button-hover-color);
     text-decoration: underline;
   }
 }
 
 .dads-button[data-type="solid-fill"]:active {
-  background-color: var(--color-primitive-blue-1200);
+  background-color: var(--button-active-color);
   text-decoration: underline;
 }
 
 .dads-button[data-type="solid-fill"]:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
-  background-color: var(--color-primitive-yellow-300);
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
@@ -63,20 +67,20 @@
 .dads-button[data-type="outline"] {
   border: 1px solid currentcolor;
   background-color: var(--color-neutral-white);
-  color: var(--color-primitive-blue-900);
+  color: var(--button-color);
 }
 
 @media (hover: hover) {
   .dads-button[data-type="outline"]:hover {
-    background-color: var(--color-primitive-blue-200);
-    color: var(--color-primitive-blue-1000);
+    background-color: var(--button-outline-hover-bg-color);
+    color: var(--button-hover-color);
     text-decoration: underline;
   }
 }
 
 .dads-button[data-type="outline"]:active {
-  background-color: var(--color-primitive-blue-300);
-  color: var(--color-primitive-blue-1200);
+  background-color: var(--button-outline-active-bg-color);
+  color: var(--button-active-color);
   text-decoration: underline;
 }
 
@@ -104,21 +108,21 @@
 .dads-button[data-type="text"] {
   border: 0;
   background-color: transparent;
-  color: var(--color-primitive-blue-900);
+  color: var(--button-color);
   text-decoration: underline;
 }
 
 @media (hover: hover) {
   .dads-button[data-type="text"]:hover {
     background-color: var(--color-primitive-blue-50);
-    color: var(--color-primitive-blue-1000);
+    color: var(--button-hover-color);
     text-decoration-thickness: calc(3 / 16 * 1rem);
   }
 }
 
 .dads-button[data-type="text"]:active {
   background-color: var(--color-primitive-blue-100);
-  color: var(--color-primitive-blue-1200);
+  color: var(--button-active-color);
 }
 
 .dads-button[data-type="text"]:focus-visible {
