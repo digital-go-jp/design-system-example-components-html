@@ -37,7 +37,7 @@
 
 @media (hover: hover) {
   .dads-breadcrumb__link:hover {
-    color: var(--color-primitive-blue-1000);
+    color: var(--color-primitive-blue-900);
     text-decoration-thickness: calc(3 / 16 * 1rem);
   }
 }

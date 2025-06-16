@@ -212,7 +212,7 @@ body:has(:modal) {
 
 @media (hover: hover) {
   :where(a):hover {
-    color: var(--color-primitive-blue-1000);
+    color: var(--color-primitive-blue-900);
     text-decoration-thickness: calc(3 / 16 * 1rem);
   }
 }

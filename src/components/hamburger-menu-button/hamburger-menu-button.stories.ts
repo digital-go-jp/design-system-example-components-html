@@ -1,4 +1,4 @@
-import type { Meta } from "@storybook/html";
+import type { Meta } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./hamburger-menu-button.css";
