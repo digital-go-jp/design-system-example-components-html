@@ -73,52 +73,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 
 複数の選択肢をもつラジオボタンは、`<fieldset>`要素で囲んでグループ化し、グループのラベルを`<legend>`要素で提供します。
 
-スクリーンリーダーは、グループに含まれるラジオボタンを読み上げる際、グループ名もあわせて読み上げます。これにより、スクリーンリーダーユーザーは入力対象について素早く理解できるようになります。
-
-また、サポートテキストおよびエラーテキストは`aria-describedby`属性を使用して`<fieldset>`要素と紐付けを行います。
-
-```html
-<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="error-text support-text">
-  <legend class="dads-form-control-label__label">
-    東京23区
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
-  </legend>
-  <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
-  <div>
-    <label class="dads-radio" data-size="sm">
-      <span class="dads-radio__radio">
-        <input class="dads-radio__input" type="radio" name="doc-4">
-      </span>
-      <span class="dads-radio__label">足立区</span>
-    </label>
-    <label class="dads-radio" data-size="sm">
-      <span class="dads-radio__radio">
-        <input class="dads-radio__input" type="radio" name="doc-4">
-      </span>
-      <span class="dads-radio__label">荒川区</span>
-    </label>
-    <label class="dads-radio" data-size="sm">
-      <span class="dads-radio__radio">
-        <input class="dads-radio__input" type="radio" name="doc-4">
-      </span>
-      <span class="dads-radio__label">板橋区</span>
-    </label>
-    <label class="dads-radio" data-size="sm">
-      <span class="dads-radio__radio">
-        <input class="dads-radio__input" type="radio" name="doc-4">
-      </span>
-      <span class="dads-radio__label">江戸川区</span>
-    </label>
-  </div>
-  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキスト</p>
-</fieldset>
-```
-
-#### 参考情報
-
-- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
-- [ARIA: radio ロール - アクセシビリティ | MDN](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/radio_role)
-- [Radio Group Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
+詳細は[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs#複数のコントロールにラベルを付ける)を参照してください。
 
 ## CSS
 
