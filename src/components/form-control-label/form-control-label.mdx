@@ -1,0 +1,72 @@
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title } from "@storybook/addon-docs/blocks";
+ 
+import * as FormControlLabelStories from "./form-control-label.stories";
+import formControlLabelCss from "./form-control-label.css?raw";
+
+<Meta of={FormControlLabelStories} />
+
+<Title />
+<Subtitle />
+<Description />
+
+フォームコントロールラベルは、インプットテキストやセレクトボックス等のコントロールや、チェックボックス等をまとめたグループにラベルを付与するコンポーネントです。
+
+## 使い方
+
+### 単一のコントロールにラベルを付ける
+
+ラベルを付与する対象が単一のコントロールの場合、`<label>`要素を使用します。`<label>`要素には、`for`属性を使用してラベルがどのコントロールに関連付けられているかを指定します。これにより、支援技術はコントロールが持つ情報にアクセスできるようになります。
+
+<Canvas of={FormControlLabelStories.Single} meta={FormControlLabelStories} />
+<Controls of={FormControlLabelStories.Single} meta={FormControlLabelStories} />
+
+加えて、以下の点にも留意してください。
+
+- サポートテキストがある場合、サポートテキストに`id`属性を付与し、`aria-describedby`属性を使用してラベルとコントロールを関連付けます。
+- エラーテキストがある場合、エラーテキストに`id`属性を付与し、`aria-describedby`属性を使用してラベルとコントロールを関連付けます。
+- サポートテキストおよびエラーテキストがある場合、両方の`id`をスペースで区切って`aria-describedby`属性に指定します。
+
+エラーテキストは、フォームコントロールラベルが提供するパーツを使用できますが、各コントロールが提供するパーツを使用しても構いません。
+
+### 複数のコントロールにラベルを付ける
+
+チェックボックス、ラジオボタンまたは日付ピッカー等、複数のコントロールをまとめたグループにラベルを付ける場合、`<fieldset>`要素でグループを明示し、`<legend>`要素を使用してグループのラベルを指定します。
+
+<Canvas of={FormControlLabelStories.Multiple} meta={FormControlLabelStories} />
+<Controls of={FormControlLabelStories.Multiple} meta={FormControlLabelStories} />
+
+加えて、以下の点にも留意してください。
+
+- サポートテキストがある場合、サポートテキストに`id`属性を付与し、`aria-describedby`属性を使用してラベルとグループを関連付けます。
+- エラーテキストがある場合、エラーテキストに`id`属性を付与し、`aria-describedby`属性を使用してラベルとグループを関連付けます。
+- サポートテキストおよびエラーテキストがある場合、両方の`id`をスペースで区切って`aria-describedby`属性に指定します。
+- エラーテキストには、フォームコントロールラベルが提供するパーツを使用してください。
+
+#### チェックボックスと`<fieldset>`要素の組み合わせにおける読み上げについて
+
+チェックボックスを`<fieldset aria-labelledby="...">`要素に含める場合において、ブラウザ、支援技術、またはそれらの組み合わせによっては、サポートテキストおよびエラーテキストを適切に読み上げない問題が確認されています。
+
+現時点で回避策はありません。各チェックボックスに`aria-describedby`属性を使用してサポートテキストおよびエラーテキストのIDを指定することで、支援技術がチェックボックスに関連付けられたサポートテキストおよびエラーテキストを読み上げることができますが、フォーカスを移動するたびに同一のテキストが読み上げられ冗長であるため、この方法は推奨していません。
+
+<dl>
+  <dt>問題を確認した環境</dt>
+  <dd>NVDA日本語版 2024.4.2 + Chrome 137</dd>
+  <dt>再現手順</dt>
+  <dd>
+    1. 当ページで提供しているコードスニペットを使用する。サポートテキストおよびチェックボックスを含む`<fieldset>`要素を作成し、`<fieldset>`要素に`aria-describedby="{サポートテキストのID}"`を付与する。
+    2. Tabキーを押してチェックボックスにフォーカスを移動する。
+    3. `<fieldset>`要素に紐づくサポートテキストが読み上げられないことを確認する。
+  </dd>
+</dl>
+
+なお、ラジオボタンやその他のフォームコントロールにおいては、上記の問題は確認されていません。
+
+##### 参考情報
+
+- [aria-describedby not reported for group in browse mode · Issue #12718 · nvaccess/nvda](https://github.com/nvaccess/nvda/issues/12718)
+
+## CSS
+
+### form-control-label.css
+
+<Source code={formControlLabelCss} language="css" />
