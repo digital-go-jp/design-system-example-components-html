@@ -1,10 +1,13 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as TextareaStories from "./textarea.stories";
 import textareaCss from "./textarea.css?raw";
 import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
 
 <Meta of={TextareaStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -22,3 +25,6 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 ### form-control-label.css
 
 <Source code={formControlLabelCss} language="css" />
+
+</div>
+</Unstyled>
