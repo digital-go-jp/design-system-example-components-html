@@ -1,23 +1,25 @@
-.dads-markup {
+.prose {
   color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1.7;
   font-family: var(--font-family-sans);
   letter-spacing: 0.02em;
-  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  line-break: strict;
   text-autospace: normal;
+  text-spacing-trim: trim-start;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup {
+  .prose {
     font-size: calc(17 / 16 * 1rem);
   }
 }
 
 /* Heading */
 
-.dads-markup > h1 {
+.prose > h1 {
   margin-top: 0;
   margin-bottom: calc(32 / 16 * 1rem);
   margin-left: calc(-2 / 16 * 1rem);
@@ -25,10 +27,11 @@
   font-size: calc(28 / 16 * 1rem);
   line-height: 1.5;
   letter-spacing: 0.01em;
+  text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > h1 {
+  .prose > h1 {
     margin-bottom: calc(48 / 16 * 1rem);
     font-size: calc(45 / 16 * 1rem);
     line-height: 1.4;
@@ -36,158 +39,163 @@
   }
 }
 
-.dads-markup > h2 {
+.prose > h2 {
   margin-top: calc(40 / 16 * 1rem);
   margin-bottom: calc(24 / 16 * 1rem);
   font-weight: bold;
   font-size: calc(24 / 16 * 1rem);
   line-height: 1.5;
   letter-spacing: 0.02em;
+  text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > h2 {
+  .prose > h2 {
     margin-top: calc(64 / 16 * 1rem);
     font-size: calc(32 / 16 * 1rem);
   }
 }
 
-.dads-markup > h3 {
+.prose > h3 {
   margin-top: calc(32 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   font-weight: bold;
   font-size: calc(22 / 16 * 1rem);
   line-height: 1.5;
   letter-spacing: 0.02em;
+  text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > h3 {
+  .prose > h3 {
     margin-top: calc(48 / 16 * 1rem);
     margin-bottom: calc(24 / 16 * 1rem);
     font-size: calc(24 / 16 * 1rem);
   }
 }
 
-.dads-markup > h4 {
+.prose > h4 {
   margin-top: calc(24 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   font-weight: bold;
   font-size: calc(18 / 16 * 1rem);
   line-height: 1.6;
   letter-spacing: 0.02em;
+  text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > h4 {
+  .prose > h4 {
     margin-top: calc(40 / 16 * 1rem);
     font-size: calc(20 / 16 * 1rem);
     line-height: 1.5;
   }
 }
 
-.dads-markup > h5 {
+.prose > h5 {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: 0;
   font-weight: bold;
   font-size: calc(18 / 16 * 1rem);
   line-height: 1.6;
   letter-spacing: 0.02em;
+  text-wrap: pretty;
 }
 
-.dads-markup > h6 {
+.prose > h6 {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: 0;
   font-weight: bold;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1.7;
   letter-spacing: 0.02em;
+  text-wrap: pretty;
 }
 
 /* Paragraph */
 
-.dads-markup > p,
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) p {
+.prose > p,
+.prose > :is(blockquote, ol, ul, dl, table, details) p {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > p,
-  .dads-markup > :is(blockquote, ol, ul, dl, table, details) p {
+  .prose > p,
+  .prose > :is(blockquote, ol, ul, dl, table, details) p {
     margin-bottom: calc(24 / 16 * 1rem);
   }
 }
 
 /* List */
 
-.dads-markup > ul,
-.dads-markup > ol,
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) ul,
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) ol {
+.prose > ul,
+.prose > ol,
+.prose > :is(blockquote, ol, ul, dl, table, details) ul,
+.prose > :is(blockquote, ol, ul, dl, table, details) ol {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   padding-left: calc(32 / 16 * 1rem);
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > ul,
-  .dads-markup > ol,
-  .dads-markup > :is(blockquote, ol, dl, table, details) ul,
-  .dads-markup > :is(blockquote, ul, dl, table, details) ol {
+  .prose > ul,
+  .prose > ol,
+  .prose > :is(blockquote, ol, dl, table, details) ul,
+  .prose > :is(blockquote, ul, dl, table, details) ol {
     margin-top: calc(24 / 16 * 1rem);
     margin-bottom: calc(24 / 16 * 1rem);
   }
 }
 
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) ul,
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) ol {
+.prose > :is(blockquote, ol, ul, dl, table, details) ul,
+.prose > :is(blockquote, ol, ul, dl, table, details) ol {
   margin-top: calc(8 / 16 * 1rem);
   margin-bottom: calc(8 / 16 * 1rem);
 }
 
-.dads-markup > ul,
-.dads-markup > :is(blockquote, ol, dl, table, details) ul {
+.prose > ul,
+.prose > :is(blockquote, ol, dl, table, details) ul {
   list-style-type: disc;
 }
 
-.dads-markup > ul ul,
-.dads-markup > :is(blockquote, ol, dl, table, details) ul ul {
+.prose > ul ul,
+.prose > :is(blockquote, ol, dl, table, details) ul ul {
   list-style-type: circle;
 }
 
-.dads-markup > ul ul ul,
-.dads-markup > :is(blockquote, ol, dl, table, details) ul ul ul {
+.prose > ul ul ul,
+.prose > :is(blockquote, ol, dl, table, details) ul ul ul {
   list-style-type: square;
 }
 
-.dads-markup > ol,
-.dads-markup > :is(blockquote, ul, dl, table, details) ol {
+.prose > ol,
+.prose > :is(blockquote, ul, dl, table, details) ol {
   list-style-type: decimal;
 }
 
-.dads-markup > ol ol,
-.dads-markup > :is(blockquote, ul, dl, table, details) ol ol {
+.prose > ol ol,
+.prose > :is(blockquote, ul, dl, table, details) ol ol {
   list-style-type: lower-latin;
 }
 
-.dads-markup > :is(blockquote, ol, ul, dl, table, details) li + li {
+.prose > :is(blockquote, ol, ul, dl, table, details) li + li {
   margin-top: calc(8 / 16 * 1rem);
 }
 
 /* Definition list */
 
-.dads-markup > dl {
+.prose > dl {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
 }
 
-.dads-markup > dl dt {
+.prose > dl dt {
   font-weight: bold;
   margin-top: calc(16 / 16 * 1rem);
 }
 
-.dads-markup > dl dd {
+.prose > dl dd {
   margin-left: calc(32 / 16 * 1rem);
   margin-top: calc(8 / 16 * 1rem);
   margin-bottom: calc(8 / 16 * 1rem);
@@ -195,7 +203,7 @@
 
 /* Blockquote */
 
-.dads-markup > blockquote {
+.prose > blockquote {
   margin-top: calc(16 / 16 * 1rem);
   margin-right: 0;
   margin-bottom: calc(24 / 16 * 1rem);
@@ -206,17 +214,17 @@
   padding-left: calc(24 / 16 * 1rem);
 }
 
-.dads-markup > blockquote > *:first-child {
+.prose > blockquote > *:first-child {
   margin-top: 0;
 }
 
-.dads-markup > blockquote > *:last-child {
+.prose > blockquote > *:last-child {
   margin-bottom: 0;
 }
 
 /* Table */
 
-.dads-markup > table {
+.prose > table {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   box-sizing: border-box;
@@ -228,22 +236,22 @@
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > table {
+  .prose > table {
     margin-top: calc(24 / 16 * 1rem);
     margin-bottom: calc(24 / 16 * 1rem);
     font-size: calc(16 / 16 * 1rem);
   }
 }
 
-.dads-markup > table thead {
+.prose > table thead {
   background-color: var(--color-neutral-solid-gray-100);
 }
 
-.dads-markup > table thead th {
+.prose > table thead th {
   border-bottom: 1px solid var(--color-neutral-black);
 }
 
-.dads-markup > table th {
+.prose > table th {
   border-bottom: 1px solid black;
   background-color: var(--color-neutral-solid-gray-100);
   padding: calc(12 / 16 * 1rem) calc(8 / 16 * 1rem);
@@ -251,35 +259,35 @@
   font-weight: bold;
 }
 
-.dads-markup > table td {
+.prose > table td {
   border-bottom: 1px solid var(--color-neutral-solid-gray-420);
   padding: calc(12 / 16 * 1rem) calc(8 / 16 * 1rem);
   text-align: left;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > table th {
+  .prose > table th {
     padding: calc(20 / 16 * 1rem) calc(16 / 16 * 1rem);
   }
 
-  .dads-markup > table td {
+  .prose > table td {
     padding: calc(20 / 16 * 1rem) calc(16 / 16 * 1rem);
   }
 }
 
-.dads-markup > table th[align="center"],
-.dads-markup > table td[align="center"] {
+.prose > table th[align="center"],
+.prose > table td[align="center"] {
   text-align: center;
 }
 
-.dads-markup > table th[align="right"],
-.dads-markup > table td[align="right"] {
+.prose > table th[align="right"],
+.prose > table td[align="right"] {
   text-align: right;
 }
 
 /* Horizontal rule */
 
-.dads-markup > hr {
+.prose > hr {
   margin-top: calc(32 / 16 * 1rem);
   margin-bottom: calc(32 / 16 * 1rem);
   border: 0;
@@ -289,7 +297,7 @@
 
 /* Code block */
 
-.dads-markup > pre {
+.prose > pre {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   overflow-x: auto;
@@ -301,19 +309,19 @@
   font-size: calc(14 / 16 * 1rem);
 }
 
-.dads-markup > pre code {
+.prose > pre code {
   display: block;
 }
 
 @media (min-width: 48rem) {
-  .dads-markup > pre {
+  .prose > pre {
     font-size: calc(16 / 16 * 1rem);
   }
 }
 
 /* Details and summary */
 
-.dads-markup > details {
+.prose > details {
   margin-top: calc(16 / 16 * 1rem);
   margin-bottom: calc(16 / 16 * 1rem);
   border: 1px solid var(--color-neutral-solid-gray-420);
@@ -321,41 +329,41 @@
   padding: calc(16 / 16 * 1rem);
 }
 
-.dads-markup > details > summary {
+.prose > details > summary {
   cursor: default;
   font-weight: bold;
 }
 
-.dads-markup > details[open] > summary {
+.prose > details[open] > summary {
   margin-bottom: calc(16 / 16 * 1rem);
 }
 
 /* Link */
 
-.dads-markup a:any-link {
+.prose a:any-link {
   color: var(--color-primitive-blue-1000);
   text-decoration: underline;
   text-decoration-thickness: calc(1 / 16 * 1rem);
   text-underline-offset: calc(3 / 16 * 1rem);
 }
 
-.dads-markup a:visited {
+.prose a:visited {
   color: var(--color-primitive-magenta-900);
 }
 
 @media (hover: hover) {
-  .dads-markup a:hover {
+  .prose a:hover {
     color: var(--color-primitive-blue-900);
     text-decoration-thickness: calc(3 / 16 * 1rem);
   }
 }
 
-.dads-markup a:active {
+.prose a:active {
   color: var(--color-primitive-orange-700);
   text-decoration-thickness: calc(1 / 16 * 1rem);
 }
 
-.dads-markup a:focus-visible {
+.prose a:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
   border-radius: calc(4 / 16 * 1rem);
@@ -363,7 +371,7 @@
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
-.dads-markup a[target="_blank"]::after {
+.prose a[target="_blank"]::after {
   --_open-new-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 48 48' role='img'%3E%3Cpath d='M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z'/%3E%3C/svg%3E");
   --_spacer: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
   display: inline-block;
@@ -378,15 +386,15 @@
 }
 
 @media (forced-colors: active) {
-  .dads-markup a[target="_blank"]::after {
+  .prose a[target="_blank"]::after {
     background-color: LinkText;
   }
 }
 
 /* Image */
 
-.dads-markup img,
-.dads-markup svg {
+.prose img,
+.prose svg {
   display: inline-block;
   box-sizing: border-box;
   max-width: 100%;
@@ -396,76 +404,76 @@
 
 /* Inline elements */
 
-.dads-markup u,
-.dads-markup ins {
+.prose u,
+.prose ins {
   text-decoration: underline;
   text-underline-offset: calc(3 / 16 * 1rem);
 }
 
-.dads-markup abbr[title] {
+.prose abbr[title] {
   text-decoration: dotted underline;
   text-underline-offset: calc(3 / 16 * 1rem);
 }
 
-.dads-markup strong,
-.dads-markup b {
+.prose strong,
+.prose b {
   font-weight: bold;
 }
 
-.dads-markup i,
-.dads-markup cite,
-.dads-markup em,
-.dads-markup var,
-.dads-markup dfn {
+.prose i,
+.prose cite,
+.prose em,
+.prose var,
+.prose dfn {
   font-style: italic;
 }
 
-.dads-markup code,
-.dads-markup kbd,
-.dads-markup samp {
+.prose code,
+.prose kbd,
+.prose samp {
   color: inherit;
   font: inherit;
   font-family: var(--font-family-mono), monospace;
   letter-spacing: 0;
 }
 
-.dads-markup kbd {
+.prose kbd {
   padding: 0;
   background-color: transparent;
   color: inherit;
 }
 
-.dads-markup mark {
+.prose mark {
   background-color: var(--color-primitive-yellow-300);
   padding: 0;
   color: var(--color-neutral-solid-gray-900);
 }
 
 @media (forced-colors: active) {
-  .dads-markup mark {
-    background-color: Mark;
-    color: MarkText;
+  .prose mark {
+    background-color: Highlight;
+    color: HighlightText;
   }
 }
 
-.dads-markup small {
+.prose small {
   font-size: smaller;
 }
 
-.dads-markup s,
-.dads-markup del {
+.prose s,
+.prose del {
   text-decoration: line-through;
   text-decoration-thickness: calc(1 / 16 * 1rem);
 }
 
-.dads-markup sup {
+.prose sup {
   position: static;
   vertical-align: super;
   font-size: smaller;
   line-height: 1;
 }
 
-.dads-markup sub {
+.prose sub {
   position: static;
   vertical-align: sub;
   font-size: smaller;
@@ -475,17 +483,17 @@
 /* Print styles */
 
 @media print {
-  .dads-markup {
+  .prose {
     color: CanvasText;
   }
 
-  .dads-markup > pre {
+  .prose > pre {
     background-color: Canvas;
     color: CanvasText;
     border-color: CanvasText;
   }
 
-  .dads-markup a::after {
+  .prose a::after {
     content: " (" attr(href) ")";
     font-size: calc(14 / 16 * 1rem);
   }

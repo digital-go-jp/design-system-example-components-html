@@ -1,8 +1,0 @@
-.dads-markup > pre:has(.docblock-source) {
-  overflow: visible;
-  background-color: transparent;
-  border-radius: 0;
-  border: 0;
-  padding: 0;
-  color: currentcolor;
-}
