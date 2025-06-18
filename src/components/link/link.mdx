@@ -1,0 +1,23 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as LinkStories from "./link.stories";
+import linkCss from "./link.css?raw";
+
+<Meta of={LinkStories} />
+
+<Unstyled>
+<div class="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={linkCss} language="css" />
+
+</div>
+</Unstyled>

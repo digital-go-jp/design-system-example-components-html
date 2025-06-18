@@ -1,0 +1,45 @@
+.dads-link:any-link {
+  color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+  text-underline-offset: calc(3 / 16 * 1rem);
+}
+
+.dads-link:visited {
+  color: var(--color-primitive-magenta-900);
+}
+
+@media (hover: hover) {
+  .dads-link:hover {
+    color: var(--color-primitive-blue-900);
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-link:active {
+  color: var(--color-primitive-orange-700);
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+}
+
+.dads-link:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: calc(4 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-link[target="_blank"]::after {
+  --_open-new-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 48 48' role='img'%3E%3Cpath d='M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z'/%3E%3C/svg%3E");
+  --_spacer: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  margin-left: calc(4 / 16 * 1rem);
+  display: inline-block;
+  overflow: hidden;
+  width: calc(16 / 16 * 1rem);
+  height: calc(16 / 16 * 1rem);
+  background-color: currentcolor;
+  -webkit-mask: var(--_open-new-icon) no-repeat 0 0 / 100%;
+  mask: var(--_open-new-icon) no-repeat 0 0 / 100%;
+  vertical-align: -0.15em;
+  content: var(--_spacer) / "新規タブで開きます";
+}
