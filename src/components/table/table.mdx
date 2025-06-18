@@ -1,0 +1,32 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as TableStories from "./table.stories";
+import tableCss from "./table.css?raw";
+import scrollShadowJs from "./scroll-shadow.js?raw";
+
+<Meta of={TableStories} />
+
+<Unstyled>
+<div class="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+### table.css
+
+<Source code={tableCss} language="css" />
+
+## JavaScript
+
+### scroll-shadow.js
+
+<Source code={scrollShadowJs} language="javascript" />
+
+</div>
+</Unstyled>
