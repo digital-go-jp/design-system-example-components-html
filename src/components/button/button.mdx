@@ -1,9 +1,12 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ButtonStories from "./button.stories";
 import buttonCss from "./button.css?raw";
 
 <Meta of={ButtonStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -15,3 +18,6 @@ import buttonCss from "./button.css?raw";
 ## CSS
 
 <Source code={buttonCss} language="css" />
+
+</div>
+</Unstyled>

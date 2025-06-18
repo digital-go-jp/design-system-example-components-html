@@ -1,10 +1,13 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as DrawerStories from "./drawer.stories";
 import drawerCss from "./drawer.css?raw";
 import hamburgerMenuButtonCss from "../hamburger-menu-button/hamburger-menu-button.css?raw";
 
 <Meta of={DrawerStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -87,3 +90,6 @@ import "invokers-polyfill";
 ### hamburger-menu-button.css
 
 <Source code={hamburgerMenuButtonCss} language="css" />
+
+</div>
+</Unstyled>

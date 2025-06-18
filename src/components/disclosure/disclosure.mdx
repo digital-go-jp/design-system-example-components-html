@@ -1,9 +1,12 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as DisclosureStories from "./disclosure.stories";
 import disclosureCss from "./disclosure.css?raw";
 
 <Meta of={DisclosureStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -15,3 +18,6 @@ import disclosureCss from "./disclosure.css?raw";
 ## CSS
 
 <Source code={disclosureCss} language="css" />
+
+</div>
+</Unstyled>

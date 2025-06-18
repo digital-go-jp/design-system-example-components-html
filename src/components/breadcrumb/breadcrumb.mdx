@@ -1,9 +1,12 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as BreadcrumbStories from "./breadcrumb.stories";
 import breadcrumbCss from "./breadcrumb.css?raw";
 
 <Meta of={BreadcrumbStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -35,3 +38,6 @@ import breadcrumbCss from "./breadcrumb.css?raw";
 ## CSS
 
 <Source code={breadcrumbCss} language="css" />
+
+</div>
+</Unstyled>

@@ -1,0 +1,28 @@
+/* Storybookドキュメント用のproseの上書き */
+
+/* コードブロックのスタイル調整 */
+.prose > pre:has(.docblock-source) {
+  overflow: visible;
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  padding: 0;
+  color: currentcolor;
+}
+
+/* コードブロックとStoryのソースコード表示の文字サイズ調整 */
+.prose .docs-story + div,
+.prose .docblock-source {
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.5;
+}
+
+.prose a {
+  font-family: inherit;
+}
+
+.prose code {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
