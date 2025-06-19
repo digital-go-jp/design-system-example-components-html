@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as CalendarStories from "./calendar.stories";
 import buttonCss from "../button/button.css?raw";
@@ -7,6 +7,9 @@ import calendarJs from "../calendar/calendar.js?raw";
 import selectCss from "../select/select.css?raw";
 
 <Meta of={CalendarStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -63,3 +66,6 @@ import selectCss from "../select/select.css?raw";
 ### select.css
 
 <Source code={selectCss} language="css" />
+
+</div>
+</Unstyled>

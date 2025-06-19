@@ -1,9 +1,12 @@
-import { Canvas, Controls, Description, Meta, Source, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as FormControlLabelStories from "./form-control-label.stories";
 import formControlLabelCss from "./form-control-label.css?raw";
 
 <Meta of={FormControlLabelStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -70,3 +73,6 @@ import formControlLabelCss from "./form-control-label.css?raw";
 ### form-control-label.css
 
 <Source code={formControlLabelCss} language="css" />
+
+</div>
+</Unstyled>
