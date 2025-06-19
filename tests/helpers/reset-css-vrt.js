@@ -11,13 +11,40 @@ const REBOOT_CSS_PATH = fileURLToPath(
 );
 const RESET_CSS_PATH = fileURLToPath(import.meta.resolve("reset-css"));
 
-export const resetCssVrt = (name, filePath) => {
+/**
+ * ページにCSSを動的に挿入し、オプションで指定された要素を削除する共通関数
+ * @param {Object} page - Playwrightのpageオブジェクト
+ * @param {string|null} cssText - 挿入するCSSテキスト（nullの場合は挿入しない）
+ * @param {Object} options - オプション設定
+ */
+const applyCssAndCleanup = async (page, cssText, options) => {
+  await page.evaluate(
+    ([cssText, options]) => {
+      document.body.style.margin = "0";
+
+      // CSSを挿入
+      if (cssText) {
+        const style = document.createElement("style");
+        style.textContent = cssText;
+        document.head.insertBefore(style, document.head.firstChild);
+      }
+
+      // 指定された要素を削除
+      if ("ignoreElements" in options) {
+        options.ignoreElements.forEach((selector) => {
+          document.querySelectorAll(selector).forEach((el) => el.remove());
+        });
+      }
+    },
+    [cssText, options],
+  );
+};
+
+export const resetCssVrt = (name, filePath, options = {}) => {
   test.describe(`[${name}]リセットCSS切り替えのVRTテスト`, () => {
     test("オリジナルのスクリーンショットを作成", async ({ page }, testInfo) => {
       await page.goto(`file://${filePath}`);
-      await page.evaluate(() => {
-        document.body.style.margin = "0";
-      });
+      await applyCssAndCleanup(page, null, options);
       const snapshotPath = testInfo.snapshotPath(`${name}.png`);
       await page.screenshot({ path: snapshotPath, fullPage: true });
     });
@@ -27,11 +54,7 @@ export const resetCssVrt = (name, filePath) => {
 
       // Normalize.cssを動的に追加
       const css = await readFile(NORMALIZE_CSS_PATH, "utf-8");
-      await page.evaluate((cssText) => {
-        const style = document.createElement("style");
-        style.textContent = cssText;
-        document.head.insertBefore(style, document.head.firstChild);
-      }, css);
+      await applyCssAndCleanup(page, css, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         maxDiffPixelRatio: 0,
@@ -44,11 +67,7 @@ export const resetCssVrt = (name, filePath) => {
 
       // Bootstrap Rebootを動的に追加
       const css = await readFile(REBOOT_CSS_PATH, "utf-8");
-      await page.evaluate((cssText) => {
-        const style = document.createElement("style");
-        style.textContent = cssText;
-        document.head.insertBefore(style, document.head.firstChild);
-      }, css);
+      await applyCssAndCleanup(page, css, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         maxDiffPixelRatio: 0,
@@ -61,11 +80,7 @@ export const resetCssVrt = (name, filePath) => {
 
       // Tailwind Preflightを動的に追加
       const css = await readFile(PREFLIGHT_CSS_PATH, "utf-8");
-      await page.evaluate((cssText) => {
-        const style = document.createElement("style");
-        style.textContent = cssText;
-        document.head.insertBefore(style, document.head.firstChild);
-      }, css);
+      await applyCssAndCleanup(page, css, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         maxDiffPixelRatio: 0,
@@ -80,11 +95,7 @@ export const resetCssVrt = (name, filePath) => {
 
       // Eric Mayer's Reset CSSを動的に追加
       const css = await readFile(RESET_CSS_PATH, "utf-8");
-      await page.evaluate((cssText) => {
-        const style = document.createElement("style");
-        style.textContent = cssText;
-        document.head.insertBefore(style, document.head.firstChild);
-      }, css);
+      await applyCssAndCleanup(page, css, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         maxDiffPixelRatio: 0,
@@ -97,11 +108,8 @@ export const resetCssVrt = (name, filePath) => {
     }) => {
       await page.goto(`file://${filePath}`);
 
-      // Eric Mayer's Reset CSSを動的に追加
-      const css = await readFile(RESET_CSS_PATH, "utf-8");
-      await page.evaluate((cssText) => {
-        const style = document.createElement("style");
-        style.textContent = `
+      // カスタムCSSを適用
+      const customCss = `
 body {
   margin: 0;
   color: red;
@@ -119,8 +127,7 @@ img, svg {
   vertical-align: top;
 }
 `;
-        document.head.insertBefore(style, document.head.firstChild);
-      }, css);
+      await applyCssAndCleanup(page, customCss, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
         maxDiffPixelRatio: 0,

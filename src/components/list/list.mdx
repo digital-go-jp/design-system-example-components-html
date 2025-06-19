@@ -1,0 +1,17 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+ 
+import * as ListStories from "./list.stories";
+import listCss from "./list.css?raw";
+
+<Meta of={ListStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={listCss} language="css" />

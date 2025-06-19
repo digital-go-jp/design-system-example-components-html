@@ -1,12 +1,3 @@
-.dads-disclosure {
-  color: var(--color-neutral-solid-gray-800);
-  font-weight: normal;
-  font-size: calc(16 / 16 * 1rem);
-  line-height: 1.7;
-  font-family: var(--font-family-sans);
-  letter-spacing: 0.02em;
-}
-
 .dads-disclosure__summary {
   display: flex;
   align-items: start;
