@@ -66,5 +66,22 @@
   </div>
 </dads-calendar>
 
+<div>選択中の日付：<output id="playground-output"></output></div>
+
+<script type="module">
+  // 動作デモのためのスクリプト
+  const output = document.querySelector("#playground-output");
+  const calendar = document.querySelector("[data-js-calendar]");
+  calendar.addEventListener("date-selected", (e) => {
+    const date = e.detail.date;
+    if (date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+      output.textContent = new Intl.DateTimeFormat('ja-JP', options).format(date);
+    } else {
+      output.textContent = "";
+    }
+  });
+</script>
+
 </body>
 </html>

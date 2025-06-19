@@ -1,0 +1,65 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+ 
+import * as CalendarStories from "./calendar.stories";
+import buttonCss from "../button/button.css?raw";
+import calendarCss from "../calendar/calendar.css?raw";
+import calendarJs from "../calendar/calendar.js?raw";
+import selectCss from "../select/select.css?raw";
+
+<Meta of={CalendarStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使い方
+
+カレンダーコンポーネントをウェブページに導入するために必要なファイルや読み込み手順、利用時に注意すべきポイントをまとめます。
+
+### 必要なファイルを読み込む
+
+以下のファイルを読み込むことで、HTML内に記述する`<dads-calendar>`が正しく動作します。
+
+- `button.css`  
+- `calendar.css`  
+- `calendar.js`  
+- `select.css`  
+
+`<link>` / `<script>`タグで読み込んでも、ビルドツールなどでバンドルしても構いません。スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+### 選択可能範囲の指定
+
+`min-date`および`max-date`属性を使用して、ユーザーが選択できる日付の範囲を制限できます。`YYYY-MM-DD`形式で指定します。
+
+```html
+<dads-calendar min-date="2023-01-01" max-date="2024-12-31">
+  ...
+</dads-calendar>
+```
+
+指定した日付はいずれも「選択可能」な日付として取り扱われます。日付を指定しない場合、デフォルトで1年前から1年後までの範囲が選択可能になります。
+
+### イベント
+
+`dads-calendar`は、日付が選択されたときに`date-selected`イベントを発火します。このイベントは、選択された日付を含むオブジェクトを`detail`プロパティに持ちます。
+
+## CSS
+
+### calendar.css
+
+<Source code={calendarCss} language="css" />
+
+### calendar.js
+
+<Source code={calendarJs} language="javascript" />
+
+### button.css
+
+<Source code={buttonCss} language="css" />
+
+### select.css
+
+<Source code={selectCss} language="css" />

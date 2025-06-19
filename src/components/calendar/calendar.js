@@ -367,6 +367,7 @@ export class Calendar extends HTMLElement {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     if (this.isDateInRange(today)) {
+      this.setDisplayMonth(today.getFullYear(), today.getMonth());
       this.selectDate(today);
     }
   }
@@ -462,7 +463,7 @@ export class Calendar extends HTMLElement {
   }
 
   get tbody() {
-    return this.calendarTable.querySelector("tbody");
+    return this.querySelector("[data-js-calendar-tbody]");
   }
 
   _cellTemplate = null;
