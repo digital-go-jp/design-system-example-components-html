@@ -118,7 +118,7 @@
   color: inherit;
   text-align: right;
   font: inherit;
-  text-spacing: inherit;
+  letter-spacing: inherit;
 }
 
 .dads-date-picker__input:focus {
@@ -193,7 +193,7 @@
   color: inherit;
   text-align: center;
   font: inherit;
-  text-spacing: inherit;
+  letter-spacing: inherit;
 }
 
 .dads-date-picker__separated-input[aria-invalid="true"] {
