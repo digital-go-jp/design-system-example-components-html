@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu ListBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="../menu-list/menu-list.css">
+<link rel="stylesheet" href="menu-list-box.css">
+<script type="module" src="menu-list-box.js"></script>
+</head>
+<body>
+
+<dads-menu-list-box class="dads-menu-list-box">
+  <button id="menu-list-box-1-opener" class="dads-menu-list-box__opener" type="button" aria-haspopup="menu" aria-expanded="false" data-size="sm" data-style="text" data-text-weight="normal">
+    <svg class="dads-menu-list-box__opener-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+      <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+    </svg>
+    メニュー
+    <svg class="dads-menu-list-box__opener-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+      <path d="m20.5 6.6-8 8-8-8L3.1 8l9.4 9.4L21.9 8l-1.4-1.4Z"/>
+    </svg>
+  </button>
+  <div class="dads-menu-list-box__popup" hidden>
+    <ul class="dads-menu-list" role="menu" aria-labelledby="menu-list-box-1-opener">
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目1
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目2
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目3
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目4
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目5
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目6
+          </span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目7
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</dads-menu-list-box>
+
+<button class="dads-button" data-size="sm" data-type="text">テスト用ボタン</button>
+
+</body>
+</html>
