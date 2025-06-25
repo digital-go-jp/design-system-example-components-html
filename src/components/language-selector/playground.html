@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Language Selector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="language-selector.css">
+<link rel="stylesheet" href="../menu-list/menu-list.css">
+<link rel="stylesheet" href="../menu-list-box/menu-list-box.css">
+<script type="module" src="language-selector.js"></script>
+</head>
+<body>
+
+<dads-language-selector class="dads-language-selector">
+  <div class="dads-menu-list-box">
+    <button id="language-selector-opener" class="dads-menu-list-box__opener" type="button" aria-controls="language-selector-popup" aria-expanded="false" data-size="sm" data-style="text" data-text-weight="normal">
+      <svg class="dads-menu-list-box__opener-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <path d="M12 21.5A9.5 9.5 0 0 1 2.5 12c0-5.2 4.3-9.5 9.5-9.5s9.6 4.3 9.5 9.5c0 5.2-4.3 9.5-9.5 9.5Zm0-1.5c1-1.3 1.7-2.8 2.1-4.3H10c.4 1.5 1 3 2.1 4.3Zm-2-.3c-.8-1.2-1.4-2.6-1.7-4H5c1 2 3 3.5 5.2 4Zm4 0c2.2-.5 4-2 5-4h-3.3c-.4 1.4-1 2.8-1.8 4Zm-9.7-5.5H8a13 13 0 0 1 0-4.4H4.3a8 8 0 0 0 0 4.4Zm5.2 0h5c.2-1.5.2-3 0-4.4h-5c-.2 1.5-.2 3 0 4.4Zm6.5 0h3.7a8 8 0 0 0 0-4.4H16c.2 1.5.2 3 0 4.4Zm-.3-5.9H19c-1-2-3-3.5-5.2-4 .8 1.2 1.4 2.6 1.8 4Zm-5.8 0H14A12 12 0 0 0 12 4a12 12 0 0 0-2.1 4.3Zm-5 0h3.4c.4-1.4 1-2.8 1.8-4-2.3.5-4.1 2-5.2 4Z"/>
+      </svg>
+      Language
+      <svg class="dads-menu-list-box__opener-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <path d="m20.5 6.6-8 8-8-8L3.1 8l9.4 9.4L21.9 8l-1.4-1.4Z"/>
+      </svg>
+    </button>
+    <div id="language-selector-popup" class="dads-menu-list-box__popup" hidden>
+      <ul class="dads-menu-list">
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="ja" hreflang="ja" data-type="box" data-size="regular" data-current aria-current="true">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              日本語
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="en" hreflang="en" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              English
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="zh-cn" hreflang="zh-cn" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              简体中文
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="zh-tw" hreflang="zh-tw" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              繁体中文
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="ko" hreflang="ko" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              한국어
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="es" hreflang="es" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              Español
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="id" hreflang="id" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              Bahasa Indonesia
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="dads-menu-list__item" href="#" lang="vi" hreflang="vi" data-type="box" data-size="regular">
+            <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+              <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
+            </svg>
+            <span class="dads-menu-list__label">
+              Tiếng Việt
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</dads-language-selector>
+
+<button class="dads-button" data-size="sm" data-type="text">テスト用ボタン</button>
+
+</body>
+</html>
