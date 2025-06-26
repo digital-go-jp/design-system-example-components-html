@@ -2,6 +2,7 @@
   --_border-color: var(--color-neutral-solid-gray-420);
   --_padding: calc(20 / 16 * 1rem) calc(16 / 16 * 1rem);
   margin: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -14,13 +15,14 @@
   letter-spacing: 0.02em;
 }
 
-.dads-table[data-dense] {
+.dads-table[data-size="dense"] {
   --_padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
   line-height: 1.3;
 }
 
 .dads-table__caption {
   font-weight: bold;
+  font-size: calc(17 / 16 * 1rem);
 }
 
 .dads-table__table {
@@ -38,27 +40,21 @@
 }
 
 .dads-table__col-header {
+  --_border-color: var(--color-neutral-solid-gray-500);
   background-color: var(--color-neutral-solid-gray-100);
   color: var(--color-neutral-solid-gray-900);
-}
-
-:where(tr:last-of-type) > .dads-table__col-header {
-  border-bottom: 1px solid var(--color-neutral-black);
 }
 
 .dads-table__row-header {
+  --_border-color: var(--color-neutral-solid-gray-500);
   background-color: var(--color-neutral-solid-gray-100);
   color: var(--color-neutral-solid-gray-900);
-}
-
-.dads-table__row-header:where(:last-of-type) {
-  border-right: 1px solid var(--color-neutral-black);
 }
 
 /* Stripe */
 
 .dads-table[data-row-stripe] {
-  --_border-color: var(--color-neutral-solid-gray-536);
+  --_border-color: var(--color-neutral-solid-gray-500);
 }
 
 .dads-table[data-row-stripe] tr:nth-child(even) {
@@ -68,7 +64,7 @@
 /* Hover highlight */
 
 .dads-table[data-row-hover-highlight] {
-  --_border-color: var(--color-neutral-solid-gray-536);
+  --_border-color: var(--color-neutral-solid-gray-500);
 }
 
 @media (hover: hover) {
@@ -80,7 +76,7 @@
 /* With checkbox */
 
 .dads-table[data-selectable] {
-  --_border-color: var(--color-neutral-solid-gray-536);
+  --_border-color: var(--color-neutral-solid-gray-500);
 }
 
 .dads-table[data-selectable] tr:has(:checked) {
@@ -110,13 +106,13 @@
 /* Sort and action */
 
 .dads-table__sort-header {
+  --_border-color: var(--color-neutral-solid-gray-500);
   background-color: var(--color-neutral-solid-gray-100);
   padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);
   color: var(--color-neutral-solid-gray-900);
-  border-bottom: 1px solid var(--color-neutral-black);
 }
 
-.dads-table[data-dense] .dads-table__sort-header {
+.dads-table[data-size="dense"] .dads-table__sort-header {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -136,7 +132,7 @@
   padding-bottom: calc(8 / 16 * 1rem);
 }
 
-.dads-table[data-dense] .dads-table__sort-label {
+.dads-table[data-size="dense"] .dads-table__sort-label {
   padding-top: calc(11 / 16 * 1rem);
   padding-bottom: calc(11 / 16 * 1rem);
 }
@@ -173,7 +169,7 @@
   padding-top: calc(2 / 16 * 1rem);
 }
 
-.dads-table[data-dense] .dads-table__sort-icon {
+.dads-table[data-size="dense"] .dads-table__sort-icon {
   margin-top: calc(-2 / 16 * 1rem);
   padding-top: 0;
 }
@@ -215,76 +211,97 @@
 
 /* Utilities */
 
-.dads-table [data-full] {
+.dads-table [data-width="full"] {
   width: 100%;
 }
 
-.dads-table [data-fixed] {
+.dads-table [data-layout="fixed"] {
   table-layout: fixed;
 }
 
-.dads-table [data-border] {
+.dads-table [data-cell-border=""] :where(td, th) {
   border: 1px solid var(--_border-color);
 }
 
-.dads-table [data-border-x] {
-  border-right: 1px solid var(--_border-color);
-  border-left: 1px solid var(--_border-color);
-}
-
-.dads-table [data-border-y] {
-  border-top: 1px solid var(--_border-color);
-  border-bottom: 1px solid var(--_border-color);
-}
-
-.dads-table [data-border-t] {
+.dads-table [data-cell-border~="top"] :where(td, th) {
   border-top: 1px solid var(--_border-color);
 }
 
-.dads-table [data-border-r] {
+.dads-table [data-cell-border~="right"] :where(td, th) {
   border-right: 1px solid var(--_border-color);
 }
 
-.dads-table [data-border-b] {
+.dads-table [data-cell-border~="bottom"] :where(td, th) {
   border-bottom: 1px solid var(--_border-color);
 }
 
-.dads-table [data-border-l] {
+.dads-table [data-cell-border~="left"] :where(td, th) {
   border-left: 1px solid var(--_border-color);
 }
 
-.dads-table [data-border-hidden] {
+/* Header cell's black border should take precedence over [data-cell-border] */
+:last-of-type > .dads-table__col-header,
+:last-of-type > .dads-table__sort-header {
+  border-bottom: 1px solid var(--color-neutral-black);
+}
+.dads-table__row-header:last-of-type {
+  border-right: 1px solid var(--color-neutral-black);
+}
+
+.dads-table [data-border=""] {
+  border: 1px solid var(--_border-color);
+}
+
+.dads-table [data-border~="top"] {
+  border-top: 1px solid var(--_border-color);
+}
+
+.dads-table [data-border~="right"] {
+  border-right: 1px solid var(--_border-color);
+}
+
+.dads-table [data-border~="bottom"] {
+  border-bottom: 1px solid var(--_border-color);
+}
+
+.dads-table [data-border~="left"] {
+  border-left: 1px solid var(--_border-color);
+}
+
+.dads-table [data-border="hidden"] {
   border-style: hidden;
 }
 
-.dads-table [data-border-t-hidden] {
+.dads-table [data-border~="top-hidden"] {
   border-top-style: hidden;
 }
 
-.dads-table [data-border-r-hidden] {
+.dads-table [data-border~="right-hidden"] {
   border-right-style: hidden;
 }
 
-.dads-table [data-border-b-hidden] {
+.dads-table [data-border~="bottom-hidden"] {
   border-bottom-style: hidden;
 }
 
-.dads-table [data-border-l-hidden] {
+.dads-table [data-border~="left-hidden"] {
   border-left-style: hidden;
 }
 
-.dads-table [data-bg-white] {
+.dads-table [data-bg="white"] {
   background-color: var(--color-neutral-white);
 }
 
-.dads-table [data-bg-solid-gray-50] {
+.dads-table [data-bg="solid-gray-50"] {
+  --_border-color: var(--color-neutral-solid-gray-500);
   background-color: var(--color-neutral-solid-gray-50);
 }
 
-.dads-table [data-bg-solid-gray-100] {
+.dads-table [data-bg="solid-gray-100"] {
+  --_border-color: var(--color-neutral-solid-gray-500);
   background-color: var(--color-neutral-solid-gray-100);
 }
 
-.dads-table [data-bg-transparent] {
+.dads-table [data-bg="transparent"] {
   background-color: transparent;
 }
