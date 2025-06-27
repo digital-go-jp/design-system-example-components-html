@@ -3,7 +3,7 @@ import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
 
 const { dirname } = import.meta;
 
-resetCssVrt("table-plain", path.join(dirname, "plain.html"));
+resetCssVrt("table-playground", path.join(dirname, "playground.html"));
 
 resetCssVrt("table-condensed", path.join(dirname, "condensed-table.html"));
 
