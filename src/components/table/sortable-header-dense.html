@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="table.css">
+</head>
+<body>
+
+<div class="dads-table" data-size="dense" data-js-sortable-table>
+  <table class="dads-table__table" data-border data-cell-border>
+    <thead>
+      <tr>
+        <th class="dads-table__sort-header" scope="col" data-js-sort-header>
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button" data-js-sort>
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <th class="dads-table__sort-header" scope="col" aria-sort="ascending" data-js-sort-header>
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button" data-js-sort>
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.12L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM14 8.92L11.73 11L9 8.52V20H6V8.52L3.27 11L1 8.93L7.5 3L14 8.93Z" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+            <button class="dads-table__action" type="button" aria-haspopup="true">
+              <svg class="dads-table__action-svg" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" role="img" aria-label="列メニュー">
+                <circle cx="12" cy="4.5" r="1.5"/>
+                <circle cx="12" cy="12" r="1.5"/>
+                <circle cx="12" cy="19.5" r="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </th>
+        <th class="dads-table__sort-header" scope="col" data-js-sort-header>
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button" data-js-sort>
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <th class="dads-table__sort-header" scope="col" data-js-sort-header>
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button" data-js-sort>
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <th class="dads-table__sort-header" scope="col" data-js-sort-header>
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button" data-js-sort>
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+      </tr>
+      <tr>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+      </tr>
+      <tr>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+        <td>データ</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script type="module">
+  const SORT_ICONS = {
+    none: 'M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z',
+    ascending: 'M17 18.12L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM14 8.92L11.73 11L9 8.52V20H6V8.52L3.27 11L1 8.93L7.5 3L14 8.93Z',
+    descending: 'M7 5.88L2.73 10L2 9.3L7.5 4L13 9.3L12.27 10L8 5.88V20H7V5.88ZM10 15.08L12.27 13L15 15.48V4H18V15.48L20.73 13L23 15.07L16.5 21L10 15.07Z'
+  };
+
+  class SortableTable {
+    constructor(tableElement) {
+      this.table = tableElement;
+      this.sortHeaders = this.table.querySelectorAll('[data-js-sort-header]');
+      this.sortButtons = this.table.querySelectorAll('[data-js-sort]');
+      this.sortStates = this.initializeSortStates();
+
+      this.init();
+    }
+
+    init() {
+      this.sortButtons.forEach((button, index) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          this.handleSortClick(index);
+        });
+      });
+
+      this.updateHeaderStates();
+    }
+
+    initializeSortStates() {
+      const states = {};
+      this.sortHeaders.forEach((header, index) => {
+        const currentSort = header.getAttribute('aria-sort');
+        if (currentSort && currentSort !== 'none') {
+          states[index] = currentSort;
+        }
+      });
+      return states;
+    }
+
+    updateSortIcon(button, sortState) {
+      const path = button.querySelector('path');
+      if (path) {
+        path.setAttribute('d', SORT_ICONS[sortState || 'none']);
+      }
+    }
+
+    updateHeaderStates() {
+      this.sortHeaders.forEach((header, index) => {
+        const sortState = this.sortStates[index] || 'none';
+        header.setAttribute('aria-sort', sortState);
+        this.updateSortIcon(this.sortButtons[index], sortState);
+      });
+    }
+
+    handleSortClick(columnIndex) {
+      const currentSort = this.sortStates[columnIndex];
+
+      this.sortStates = {};
+      this.sortStates[columnIndex] = currentSort === 'ascending' ? 'descending' : 'ascending';
+
+      this.updateHeaderStates();
+    }
+  }
+
+  document.querySelectorAll('[data-js-sortable-table]').forEach((tableElement) => {
+    new SortableTable(tableElement);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as TableStories from "./table.stories";
+import tableCss from "./table.css?raw";
+import scrollShadowJs from "./scroll-shadow.js?raw";
+
+<Meta of={TableStories} />
+
+<Unstyled>
+<div class="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使い方
+
+テーブルコンポーネントでは、多数のdata属性を使用して表示の調整を行えます。
+
+### サイズおよびレイアウト
+
+<dl>
+  <dt>`data-size="dense"`</dt>
+  <dd>テーブルの行の高さを小さくし、データテーブルの表示にする</dd>
+  <dt>`data-width="full"`</dt>
+  <dd>テーブルの幅をコンテナ幅まで広げる</dd>
+  <dt>`data-layout="fixed"`</dt>
+  <dd>テーブルレイアウトを固定（`table-layout: fixed`）に設定する。テーブルに幅が指定された場合に効果がある</dd>
+</dl>
+
+### 背景色
+
+<dl>
+  <dt>`data-bg="white"`</dt>
+  <dd>背景色を白に設定する</dd>
+  <dt>`data-bg="solid-gray-50"`</dt>
+  <dd>背景色をグレー50に設定する</dd>
+  <dt>`data-bg="solid-gray-100"`</dt>
+  <dd>背景色をグレー100に設定する</dd>
+  <dt>`data-bg="transparent"`</dt>
+  <dd>背景色を透明に設定する</dd>
+</dl>
+
+### 行のスタイリング
+
+<dl>
+  <dt>`data-row-stripe`</dt>
+  <dd>偶数行に背景色を付けてストライプ表示にする</dd>
+  <dt>`data-row-hover-highlight`</dt>
+  <dd>行にホバーした際のハイライト表示を有効にする</dd>
+  <dt>`data-selectable`</dt>
+  <dd>チェックボックスで選択された行のハイライト表示を有効にする</dd>
+</dl>
+
+### ボーダーの表示設定
+
+`.dads-table`はデフォルトでボーダーを表示しません。ボーダーを表示するには、`data-border`属性または`data-cell-border`属性を使用します。
+
+<dl>
+  <dt>`data-border`</dt>
+  <dd>指定した要素自体にボーダーを表示する</dd>
+  <dt>`data-cell-border`</dt>
+  <dd>指定した要素の子孫であるセル（`<td>`および`<th>`）にボーダーを表示する</dd>
+</dl>
+
+#### `data-border`属性値
+
+`data-border`属性は、表示するボーダーの位置を指定できます。複数の値はスペース区切りで指定します。
+
+##### 全辺のボーダー
+
+```html
+<!-- 全辺にボーダーを表示 -->
+<td data-border>
+```
+
+##### 個別の辺
+
+```html
+<!-- 右辺のみ -->
+<td data-border="right">
+
+<!-- 下辺のみ -->
+<td data-border="bottom">
+
+<!-- 上辺のみ -->
+<td data-border="top">
+
+<!-- 左辺のみ -->
+<td data-border="left">
+```
+
+##### 複数の辺
+
+```html
+<!-- 右辺と下辺 -->
+<td data-border="right bottom">
+
+<!-- 上辺と右辺 -->
+<th data-border="top right">
+```
+
+##### ボーダーを非表示にする
+
+```html
+<!-- 外枠を非表示 -->
+<table data-border="hidden">
+
+<!-- 特定の辺を非表示 -->
+<td data-border="top-hidden">
+<td data-border="right-hidden">
+<td data-border="bottom-hidden">
+<td data-border="left-hidden">
+```
+
+#### `data-cell-border`属性値
+
+`data-cell-border`属性は、要素内のセル（td、th）に対してボーダーを適用します。指定方法は`data-border`と同様です。
+
+```html
+<!-- 各セルの下辺にボーダー -->
+<table data-cell-border="bottom">
+
+<!-- 各ヘッダーセルの右辺にボーダー -->
+<thead data-cell-border="right">
+
+<!-- 各セルの全辺にボーダー -->
+<table data-cell-border>
+```
+
+なお、`data-cell-border`属性は、`<col>`要素または`<colgroup>`要素に対しては適用されません。
+
+#### 使用例
+
+```html
+<!-- 外枠およびセル下辺ボーダー -->
+<table data-border data-cell-border="bottom">
+
+<!-- テーブル外枠を除く、セル全辺ボーダー -->
+<table data-border="hidden" data-cell-border>
+
+<!-- ヘッダー部分のみ右辺ボーダー、本体部分は下辺ボーダー -->
+<table data-border>
+  <thead data-cell-border="right">
+  <tbody data-cell-border="bottom">
+</table>
+```
+
+## マークアップ
+
+### 基本的なマークアップ
+
+ヘッダーセルを`<th>`要素でマークアップし、`scope`属性で適用範囲を明示します。
+
+次の例は、コース別の受講者数、出席率、平均点を示したテーブルです。各列のヘッダーセルを`<th>`要素でマークアップし、`scope="col"`属性を設定しています。また、各行のヘッダーセルを`<th>`要素でマークアップし、`scope="row"`属性を設定しています。これにより、各ヘッダーセルが対応する列および行のヘッダーとして設定され、支援技術での利用しやすさが高まります。
+
+```html
+<div class="dads-table">
+  <table class="dads-table__table">
+    <thead>
+      <tr>
+        <th class="dads-table__col-header" scope="col">コース名</th>
+        <th class="dads-table__col-header" scope="col">受講者数</th>
+        <th class="dads-table__col-header" scope="col">出席率</th>
+        <th class="dads-table__col-header" scope="col">平均点</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="dads-table__row-header" scope="row">基礎コース</th>
+        <td>150</td><td>92%</td><td>78</td>
+      </tr>
+      <tr>
+        <th class="dads-table__row-header" scope="row">応用コース</th>
+        <td>120</td><td>88%</td><td>75</td>
+      </tr>
+      <tr>
+        <th class="dads-table__row-header" scope="row">専門コース</th>
+        <td>90</td><td>95%</td><td>82</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+テーブルがキャプションを持つ場合、`<figure>`要素および`<figcaption>`要素を使用します。
+
+```html
+<figure class="dads-table">
+  <table class="dads-table__table">
+    ...中略...
+  </table>
+  <figcaption class="dads-table__caption">表3 令和6年度 仮想教育プログラム参加者統計（オンライン・ハイブリッド授業）</figcaption>
+</figure>
+```
+
+### チェックボックスを持つテーブル
+
+行の選択のために各行の先頭にチェックボックスを配置する場合、各チェックボックスに`aria-labelledby`属性を使用し、ラベルに該当するテキストに付与したIDを指定します。
+
+<Canvas of={TableStories.SelectableTable} />
+
+全てを選択するチェックボックスを配置する場合、`<thead>`内に配置し、チェックボックスに`aria-label="行を選択"`属性および`aria-description="すべての行を選択する"`属性を指定します。これにより、各チェックボックスの意図がスクリーンリーダー等の支援技術に適切に伝えられます。
+
+### モバイル表示への対応
+
+テーブルの幅がコンテンツ幅より大きく、テーブルの領域内で横スクロールを設ける場合、スクロール可能な領域にはスクロールを促すシャドーを表示します。
+
+スクロールを促すシャドーを実装した`<dads-scroll-shadow>`カスタム要素を使用すると、スクロール可能な領域の両端にシャドーを表示できます。
+
+<div style={{ maxWidth: "400px" }}>
+  <Canvas of={TableStories.OverflowOnMobile} />
+</div>
+
+`<dads-scroll-shadow>`を使用するには、`scroll-shadow.js`スクリプトを読み込む必要があります。
+
+```html
+<script type="module" src="scroll-shadow.js">
+```
+
+## CSS
+
+### table.css
+
+<Source code={tableCss} language="css" />
+
+## JavaScript
+
+### scroll-shadow.js
+
+<Source code={scrollShadowJs} language="javascript" />
+
+</div>
+</Unstyled>
