@@ -3,7 +3,6 @@ import type { Preview } from "@storybook/html-vite";
 import "invokers-polyfill";
 import "../src/global.css";
 import "./prose.css";
-import "./prose-adjust.css";
 
 const preview: Preview = {
   parameters: {
@@ -36,6 +35,7 @@ const preview: Preview = {
             "フォームコントロールラベル",
             "ボタン",
             "マークアップ",
+            "メニューリスト",
             "ユーティリティリンク",
             "ラジオボタン",
             "ランゲージセレクター",

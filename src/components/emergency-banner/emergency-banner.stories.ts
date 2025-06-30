@@ -32,7 +32,7 @@ const meta = {
       icon.remove();
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
     link: { control: "boolean" },

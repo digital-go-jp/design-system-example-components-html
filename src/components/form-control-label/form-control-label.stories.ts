@@ -75,7 +75,7 @@ export const Single: Story = {
       input.removeAttribute("aria-describedby");
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   args: {
     size: "md",

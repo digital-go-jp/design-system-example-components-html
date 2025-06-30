@@ -49,7 +49,7 @@ export const Playground: Story = {
       selectSelect.setAttribute("disabled", "");
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   args: {
     size: "md",

@@ -47,7 +47,7 @@ export const Playground: StoryObj<InputTextProps> = {
       input.setAttribute("value", args.value);
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
     size: {
