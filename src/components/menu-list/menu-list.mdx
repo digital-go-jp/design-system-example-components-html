@@ -1,0 +1,23 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as MenuListStories from "./menu-list.stories";
+import menuListCss from "./menu-list.css?raw";
+
+<Meta of={MenuListStories} />
+
+<Unstyled>
+<div class="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={menuListCss} language="css" />
+
+</div>
+</Unstyled>

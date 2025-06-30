@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="menu-list.css">
+</head>
+<body>
+
+<ul class="dads-menu-list">
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+      <span class="dads-menu-list__label">
+        メニュー項目1
+      </span>
+    </button>
+  </li>
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" data-expanded>
+      <span class="dads-menu-list__label">
+        メニュー項目2
+      </span>
+      <svg class="dads-menu-list__end-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <path d="M12.5 17.1 3.5 8l1-1 8 8 8-8 1 1-9 9.1Z"/>
+      </svg>
+    </button>
+    <ul class="dads-menu-list" style="--menu-list-indentation: 1;">
+      <li>
+        <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+          <span class="dads-menu-list__label">
+            メニュー項目2-1
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" data-current>
+          <span class="dads-menu-list__label">
+            メニュー項目2-2
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+          <span class="dads-menu-list__label">
+            メニュー項目2-3
+          </span>
+        </button>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+      <span class="dads-menu-list__label">
+        メニュー項目3
+      </span>
+    </button>
+  </li>
+</ul>
+
+</body>
+</html>
