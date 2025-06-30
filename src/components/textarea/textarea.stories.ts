@@ -37,7 +37,7 @@ export const Playground: StoryObj<TextareaProps> = {
       textareaTextarea.setAttribute("disabled", "");
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   args: {
     error: false,

@@ -22,7 +22,11 @@ export class HtmlFragment {
     }
   }
 
-  toString() {
-    return this.roots.map((root) => root.toString()).join("\n\n");
+  toString({ trimBlankLines = false } = {}) {
+    let htmlString = this.roots.map((root) => root.toString()).join("\n\n");
+    if (trimBlankLines) {
+      htmlString = htmlString.replace(/^\s*[\r\n]+/gm, "");
+    }
+    return htmlString;
   }
 }

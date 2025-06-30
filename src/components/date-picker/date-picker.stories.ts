@@ -115,7 +115,7 @@ export const Playground: StoryObj<DatePickerProps> = {
       calendar.setAttribute("max-date", getDateYmd(maxDate));
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
     size: {
@@ -214,7 +214,7 @@ export const PlaygroundSeparated: StoryObj<DatePickerProps> = {
       calendarButton.setAttribute("disabled", "");
     }
 
-    return fragment.toString();
+    return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
     size: {
