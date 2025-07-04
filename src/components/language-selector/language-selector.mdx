@@ -1,0 +1,41 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as LanguageSelectorStories from "./language-selector.stories";
+import languageSelectorCss from "./language-selector.css?raw";
+import languageSelectorJs from "./language-selector.js?raw";
+import menuListCss from "../menu-list/menu-list.css?raw";
+import menuListBoxCss from "../menu-list-box/menu-list-box.css?raw";
+import menuListBoxJs from "../menu-list-box/menu-list-box.js?raw";
+
+<Meta of={LanguageSelectorStories} />
+
+<Unstyled>
+<div class="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+### language-selector.css
+
+<Source code={languageSelectorCss} language="css" />
+
+### menu-list-box.css
+
+<Source code={menuListBoxCss} language="css" />
+
+### menu-list.css
+
+<Source code={menuListCss} language="css" />
+
+## JavaScript
+
+<Source code={languageSelectorJs} language="javascript" />
+
+</div>
+</Unstyled>

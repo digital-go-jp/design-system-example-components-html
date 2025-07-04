@@ -1,0 +1,12 @@
+.dads-language-selector {
+  display: block;
+  width: fit-content;
+}
+
+.dads-language-selector__check {
+  visibility: hidden;
+}
+
+[aria-current] > .dads-language-selector__check {
+  visibility: visible;
+}
