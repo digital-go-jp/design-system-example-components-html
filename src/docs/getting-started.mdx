@@ -1,0 +1,128 @@
+import { Meta, Unstyled } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documents/導入方法" />
+
+<Unstyled>
+<div class="prose">
+
+# 導入方法
+
+デジタル庁デザインシステム コードスニペット（HTML版）の導入手順を説明します。段階的に導入することで、既存プロジェクトにも新規プロジェクトにも対応できます。
+
+## 前提条件・環境要件
+
+### 必要な前提知識
+- HTML/CSS/JavaScriptの基本的な知識
+- プロジェクトでのファイル管理とビルドプロセスの理解
+
+### コード取得方法
+コンポーネントのコードは以下の方法で取得できます：
+
+- **Storybookから取得**: 各コンポーネントのDocsページからHTML、CSS、JavaScriptをコピーする
+- **リポジトリから取得**: [GitHubリポジトリ](https://github.com/digital-go-jp/design-system-example-components-html)をクローンして `src/components/` から直接ファイルを取得する
+
+選択したコード取得方法に応じて、以下のファイルパスの指定は適切に読み替えてください。
+
+## 導入手順
+
+### ステップ1：グローバルCSSの追加
+
+デジタル庁デザインシステムでは、コンポーネント間で共通のCSS変数を使用しています。グローバルCSSはプロジェクト全体に影響を及ぼすため、段階的に導入を行うことが可能です。
+
+#### ミニマム導入（既存環境への追加に最適）
+
+既存のウェブサイトに最小限でコンポーネントを導入したい場合、カスタムプロパティの定義のみを導入します。
+
+`global.css`の冒頭に、デジタル庁デザインシステムが定義するデザイントークンがカスタムプロパティとして記述されています。この部分をコピーし、プロジェクトのCSSに追加してください。
+
+```css
+:root {
+  --color-primitive-blue-50: #e8f1fe;
+  --color-primitive-blue-100: #d9e6ff;
+  --color-primitive-blue-200: #c5d7fb;
+  /* その他のカスタムプロパティ... */
+}
+```
+
+その他任意で、既存のコードに影響のない範囲において、`global.css`に含まれるスタイル宣言を追加することを推奨します。
+
+#### フル導入（新規開発に最適）
+
+新規プロジェクトや全面的にデザインシステムを適用したい場合、本コースにペットが提供する`global.css`を完全に導入することを推奨します。`global.css`にはテキストリンクやフォーカスインジケーターのスタイル、各種テキストスタイルのユーティリティクラスが含まれています。
+
+例えば、以下のようにHTMLの`<head>`セクションに追加してください。
+
+```html
+<link rel="stylesheet" href="path/to/global.css">
+```
+
+なお、`global.css`の内容は部分的に採用することも可能です。テキストスタイルのユーティリティクラスを除外したり、フォーカスインジケーターのスタイルのみ取り込むといった使い方も可能です。`global.css`の冒頭にあるカスタムプロパティ以外のスタイル宣言は全てオプションです。
+
+#### リセットCSSとの共存
+
+提供しているコードスニペットは、次に挙げるのリセットCSSライブラリが導入されていても差異なく表示されることを確認しています。特別な設定は不要です。
+
+- Normalize.css
+- Preflight (Tailwind CSS)
+- Reboot (Bootstrap)
+- Eric Meyer’s Reset CSS
+
+### ステップ2：コンポーネントCSSの追加
+
+使用したいコンポーネントのCSSファイルをプロジェクトに追加します。
+
+```html
+<!-- 例：ボタンコンポーネントを使用する場合 -->
+<link rel="stylesheet" href="path/to/components/button/button.css">
+```
+
+#### 多数のコンポーネント使用時
+
+複数のコンポーネントを使用する場合は、webpackやVite等のバンドラーを使用してCSSを統合することを推奨します。
+
+```javascript
+// Viteの例
+import "./components/button/button.css";
+import "./components/input-text/input-text.css";
+import "./components/select/select.css";
+```
+
+任意の並び順でコンポーネントを読み込めます。
+
+### ステップ3：JavaScript（必要に応じて）
+
+一部のコンポーネントはJavaScriptによるインタラクティブな機能を提供します。例えば、以下のコンポーネントはJavaScript実装があります（一部抜粋）。
+
+- カレンダー
+- 日付ピッカー
+- メニューリストボックス
+
+これらは**ウェブコンポーネント**として実装されており、HTMLに要素を配置するだけで動作します。
+
+```html
+<script type="module" src="path/to/components/date-picker/date-picker.js"></script>
+<dads-date-picker>
+  <!-- 日付ピッカーの内容 -->
+</dads-date-picker>
+```
+
+#### 多数のコンポーネント使用時
+
+CSSと同様に、複数のコンポーネントを使用する場合は、webpackやVite等のバンドラーを使用してCSSを統合することを推奨します。
+
+```javascript
+// 必要なコンポーネントのJSをインポート
+import "./components/calendar/calendar.js";
+import "./components/date-picker/date-picker.js";
+```
+
+## スタイルやふるまいをカスタマイズする
+
+デジタル庁デザインシステム コードスニペット（HTML版）は、**あらゆるカスタマイズが許容される**設計思想に基づいています。
+
+当コードスニペットはパッケージとしての配布を前提としていません。コピーして導入されたコードはプロジェクト固有の資産として扱われ、継続的なバージョンアップは想定されていません。
+
+そのため、正規のカスタマイズ方法と呼べるものは存在しません。プロジェクトのニーズに応じて、HTML、CSS、JavaScriptの全てを自由にカスタマイズしてください。
+
+</div>
+</Unstyled>
