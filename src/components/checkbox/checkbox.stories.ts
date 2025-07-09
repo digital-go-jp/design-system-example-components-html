@@ -10,18 +10,21 @@ import stacked from "./stacked.html?raw";
 import errored from "./errored.html?raw";
 import indeterminate from "./indeterminate.html?raw";
 
-type CheckboxSize = "lg" | "md" | "sm";
+const meta = {
+  title: "Components/チェックボックス",
+} satisfies Meta;
 
-interface CheckboxProps {
-  size: CheckboxSize;
+export default meta;
+
+interface CheckboxPlaygroundProps {
+  size: "lg" | "md" | "sm";
   checked: boolean;
   errored: boolean;
   disabled: boolean;
   label: string;
 }
 
-const meta = {
-  title: "Components/チェックボックス",
+export const Playground: StoryObj<CheckboxPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-checkbox");
     const checkbox = fragment.root;
@@ -51,12 +54,6 @@ const meta = {
 
     return fragment.toString();
   },
-} satisfies Meta<CheckboxProps>;
-
-export default meta;
-type Story = StoryObj<CheckboxProps>;
-
-export const Playground: Story = {
   argTypes: {
     size: {
       control: { type: "radio" },

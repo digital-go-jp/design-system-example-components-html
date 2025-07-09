@@ -14,20 +14,9 @@ import playgroundConsolidated from "./playground-consolidated.html?raw";
 import playgroundSeparated from "./playground-separated.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
 
-interface DatePickerProps {
-  size: string;
-  year: boolean;
-  day: boolean;
-  calendar: boolean;
-  error: boolean;
-  disabled: boolean;
-  minDate?: string;
-  maxDate?: string;
-}
-
 const meta = {
   title: "Components/日付ピッカー",
-} satisfies Meta<DatePickerProps>;
+} satisfies Meta;
 
 export default meta;
 
@@ -38,7 +27,18 @@ function getDateYmd(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-export const Playground: StoryObj<DatePickerProps> = {
+interface DatePickerPlaygroundProps {
+  size: string;
+  year: boolean;
+  day: boolean;
+  calendar: boolean;
+  error: boolean;
+  disabled: boolean;
+  minDate?: string;
+  maxDate?: string;
+}
+
+export const Playground: StoryObj<DatePickerPlaygroundProps> = {
   name: "Playground (Consolidated)",
   render: (args) => {
     const fragment = new HtmlFragment(
@@ -147,7 +147,7 @@ export const Playground: StoryObj<DatePickerProps> = {
   },
 };
 
-export const PlaygroundSeparated: StoryObj<DatePickerProps> = {
+export const PlaygroundSeparated: StoryObj<DatePickerPlaygroundProps> = {
   name: "Playground (Separated)",
   render(args) {
     const fragment = new HtmlFragment(playgroundSeparated, ".dads-date-picker");

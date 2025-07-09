@@ -4,24 +4,17 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "./list.css";
 import allLists from "./all-lists.html?raw";
 
-interface ListProps {
+const meta = {
+  title: "Components/リスト",
+} satisfies Meta;
+
+export default meta;
+
+interface ListAllListsProps {
   spacing: string;
 }
 
-const meta = {
-  title: "Components/リスト",
-  argTypes: {
-    spacing: {
-      control: "radio",
-      options: ["4", "8", "12"],
-    },
-  },
-} satisfies Meta<ListProps>;
-
-export default meta;
-type Story = StoryObj<ListProps>;
-
-export const AllLists: Story = {
+export const AllLists: StoryObj<ListAllListsProps> = {
   render(args) {
     const fragment = new HtmlFragment(allLists, "body > .dads-list");
 
@@ -35,6 +28,12 @@ export const AllLists: Story = {
     }
 
     return fragment.toString();
+  },
+  argTypes: {
+    spacing: {
+      control: "radio",
+      options: ["4", "8", "12"],
+    },
   },
   args: {
     spacing: "4",

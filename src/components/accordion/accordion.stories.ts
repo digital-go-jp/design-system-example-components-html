@@ -5,13 +5,18 @@ import "./accordion.css";
 import playground from "./playground.html?raw";
 import stacked from "./stacked.html?raw";
 
-interface AccordionProps {
+const meta = {
+  title: "Components/アコーディオン",
+} satisfies Meta;
+
+export default meta;
+
+interface AccordionPlaygroundProps {
   opened: boolean;
   label: string;
 }
 
-const meta = {
-  title: "Components/アコーディオン",
+export const Playground: StoryObj<AccordionPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-accordion");
     const accordion = fragment.root;
@@ -44,12 +49,6 @@ const meta = {
     opened: { control: "boolean" },
     label: { control: "text" },
   },
-} satisfies Meta<AccordionProps>;
-
-export default meta;
-type Story = StoryObj<AccordionProps>;
-
-export const Playground: Story = {
   args: {
     opened: false,
     label: "ダミーテキストとは何ですか？",

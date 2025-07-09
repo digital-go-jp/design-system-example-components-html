@@ -11,7 +11,13 @@ import errored from "./errored.html?raw";
 
 type RadioSize = "lg" | "md" | "sm";
 
-interface RadioProps {
+const meta = {
+  title: "Components/ラジオボタン",
+} satisfies Meta;
+
+export default meta;
+
+interface RadioPlaygroundProps {
   size: RadioSize;
   checked: boolean;
   errored: boolean;
@@ -19,10 +25,8 @@ interface RadioProps {
   label: string;
 }
 
-const meta = {
-  title: "Components/ラジオボタン",
+export const Playground: StoryObj<RadioPlaygroundProps> = {
   render: (args) => {
-    console.log("aa");
     const fragment = new HtmlFragment(playground, ".dads-radio");
     const radio = fragment.root;
     const input = radio.querySelector(
@@ -51,12 +55,6 @@ const meta = {
 
     return fragment.toString();
   },
-} satisfies Meta<RadioProps>;
-
-export default meta;
-type Story = StoryObj<RadioProps>;
-
-export const Playground: Story = {
   argTypes: {
     size: {
       control: { type: "radio" },
@@ -82,11 +80,11 @@ export const Stacked: StoryObj<{ size: string }> = {
   render(args) {
     const fragment = new HtmlFragment(stacked, ".dads-form-control-label");
     const fieldset = fragment.root;
-    const radioes = fieldset.querySelectorAll(".dads-radio");
+    const radios = fieldset.querySelectorAll(".dads-radio");
 
     fieldset.setAttribute("data-size", args.size);
 
-    for (const radio of radioes) {
+    for (const radio of radios) {
       radio.setAttribute("data-size", args.size);
     }
 

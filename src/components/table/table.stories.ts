@@ -26,6 +26,12 @@ import linkedTextInCell from "./linked-text-in-cell.html?raw";
 import withCaption from "./with-caption.html?raw";
 import overflowOnMobile from "./overflow-on-mobile.html?raw";
 
+const meta = {
+  title: "Components/テーブル／データテーブル",
+} satisfies Meta;
+
+export default meta;
+
 interface TablePlaygroundProps {
   tableBorder: boolean;
   tableBorderValue: string[];
@@ -43,12 +49,6 @@ interface TablePlaygroundProps {
   rowStripe: boolean;
   hoverHighlight: boolean;
 }
-
-const meta = {
-  title: "Components/テーブル／データテーブル",
-} satisfies Meta<TablePlaygroundProps>;
-
-export default meta;
 
 export const Playground: StoryObj<TablePlaygroundProps> = {
   render(args) {

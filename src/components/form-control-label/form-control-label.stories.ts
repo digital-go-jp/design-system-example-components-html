@@ -7,27 +7,20 @@ import "../input-text/input-text.css";
 import single from "./single.html?raw";
 import multiple from "./multiple.html?raw";
 
-interface FormControlLabelProps {
+const meta = {
+  title: "Components/フォームコントロールラベル",
+} satisfies Meta;
+
+export default meta;
+
+interface FormControlLabelPlaygroundProps {
   size: string;
   required: boolean;
   supportText: boolean;
   error: boolean;
 }
 
-const meta = {
-  title: "Components/フォームコントロールラベル",
-  argTypes: {
-    size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
-    },
-  },
-} satisfies Meta<FormControlLabelProps>;
-
-export default meta;
-type Story = StoryObj<FormControlLabelProps>;
-
-export const Single: Story = {
+export const Single: StoryObj<FormControlLabelPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(single, ".dads-form-control-label");
     const formControlLabel = fragment.root;
@@ -77,6 +70,12 @@ export const Single: Story = {
 
     return fragment.toString({ trimBlankLines: true });
   },
+  argTypes: {
+    size: {
+      control: "radio",
+      options: ["sm", "md", "lg"],
+    },
+  },
   args: {
     size: "md",
     required: true,
@@ -85,7 +84,7 @@ export const Single: Story = {
   },
 };
 
-export const Multiple: Story = {
+export const Multiple: StoryObj<FormControlLabelPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(multiple, ".dads-form-control-label");
     const formControlLabel = fragment.root;
@@ -137,6 +136,12 @@ export const Multiple: Story = {
     }
 
     return fragment.toString();
+  },
+  argTypes: {
+    size: {
+      control: "radio",
+      options: ["sm", "md", "lg"],
+    },
   },
   args: {
     size: "md",

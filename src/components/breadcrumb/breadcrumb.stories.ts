@@ -8,16 +8,12 @@ import withHomeIcon from "./with-home-icon.html?raw";
 
 const meta = {
   title: "Components/パンくずリスト",
-  render: () => {
-    const fragment = new HtmlFragment(plain, ".dads-breadcrumb");
-    return fragment.toString();
-  },
 } satisfies Meta;
 
 export default meta;
-type Story = StoryObj;
 
-export const Plain: Story = {};
+export const Plain = () =>
+  new HtmlFragment(plain, ".dads-breadcrumb").toString();
 
 export const WithVisibleLabel = () =>
   new HtmlFragment(withVisibleLabel, ".dads-breadcrumb").toString();

@@ -7,14 +7,9 @@ import "./calendar.css";
 import "../select/select.css";
 import playground from "./playground.html?raw";
 
-interface CalendarProps {
-  minDate?: string;
-  maxDate?: string;
-}
-
 const meta = {
   title: "Components/カレンダー",
-} satisfies Meta<CalendarProps>;
+} satisfies Meta;
 
 export default meta;
 
@@ -25,7 +20,12 @@ function getDateYmd(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-export const Playground: StoryObj<CalendarProps> = {
+interface CalendarPlaygroundProps {
+  minDate?: string;
+  maxDate?: string;
+}
+
+export const Playground: StoryObj<CalendarPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, "body > *");
     const [calendar] = fragment.roots;
