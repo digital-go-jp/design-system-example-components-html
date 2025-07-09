@@ -4,13 +4,18 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "./link.css";
 import playground from "./playground.html?raw";
 
-interface LinkProps {
+const meta = {
+  title: "Components/リンク",
+} satisfies Meta;
+
+export default meta;
+
+interface LinkPlaygroundProps {
   target: string;
   label: string;
 }
 
-const meta = {
-  title: "Components/リンク",
+export const Playground: StoryObj<LinkPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-link");
     const link = fragment.root;
@@ -41,12 +46,6 @@ const meta = {
     },
     label: { control: "text" },
   },
-} satisfies Meta<LinkProps>;
-
-export default meta;
-type Story = StoryObj<LinkProps>;
-
-export const Playground: Story = {
   args: {
     target: "_self",
     label: "リンクテキスト",
