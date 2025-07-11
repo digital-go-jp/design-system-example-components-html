@@ -1,0 +1,288 @@
+import { Meta, Unstyled } from "@storybook/addon-docs/blocks";
+
+<Meta title="Documents/HTML版の開発方針" />
+
+<Unstyled>
+<div class="prose">
+
+# HTML版の開発方針
+
+デジタル庁デザインシステム コードスニペット（HTML版）は、シンプルさとカスタマイズ性を重視した設計思想に基づいて開発されています。この文書では、HTML版コードスニペット開発における技術的な方針と実装の原則を説明します。
+
+## 設計思想
+
+<dl>
+<dt>カスタマイズ可能性の重視</dt>
+<dd>
+  HTML、CSS、JavaScriptいずれも改変可能な品質の高い実装サンプル（コードスニペット）として提供します。カスタマイズのための特別なレールは提供せず、直接的なコード改変を前提とします。
+</dd>
+<dt>シンプルさを優先する</dt>
+<dd>
+  複雑な抽象化を避け、多くの開発者がコードを読み解き手を加えられることを重視します。プログラマー的な正しさを追求して複雑にすることよりも、理解しやすさを優先します。
+</dd>
+<dt>後付け可能な設計</dt>
+<dd>
+  既存のスタイルが適用されているサイトにも後からインストール可能です。多くのグローバルスタイルを求めず、リセットCSSの有無を問わず動作します。
+</dd>
+</dl>
+
+## 対応環境・ブラウザサポート方針
+
+- [Web Platform Status](https://webstatus.dev/)のBaselineでWidely availableとなっている機能のみ使用します。
+- BaselineでNewly availableまたはLimited availabilityなものは、プログレッシブエンハンスメントが確保され、かつユーザー体験を大きく損なわない限りにおいて使用します。
+- 将来的に標準化が見込まれ、概ねAPIが安定していると考えられる機能は、polyfillライブラリを前提とした使用も許可します（例：Invoker Commands、Popover、Anchor Positioning等）。
+
+## アクセシビリティ
+
+各コンポーネントはJIS X 8341-3:2016およびWCAG 2.2のレベルAおよびレベルAA達成基準を全て満たすことを目標とします。
+
+### 追加的な配慮事項
+
+<dl>
+<dt>強制カラーモード</dt>
+<dd>Windowsのコントラストテーマなど、OSレベルでの色設定を尊重し、適切に表示されるよう配慮します。</dd>
+<dt>視覚効果低減モード</dt>
+<dd>フェード以外のアニメーションを伴う場合、視覚効果低減モードを検出してアニメーションを無効化または瞬時に完了するようにします。</dd>
+<dt>文字サイズのブラウザ設定</dt>
+<dd>ユーザーがOSまたはブラウザで設定したフォントサイズを尊重し、表示に反映されるよう配慮します。</dd>
+<dt>スクリーンリーダー</dt>
+<dd>各種スクリーンリーダーでの動作検証を実施します。</dd>
+</dl>
+
+### テスト・検証方法
+
+<dl>
+<dt>自動テスト</dt>
+<dd>axe DevToolsを使用した自動アクセシビリティテストを実施します。</dd>
+<dt>専門家レビュー</dt>
+<dd>アクセシビリティエキスパートによるアクセシビリティレビューを受けます。</dd>
+</dl>
+
+## HTML
+
+### セマンティックなマークアップ
+
+HTML要素やARIAロールのセマンティクスを仕様に基づいて正確に使用します。要素は目的に沿って使用し、主観的な意味付けは行いません。
+
+### WAI-ARIAの適切な使用
+
+支援技術との互換性を保ちながら、必要最小限のARIA属性を使用します。ネイティブHTML要素で実現できる機能は、ARIAではなくHTML要素を優先します。
+
+### 多言語対応
+
+原則として、組み込みの多言語サポートは行いません。ただし、コンポーネントと言語の密結合を避けるため、以下の方針を採用します。
+
+- JSやCSSにインラインで言語依存情報をを含めない
+- 言語依存のテキストは通常のHTML要素として記述する
+- 必要に応じて`data`属性等を使用して言語情報を提供する
+
+なお、書字方向は横書きのLTR（Left to Right）を前提としています。
+
+## CSS
+
+### クラス命名ルール
+
+BEMをベースにした命名規則を採用します。
+
+```
+dads-block-name__element-name[data-modifier-name="modifier-value"]
+```
+
+- 接頭辞は`dads-`を持つ
+- 単語はケバブケース
+- Block-Elementの区切りはアンダースコア2つ`__`
+- Modifierにはデータ属性を使用する
+    - 真偽値をとるModifierの場合は値を省略する
+- スタイリングにARIAステートを使用することを許容する
+
+### プリプロセッサの不使用
+
+CSSプリプロセッサは使用せず、標準的なCSSのみで記述します。
+
+### カスケードレイヤーの活用
+
+使用しません。
+
+名前付きカスケードレイヤーは匿名カスケードレイヤーに劣後するため、安全に動作させるためには導入先の全てのCSSをカスケードレイヤーにする必要があり、これは現実的ではありません。
+
+### セレクタの詳細度管理
+
+セレクタは原則としてクラス名を使用します。IDセレクタや要素セレクタは原則として使用しません。
+
+セレクタの詳細度は最小限にとどめることが望ましいですが、詳細度を0.1.0にするための過剰な努力は避けるものとします。記述が多くの人にとって複雑で馴染みのないものになり、上書きやカスタマイズが難しくなるためです。
+
+```css
+/* 🙆 DO */
+.dads-button[data-type="solid-fill"]:hover {
+  background-color: var(--dads-button-hover-color);
+  text-decoration: underline;
+}
+
+/* 🙅 DON'T: 抽象的で複雑 */
+.dads-button {
+  background-color: var(--dads-button-bg-color);
+  text-decoration: var(--dads-button-text-decoration);
+}
+.dads-button[data-type="solid-fill"]:hover {
+  --dads-button-bg-color: var(--color-primitive-blue-1000);
+  --dads-button-text-decoration: underline;
+}
+
+/* 🙅 DON'T: 広く普及していない */
+.dads-button:where([data-type="solid-fill"]:hover) {
+  background-color: var(--dads-button-hover-color);
+  text-decoration: underline;
+}
+```
+
+### 大きさの単位の統一
+
+- フォントサイズ：`rem`（16pxを1remとして計算）
+- 余白・サイズ：`rem`
+- 線の太さ：`px`または`rem`
+
+```css
+.dads-button {
+  font-size: calc(16 / 16 * 1rem);
+  padding: calc(8 / 16 * 1rem) calc(16 / 16 * 1rem);
+  border: 1px solid currentcolor;
+}
+```
+
+### リセットCSS等、事前定義済みCSSや継承への対応
+
+- 特定のリセットCSSに依存せず、`box-sizing`や`margin`など必要な初期化は各コンポーネント内で行う
+- 代表的なリセットCSSライブラリを入れ替えて自動テストし、互換性を確認する
+  - [Normalize.css](https://www.npmjs.com/package/normalize.css)
+  - [Eric Mayer’s Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
+  - [Bootstrap Reboot](https://getbootstrap.com/docs/5.3/content/reboot/)
+  - [Tailwind CSS](https://tailwindcss.com/docs/preflight)
+- 継承されるプロパティ（`color`, `font-*`, `line-height`, `letter-spacing`）をコンポーネントルートでリセットする
+
+### 論理的プロパティの使用
+
+論理的プロパティ（`margin-block`等、書字方向に対し抽象的な指定を可能にするプロパティ群）は使用しません。
+
+デジタル庁デザインシステムは現時点ではRTL（Right to Left）の書字体系を持つ言語や縦書きを想定しないデザインシステムです。書字方向という抽象概念を導入することで複雑性が無用に増してしまうため、使用しません。
+
+### ユーティリティクラスの設計
+
+汎用的なユーティリティクラスには`dads-u-`プレフィックスを使用します。
+
+```css
+.dads-u-visually-hidden { }
+.dads-u-focus-outline:focus-visible { }
+.dads-u-text-std-17N-170 { }
+```
+
+ユーティリティクラスの各スタイル宣言には`!important`を使用します。
+
+### ブレイクポイント
+
+デフォルトで指定するブレイクポイントは48rem（768px）とし、モバイルファーストのアプローチを採用します。
+
+```css
+.dads-button { /* ... */　}
+@media (min-width: 48rem) {
+  .dads-button { /* ... */ }
+}
+```
+
+### その他メディアクエリ
+
+タッチ端末でホバー表示が発動しないように、ホバーを持つ環境を特定します。
+
+```css
+@media (hover: hover) {
+  .dads-button:hover { /* ... */ }
+}
+```
+
+強制カラーモードに対するスタイルの調整を行います。
+
+```css
+@media (forced-colors: active) {
+  .dads-button[data-type="solid-fill"]:disabled {
+    border-color: GrayText;
+    color: GrayText;
+  }
+}
+```
+
+フェード以外のアニメーションを伴う場合、視覚効果低減モードを検出してアニメーションを無効化または瞬時に完了するようにします。
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .dads-with-transition {
+    /* transition-duration: 0.01s; */
+    transition: none;
+  }
+}
+```
+
+## JavaScript
+
+### JavaScriptの使用方針
+
+JavaScriptは、サーバーサイドから返却されるHTMLにインタラクションを追加するために使用します。JavaScriptは機能の向上のみに使用し、JavaScriptが無効な環境でも基本的な機能が動作するよう設計します。クライアントでの大規模なレンダリングやルーティングは可能な限り避けるものとします。
+
+状態管理や動的なレンダリングが当該コンポーネントのUXに密接に結びついている場合、以降に述べる原則を最初に検討しながら、場合によってはクライアントサイドの状態管理、ルーティング、レンダリングのためのライブラリを導入することも可能です。
+
+### Custom Elementsの活用
+
+HTML断片に対するインタラクションのライフサイクル管理の基盤として、Custom Elementsを使用します。
+
+シャドウDOMは使用しません。
+
+```html
+<!-- 実装イメージ -->
+<dads-date-picker class="dads-date-picker" data-size="sm">
+  <div>
+    <label>年<input type="text"></label>
+    <label>月<input type="text"></label>
+    <label>日<input type="text"></label>
+    <button data-date-picker-calendar-button>カレンダー</button>
+  </div>
+</dads-date-picker>
+```
+
+```jsx
+class DatePicker extends HTMLElement {
+  // ...
+  connectedCallback() {
+    this.subscriptions = [
+	  this.subscribe(this.calendarButton, "click", () => this.openCalendar()),
+    ]; 
+  }
+  disconnectedCallback() {
+    this.subscriptions.forEach((subscription) => subscription.remove());
+  }
+  openCalendar() {
+    // ...
+  }
+  get calendarButton() {
+    return this.querySelector("[data-date-picker-calendar-button]");
+  }
+}
+
+function subscribe(el, ...args) {
+  el.addEventListener(...args);
+  return { remove: () => el.removeEventListener(...args) };
+}
+
+customElements.define("dads-date-picker", DatePicker);
+```
+
+### 外部ライブラリの使用指針
+
+原則として外部ライブラリは使用しませんが、使用する場合は以下の条件を満たすものとします。
+
+- アクセシブルである（必ずアクセシビリティを検証します）
+- HTML中心の開発スタイルとうまくマッチする
+- ライブラリのスコープが明確で、一つのことをうまくやる
+- 実装の複雑さが著しく、メンテナンスコストが正当化される
+
+または、将来的に標準化が見込まれ、概ね安定していると考えられるAPIは積極的に取り入れるものとし、そのためのpolyfillライブラリは使用できます。
+
+</div>
+</Unstyled>

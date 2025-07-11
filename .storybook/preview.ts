@@ -15,6 +15,8 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
+          "Documents",
+          ["はじめに", "導入方法", "HTML版の開発方針"],
           "Components",
           [
             "アコーディオン",
