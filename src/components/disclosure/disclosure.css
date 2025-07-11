@@ -15,6 +15,14 @@
   }
 }
 
+.dads-disclosure__summary:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: calc(4 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
 .dads-disclosure__summary::marker {
   content: "";
 }
@@ -80,6 +88,14 @@
 .dads-disclosure__back-link:active {
   color: var(--color-primitive-orange-700);
   text-decoration-thickness: calc(1 / 16 * 1rem);
+}
+
+.dads-disclosure__back-link:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: calc(4 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
 .dads-disclosure__back-link-icon {
