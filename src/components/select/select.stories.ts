@@ -6,28 +6,19 @@ import "./select.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
 
-type SelectSize = "sm" | "md" | "lg";
+const meta = {
+  title: "Components/セレクトボックス",
+} satisfies Meta;
 
-interface SelectProps {
-  size: SelectSize;
+export default meta;
+
+interface SelectPlaygroundProps {
+  size: "sm" | "md" | "lg";
   error: boolean;
   disabled: boolean;
 }
 
-const meta = {
-  title: "Components/セレクトボックス",
-  argTypes: {
-    size: {
-      control: { type: "radio" },
-      options: ["sm", "md", "lg"],
-    },
-  },
-} satisfies Meta<SelectProps>;
-
-export default meta;
-type Story = StoryObj<SelectProps>;
-
-export const Playground: Story = {
+export const Playground: StoryObj<SelectPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-select");
     const select = fragment.root;
@@ -51,6 +42,12 @@ export const Playground: Story = {
 
     return fragment.toString({ trimBlankLines: true });
   },
+  argTypes: {
+    size: {
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
+    },
+  },
   args: {
     size: "md",
     error: false,
@@ -58,7 +55,7 @@ export const Playground: Story = {
   },
 };
 
-export const WithFormControlLabel: Story = {
+export const WithFormControlLabel: StoryObj<{ size: string }> = {
   render: (args) => {
     const fragment = new HtmlFragment(
       withFormControlLabel,
@@ -73,6 +70,12 @@ export const WithFormControlLabel: Story = {
     selectSelect.setAttribute("data-size", args.size);
 
     return fragment.toString();
+  },
+  argTypes: {
+    size: {
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
+    },
   },
   args: {
     size: "md",

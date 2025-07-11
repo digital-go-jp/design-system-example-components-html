@@ -9,14 +9,19 @@ import allButtonsUsingLink from "./all-buttons-using-link.html?raw";
 type ButtonVariant = "solid-fill" | "outline" | "text";
 type ButtonSize = "lg" | "md" | "sm" | "xs";
 
-interface ButtonProps {
+const meta = {
+  title: "Components/ボタン",
+} satisfies Meta;
+
+export default meta;
+
+interface ButtonPlaygroundProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
   label: string;
 }
 
-const meta = {
-  title: "Components/ボタン",
+export const Playground: StoryObj<ButtonPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-button");
     const button = fragment.root;
@@ -44,12 +49,6 @@ const meta = {
     },
     label: { control: "text" },
   },
-} satisfies Meta<ButtonProps>;
-
-export default meta;
-type Story = StoryObj<ButtonProps>;
-
-export const Playground: Story = {
   args: {
     variant: "solid-fill",
     size: "md",

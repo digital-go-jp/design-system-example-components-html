@@ -5,6 +5,12 @@ import "./menu-list.css";
 import playground from "./playground.html?raw";
 import hasChildren from "./has-children.html?raw";
 
+const meta = {
+  title: "Components/メニューリスト",
+} satisfies Meta;
+
+export default meta;
+
 interface MenuListPlaygroundProps {
   type: "standard" | "box";
   size: "regular" | "small";
@@ -15,12 +21,6 @@ interface MenuListPlaygroundProps {
   label: string;
   indent: number;
 }
-
-const meta = {
-  title: "Components/メニューリスト",
-} satisfies Meta;
-
-export default meta;
 
 export const Playground: StoryObj<MenuListPlaygroundProps> = {
   render(args) {

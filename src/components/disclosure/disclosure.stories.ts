@@ -4,13 +4,18 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "./disclosure.css";
 import playground from "./playground.html?raw";
 
-interface DisclosureProps {
+const meta = {
+  title: "Components/ディスクロージャー",
+} satisfies Meta;
+
+export default meta;
+
+interface DisclosurePlaygroundProps {
   opened: boolean;
   label: string;
 }
 
-const meta = {
-  title: "Components/ディスクロージャー",
+export const Playground: StoryObj<DisclosurePlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-disclosure");
     const disclosure = fragment.root;
@@ -43,12 +48,6 @@ const meta = {
     opened: { control: "boolean" },
     label: { control: "text" },
   },
-} satisfies Meta<DisclosureProps>;
-
-export default meta;
-type Story = StoryObj<DisclosureProps>;
-
-export const Playground: Story = {
   args: {
     opened: false,
     label: "ダミーテキストとは何ですか？",

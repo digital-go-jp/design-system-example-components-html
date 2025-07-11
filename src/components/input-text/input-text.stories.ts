@@ -8,20 +8,20 @@ import withFormControlLabel from "./with-form-control-label.html?raw";
 
 type InputTextSize = "sm" | "md" | "lg";
 
-interface InputTextProps {
+const meta = {
+  title: "Components/インプットテキスト",
+} satisfies Meta;
+
+export default meta;
+
+interface InputTextPlaygroundProps {
   size: InputTextSize;
   errored: boolean;
   disabled: boolean;
   value?: string;
 }
 
-const meta = {
-  title: "Components/インプットテキスト",
-} satisfies Meta<InputTextProps>;
-
-export default meta;
-
-export const Playground: StoryObj<InputTextProps> = {
+export const Playground: StoryObj<InputTextPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-input-text");
     const inputText = fragment.root;

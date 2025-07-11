@@ -6,18 +6,18 @@ import "./textarea.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
 
-interface TextareaProps {
-  error: boolean;
-  disabled: boolean;
-}
-
 const meta = {
   title: "Components/テキストエリア",
 } satisfies Meta;
 
 export default meta;
 
-export const Playground: StoryObj<TextareaProps> = {
+interface TextareaPlaygroundProps {
+  error: boolean;
+  disabled: boolean;
+}
+
+export const Playground: StoryObj<TextareaPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-textarea");
     const textarea = fragment.root;

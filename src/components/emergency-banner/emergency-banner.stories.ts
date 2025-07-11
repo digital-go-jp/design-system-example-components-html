@@ -4,13 +4,18 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "./emergency-banner.css";
 import playground from "./playground.html?raw";
 
-interface EmergencyBannerProps {
+const meta = {
+  title: "Components/緊急時バナー",
+} satisfies Meta;
+
+export default meta;
+
+interface EmergencyBannerPlaygroundProps {
   link: boolean;
   target: string;
 }
 
-const meta = {
-  title: "Components/緊急時バナー",
+export const Playground: StoryObj<EmergencyBannerPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-emergency-banner");
     const banner = fragment.root;
@@ -42,12 +47,6 @@ const meta = {
       if: { arg: "link" },
     },
   },
-} satisfies Meta<EmergencyBannerProps>;
-
-export default meta;
-type Story = StoryObj<EmergencyBannerProps>;
-
-export const Playground: Story = {
   args: {
     link: true,
     target: "_self",

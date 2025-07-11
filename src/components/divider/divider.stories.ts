@@ -5,14 +5,19 @@ import "./divider.css";
 import playground from "./playground.html?raw";
 import allDividers from "./all-dividers.html?raw";
 
-interface DividerProps {
+const meta = {
+  title: "Components/ディバイダー",
+} satisfies Meta;
+
+export default meta;
+
+interface DividerPlaygroundProps {
   color: string;
   style: string;
   width: string;
 }
 
-const meta = {
-  title: "Components/ディバイダー",
+export const Playground: StoryObj<DividerPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-divider");
     const divider = fragment.root;
@@ -23,12 +28,6 @@ const meta = {
 
     return fragment.toString();
   },
-} satisfies Meta;
-
-export default meta;
-type Story = StoryObj<DividerProps>;
-
-export const Playground: Story = {
   argTypes: {
     color: {
       control: "radio",
