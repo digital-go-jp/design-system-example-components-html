@@ -1,0 +1,60 @@
+import { Meta, Unstyled } from "@storybook/addon-docs/blocks";
+import { CopyButton } from "./copy-button";
+import tokens from "@digital-go-jp/design-tokens";
+import "./foundations.css";
+
+<Meta title="Foundations/エレベーション" />
+
+export const generateElevationData = (elevationTokens) => {
+  return Object.entries(elevationTokens).map(([level, token]) => ({
+    name: `Style ${level}`,
+    cssVar: `var(--elevation-${level})`,
+    value: token.$value
+  }));
+};
+
+export const elevationData = generateElevationData(tokens.Elevation);
+
+<Unstyled>
+<div className="prose">
+
+# エレベーション
+
+デジタル庁デザインシステムで定義されているエレベーションスタイルの一覧です。
+
+<div className="elevation-grid">
+  {elevationData.map((elevation, index) => (
+    <div key={index} className="elevation-card">
+      <div className="elevation-label">{elevation.name}</div>
+      <div 
+        className="elevation-preview" 
+        style={{ boxShadow: elevation.cssVar }}
+      >
+        プレビュー
+      </div>
+      <pre className="elevation-css"><code>{elevation.cssVar}</code></pre>
+      <CopyButton 
+        text={elevation.cssVar}
+        label="CSS変数をコピー"
+      />
+      <pre className="elevation-css"><code>{elevation.value}</code></pre>
+      <CopyButton 
+        text={`box-shadow: ${elevation.value};`}
+        label="CSSスタイルをコピー"
+      />
+    </div>
+  ))}
+</div>
+
+## 使用方法
+
+エレベーションはCSS変数として定義されており、以下のように使用できます：
+
+```css
+.my-card {
+  box-shadow: var(--elevation-3);
+}
+```
+
+</div>
+</Unstyled>

@@ -155,25 +155,25 @@
   --color-neutral-opacity-gray-700: rgba(0, 0, 0, 0.7);
   --color-neutral-opacity-gray-800: rgba(0, 0, 0, 0.8);
   --color-neutral-opacity-gray-900: rgba(0, 0, 0, 0.9);
-  --font-family-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont,
-    sans-serif;
+  --font-family-sans:
+    "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: "Noto Sans Mono", monospace;
-  --elevation-1: 0 2px 8px 1px rgba(0, 0, 0, 0.1), 0 1px 5px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-2: 0 2px 12px 2px rgba(0, 0, 0, 0.1), 0 1px 6px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-3: 0 4px 16px 3px rgba(0, 0, 0, 0.1), 0 1px 6px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-4: 0 6px 20px 4px rgba(0, 0, 0, 0.1), 0 2px 6px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-5: 0 8px 24px 5px rgba(0, 0, 0, 0.1), 0 2px 10px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-6: 0 10px 30px 6px rgba(0, 0, 0, 0.1), 0 3px 12px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-7: 0 12px 36px 7px rgba(0, 0, 0, 0.1), 0 3px 14px 0
-    rgba(0, 0, 0, 0.3);
-  --elevation-8: 0 14px 40px 7px rgba(0, 0, 0, 0.1), 0 3px 16px 0
-    rgba(0, 0, 0, 0.3);
+  --elevation-1:
+    0 2px 8px 1px rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+  --elevation-2:
+    0 2px 12px 2px rgba(0, 0, 0, 0.1), 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+  --elevation-3:
+    0 4px 16px 3px rgba(0, 0, 0, 0.1), 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+  --elevation-4:
+    0 6px 20px 4px rgba(0, 0, 0, 0.1), 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+  --elevation-5:
+    0 8px 24px 5px rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.3);
+  --elevation-6:
+    0 10px 30px 6px rgba(0, 0, 0, 0.1), 0 3px 12px 0 rgba(0, 0, 0, 0.3);
+  --elevation-7:
+    0 12px 36px 7px rgba(0, 0, 0, 0.1), 0 3px 14px 0 rgba(0, 0, 0, 0.3);
+  --elevation-8:
+    0 14px 40px 7px rgba(0, 0, 0, 0.1), 0 3px 16px 0 rgba(0, 0, 0, 0.3);
   --color-semantic-success-1: var(--color-primitive-green-600);
   --color-semantic-success-2: var(--color-primitive-green-800);
   --color-semantic-error-1: var(--color-primitive-red-800);
@@ -355,13 +355,6 @@ body:has(:modal) {
   font-weight: bold !important;
   font-size: calc(22 / 16 * 1rem) !important;
   line-height: 1.5 !important;
-  letter-spacing: 0.02em !important;
-}
-
-.dads-u-std-20B-160 {
-  font-weight: bold !important;
-  font-size: calc(20 / 16 * 1rem) !important;
-  line-height: 1.6 !important;
   letter-spacing: 0.02em !important;
 }
 

@@ -1,0 +1,140 @@
+import { Meta, Unstyled } from "@storybook/addon-docs/blocks";
+import { CopyButton } from "./copy-button";
+import tokens from "@digital-go-jp/design-tokens";
+import "./foundations.css";
+
+<Meta title="Foundations/タイポグラフィ" />
+
+export const generateTypographyData = (tokens) => {
+  const typographyData = [];
+  
+  // デザイントークンから情報を取得
+  const fontWeights = tokens.FontWeight;
+  const fontSizes = tokens.FontSize;
+  const lineHeights = tokens.LineHeight;
+  
+  // 既存のユーティリティクラスパターンを基に生成
+  const patterns = [
+    // Display (Dsp)
+    { prefix: "dsp", sizes: ["64", "57", "48"], weights: ["B", "N"], lineHeight: "140", letterSpacing: "0" },
+    // Standard (Std)
+    { prefix: "std", sizes: ["45"], weights: ["B", "N"], lineHeight: "140", letterSpacing: "0" },
+    { prefix: "std", sizes: ["36"], weights: ["B", "N"], lineHeight: "140", letterSpacing: "0.01em" },
+    { prefix: "std", sizes: ["32", "28"], weights: ["B", "N"], lineHeight: "150", letterSpacing: "0.01em" },
+    { prefix: "std", sizes: ["26", "24", "22"], weights: ["B", "N"], lineHeight: "150", letterSpacing: "0.02em" },
+    { prefix: "std", sizes: ["20"], weights: ["B", "N"], lineHeight: "150", letterSpacing: "0.02em" },
+    { prefix: "std", sizes: ["18"], weights: ["B", "N"], lineHeight: "160", letterSpacing: "0.02em" },
+    { prefix: "std", sizes: ["17", "16"], weights: ["B", "N"], lineHeight: "170", letterSpacing: "0.02em" },
+    { prefix: "std", sizes: ["16"], weights: ["B", "N"], lineHeight: "175", letterSpacing: "0.02em" },
+    // Dense (Dns)
+    { prefix: "dns", sizes: ["17", "16", "14"], weights: ["B", "N"], lineHeight: "130", letterSpacing: "0" },
+    { prefix: "dns", sizes: ["17", "16", "14"], weights: ["B", "N"], lineHeight: "120", letterSpacing: "0" },
+    // One Line (Oln)
+    { prefix: "oln", sizes: ["17", "16", "14"], weights: ["B", "N"], lineHeight: "100", letterSpacing: "0.02em" },
+    // Monospace (Mono)
+    { prefix: "mono", sizes: ["17", "16", "14"], weights: ["B", "N"], lineHeight: "150", letterSpacing: "0" },
+  ];
+  
+  patterns.forEach(pattern => {
+    pattern.sizes.forEach(size => {
+      pattern.weights.forEach(weight => {
+        const weightValue = weight === "B" ? "700" : "400";
+        const sizeKey = size;
+        const lineHeightKey = pattern.lineHeight;
+        
+        const fontSizeToken = fontSizes[sizeKey];
+        const fontWeightToken = fontWeights[weightValue];
+        const lineHeightToken = lineHeights[lineHeightKey];
+        
+        if (fontSizeToken && fontWeightToken && lineHeightToken) {
+          const name = `${pattern.prefix.charAt(0).toUpperCase() + pattern.prefix.slice(1)}-${size}${weight}-${pattern.lineHeight}`;
+          const className = `dads-u-${pattern.prefix}-${size}${weight}-${pattern.lineHeight}`;
+          
+          const styles = {
+            fontWeight: fontWeightToken.$value === "700" ? "bold" : "normal",
+            fontSize: `calc(${size} / 16 * 1rem)`,
+            lineHeight: lineHeightToken.$value,
+            letterSpacing: pattern.letterSpacing
+          };
+          
+          // モノスペースの場合はフォントファミリーを追加
+          if (pattern.prefix === "mono") {
+            styles.fontFamily = "var(--font-family-mono), monospace";
+          }
+          
+          typographyData.push({
+            name,
+            className,
+            styles
+          });
+        }
+      });
+    });
+  });
+  
+  return typographyData;
+};
+
+export const formatCSSStyles = (styles) => {
+  return Object.entries(styles)
+    .map(([property, value]) => {
+      const cssProperty = property.replace(/([A-Z])/g, "-$1").toLowerCase();
+      return `${cssProperty}: ${value};`;
+    })
+    .join("\n");
+};
+
+export const typographyData = generateTypographyData(tokens);
+
+<Unstyled>
+<div className="prose">
+
+# タイポグラフィ
+
+デジタル庁デザインシステムで定義されているテキストスタイルの一覧です。
+
+<table className="typography-table">
+  <thead>
+    <tr>
+      <th>プレビュー</th>
+      <th>ユーティリティクラス</th>
+      <th>CSSスタイル</th>
+    </tr>
+  </thead>
+  <tbody>
+    {typographyData.map((typography) => (
+      <tr key={typography.className}>
+        <td className={`typography-preview ${typography.className}`}>
+          {typography.name}のサンプルテキスト
+        </td>
+        <td>
+          <pre className="typography-class"><code>{typography.className}</code></pre>
+          <CopyButton 
+            text={typography.className}
+            label="クラス名をコピー"
+          />
+        </td>
+        <td>
+          <pre className="typography-css"><code>{formatCSSStyles(typography.styles)}</code></pre>
+          <CopyButton 
+            text={formatCSSStyles(typography.styles)}
+            label="CSSスタイルをコピー"
+          />
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## 使用方法
+
+タイポグラフィユーティリティクラスは以下のように使用できます：
+
+```html
+<h1 className="dads-u-dsp-64B-140">見出し1</h1>
+<h2 className="dads-u-std-45B-140">見出し2</h2>
+<p className="dads-u-std-16N-170">本文テキスト</p>
+```
+
+</div>
+</Unstyled>
