@@ -1,0 +1,124 @@
+/* Foundations用のカスタムスタイル */
+
+.color-section {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.color-group {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.color-grid {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.color-card {
+  flex: 0 0 auto;
+  width: 175px;
+  border-radius: 8px;
+  background: var(--color-neutral-white);
+}
+
+.color-info {
+  margin-bottom: 0.25rem;
+}
+
+.color-level {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.color-chip {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0.25rem;
+}
+
+.color-css {
+  font-size: 0.75rem;
+  background: var(--color-neutral-solid-gray-50);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 1em;
+  margin-bottom: 0.25rem;
+  white-space: pre-wrap;
+}
+
+.color-css code {
+  display: block;
+}
+
+.typography-preview {
+  max-width: 300px;
+}
+
+.typography-class {
+  font-family: var(--font-family-mono);
+  font-size: 0.875rem;
+  background: var(--color-neutral-solid-gray-50);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.typography-css {
+  font-family: var(--font-family-mono);
+  font-size: 0.875rem;
+  background: var(--color-neutral-solid-gray-50);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.typography-css code {
+  display: block;
+}
+
+.elevation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.elevation-card {
+  background: var(--color-neutral-white);
+}
+
+.elevation-preview {
+  max-height: 200px;
+  aspect-ratio: 16 / 9;
+  background: var(--color-neutral-white);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: var(--color-neutral-solid-gray-600);
+}
+
+.elevation-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--color-neutral-solid-gray-700);
+}
+
+.elevation-css {
+  font-size: 0.875rem;
+  background: var(--color-neutral-solid-gray-50);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 1em;
+  margin-bottom: 0.25rem;
+  white-space: pre-wrap;
+}
+
+.elevation-css code {
+  display: block;
+}

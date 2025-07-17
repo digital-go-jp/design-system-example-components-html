@@ -17,6 +17,8 @@ const preview: Preview = {
         order: [
           "Documents",
           ["はじめに", "導入方法", "HTML版の開発方針"],
+          "Foundations",
+          ["カラー", "タイポグラフィ", "エレベーション"],
           "Components",
           [
             "アコーディオン",
