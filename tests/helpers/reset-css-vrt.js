@@ -10,6 +10,7 @@ const REBOOT_CSS_PATH = fileURLToPath(
   import.meta.resolve("bootstrap/dist/css/bootstrap-reboot.css"),
 );
 const RESET_CSS_PATH = fileURLToPath(import.meta.resolve("reset-css"));
+const KISO_CSS_PATH = fileURLToPath(import.meta.resolve("kiso.css"));
 
 /**
  * ページにCSSを動的に挿入し、オプションで指定された要素を削除する共通関数
@@ -20,7 +21,13 @@ const RESET_CSS_PATH = fileURLToPath(import.meta.resolve("reset-css"));
 const applyCssAndCleanup = async (page, cssText, options) => {
   await page.evaluate(
     ([cssText, options]) => {
-      document.body.style.margin = "0";
+      // 本質的な差異ではない部分（コンポーネントで吸収するのが望ましくない部分）のリセット
+      Object.assign(document.body.style, {
+        margin: "0",
+        textSpacingTrim: "normal",
+        lineBreak: "auto",
+        overflowWrap: "normal",
+      });
 
       // CSSを挿入
       if (cssText) {
@@ -95,6 +102,19 @@ export const resetCssVrt = (name, filePath, options = {}) => {
 
       // Eric Mayer's Reset CSSを動的に追加
       const css = await readFile(RESET_CSS_PATH, "utf-8");
+      await applyCssAndCleanup(page, css, options);
+
+      await expect(page).toHaveScreenshot(`${name}.png`, {
+        maxDiffPixelRatio: 0,
+        fullPage: true,
+      });
+    });
+
+    test("kiso.css適用時の表示に変化がないこと", async ({ page }) => {
+      await page.goto(`file://${filePath}`);
+
+      // kiso.cssを動的に追加
+      const css = await readFile(KISO_CSS_PATH, "utf-8");
       await applyCssAndCleanup(page, css, options);
 
       await expect(page).toHaveScreenshot(`${name}.png`, {
