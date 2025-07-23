@@ -77,6 +77,8 @@
   align-self: center;
   width: calc(28 / 16 * 1rem);
   height: calc(28 / 16 * 1rem);
+  max-width: none;
+  max-height: none;
   color: var(--_base-color);
 }
 
