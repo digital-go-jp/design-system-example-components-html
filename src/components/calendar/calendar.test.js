@@ -529,7 +529,10 @@ test.describe("カレンダー機能テスト", () => {
     });
 
     test("setDisplayMonthメソッドで表示月を変更するべき", async ({ page }) => {
-      await setupCalendar(page);
+      await setupCalendar(page, {
+        minDate: "2023-06-01",
+        maxDate: "2025-06-30"
+      });
 
       // APIで表示月を設定
       await page.evaluate(() => {
