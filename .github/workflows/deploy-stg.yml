@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy:
-    if: ${{ vars.ENV || 'none' }} == 'staging'
+    if: ${{ vars.ENV == 'staging' }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write

@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy:
-    if: ${{ vars.ENV || 'none' }} == 'production'
+    if: ${{ vars.ENV == 'production' }}
     runs-on: ubuntu-latest
     environment: production
     permissions:
