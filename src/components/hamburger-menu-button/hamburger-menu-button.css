@@ -1,11 +1,13 @@
 .dads-hamburger-menu-button {
   display: flex;
   align-items: center;
+  column-gap: calc(4 / 16 * 1rem);
   width: fit-content;
   border: 0;
-  border-radius: calc(4 / 16 * 1rem);
+  border-radius: calc(6 / 16 * 1rem);
   background: transparent;
-  padding: 0 calc(2 / 16 * 1rem) calc(2 / 16 * 1rem);
+  padding: calc(4 / 16 * 1rem) calc(12 / 16 * 1rem) calc(6 / 16 * 1rem)
+    calc(12 / 16 * 1rem);
   color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
