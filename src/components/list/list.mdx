@@ -1,9 +1,12 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title } from "@storybook/addon-docs/blocks";
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ListStories from "./list.stories";
 import listCss from "./list.css?raw";
 
 <Meta of={ListStories} />
+
+<Unstyled>
+<div class="prose">
 
 <Title />
 <Subtitle />
@@ -15,3 +18,6 @@ import listCss from "./list.css?raw";
 ## CSS
 
 <Source code={listCss} language="css" />
+
+</div>
+</Unstyled>
