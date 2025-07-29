@@ -74,18 +74,21 @@
 
 .dads-notification-banner__icon {
   justify-self: center;
-  align-self: center;
   width: calc(28 / 16 * 1rem);
   height: calc(28 / 16 * 1rem);
   max-width: none;
   max-height: none;
+  padding-top: calc(3 / 16 * 1rem);
   color: var(--_base-color);
 }
 
 @media (min-width: 48rem) {
   .dads-notification-banner__icon {
+    margin-top: calc(-4 / 16 * 1rem);
+    margin-bottom: calc(-4 / 16 * 1rem);
     width: calc(44 / 16 * 1rem);
     height: calc(44 / 16 * 1rem);
+    padding: 0;
   }
 }
 
@@ -98,7 +101,7 @@
 .dads-notification-banner__heading {
   margin-top: 0;
   margin-bottom: 0;
-  align-self: center;
+  padding-top: calc(3 / 16 * 1rem);
   color: var(--color-neutral-solid-gray-900);
   font-weight: bold;
   font-size: calc(17 / 16 * 1rem);
@@ -108,6 +111,7 @@
 
 @media (min-width: 48rem) {
   .dads-notification-banner__heading {
+    padding-top: calc(2 / 16 * 1rem);
     font-size: calc(20 / 16 * 1rem);
     line-height: 1.5;
   }
@@ -116,12 +120,16 @@
 .dads-notification-banner__close {
   margin-right: calc(-12 / 16 * 1rem);
   display: flex;
-  align-self: center;
+  align-self: start;
   align-items: center;
+  column-gap: calc(4 / 16 * 1rem);
   background: transparent;
   border-radius: calc(8 / 16 * 1rem);
   border: 0;
-  padding: calc(4 / 16 * 1rem);
+  padding-top: calc(4 / 16 * 1rem);
+  padding-right: calc(12 / 16 * 1rem);
+  padding-bottom: calc(6 / 16 * 1rem);
+  padding-left: calc(12 / 16 * 1rem);
   color: var(--color-neutral-solid-gray-900);
   font: inherit;
   line-height: 1;
@@ -130,7 +138,10 @@
 
 @media (hover: hover) {
   .dads-notification-banner__close:hover {
-    outline: 1px solid currentcolor;
+    background-color: var(--color-neutral-solid-gray-50);
+    text-decoration: underline;
+    text-decoration-thickness: calc(1 / 16 * 1rem);
+    text-underline-offset: calc(3 / 16 * 1rem);
   }
 }
 
@@ -142,43 +153,9 @@
 }
 
 .dads-notification-banner__close-icon {
-  width: calc(36 / 16 * 1rem);
-  height: calc(36 / 16 * 1rem);
-}
-
-.dads-notification-banner__close-label {
-  display: none;
-}
-
-@media (min-width: 48rem) {
-  .dads-notification-banner__close {
-    margin-right: calc(-8 / 16 * 1rem);
-    padding-top: calc(5 / 16 * 1rem);
-    padding-right: calc(8 / 16 * 1rem);
-    padding-bottom: calc(5 / 16 * 1rem);
-    padding-left: calc(14 / 16 * 1rem);
-    column-gap: calc(6 / 16 * 1rem);
-  }
-
-  @media (hover: hover) {
-    .dads-notification-banner__close:hover {
-      outline: 0;
-      background-color: var(--color-neutral-solid-gray-50);
-      text-decoration: underline;
-      text-decoration-thickness: calc(1 / 16 * 1rem);
-      text-underline-offset: calc(3 / 16 * 1rem);
-    }
-  }
-
-  .dads-notification-banner__close-icon {
-    margin-top: calc(2 / 16 * 1rem);
-    width: calc(24 / 16 * 1rem);
-    height: calc(24 / 16 * 1rem);
-  }
-
-  .dads-notification-banner__close-label {
-    display: block;
-  }
+  margin-top: calc(2 / 16 * 1rem);
+  width: calc(24 / 16 * 1rem);
+  height: calc(24 / 16 * 1rem);
 }
 
 .dads-notification-banner__body {
