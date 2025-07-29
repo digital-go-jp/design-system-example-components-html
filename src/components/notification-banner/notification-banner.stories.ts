@@ -8,6 +8,7 @@ import info2 from "./info-2.html?raw";
 import success from "./success.html?raw";
 import warning from "./warning.html?raw";
 import error from "./error.html?raw";
+import mobileCompact from "./mobile-compact.html?raw";
 
 interface NotificationBannerProps {
   style: string;
@@ -185,5 +186,20 @@ export const Info2: StoryObj<NotificationBannerProps> = {
     style: "standard",
     dismissible: true,
     actionable: true,
+  },
+};
+
+/** 改行が多くなる場合に備えてモバイルでコンパクトタイプの閉じるボタンを使用している例 */
+export const MobileCompact: StoryObj = {
+  render() {
+    return new HtmlFragment(
+      mobileCompact,
+      ".dads-notification-banner",
+    ).toString();
+  },
+  argTypes: {
+    style: {
+      table: { disable: true },
+    },
   },
 };
