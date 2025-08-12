@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/html-vite";
 
+import dadsTheme from "./dadsTheme";
 import "invokers-polyfill";
 import "../src/global.css";
 import "./prose.css";
@@ -11,6 +12,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    docs: {
+      theme: dadsTheme,
     },
     options: {
       storySort: {
