@@ -2,7 +2,7 @@
 
 [デジタル庁デザインシステム](https://design.digital.go.jp/)をプレーンなHTML/CSS/JavaScriptで実装したサンプル集です。
 
-[Storybook](https://design.digital.go.jp/dads/html/)で最新版を公開しています。各コンポーネントの動作やスタイル、使用方法や実装上の注意点等をご確認いただけます。
+各コンポーネントの動作やスタイル、使用方法や実装上の注意点等は[コードスニペット（HTML版）Storybook](https://design.digital.go.jp/dads/html/)でもご確認いただけます。
 
 ## 特長
 
