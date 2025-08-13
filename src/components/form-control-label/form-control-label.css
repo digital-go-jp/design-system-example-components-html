@@ -1,10 +1,12 @@
 .dads-form-control-label {
   margin: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template: "label" auto "support-text" auto "field" auto / auto;
+  column-gap: calc(24 / 16 * 1rem);
   border: 0;
   padding: 0;
   color: var(--color-neutral-solid-gray-800);
+  overflow-wrap: anywhere;
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
   line-height: 1.7;
@@ -13,19 +15,32 @@
 }
 
 .dads-form-control-label[data-size="sm"] {
-  gap: calc(4 / 16 * 1rem);
+  row-gap: calc(4 / 16 * 1rem);
 }
 
 .dads-form-control-label[data-size="md"] {
-  gap: calc(8 / 16 * 1rem);
+  row-gap: calc(8 / 16 * 1rem);
 }
 
 .dads-form-control-label[data-size="lg"] {
-  gap: calc(8 / 16 * 1rem);
+  row-gap: calc(8 / 16 * 1rem);
+}
+
+@media (min-width: 48rem) {
+  .dads-form-control-label[data-direction="horizontal"] {
+    grid-template: "label field field" auto "support-text field field" 1fr / 1fr 1fr 1fr;
+    justify-content: start;
+    align-items: baseline;
+  }
+}
+
+.dads-form-control-label__legend {
+  display: contents;
 }
 
 .dads-form-control-label__label {
-  align-self: start;
+  grid-area: label;
+  justify-self: start;
   padding: 0;
   font-weight: bold;
 }
@@ -40,11 +55,6 @@
 
 .dads-form-control-label[data-size="lg"] .dads-form-control-label__label {
   font-size: calc(18 / 16 * 1rem);
-}
-
-legend.dads-form-control-label__label {
-  margin-bottom: calc(8 / 16 * 1rem);
-  float: none;
 }
 
 .dads-form-control-label__requirement {
@@ -76,15 +86,36 @@ legend.dads-form-control-label__label {
 }
 
 .dads-form-control-label__support-text {
+  grid-area: support-text;
   margin-top: 0;
   margin-bottom: 0;
   color: var(--color-neutral-solid-gray-600);
 }
 
+.dads-form-control-label__field .dads-form-control-label__support-text {
+  margin-bottom: calc(8 / 16 * 1rem);
+}
+
+.dads-form-control-label__field {
+  grid-area: field;
+  min-width: 0;
+}
+
 .dads-form-control-label__error-text {
-  margin-top: 0;
   margin-bottom: 0;
   color: var(--color-semantic-error-1);
   line-height: 1.3;
   letter-spacing: 0;
+}
+
+.dads-form-control-label[data-size="sm"] .dads-form-control-label__error-text {
+  margin-top: calc(4 / 16 * 1rem);
+}
+
+.dads-form-control-label[data-size="md"] .dads-form-control-label__error-text {
+  margin-top: calc(8 / 16 * 1rem);
+}
+
+.dads-form-control-label[data-size="lg"] .dads-form-control-label__error-text {
+  margin-top: calc(8 / 16 * 1rem);
 }

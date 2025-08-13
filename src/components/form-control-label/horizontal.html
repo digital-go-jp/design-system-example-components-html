@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Form Control Label</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../checkbox/checkbox.css">
+<link rel="stylesheet" href="../date-picker/date-picker.css">
+<link rel="stylesheet" href="form-control-label.css">
+<link rel="stylesheet" href="../input-text/input-text.css">
+<link rel="stylesheet" href="../radio/radio.css">
+<link rel="stylesheet" href="../select/select.css">
+<link rel="stylesheet" href="../textarea/textarea.css">
+</head>
+<body>
+
+<div style="display: grid; row-gap: 2rem">
+
+<div class="dads-form-control-label" data-size="md" data-direction="horizontal">
+  <label class="dads-form-control-label__label" for="horizontal-input">
+    ラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="horizontal-input-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <span class="dads-input-text">
+      <input id="horizontal-input" class="dads-input-text__input" type="text" data-size="md" aria-invalid="true" aria-describedby="horizontal-input-error-text horizontal-input-support-text">
+      <span id="horizontal-input-error-text" class="dads-input-text__error-text">＊エラーテキストが入ります。</span>
+    </span>
+  </div>
+</div>
+
+<div class="dads-form-control-label" data-size="md" data-direction="horizontal">
+  <label class="dads-form-control-label__label" for="horizontal-textarea">
+    ラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="horizontal-textarea-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <span class="dads-textarea">
+      <textarea id="horizontal-textarea" class="dads-textarea__textarea" aria-invalid="true" aria-describedby="horizontal-textarea-error-text horizontal-textarea-support-text"></textarea>
+      <span id="horizontal-textarea-error-text" class="dads-textarea__error-text">＊エラーテキストが入ります。</span>
+    </span>
+  </div>
+</div>
+
+<div class="dads-form-control-label" data-size="md" data-direction="horizontal">
+  <label class="dads-form-control-label__label" for="horizontal-select">
+    長いラベル長いラベル長いラベル長いラベル長いラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="horizontal-select-support-text" class="dads-form-control-label__support-text">長いサポートテキスト長いサポートテキスト長いサポートテキスト長いサポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <span class="dads-select">
+      <span class="dads-select__control">
+        <select id="horizontal-select" class="dads-select__select" data-size="md" aria-invalid="true" aria-describedby="horizontal-select-error-text horizontal-select-support-text">
+          <option value="">選択してください</option>
+          <option value="1">選択肢1</option>
+          <option value="2">選択肢2</option>
+          <option value="3">選択肢3</option>
+          <option value="4">選択肢4</option>
+        </select>
+        <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+        </svg>      </span>
+      <span id="horizontal-select-error-text" class="dads-select__error-text">＊エラーテキストが入ります。</span>
+    </span>
+  </div>
+</div>
+
+<fieldset class="dads-form-control-label" data-size="md" data-direction="horizontal" aria-describedby="horizontal-checkbox-error-text horizontal-checkbox-support-text">
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
+  </legend>
+  <p id="horizontal-checkbox-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <label class="dads-checkbox" data-size="md">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">選択肢1</span>
+    </label>
+    <label class="dads-checkbox" data-size="md">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">選択肢2</span>
+    </label>
+    <label class="dads-checkbox" data-size="md">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">選択肢3</span>
+    </label>
+    <label class="dads-checkbox" data-size="md">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+      </span>
+      <span class="dads-checkbox__label">選択肢4</span>
+    </label>
+    <p id="horizontal-checkbox-error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
+  </div>
+</fieldset>
+
+<fieldset class="dads-form-control-label" data-size="md" data-direction="horizontal" aria-describedby="horizontal-radio-error-text horizontal-radio-support-text">
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
+  </legend>
+  <p id="horizontal-radio-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <label class="dads-radio" data-size="md">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="horizontal-radio" aria-invalid="true">
+      </span>
+      <span class="dads-radio__label">選択肢1</span>
+    </label>
+    <label class="dads-radio" data-size="md">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="horizontal-radio" aria-invalid="true">
+      </span>
+      <span class="dads-radio__label">選択肢2</span>
+    </label>
+    <label class="dads-radio" data-size="md">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="horizontal-radio" aria-invalid="true">
+      </span>
+      <span class="dads-radio__label">選択肢3</span>
+    </label>
+    <label class="dads-radio" data-size="md">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="horizontal-radio" aria-invalid="true">
+      </span>
+      <span class="dads-radio__label">選択肢4</span>
+    </label>
+    <p id="horizontal-radio-error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
+  </div>
+</fieldset>
+
+<fieldset class="dads-form-control-label" data-size="md" data-direction="horizontal" aria-describedby="horizontal-date-picker-support-text">
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
+  </legend>
+  <p id="horizontal-date-picker-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <dads-date-picker class="dads-date-picker" data-type="consolidated">
+      <div class="dads-date-picker__controls" data-size="md">
+        <div class="dads-date-picker__inputs" data-error>
+          <label class="dads-date-picker__year">
+            <span class="dads-date-picker__label">年</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-error-text" data-js-year-input>
+          </label>
+          <label class="dads-date-picker__month">
+            <span class="dads-date-picker__label">月</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-error-text" data-js-month-input>
+          </label>
+          <label class="dads-date-picker__day">
+            <span class="dads-date-picker__label">日</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-error-text" data-js-day-input>
+          </label>
+        </div>
+      </div>
+      <p id="horizontal-date-picker-error-text" class="dads-date-picker__error-text">＊エラーテキストが入ります。</p>
+    </dads-date-picker>
+  </div>
+</fieldset>
+
+<fieldset class="dads-form-control-label" data-size="md" data-direction="horizontal" aria-describedby="horizontal-date-picker-2-support-text">
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
+  </legend>
+  <p id="horizontal-date-picker-2-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div class="dads-form-control-label__field">
+    <dads-date-picker class="dads-date-picker" data-type="separated">
+      <div class="dads-date-picker__controls" data-size="md">
+        <div class="dads-date-picker__separated-inputs">
+          <label class="dads-date-picker__separated-year">
+            <span class="dads-date-picker__separated-label">年</span>
+            <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-2-error-text" data-js-year-input>
+          </label>
+          <label class="dads-date-picker__separated-month">
+            <span class="dads-date-picker__separated-label">月</span>
+            <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-2-error-text" data-js-month-input>
+          </label>
+          <label class="dads-date-picker__separated-day">
+            <span class="dads-date-picker__separated-label">日</span>
+            <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" pattern="[0-9]+" aria-invalid="true" aria-describedby="horizontal-date-picker-2-error-text" data-js-day-input>
+          </label>
+        </div>
+      </div>
+      <p id="horizontal-date-picker-2-error-text" class="dads-date-picker__error-text">＊エラーテキストが入ります。</p>
+    </dads-date-picker>
+  </div>
+</fieldset>
+
+</div>
+
+</body>
+</html>
