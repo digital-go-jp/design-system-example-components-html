@@ -27,7 +27,7 @@
 }
 
 @media (hover: hover) {
-  .dads-textarea__textarea:hover {
+  .dads-textarea__textarea:not(:read-only):hover {
     border-color: var(--color-neutral-black);
   }
 }
