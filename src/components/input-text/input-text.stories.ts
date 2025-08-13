@@ -5,6 +5,7 @@ import "./input-text.css";
 import "../form-control-label/form-control-label.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
+import readonly from "./readonly.html?raw";
 
 type InputTextSize = "sm" | "md" | "lg";
 
@@ -65,3 +66,6 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
 
 export const WithFormControlLabel = () =>
   new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();
+
+export const Readonly = () =>
+  new HtmlFragment(readonly, ".dads-form-control-label").toString();

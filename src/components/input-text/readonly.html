@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Input Text</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<link rel="stylesheet" href="input-text.css">
+</head>
+<body>
+
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="readonly-input">
+    ラベル
+    <span class="dads-form-control-label__status">編集不可</span>
+  </label>
+  <p id="readonly-support-text" class="dads-form-control-label__support-text">編集できない理由が入ります。</p>
+  <div>
+    <span class="dads-input-text">
+      <input id="readonly-input" class="dads-input-text__input" type="text" value="入力されたテキスト" readonly data-size="md" aria-describedby="readonly-support-text">
+    </span>
+  </div>
+</div>
+
+</body>
+</html>
