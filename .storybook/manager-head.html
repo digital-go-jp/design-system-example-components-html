@@ -56,16 +56,14 @@
     color: var(--color-primitive-cyan-700);
   }
 
-  /* Switchコントロール */
-  input[type="checkbox"][role="switch"]:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-  input[type="checkbox"][role="switch"]:focus-visible {
+  /* Argsテーブルのコントロール */
+  .docblock-argstable :focus:focus {
     outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black) !important;
     outline-offset: calc(2 / 16 * 1rem) !important;
     box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300) !important;
   }
+
+  /* Switchコントロール */
   input[type="checkbox"][role="switch"]:checked ~ span:nth-of-type(1) {
     color: #fff;
   }

@@ -13,13 +13,11 @@
 .color-grid {
   display: flex;
   gap: 2rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
 }
 
 .color-card {
   flex: 0 0 auto;
-  width: 175px;
+  width: 200px;
   border-radius: 8px;
   background: var(--color-neutral-white);
 }
