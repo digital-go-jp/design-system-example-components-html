@@ -5,6 +5,7 @@ import "../form-control-label/form-control-label.css";
 import "./textarea.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
+import readonly from "./readonly.html?raw";
 
 const meta = {
   title: "Components/テキストエリア",
@@ -67,3 +68,6 @@ export const WithFormControlLabel: StoryObj<{ size: string }> = {
     size: "md",
   },
 };
+
+export const Readonly = () =>
+  new HtmlFragment(readonly, ".dads-form-control-label").toString();

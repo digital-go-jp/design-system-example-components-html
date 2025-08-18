@@ -26,9 +26,6 @@
 }
 
 .dads-form-control-label__label {
-  display: flex;
-  align-items: center;
-  gap: calc(8 / 16 * 1rem);
   padding: 0;
   font-weight: bold;
 }
@@ -51,12 +48,31 @@ legend.dads-form-control-label__label {
 }
 
 .dads-form-control-label__requirement {
+  margin-left: calc(4 / 16 * 1rem);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
 }
 
 .dads-form-control-label__requirement[data-required="true"] {
   color: var(--color-semantic-error-1);
+}
+
+.dads-form-control-label__requirement::before {
+  content: " ";
+}
+
+.dads-form-control-label__status {
+  margin-left: calc(4 / 16 * 1rem);
+  display: inline-block;
+  outline: 1px solid transparent;
+  border-radius: calc(8 / 16 * 1rem);
+  background-color: var(--color-neutral-solid-gray-536);
+  padding: calc(8 / 16 * 1rem);
+  color: var(--color-neutral-white);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .dads-form-control-label__support-text {

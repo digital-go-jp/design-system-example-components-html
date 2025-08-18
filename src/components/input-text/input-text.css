@@ -39,7 +39,7 @@
 }
 
 @media (hover: hover) {
-  .dads-input-text__input:hover {
+  .dads-input-text__input:not(:read-only):hover {
     border-color: var(--color-neutral-black);
   }
 }

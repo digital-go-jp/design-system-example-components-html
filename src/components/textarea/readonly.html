@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Textarea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<link rel="stylesheet" href="textarea.css">
+</head>
+<body>
+
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="readonly-textarea">
+    ラベル
+    <span class="dads-form-control-label__status">編集不可</span>
+  </label>
+  <p id="readonly-support-text" class="dads-form-control-label__support-text">編集できない理由が入ります。</p>
+  <div>
+    <span class="dads-textarea">
+      <textarea id="readonly-textarea" class="dads-textarea__textarea" readonly aria-describedby="readonly-support-text">入力されたテキスト</textarea>
+    </span>
+  </div>
+</div>
+
+</body>
+</html>

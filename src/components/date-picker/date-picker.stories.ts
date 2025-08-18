@@ -13,6 +13,7 @@ import "../select/select.css";
 import playgroundConsolidated from "./playground-consolidated.html?raw";
 import playgroundSeparated from "./playground-separated.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
+import readonly from "./readonly.html?raw";
 
 const meta = {
   title: "Components/日付ピッカー",
@@ -248,3 +249,6 @@ export const PlaygroundSeparated: StoryObj<DatePickerPlaygroundProps> = {
 
 export const WithFormControlLabel = () =>
   new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();
+
+export const Readonly = () =>
+  new HtmlFragment(readonly, ".dads-form-control-label").toString();
