@@ -34,6 +34,7 @@ interface DatePickerPlaygroundProps {
   day: boolean;
   calendar: boolean;
   error: boolean;
+  readonly: boolean;
   disabled: boolean;
   minDate?: string;
   maxDate?: string;
@@ -98,6 +99,14 @@ export const Playground: StoryObj<DatePickerPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      inputs.setAttribute("data-readonly", "");
+      yearInput.setAttribute("readonly", "");
+      monthInput.setAttribute("readonly", "");
+      dayInput.setAttribute("readonly", "");
+      calendarButton.setAttribute("disabled", "");
+    }
+
     if (args.disabled) {
       inputs.setAttribute("data-disabled", "");
       yearInput.setAttribute("disabled", "");
@@ -127,6 +136,7 @@ export const Playground: StoryObj<DatePickerPlaygroundProps> = {
     day: { control: "boolean" },
     calendar: { control: "boolean" },
     error: { control: "boolean" },
+    readonly: { control: "boolean" },
     disabled: { control: "boolean" },
     minDate: { control: "date" },
     maxDate: { control: "date" },
@@ -137,6 +147,7 @@ export const Playground: StoryObj<DatePickerPlaygroundProps> = {
     day: true,
     calendar: false,
     error: false,
+    readonly: false,
     disabled: false,
   },
   parameters: {
@@ -207,6 +218,14 @@ export const PlaygroundSeparated: StoryObj<DatePickerPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      inputs.setAttribute("data-readonly", "");
+      yearInput.setAttribute("readonly", "");
+      monthInput.setAttribute("readonly", "");
+      dayInput.setAttribute("readonly", "");
+      calendarButton.setAttribute("disabled", "");
+    }
+
     if (args.disabled) {
       inputs.setAttribute("data-disabled", "");
       yearInput.setAttribute("disabled", "");
@@ -226,6 +245,7 @@ export const PlaygroundSeparated: StoryObj<DatePickerPlaygroundProps> = {
     day: { control: "boolean" },
     calendar: { control: "boolean" },
     error: { control: "boolean" },
+    readonly: { control: "boolean" },
     disabled: { control: "boolean" },
     minDate: { control: "date" },
     maxDate: { control: "date" },
@@ -236,6 +256,7 @@ export const PlaygroundSeparated: StoryObj<DatePickerPlaygroundProps> = {
     day: true,
     calendar: false,
     error: false,
+    readonly: false,
     disabled: false,
   },
   parameters: {
