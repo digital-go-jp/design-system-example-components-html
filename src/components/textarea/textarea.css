@@ -20,6 +20,10 @@
   resize: vertical;
 }
 
+.dads-textarea__textarea:read-only:not(:disabled) {
+  border-style: dashed;
+}
+
 .dads-textarea__textarea:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);

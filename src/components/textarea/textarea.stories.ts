@@ -15,6 +15,7 @@ export default meta;
 
 interface TextareaPlaygroundProps {
   error: boolean;
+  readonly: boolean;
   disabled: boolean;
 }
 
@@ -34,6 +35,10 @@ export const Playground: StoryObj<TextareaPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      textareaTextarea.setAttribute("readonly", "");
+    }
+
     if (args.disabled) {
       textareaTextarea.setAttribute("disabled", "");
     }
@@ -42,6 +47,7 @@ export const Playground: StoryObj<TextareaPlaygroundProps> = {
   },
   args: {
     error: false,
+    readonly: false,
     disabled: false,
   },
 };

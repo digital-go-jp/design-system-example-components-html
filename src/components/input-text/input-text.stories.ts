@@ -18,6 +18,7 @@ export default meta;
 interface InputTextPlaygroundProps {
   size: InputTextSize;
   errored: boolean;
+  readonly: boolean;
   disabled: boolean;
   value?: string;
 }
@@ -40,6 +41,10 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      input.setAttribute("readonly", "");
+    }
+
     if (args.disabled) {
       input.setAttribute("disabled", "");
     }
@@ -59,6 +64,7 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
   args: {
     size: "sm",
     errored: false,
+    readonly: false,
     disabled: false,
     value: "",
   },
