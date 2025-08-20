@@ -63,6 +63,11 @@
   color: var(--color-neutral-solid-gray-420);
 }
 
+.dads-date-picker__inputs[data-readonly] {
+  border-style: dashed;
+  border-color: var(--color-neutral-solid-gray-600);
+}
+
 @media (forced-colors: active) {
   .dads-date-picker__inputs:focus-within {
     border-color: Highlight;
@@ -78,6 +83,10 @@
     --_background-color: ButtonFace;
     border-color: GrayText;
     color: GrayText;
+  }
+
+  .dads-date-picker__inputs[data-readonly] {
+    border-color: currentcolor;
   }
 }
 
@@ -196,12 +205,16 @@
   letter-spacing: inherit;
 }
 
+.dads-date-picker__separated-input:read-only:not(:disabled) {
+  border-style: dashed;
+}
+
 .dads-date-picker__separated-input[aria-invalid="true"] {
   border-color: var(--color-semantic-error-1);
 }
 
 @media (hover: hover) {
-  .dads-date-picker__separated-input:hover {
+  .dads-date-picker__separated-input:not(:read-only):hover {
     border-color: var(--color-neutral-solid-gray-900);
   }
 

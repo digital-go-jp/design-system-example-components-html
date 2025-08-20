@@ -32,6 +32,10 @@
   height: 3.5rem;
 }
 
+.dads-input-text__input:read-only:not(:disabled) {
+  border-style: dashed;
+}
+
 .dads-input-text__input:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
@@ -39,7 +43,7 @@
 }
 
 @media (hover: hover) {
-  .dads-input-text__input:hover {
+  .dads-input-text__input:not(:read-only):hover {
     border-color: var(--color-neutral-black);
   }
 }

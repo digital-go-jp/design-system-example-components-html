@@ -5,6 +5,7 @@ import "./input-text.css";
 import "../form-control-label/form-control-label.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
+import readonly from "./readonly.html?raw";
 
 type InputTextSize = "sm" | "md" | "lg";
 
@@ -17,6 +18,7 @@ export default meta;
 interface InputTextPlaygroundProps {
   size: InputTextSize;
   errored: boolean;
+  readonly: boolean;
   disabled: boolean;
   value?: string;
 }
@@ -39,6 +41,10 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      input.setAttribute("readonly", "");
+    }
+
     if (args.disabled) {
       input.setAttribute("disabled", "");
     }
@@ -58,6 +64,7 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
   args: {
     size: "sm",
     errored: false,
+    readonly: false,
     disabled: false,
     value: "",
   },
@@ -65,3 +72,6 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
 
 export const WithFormControlLabel = () =>
   new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();
+
+export const Readonly = () =>
+  new HtmlFragment(readonly, ".dads-form-control-label").toString();

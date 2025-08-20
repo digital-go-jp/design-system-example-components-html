@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Date Picker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="date-picker.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<script type="module" src="date-picker.js"></script>
+</head>
+<body>
+
+<fieldset class="dads-form-control-label" data-size="md" aria-describedby="readonly-support-text">
+  <legend class="dads-form-control-label__label">
+    生年月日
+    <span class="dads-form-control-label__status">編集不可</span>
+  </legend>
+  <p id="readonly-support-text" class="dads-form-control-label__support-text">編集できない理由が入ります。</p>
+  <div>
+    <dads-date-picker class="dads-date-picker" data-type="consolidated">
+      <div class="dads-date-picker__controls" data-size="md">
+        <div class="dads-date-picker__inputs" data-readonly>
+          <label class="dads-date-picker__year">
+            <span class="dads-date-picker__label">年</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" value="2021" readonly data-js-year-input>
+          </label>
+          <label class="dads-date-picker__month">
+            <span class="dads-date-picker__label">月</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" value="09" readonly data-js-month-input>
+          </label>
+          <label class="dads-date-picker__day">
+            <span class="dads-date-picker__label">日</span>
+            <input class="dads-date-picker__input" type="text" inputmode="numeric" pattern="[0-9]+" value="01" readonly data-js-day-input>
+          </label>
+        </div>
+      </div>
+    </dads-date-picker>
+  </div>
+</fieldset>
+
+</body>
+</html>

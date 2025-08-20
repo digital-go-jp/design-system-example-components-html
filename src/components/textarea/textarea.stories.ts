@@ -5,6 +5,7 @@ import "../form-control-label/form-control-label.css";
 import "./textarea.css";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
+import readonly from "./readonly.html?raw";
 
 const meta = {
   title: "Components/テキストエリア",
@@ -14,6 +15,7 @@ export default meta;
 
 interface TextareaPlaygroundProps {
   error: boolean;
+  readonly: boolean;
   disabled: boolean;
 }
 
@@ -33,6 +35,10 @@ export const Playground: StoryObj<TextareaPlaygroundProps> = {
       errorText.remove();
     }
 
+    if (args.readonly) {
+      textareaTextarea.setAttribute("readonly", "");
+    }
+
     if (args.disabled) {
       textareaTextarea.setAttribute("disabled", "");
     }
@@ -41,6 +47,7 @@ export const Playground: StoryObj<TextareaPlaygroundProps> = {
   },
   args: {
     error: false,
+    readonly: false,
     disabled: false,
   },
 };
@@ -67,3 +74,6 @@ export const WithFormControlLabel: StoryObj<{ size: string }> = {
     size: "md",
   },
 };
+
+export const Readonly = () =>
+  new HtmlFragment(readonly, ".dads-form-control-label").toString();
