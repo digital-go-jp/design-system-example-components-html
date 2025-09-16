@@ -1,0 +1,182 @@
+.dads-heading {
+  color: var(--color-neutral-solid-gray-800);
+  font-family: var(--font-family-sans);
+}
+
+.dads-heading[data-size="64"] {
+  --_shoulder-size: calc(28 / 16 * 1rem);
+  --_shoulder-line-height: 1.5;
+  --_shoulder-letter-spacing: 0.01em;
+  font-weight: bold;
+  font-size: calc(64 / 16 * 1rem);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.dads-heading[data-size="57"] {
+  --_shoulder-size: calc(24 / 16 * 1rem);
+  --_shoulder-line-height: 1.5;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(57 / 16 * 1rem);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.dads-heading[data-size="45"] {
+  --_shoulder-size: calc(22 / 16 * 1rem);
+  --_shoulder-line-height: 1.5;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(45 / 16 * 1rem);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.dads-heading[data-size="36"] {
+  --_shoulder-size: calc(20 / 16 * 1rem);
+  --_shoulder-line-height: 1.5;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(36 / 16 * 1rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.dads-heading[data-size="32"] {
+  --_shoulder-size: calc(18 / 16 * 1rem);
+  --_shoulder-line-height: 1.6;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(32 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.dads-heading[data-size="28"] {
+  --_shoulder-size: calc(16 / 16 * 1rem);
+  --_shoulder-line-height: 1.7;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(28 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.dads-heading[data-size="24"] {
+  --_shoulder-size: calc(16 / 16 * 1rem);
+  --_shoulder-line-height: 1.7;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(24 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.dads-heading[data-size="20"] {
+  --_shoulder-size: calc(16 / 16 * 1rem);
+  --_shoulder-line-height: 1.7;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(20 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.dads-heading[data-size="18"] {
+  --_shoulder-size: calc(16 / 16 * 1rem);
+  --_shoulder-line-height: 1.7;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(18 / 16 * 1rem);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.dads-heading[data-size="16"] {
+  --_shoulder-size: calc(16 / 16 * 1rem);
+  --_shoulder-line-height: 1.7;
+  --_shoulder-letter-spacing: 0.02em;
+  font-weight: bold;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.dads-heading[data-chip] {
+  position: relative;
+  padding-left: calc(1em / 3 + 0.5em);
+}
+
+.dads-heading[data-chip]::before {
+  position: absolute;
+  top: 0.2em;
+  bottom: 0.1em;
+  left: 0;
+  width: calc(1em / 3);
+  background-color: var(--color-primitive-blue-900);
+  content: "";
+}
+
+@supports (top: 1lh) {
+  .dads-heading[data-chip]::before {
+    top: calc(0.5lh - 0.45em);
+    bottom: calc(0.5lh - 0.55em);
+  }
+}
+
+.dads-heading[data-chip]:has(.dads-heading__shoulder)::before {
+  top: calc((var(--_shoulder-size) * (var(--_shoulder-line-height) - 1)) / 2);
+}
+
+.dads-heading[data-rule] {
+  border-bottom: solid var(--color-primitive-blue-900);
+}
+
+.dads-heading[data-rule="8"] {
+  border-bottom-width: calc(8 / 16 * 1rem);
+  padding-bottom: calc(32 / 16 * 1rem);
+}
+
+.dads-heading[data-rule="6"] {
+  border-bottom-width: calc(6 / 16 * 1rem);
+  padding-bottom: calc(24 / 16 * 1rem);
+}
+
+.dads-heading[data-rule="4"] {
+  border-bottom-width: calc(4 / 16 * 1rem);
+  padding-bottom: calc(16 / 16 * 1rem);
+}
+
+.dads-heading[data-rule="2"] {
+  border-bottom-width: calc(2 / 16 * 1rem);
+  padding-bottom: calc(8 / 16 * 1rem);
+}
+
+.dads-heading__shoulder {
+  margin: 0;
+  font-weight: bold;
+  font-size: var(--_shoulder-size);
+  line-height: var(--_shoulder-line-height);
+  letter-spacing: var(--_shoulder-letter-spacing);
+}
+
+.dads-heading__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.dads-heading__icon {
+  margin-right: calc(0.4em - 0.25em);
+}
+
+.dads-heading__icon::after {
+  content: " ";
+}
+
+.dads-heading__icon-svg {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.25em;
+}
