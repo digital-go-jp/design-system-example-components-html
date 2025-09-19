@@ -1,0 +1,23 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as HeadingStories from "./heading.stories";
+import headingCss from "./heading.css?raw";
+
+<Meta of={HeadingStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={headingCss} language="css" />
+
+</div>
+</Unstyled>
