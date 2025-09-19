@@ -129,6 +129,12 @@
   top: calc((var(--_shoulder-size) * (var(--_shoulder-line-height) - 1)) / 2);
 }
 
+@media (forced-colors: active) {
+  .dads-heading[data-chip]::before {
+    background-color: CanvasText;
+  }
+}
+
 .dads-heading[data-rule] {
   border-bottom: solid var(--color-primitive-blue-900);
 }
