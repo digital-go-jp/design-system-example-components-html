@@ -39,7 +39,9 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: copy files to s3 bucket
         run: |
-          aws s3 sync --delete storybook-static s3://${{ secrets.STG_BUCKET_NAME }}/dads/html/
+          aws s3 sync --delete \
+            --exclude "pr-*" \
+            storybook-static s3://${{ secrets.STG_BUCKET_NAME }}/dads/html/
       - name: invalidate cache
         run: |
           aws cloudfront create-invalidation --distribution-id ${{ secrets.STG_CF_DIST_ID }} --paths "/dads/html/*"
