@@ -1,0 +1,181 @@
+name: Deploy Storybook to PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches:
+      - develop
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to deploy (for testing)'
+        required: true
+        type: string
+
+env:
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  check-preview:
+    name: Check Preview Deployment
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
+      pr_number: ${{ steps.check.outputs.pr_number }}
+
+    steps:
+      - name: Check if preview should be deployed
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.action }}" = "labeled" ]; then
+            # ラベルが追加された場合、そのラベルが「preview」かつPRが開いている状態かチェック
+            if [ "${{ github.event.label.name }}" = "preview" ] && [ "${{ github.event.pull_request.state }}" = "open" ]; then
+              echo "should_deploy=true" >> $GITHUB_OUTPUT
+              echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+              echo "Preview label added to PR #${{ github.event.pull_request.number }}"
+            else
+              echo "should_deploy=false" >> $GITHUB_OUTPUT
+              echo "Skipping deployment: label is not 'preview' or PR is closed"
+            fi
+          else
+            # synchronize, reopened, opened の場合、既存のラベルに「preview」があるかチェック
+            LABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
+            if echo "$LABELS" | grep -q '"preview"'; then
+              echo "should_deploy=true" >> $GITHUB_OUTPUT
+              echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+              echo "PR #${{ github.event.pull_request.number }} has preview label, proceeding with deployment"
+            else
+              echo "should_deploy=false" >> $GITHUB_OUTPUT
+              echo "PR #${{ github.event.pull_request.number }} does not have preview label, skipping deployment"
+            fi
+          fi
+
+  deploy-preview:
+    name: Deploy PR Preview
+    runs-on: ubuntu-latest
+    needs: check-preview
+    if: needs.check-preview.outputs.should_deploy == 'true'
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+
+    env:
+      PR_NUMBER: ${{ needs.check-preview.outputs.pr_number }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: |
+          npm run build-storybook
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.STG_ROLE_TO_ASSUME }}
+          role-session-name: GitHubActions-PR-${{ env.PR_NUMBER }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          # PR番号ごとのディレクトリにデプロイ
+          aws s3 sync --delete \
+            storybook-static s3://${{ secrets.STG_BUCKET_NAME }}/dads/html/pr-${{ env.PR_NUMBER }}/
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.STG_CF_DIST_ID }} \
+            --paths "/dads/html/pr-${{ env.PR_NUMBER }}/*"
+
+      - name: Get CloudFront Domain
+        id: get_domain
+        run: |
+          DOMAIN=$(aws cloudfront get-distribution \
+            --id ${{ secrets.STG_CF_DIST_ID }} \
+            --query 'Distribution.DomainName' \
+            --output text)
+          echo "domain=$DOMAIN" >> $GITHUB_OUTPUT
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = ${{ env.PR_NUMBER }};
+            const domain = '${{ steps.get_domain.outputs.domain }}';
+            const previewUrl = `https://${domain}/dads/html/pr-${prNumber}/`;
+
+            // 既存のコメントを検索
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo,
+              issue_number: prNumber,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('🚀 Preview Environment')
+            );
+
+            const commentBody = [
+              '## 🚀 Preview Environment',
+              '',
+              'Your PR preview is ready!',
+              '',
+              `🔗 **Preview URL**: ${previewUrl}`,
+              '',
+              '---',
+              '',
+              '| Status | Details |',
+              '|--------|---------|',
+              '| ✅ Build | Successfully completed |',
+              `| 📦 Deployed | \`pr-${prNumber}/\` |`,
+              `| 🕐 Last Updated | ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} JST |`,
+              '',
+              '> Note: This preview environment will remain available until manually cleaned up.'
+            ].join('\n');
+
+            if (botComment) {
+              // 既存コメントを更新
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              // 新規コメントを作成
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            }
+
+      - name: Output summary for manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          DOMAIN="${{ steps.get_domain.outputs.domain }}"
+          echo "## 🚀 Preview Environment Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Preview URL**: https://$DOMAIN/dads/html/pr-${{ env.PR_NUMBER }}/" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Build | Successfully completed |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 Deployed | \`pr-${{ env.PR_NUMBER }}/\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🕐 Deployed At | $(date '+%Y-%m-%d %H:%M:%S') JST |" >> $GITHUB_STEP_SUMMARY
