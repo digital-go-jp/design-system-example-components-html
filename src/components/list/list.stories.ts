@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
+import "../link/link.css";
 import "./list.css";
 import allLists from "./all-lists.html?raw";
 
 const meta = {
-  title: "Components/リスト",
+  title: "Components/箇条書きリスト",
 } satisfies Meta;
 
 export default meta;
