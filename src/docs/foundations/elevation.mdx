@@ -25,7 +25,7 @@ export const elevationData = generateElevationData(tokens.Elevation);
 <div className="elevation-grid">
   {elevationData.map((elevation, index) => (
     <div key={index} className="elevation-card">
-      <div className="elevation-label">{elevation.name}</div>
+      <h2 className="elevation-label">{elevation.name}</h2>
       <div 
         className="elevation-preview" 
         style={{ boxShadow: elevation.cssVar }}
