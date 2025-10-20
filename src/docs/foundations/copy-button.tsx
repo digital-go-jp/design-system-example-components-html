@@ -5,9 +5,14 @@ import "../../components/button/button.css";
 interface CopyButtonProps {
   text: string;
   label: string;
+  ariaDescribedby?: string;
 }
 
-export const CopyButton: React.FC<CopyButtonProps> = ({ text, label }) => {
+export const CopyButton: React.FC<CopyButtonProps> = ({
+  text,
+  label,
+  ariaDescribedby,
+}) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text);
@@ -24,6 +29,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ text, label }) => {
       data-size="xs"
       data-type="text"
       onClick={handleCopy}
+      aria-describedby={ariaDescribedby}
     >
       {label}
     </button>

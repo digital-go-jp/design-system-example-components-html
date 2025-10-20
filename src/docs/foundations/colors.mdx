@@ -116,22 +116,22 @@ export const colorData = processColorTokens(tokens.Color);
     <h2>{category.title}</h2>
     {Object.entries(category.groups).map(([groupKey, group]) => (
       <div key={groupKey} className="color-group">
-        <h3>{group.name}</h3>
+        <h3 id={`group-${groupKey}-name`}>{group.name}</h3>
         <dads-scroll-shadow style={{"--scroll-shadow-padding": "calc(16 / 16 * 1rem)"}}>
           <div className="color-grid">
             {group.colors.map((color, index) => (
               <div key={index} className="color-card">
                 <div className="color-info">
-                  <h4 className="color-level">{color.level}</h4>
+                  <h4 id={`color-${color.level}-name`} className="color-level">{color.level}</h4>
                 </div>
                 <div 
                   className="color-chip" 
                   style={{ backgroundColor: `var(${color.cssVar})` }}
                 />
                 <pre className="color-css"><code>var({color.cssVar})</code></pre>
-                <CopyButton text={`var(${color.cssVar})`} label="CSS変数をコピー" />
+                <CopyButton text={`var(${color.cssVar})`} label="CSS変数をコピー" ariaDescribedby={`group-${groupKey}-name color-${color.level}-name`} />
                 <pre className="color-css"><code>{color.hex}</code></pre>
-                <CopyButton text={color.hex} label="色コードをコピー" />
+                <CopyButton text={color.hex} label="色コードをコピー" ariaDescribedby={`group-${groupKey}-name color-${color.level}-name`} />
               </div>
             ))}
           </div>
