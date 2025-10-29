@@ -110,7 +110,9 @@
 }
 
 .elevation-label {
+  font-size: 1rem;
   font-weight: bold;
+  margin-top: 0;
   margin-bottom: 0.5rem;
   color: var(--color-neutral-solid-gray-700);
 }

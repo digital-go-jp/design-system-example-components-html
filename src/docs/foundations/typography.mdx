@@ -105,13 +105,14 @@ export const typographyData = generateTypographyData(tokens);
     {typographyData.map((typography) => (
       <tr key={typography.className}>
         <td className={`typography-preview ${typography.className}`}>
-          {typography.name}のサンプルテキスト
+          <span id={`typography-${typography.name}-name`}>{typography.name}</span>のサンプルテキスト
         </td>
         <td>
           <pre className="typography-class"><code>{typography.className}</code></pre>
           <CopyButton 
             text={typography.className}
             label="クラス名をコピー"
+            ariaDescribedby={`typography-${typography.name}-name`}
           />
         </td>
         <td>
@@ -119,6 +120,7 @@ export const typographyData = generateTypographyData(tokens);
           <CopyButton 
             text={formatCSSStyles(typography.styles)}
             label="CSSスタイルをコピー"
+            ariaDescribedby={`typography-${typography.name}-name`}
           />
         </td>
       </tr>

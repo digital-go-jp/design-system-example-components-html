@@ -2,8 +2,7 @@ import { create } from "storybook/theming";
 
 export default create({
   base: "light",
-  brandTitle: "デジタル庁デザインシステム",
-  brandImage: "logo.svg",
+  brandTitle: "デジタル庁デザインシステム　コードスニペット（HTML版）",
   brandTarget: "_self",
 
   fontBase: "var(--font-family-sans), sans-serif",

@@ -7,6 +7,7 @@ import "./foundations.css";
 
 export const generateElevationData = (elevationTokens) => {
   return Object.entries(elevationTokens).map(([level, token]) => ({
+    level: level,
     name: `Style ${level}`,
     cssVar: `var(--elevation-${level})`,
     value: token.$value
@@ -25,7 +26,7 @@ export const elevationData = generateElevationData(tokens.Elevation);
 <div className="elevation-grid">
   {elevationData.map((elevation, index) => (
     <div key={index} className="elevation-card">
-      <div className="elevation-label">{elevation.name}</div>
+      <h2 id={`elevation-${elevation.level}-name`} className="elevation-label">{elevation.name}</h2>
       <div 
         className="elevation-preview" 
         style={{ boxShadow: elevation.cssVar }}
@@ -36,11 +37,13 @@ export const elevationData = generateElevationData(tokens.Elevation);
       <CopyButton 
         text={elevation.cssVar}
         label="CSS変数をコピー"
+        ariaDescribedby={`elevation-${elevation.level}-name`}
       />
       <pre className="elevation-css"><code>{elevation.value}</code></pre>
       <CopyButton 
         text={`box-shadow: ${elevation.value};`}
         label="CSSスタイルをコピー"
+        ariaDescribedby={`elevation-${elevation.level}-name`}
       />
     </div>
   ))}
