@@ -86,7 +86,7 @@
 }
 
 .dads-disclosure__back-link:active {
-  color: var(--color-primitive-orange-700);
+  color: var(--color-primitive-orange-800);
   text-decoration-thickness: calc(1 / 16 * 1rem);
 }
 
