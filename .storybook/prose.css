@@ -341,6 +341,20 @@
   margin-bottom: calc(16 / 16 * 1rem);
 }
 
+/* Border image */
+
+.prose > .border-image {
+  margin-top: calc(24 / 16 * 1rem);
+  margin-bottom: calc(24 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(1 / 16 * 1rem) var(--color-neutral-solid-gray-420);
+}
+
+.prose > .border-image > img {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
 /* Print styles */
 
 @media print {
