@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step Navigation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="./step-navigation.css">
+</head>
+<body>
+
+<div class="dads-step-navigation" data-orientation="horizontal" data-size="normal" style="--_step-min-width: 200">
+  <p class="dads-u-visually-hidden">全3ステップ中、1ステップ目まで到達済み</p>
+  <ul>
+    <li class="dads-step-navigation__step">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">1</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-state="reached">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">1</span>
+        <span class="dads-step-navigation__title">ステップタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-state="completed">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">
+          1
+          <span class="dads-step-navigation__state-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#666"/>
+              <path d="M10 17.5 19.8 8l-1.5-1.5-8.1 8-4.1-4L4.5 12l5.6 5.5Z" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="dads-u-visually-hidden">完了</span>
+        </span>
+        <span class="dads-step-navigation__title">ステップタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-state="editing">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">
+          1
+          <span class="dads-step-navigation__state-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5.8 20c-.5 0-1-.2-1.3-.5-.3-.4-.5-.8-.5-1.3V5.6c0-.5.2-.9.5-1.3.4-.3.8-.5 1.3-.5h8L12 5.6H5.8v12.6h12.6V12l1.8-1.8v8c0 .5-.2 1-.5 1.3-.4.3-.8.5-1.3.5H5.8Zm3.6-5.4v-3.8l8.3-8.3a1.8 1.8 0 0 1 2.5 0l1.3 1.3.4.6a1.7 1.7 0 0 1 0 1.3c-.1.3-.2.5-.4.6l-8.3 8.3H9.4Zm1.8-1.8h1.3l5.2-5.2L17 7l-.7-.7-5.2 5.2v1.3Z" fill="#333"/>
+            </svg>
+          </span>
+          <span class="dads-step-navigation__state-label">編集中</span>
+        </span>
+        <span class="dads-step-navigation__title">ステップタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-state="error">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">
+          1
+          <span class="dads-step-navigation__state-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M1 21 12 2l11 19H1Zm3.5-2h15L12 6 4.5 19Zm7.5-1c.3 0 .5-.1.7-.3.2-.2.3-.4.3-.7a1 1 0 0 0-.3-.7 1 1 0 0 0-.7-.3 1 1 0 0 0-.7.3 1 1 0 0 0-.3.7c0 .3.1.5.3.7.2.2.4.3.7.3Zm-1-3h2v-5h-2v5Z" fill="#ec0000"/>
+            </svg>
+          </span>
+          <span class="dads-step-navigation__state-label">エラー</span>
+        </span>
+        <span class="dads-step-navigation__title">ステップタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-state="skipped">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">
+          1
+          <span class="dads-u-visually-hidden">スキップされました</span>
+        </span>
+        <span class="dads-step-navigation__title">ステップタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

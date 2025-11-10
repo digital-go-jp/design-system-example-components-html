@@ -1,0 +1,32 @@
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as StepNavigationStories from "./step-navigation.stories";
+import stepNavigationCss from "./step-navigation.css?raw";
+
+<Meta of={StepNavigationStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+## Playground (Single)
+
+<Canvas of={StepNavigationStories.PlaygroundSingle} meta={StepNavigationStories} />
+<Controls of={StepNavigationStories.PlaygroundSingle} meta={StepNavigationStories} />
+
+## Playground (Full)
+
+<Canvas of={StepNavigationStories.PlaygroundFull} meta={StepNavigationStories} />
+<Controls of={StepNavigationStories.PlaygroundFull} meta={StepNavigationStories} />
+
+## CSS
+
+### step-navigation.css
+
+<Source code={stepNavigationCss} language="css" />
+
+</div>
+</Unstyled>
