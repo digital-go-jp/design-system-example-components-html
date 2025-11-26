@@ -1,0 +1,23 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as BlockquoteStories from "./blockquote.stories";
+import blockquoteCss from "./blockquote.css?raw";
+
+<Meta of={BlockquoteStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={blockquoteCss} language="css" />
+
+</div>
+</Unstyled>
