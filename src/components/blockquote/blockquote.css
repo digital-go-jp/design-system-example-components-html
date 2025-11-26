@@ -1,0 +1,16 @@
+.dads-blockquote {
+  margin: 0 calc(40 / 16 * 1rem);
+  border-left: 8px solid var(--color-neutral-solid-gray-536);
+  padding-top: calc(8 / 16 * 1rem);
+  padding-right: calc(16 / 16 * 1rem);
+  padding-bottom: calc(8 / 16 * 1rem);
+  padding-left: calc(24 / 16 * 1rem);
+}
+
+.dads-blockquote > *:first-child {
+  margin-top: 0 !important;
+}
+
+.dads-blockquote > *:last-child {
+  margin-bottom: 0 !important;
+}
