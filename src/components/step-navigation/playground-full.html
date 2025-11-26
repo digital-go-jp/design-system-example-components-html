@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step Navigation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="./step-navigation.css">
+<style>
+  body > * + * {
+    margin-top: 6rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="dads-step-navigation" data-orientation="horizontal" data-size="normal">
+  <p class="dads-u-visually-hidden">全{total}ステップ中、{reached}ステップ目まで到達済み</p>
+  <ul>
+    <li class="dads-step-navigation__step">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">1</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+  </ul>
+</div>
+
+<script type="module">
+  const horizontal = document.querySelector('.dads-step-navigation');
+
+  const small = horizontal.cloneNode(true);
+  small.setAttribute('data-size', 'small');
+  document.body.appendChild(small);
+
+  const vertical = horizontal.cloneNode(true);
+  vertical.setAttribute('data-orientation', 'vertical');
+  document.body.appendChild(vertical);
+
+  const verticalSmall = horizontal.cloneNode(true);
+  verticalSmall.setAttribute('data-orientation', 'vertical');
+  verticalSmall.setAttribute('data-size', 'small');
+  document.body.appendChild(verticalSmall);
+</script>
+
+</body>
+</html>
