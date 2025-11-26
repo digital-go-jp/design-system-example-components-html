@@ -1,0 +1,76 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+
+import * as DescriptionListStories from "./description-list.stories";
+import descriptionListCss from "./description-list.css?raw";
+
+<Meta of={DescriptionListStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用例
+
+### 基本的な使い方
+
+```html
+<dl class="dads-description-list">
+  <div class="dads-description-list__item">
+    <dt>項目名1</dt>
+    <dd>これは項目1の説明文です。</dd>
+  </div>
+  <div class="dads-description-list__item">
+    <dt>項目名2</dt>
+    <dd>これは項目2の説明文です。</dd>
+  </div>
+</dl>
+```
+
+### ブレット付き
+
+マーカーとしてブレットを表示する場合は、`data-marker="bullet"`を指定します。
+
+```html
+<dl class="dads-description-list" data-marker="bullet">
+  <div class="dads-description-list__item">
+    <dt>項目名1</dt>
+    <dd>これは項目1の説明文です。</dd>
+  </div>
+  <div class="dads-description-list__item">
+    <dt>項目名2</dt>
+    <dd>これは項目2の説明文です。</dd>
+  </div>
+</dl>
+```
+
+### カスタムマーカー付き
+
+独自のマーカーを使用する場合は、`data-marker="custom"`を指定します。カスタムマーカーは`dt`要素の最初の`<span>`要素で指定します。
+
+```html
+<dl class="dads-description-list" data-marker="custom">
+  <div class="dads-description-list__item">
+    <dt><span>1.</span>項目名1</dt>
+    <dd>これは項目1の説明文です。</dd>
+  </div>
+  <div class="dads-description-list__item">
+    <dt><span>2.</span>項目名2</dt>
+    <dd>これは項目2の説明文です。</dd>
+  </div>
+</dl>
+```
+
+## CSS
+
+### description-list.css
+
+<Source code={descriptionListCss} language="css" />
+
+</div>
+</Unstyled>

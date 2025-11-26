@@ -1,0 +1,26 @@
+.dads-description-list {
+  margin-top: calc(16 / 16 * 1rem);
+  margin-bottom: calc(16 / 16 * 1rem);
+  display: grid;
+  gap: calc(8 / 16 * 1rem) 0;
+  overflow-wrap: anywhere;
+}
+
+.dads-description-list dt {
+  font-weight: bold;
+}
+
+.dads-description-list[data-marker="bullet"] dt {
+  margin-left: calc(32 / 16 * 1rem);
+  display: list-item;
+  list-style-type: disc;
+}
+
+.dads-description-list[data-marker="custom"] dt > span:first-child {
+  display: inline-block;
+  min-width: calc(32 / 16 * 1rem);
+}
+
+.dads-description-list dd {
+  margin-left: calc(32 / 16 * 1rem);
+}
