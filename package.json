@@ -21,7 +21,7 @@
     "@storybook/addon-docs": "^9.0.8",
     "@storybook/html-vite": "^9.0.8",
     "bootstrap": "^5.3.6",
-    "invokers-polyfill": "^0.5.5",
+    "invokers-polyfill": "^0.5.7",
     "kiso.css": "^1.2.2",
     "node-html-parser": "^7.0.1",
     "normalize.css": "^8.0.1",
