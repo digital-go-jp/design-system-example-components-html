@@ -3,7 +3,7 @@
   --_color-chip-color: var(--color-primitive-blue-900);
   display: grid;
   grid-template-columns: calc(24 / 16 * 1rem) 1fr auto;
-  grid-template-rows: min(calc(44 / 16 * 1rem), auto);
+  grid-template-rows: minmax(calc(44 / 16 * 1rem), auto);
   border: solid var(--_base-color);
   background-color: var(--color-neutral-white);
   padding-top: calc(8 / 16 * 1rem);
@@ -33,7 +33,7 @@
 @media (min-width: 48rem) {
   .dads-notification-banner {
     grid-template-columns: calc(36 / 16 * 1rem) 1fr auto;
-    grid-template-rows: min(calc(36 / 16 * 1rem), auto);
+    grid-template-rows: minmax(calc(36 / 16 * 1rem), auto);
     padding-top: calc(24 / 16 * 1rem);
     padding-right: calc(24 / 16 * 1rem);
     padding-bottom: calc(32 / 16 * 1rem);
