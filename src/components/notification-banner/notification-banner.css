@@ -3,7 +3,7 @@
   --_color-chip-color: var(--color-primitive-blue-900);
   display: grid;
   grid-template-columns: calc(24 / 16 * 1rem) 1fr auto;
-  grid-template-rows: min(calc(44 / 16 * 1rem), auto);
+  grid-template-rows: minmax(calc(36 / 16 * 1rem), auto);
   border: solid var(--_base-color);
   background-color: var(--color-neutral-white);
   padding-top: calc(8 / 16 * 1rem);
@@ -33,7 +33,6 @@
 @media (min-width: 48rem) {
   .dads-notification-banner {
     grid-template-columns: calc(36 / 16 * 1rem) 1fr auto;
-    grid-template-rows: min(calc(36 / 16 * 1rem), auto);
     padding-top: calc(24 / 16 * 1rem);
     padding-right: calc(24 / 16 * 1rem);
     padding-bottom: calc(32 / 16 * 1rem);
@@ -99,8 +98,15 @@
 }
 
 .dads-notification-banner__heading {
+  grid-column: span 2;
   margin-top: 0;
   margin-bottom: 0;
+  display: grid;
+  grid-template-columns: inherit;
+  gap: inherit;
+}
+
+.dads-notification-banner__heading-text {
   padding-top: calc(3 / 16 * 1rem);
   color: var(--color-neutral-solid-gray-900);
   font-weight: bold;
@@ -110,7 +116,7 @@
 }
 
 @media (min-width: 48rem) {
-  .dads-notification-banner__heading {
+  .dads-notification-banner__heading-text {
     padding-top: calc(2 / 16 * 1rem);
     font-size: calc(20 / 16 * 1rem);
     line-height: 1.5;
