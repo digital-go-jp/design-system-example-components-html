@@ -1,0 +1,71 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as ChipLabelStories from "./chip-label.stories";
+import chipLabelCss from "./chip-label.css?raw";
+
+<Meta of={ChipLabelStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使い方
+
+### 任意の色を使う
+
+下記のように所定のCSSカスタムプロパティを使用することで、チップラベルに任意の色を指定できます。
+
+```html
+<span class="dads-chip-label" data-style="filled-outline" style="
+  --_non-text: #854f91;
+  --_bg: #f4dff9;
+  --_text-dark: #72447d;
+">
+  <svg class="dads-chip-label__icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+  </svg>
+  ラベル
+</span>
+```
+
+上書き可能なカスタムプロパティの色は下記の通りです。
+
+<table>
+  <thead>
+    <tr>
+      <th>プロパティ</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--_non-text</code></td>
+      <td><code>outline</code>と<code>filled-outline</code>タイプの外枠、<code>fill</code>タイプの背景、アイコン</td>
+    </tr>
+    <tr>
+      <td><code>--_bg</code></td>
+      <td><code>filled-outline</code>タイプの背景</td>
+    </tr>
+    <tr>
+      <td><code>--_text</code></td>
+      <td><code>text</code>と<code>outline</code>タイプのテキスト</td>
+    </tr>
+    <tr>
+      <td><code>--_text-dark</code></td>
+      <td><code>filled-outline</code>タイプのテキスト</td>
+    </tr>
+  </tbody>
+</table>
+
+## CSS
+
+<Source code={chipLabelCss} language="css" />
+
+</div>
+</Unstyled>
