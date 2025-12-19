@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   width: max-content;
-  border: 1px red;
   color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
