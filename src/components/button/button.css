@@ -35,6 +35,7 @@
   .dads-button[data-type="solid-fill"]:hover {
     background-color: var(--button-hover-color);
     text-decoration: underline;
+    text-decoration-thickness: calc(1 / 16 * 1rem);
   }
 }
 
@@ -75,6 +76,7 @@
     background-color: var(--button-outline-hover-bg-color);
     color: var(--button-hover-color);
     text-decoration: underline;
+    text-decoration-thickness: calc(1 / 16 * 1rem);
   }
 }
 
