@@ -1,0 +1,105 @@
+.dads-card-example-1-list {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(24 / 16 * 1rem);
+  padding: 0;
+  list-style: none;
+}
+
+.dads-card-example-1-list > li {
+  display: flex;
+  min-width: 0;
+}
+
+.dads-card-example-1 {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 352px;
+  max-width: 100%;
+  font-family: var(--font-family-sans);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.dads-card-example-1:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: calc(16 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-card-example-1__image {
+  position: relative;
+  box-sizing: content-box;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--color-neutral-solid-gray-420);
+  border-radius: calc(16 / 16 * 1rem) calc(16 / 16 * 1rem) 0 0;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    ),
+    linear-gradient(
+      114deg,
+      var(--color-primitive-cyan-400) 0%,
+      var(--color-primitive-purple-500) 100%
+    );
+}
+
+.dads-card-example-1__image svg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: calc(64 / 16 * 1rem);
+  height: calc(64 / 16 * 1rem);
+  z-index: 0;
+  translate: 0 calc(-12 / 16 * 1rem);
+}
+
+.dads-card-example-1__main {
+  flex-grow: 1;
+  position: relative;
+  margin-top: calc(-24 / 16 * 1rem);
+  display: grid;
+  align-content: start;
+  row-gap: calc(16 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-420);
+  border-radius: calc(16 / 16 * 1rem);
+  background-color: var(--color-neutral-white);
+  padding: calc(16 / 16 * 1rem) calc(24 / 16 * 1rem);
+}
+
+.dads-card-example-1__main h2 {
+  margin: 0;
+  min-width: 0;
+  color: var(--color-neutral-solid-gray-900);
+  font-weight: bold;
+  font-size: calc(20 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+  text-underline-offset: calc(3 / 16 * 1rem);
+}
+
+@media (hover: hover) {
+  .dads-card-example-1:hover .dads-card-example-1__main h2 {
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-card-example-1__main p {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
