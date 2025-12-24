@@ -1,0 +1,37 @@
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as ResourceListStories from "./resource-list.stories";
+import resourceListCss from "./resource-list.css?raw";
+import checkboxCss from "../checkbox/checkbox.css?raw";
+
+<Meta of={ResourceListStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+## プレーンタイプ
+
+<Canvas of={ResourceListStories.Playground} meta={ResourceListStories} />
+<Controls of={ResourceListStories.Playground} meta={ResourceListStories} />
+
+## チェックボックス／ラジオボタン付タイプ
+
+<Canvas of={ResourceListStories.WithControl} meta={ResourceListStories} />
+<Controls of={ResourceListStories.WithControl} meta={ResourceListStories} />
+
+## 並べた例
+
+<Canvas of={ResourceListStories.MultipleItems} meta={ResourceListStories} />
+
+## CSS
+
+### resource-list.css
+
+<Source code={resourceListCss} language="css" />
+
+</div>
+</Unstyled>
