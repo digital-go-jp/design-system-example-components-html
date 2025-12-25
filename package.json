@@ -27,7 +27,7 @@
     "normalize.css": "^8.0.1",
     "reset-css": "^5.0.2",
     "storybook": "^9.0.8",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.16",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   },
