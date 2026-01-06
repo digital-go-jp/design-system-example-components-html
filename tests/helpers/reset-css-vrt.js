@@ -27,6 +27,7 @@ const applyCssAndCleanup = async (page, cssText, options) => {
         textSpacingTrim: "normal",
         lineBreak: "auto",
         overflowWrap: "normal",
+        textAutospace: "normal",
       });
 
       // CSSを挿入
