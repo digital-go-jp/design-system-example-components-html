@@ -1,0 +1,23 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as GlobalMenuStories from "./global-menu.stories";
+import globalMenuCss from "./global-menu.css?raw";
+
+<Meta of={GlobalMenuStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## CSS
+
+<Source code={globalMenuCss} language="css" />
+
+</div>
+</Unstyled>
