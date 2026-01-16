@@ -1,0 +1,129 @@
+import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as CardStories from "./card.stories";
+import CardExample1Css from "./card-example-1.css?raw";
+import CardExample2Css from "./card-example-2.css?raw";
+import CardExample3Css from "./card-example-3.css?raw";
+import CardExample4Css from "./card-example-4.css?raw";
+import CardExample5Css from "./card-example-5.css?raw";
+import CardExample6Css from "./card-example-6.css?raw";
+import buttonCss from "../button/button.css?raw";
+
+<Meta of={CardStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+## カード作例 1
+
+全体がリンクのクリッカブルエリアになっているカードです。メインエリアの角を丸くしています。
+
+- カード全体を`<a>`要素で囲んでいます。
+- イメージエリアの背景はCSSグラデーション、アイコンは`<svg aria-hidden="true">`としています。
+
+<Canvas of={CardStories.Example1} meta={CardStories} />
+<Controls of={CardStories.Example1} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-1.css</summary>
+  <Source code={CardExample1Css} language="css" />
+</details>
+
+## カード作例 2
+
+メインエリアの縦三点リーダーボタンと「詳しくみる」リンクを持つカードです。
+
+- イメージエリアはDOM上ではメインエリアの後に位置し、グリッドレイアウトにより見た目上は左に配置しています。
+- 画像に代替テキストを付与しています。
+
+<Canvas of={CardStories.Example2} meta={CardStories} />
+<Controls of={CardStories.Example2} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-2.css</summary>
+  <Source code={CardExample2Css} language="css" />
+</details>
+
+## カード作例 3
+
+リンクとお気に入りボタンを持つカードです。
+
+- 見出しがカード内の最初の要素になるように、フレックスボックスレイアウトと`order`プロパティを使用しています。
+- カードが横並びになった時にイラストの高さを揃えるために、サブグリッド（`grid-template-rows: subgrid`）を使用しています。
+- 画像に代替テキストを付与しています。
+
+<Canvas of={CardStories.Example3} meta={CardStories} />
+<Controls of={CardStories.Example3} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-3.css</summary>
+  <Source code={CardExample3Css} language="css" />
+</details>
+
+## カード作例 4
+
+縦三点リーダーボタンと、アクションボタンとして関連情報リンクと「詳しくみる」リンクを持つカードです。
+
+- 全体をグリッドレイアウトで構成しています。
+- 画像に代替テキストを付与しています。
+- アクションボタンにボタンコンポーネントを使用しています。
+
+<Canvas of={CardStories.Example4} meta={CardStories} />
+<Controls of={CardStories.Example4} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-4.css</summary>
+  <Source code={CardExample4Css} language="css" />
+</details>
+
+## カード作例 5
+
+リンクと、アクションボタンとして「共有する」ボタンと「あとで読む」ボタンを持つカードです。
+
+- 画像、日付、ラベル、タイトルを含む領域をリンクにしています。
+- 画像、日付、ラベル、タイトルを含む領域を見出しにしています。
+- 画像は補佐的な画像であるものとみなし、`alt=""`としています。
+- アクションボタンにボタンコンポーネントを使用しています。
+
+<Canvas of={CardStories.Example5} meta={CardStories} />
+<Controls of={CardStories.Example5} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-5.css</summary>
+  <Source code={CardExample5Css} language="css" />
+</details>
+
+## カード作例 6
+
+全体がフォームコントロールのクリッカブルエリアになっているカードです。
+
+- 見出しがカード内の最初の要素になるように、グリッドレイアウトを使用しています。
+- チェックボックスとタイトルを関連づけるために`<label>`要素を使用しています。
+- カード全体をクリッカブルエリアとするために、`label::before`疑似要素をカード全体に広げています。
+
+<Canvas of={CardStories.Example6} meta={CardStories} />
+<Controls of={CardStories.Example6} meta={CardStories} />
+
+### CSS
+
+<details>
+  <summary>card-example-6.css</summary>
+  <Source code={CardExample6Css} language="css" />
+</details>
+
+</div>
+</Unstyled>

@@ -1,0 +1,107 @@
+.dads-card-example-4-list {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: calc(24 / 16 * 1rem);
+  padding: 0;
+  list-style: none;
+}
+
+.dads-card-example-4-list > li {
+  min-width: 0;
+}
+
+.dads-card-example-4 {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: calc(16 / 16 * 1rem);
+  box-sizing: border-box;
+  width: 465px;
+  max-width: 100%;
+  border: 1px solid var(--color-neutral-solid-gray-420);
+  padding: calc(16 / 16 * 1rem) calc(24 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  font-family: var(--font-family-sans);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+.dads-card-example-4__heading {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(4 / 16 * 1rem);
+  min-width: 0;
+  padding-top: calc(4 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-900);
+  font-weight: bold;
+  font-size: calc(20 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.dads-card-example-4__function {
+  flex-shrink: 0;
+}
+
+.dads-card-example-4__function button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(44 / 16 * 1rem);
+  height: calc(44 / 16 * 1rem);
+  border: 1px solid transparent;
+  border-radius: calc(6 / 16 * 1rem);
+  background-color: var(--color-neutral-white);
+  padding: 0;
+  color: var(--color-neutral-solid-gray-800);
+}
+
+@media (hover: hover) {
+  .dads-card-example-4__function button:hover {
+    border-color: var(--color-neutral-black);
+    background-color: var(--color-neutral-solid-gray-50);
+  }
+}
+
+.dads-card-example-4__function button:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-card-example-4__contents {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.dads-card-example-4__contents img {
+  display: block;
+}
+
+.dads-card-example-4__actions {
+  grid-column: 1 / -1;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(16 / 16 * 1rem);
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dads-card-example-4 .dads-button {
+  border-radius: 0;
+}
+
+.dads-card-example-4 .dads-button:focus-visible {
+  border-radius: calc(4 / 16 * 1rem);
+}
