@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>File Upload</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="../checkbox/checkbox.css">
+<link rel="stylesheet" href="../file-upload/file-upload.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<script type="module" src="../file-upload/file-upload.js"></script>
+</head>
+<body>
+
+<div class="dads-form-control-label" data-size="md">
+  <label id="file-upload-1-label" class="dads-form-control-label__label" for="file-upload-1-input">
+    参照する画像・ドキュメント
+    <span class="dads-form-control-label__requirement" data-required="false">※任意</span>
+  </label>
+  <p id="file-upload-1-support-text" class="dads-form-control-label__support-text">
+    対応ファイル：PNG/JPEG/GIF形式の画像、Excel/Word/PowerPoint/PDF形式のドキュメント<br>
+    5ファイルまで選択可能。1ファイルあたり5MB（5,242,880バイト）まで、合計10MB（10,485,760バイト）まで
+  </p>
+  <div>
+    <dads-file-upload
+      class="dads-file-upload"
+      max-files="5"
+      max-total-size="10MB"
+      max-file-size="5MB"
+      data-error-invalid-type="PNG/JPEG/GIF形式の画像、Excel/Word/PowerPoint/PDF形式のドキュメントだけが選択できます。"
+    >
+      <input
+        id="file-upload-1-input"
+        class="dads-file-upload__input"
+        type="file"
+        name="file-upload-1"
+        multiple
+        accept=".png,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt,.pdf"
+        data-js-input
+      >
+
+      <div class="dads-u-visually-hidden" aria-live="polite" data-js-announcer></div>
+      <div class="dads-u-visually-hidden" aria-live="assertive" data-js-announcer-assertive></div>
+
+      <div class="dads-file-upload__inner">
+        <div class="dads-file-upload__drop-area" data-js-drop-area>
+          <div class="dads-file-upload__button-area">
+            <button
+              id="file-upload-1-button"
+              class="dads-button"
+              data-type="outline"
+              data-size="md"
+              type="button"
+              aria-labelledby="file-upload-1-label file-upload-1-button"
+              aria-describedby="file-upload-1-selected-files file-upload-1-error-messages file-upload-1-support-text"
+              data-js-select-button
+            >
+              ファイルを選択
+            </button>
+            <p>または、このエリア内にドラッグ＆ドロップ</p>
+          </div>
+          <p id="file-upload-1-selected-files" class="dads-file-upload__select-summary" data-js-select-summary></p>
+          <ul id="file-upload-1-error-messages" class="dads-file-upload__error-messages" data-js-error-messages></ul>
+          <p class="dads-file-upload__expand-drop-area">
+            <label class="dads-checkbox" data-size="md">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" data-js-expand-drop-area>
+              </span>
+              <span class="dads-checkbox__label">ドラッグ＆ドロップの範囲をこのブラウザウィンドウ全体に広げる</span>
+            </label>
+          </p>
+        </div>
+        <p class="dads-file-upload__empty-message" data-js-empty-message>ファイルが選択されていません</p>
+        <ul class="dads-file-upload__file-list" data-js-file-list>
+          <li class="dads-file-upload__file-item">
+            <input type="hidden" name="file-upload-1-existing" value="temp-file-abc123">
+            <div class="dads-file-upload__file-marker"></div>
+            <div class="dads-file-upload__file-info" data-js-file-info>
+              <p>
+                <span class="dads-file-upload__file-name" data-slot="fileName">運転免許証_表面.jpg</span>
+                <span class="dads-file-upload__file-meta">
+                  <span data-slot="fileSize">1.8MB</span>（<span data-slot="fileSizeBytes">1,887,436</span>バイト）
+                </span>
+              </p>
+            </div>
+            <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+          </li>
+          <li class="dads-file-upload__file-item">
+            <input type="hidden" name="file-upload-1-existing" value="temp-file-def456">
+            <div class="dads-file-upload__file-marker"></div>
+            <div class="dads-file-upload__file-info" data-js-file-info>
+              <p>
+                <span class="dads-file-upload__file-name" data-slot="fileName">健康保険証.pdf</span>
+                <span class="dads-file-upload__file-meta">
+                  <span data-slot="fileSize">842KB</span>（<span data-slot="fileSizeBytes">862,208</span>バイト）
+                </span>
+              </p>
+            </div>
+            <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+          </li>
+          <li class="dads-file-upload__file-item">
+            <input type="hidden" name="file-upload-1-existing" value="temp-file-ghi789">
+            <div class="dads-file-upload__file-marker"></div>
+            <div class="dads-file-upload__file-info" data-js-file-info>
+              <p>
+                <span class="dads-file-upload__file-name" data-slot="fileName">マイナンバーカード_両面.pdf</span>
+                <span class="dads-file-upload__file-meta">
+                  <span data-slot="fileSize">2.3MB</span>（<span data-slot="fileSizeBytes">2,411,724</span>バイト）
+                </span>
+              </p>
+            </div>
+            <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dads-file-upload__viewport-overlay" data-js-viewport-overlay hidden>
+        <div class="dads-file-upload__viewport-overlay-message">
+          <span>このエリア内にファイルを</span><span>ドラッグ＆ドロップ</span>
+        </div>
+      </div>
+
+      <template data-js-template>
+        <li class="dads-file-upload__file-item">
+          <div class="dads-file-upload__file-marker"></div>
+          <div class="dads-file-upload__file-info" data-js-file-info>
+            <p>
+              <span class="dads-file-upload__file-name" data-slot="fileName"></span>
+              <span class="dads-file-upload__file-meta">
+                <span data-slot="fileSize"></span>（<span data-slot="fileSizeBytes"></span>バイト）
+              </span>
+            </p>
+          </div>
+          <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+        </li>
+      </template>
+    </dads-file-upload>
+  </div>
+</div>
+
+</body>
+</html>

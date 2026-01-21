@@ -1,0 +1,93 @@
+.dads-card-example-6-list {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(24 / 16 * 1rem);
+  padding: 0;
+  list-style: none;
+}
+
+.dads-card-example-6-list > li {
+  display: flex;
+  min-width: 0;
+}
+
+.dads-card-example-6 {
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "image"
+    "main";
+  grid-template-rows: auto 1fr;
+  width: 354px;
+  max-width: 100%;
+  border-radius: calc(16 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-420);
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  font-family: var(--font-family-sans);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+.dads-card-example-6:has(:checked) {
+  background-color: var(--color-primitive-blue-50);
+}
+
+.dads-card-example-6__main {
+  grid-area: main;
+  padding: calc(16 / 16 * 1rem) calc(24 / 16 * 1rem);
+}
+
+.dads-card-example-6__heading {
+  margin: 0;
+  color: var(--color-neutral-solid-gray-900);
+  font-weight: bold;
+  font-size: calc(20 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.dads-card-example-6__heading label::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+}
+
+.dads-card-example-6__contents {
+  margin: calc(16 / 16 * 1rem) 0 0;
+}
+
+.dads-card-example-6__image {
+  position: relative;
+  grid-area: image;
+  min-width: 0;
+  border-bottom: 1px solid var(--color-neutral-solid-gray-420);
+}
+
+.dads-card-example-6__checkbox {
+  position: absolute;
+  top: calc(16 / 16 * 1rem);
+  right: calc(16 / 16 * 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: calc(48 / 16 * 1rem);
+  height: calc(48 / 16 * 1rem);
+  background-color: var(--color-neutral-white);
+  border-radius: calc(6 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-420);
+}
+
+.dads-card-example-6__image-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc((16 - 1) / 16 * 1rem) calc((16 - 1) / 16 * 1rem) 0 0;
+}

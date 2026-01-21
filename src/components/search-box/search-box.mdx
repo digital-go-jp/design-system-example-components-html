@@ -1,0 +1,72 @@
+import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as SearchBoxStories from "./search-box.stories";
+import searchBoxCss from "./search-box.css?raw";
+
+<Meta of={SearchBoxStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+<Stories includePrimary={false} />
+
+## 使用例
+
+### 画面上にラベルがある検索ボックス
+
+画面上に表示されるラベルがある場合、そのラベルに`id`属性を設定し、検索ボックスの`aria-labelledby`属性にその`id`を指定します。
+
+```html
+<div class="dads-heading" data-size="28">
+  <h1 id="site-search-heading" class="dads-heading__heading">
+    サイト内検索
+  </h1>
+</div>
+
+<div class="dads-search-box">
+  <div class="dads-search-box__fields">
+    <div class="dads-search-box__input">
+      <label class="dads-search-box__input-label">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+        </svg>
+        <input type="search" name="q" aria-labelledby="site-search-heading">
+      </label>
+    </div>
+  </div>
+  <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">検索</button>
+</div>
+```
+
+### 画面上にラベルがない検索ボックス
+
+画面上に表示されるラベルがない場合、検索フィールドの直前に視覚的に非表示のラベル（`class="dads-u-visually-hidden"`を付与）を配置します。
+
+```html
+<div class="dads-search-box">
+  <div class="dads-search-box__fields">
+    <div class="dads-search-box__input">
+      <label class="dads-search-box__input-label">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+        </svg>
+        <span class="dads-u-visually-hidden">サイト内検索</span>
+        <input type="search" name="q">
+      </label>
+    </div>
+  </div>
+  <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">検索</button>
+</div>
+```
+
+## CSS
+
+<Source code={searchBoxCss} language="css" />
+
+</div>
+</Unstyled>
