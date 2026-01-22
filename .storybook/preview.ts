@@ -15,6 +15,7 @@ const preview: Preview = {
     },
     docs: {
       theme: dadsTheme,
+      codePanel: true,
     },
     options: {
       storySort: {
