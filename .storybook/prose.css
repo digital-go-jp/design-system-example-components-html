@@ -388,6 +388,35 @@
   line-height: 1.5;
 }
 
+.prose details .docblock-source {
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  box-shadow: none;
+}
+
+.prose details .docblock-source .prismjs {
+  padding: 0 0 20px;
+}
+
+/* Copyボタン */
+.prose details .docblock-source > div:last-child:has(button) {
+  position: sticky;
+  inset: auto 0 calc(8 / 16 * 1rem) auto;
+  max-width: none;
+  justify-content: flex-end;
+  background-color: transparent;
+}
+.prose details .docblock-source > div:last-child button {
+  border: 1px solid var(--color-neutral-solid-gray-420);
+  border-radius: calc(4 / 16 * 1rem);
+}
+.prose details .docblock-source > div:last-child button:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
 /* リンク */
 .prose .sbdocs-a:any-link {
   color: var(--color-primitive-blue-1000);
