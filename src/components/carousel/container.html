@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carousel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="carousel.css">
+<link rel="stylesheet" href="../disclosure/disclosure.css">
+<script src="carousel.js" type="module"></script>
+</head>
+<body style="margin: 0;">
+
+<dads-carousel class="dads-carousel" breakpoint-rem="64" role="region" aria-labelledby="carousel-heading" data-js-unit="スライド">
+  <div class="dads-carousel__inner">
+    <h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+    <div class="dads-carousel__panels">
+      <div class="dads-carousel__panel-set">
+        <p class="dads-carousel__number dads-carousel__panel-number" aria-current="true" aria-hidden="true" data-js-current-number></p>
+        <!-- [!] 最初のスライドを出力 -->
+        <div class="dads-carousel__main" aria-live="polite" aria-atomic="true">
+          <div class="dads-carousel__main-panel" data-js-main-panel>
+            <a class="dads-carousel__main-link" href="#link1" data-js-main-link>
+              <span class="dads-u-visually-hidden" data-js-main-label>スライド1</span>
+              <div class="dads-carousel__image-container" data-js-main-images>
+                <img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="学ぼうSDGs 偶数月の第3土曜日 環境保全の「自分事化」で学べるワークショップ開催" width="696" height="392">
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- [!] 2枚目のスライドを出力 -->
+        <p class="dads-carousel__next">
+          <button type="button" data-js-next-button>
+            <span class="dads-carousel__next-image-container" data-js-next-image-container>
+              <img src="image-2.webp" srcset="image-2@2x.webp 2x" alt="" width="696" height="392">
+            </span>
+            <span class="dads-carousel__next-image-label">次のスライド</span>
+          </button>
+        </p>
+        <div class="dads-carousel__main-bg"><div data-js-main-bg></div></div>
+        <div class="dads-carousel__next-bg"><div data-js-next-bg></div></div>
+      </div>
+    </div>
+    <div class="dads-carousel__controls">
+      <dads-carousel-step-nav>
+        <ul class="dads-carousel__step-nav" role="tablist" aria-label="スライド選択">
+          <!-- [!] スライド枚数分の番号を出力 -->
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>1
+            </button>
+          </li>
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>2
+            </button>
+          </li>
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>3
+            </button>
+          </li>
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>4
+            </button>
+          </li>
+        </ul>
+      </dads-carousel-step-nav>
+      <p class="dads-carousel__page-nav">
+        <button type="button" data-js-prev-slide-button>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m5.27 8 5.33-5.33-.93-.94L3.4 8l6.27 6.27.93-.94L5.27 8Z" fill="currentcolor"></path>
+          </svg>
+          <span class="dads-u-visually-hidden">前のスライド</span>
+        </button>
+        <span data-js-current-slide></span>
+        <button type="button" data-js-next-slide-button>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m6 1.73-.93.94L10.4 8l-5.33 5.33.93.94L12.27 8 6 1.73Z" fill="currentcolor"></path>
+          </svg>
+          <span class="dads-u-visually-hidden">次のスライド</span>
+        </button>
+      </p>
+      <details class="dads-carousel__others dads-disclosure">
+        <summary class="dads-disclosure__summary">
+          <svg class="dads-disclosure__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="11" fill="currentcolor"/>
+            <circle class="dads-disclosure__icon-circle" cx="12" cy="12" r="8" fill="currentcolor"/>
+            <path class="dads-disclosure__icon-triangle" d="M17 10H7L12 15L17 10Z" fill="Canvas"/>
+          </svg>
+          すべてのスライド
+        </summary>
+        <div class="dads-carousel__others-content dads-disclosure__content">
+          <ul data-js-slide-container>
+            <!-- [!] すべてのスライドを出力 -->
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">1</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link1">
+                  <span class="dads-u-visually-hidden">スライド1</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="学ぼうSDGs 偶数月の第3土曜日 環境保全の「自分事化」で学べるワークショップ開催" width="696" height="392">
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">2</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link2" data-js-slide-link>
+                  <span class="dads-u-visually-hidden">スライド2</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-2.webp" srcset="image-2@2x.webp 2x" alt="地産地消キャンペーン 県の名産品や体験イベントを楽しもう 期間：4月から7月までの毎週末開催！" width="696" height="392" data-js-slide-image>
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">3</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link3" data-js-slide-link>
+                  <span class="dads-u-visually-hidden">スライド3</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-3.webp" srcset="image-3@2x.webp 2x" alt="令和 国立公園・歴史名所スタンプラリー まわろうよ 今年の週末 全国を 子どもたちの歴史理解促進と、日本各地の名産品・観光資源に親しむことを目的に、本イベントを全国開催しています！" width="696" height="392" data-js-slide-image>
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">4</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link4" data-js-slide-link>
+                  <span class="dads-u-visually-hidden">スライド4</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-4.webp" srcset="image-4@2x.webp 2x" alt="合同健康診断のお知らせ ご自身とご家族の健康維持のため、定期的な健康診断の受診を。皆様の健やかな生活を応援します。 6月1日より受付開始 川海町および森林町にお住いの方が対象です" width="696" height="392" data-js-slide-image>
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+</dads-carousel>
+
+</body>
+</html>
