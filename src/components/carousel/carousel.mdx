@@ -42,6 +42,46 @@ import carousel1024At2x from "./docs/carousel-1024@2x.webp";
 
 ### マークアップ
 
+#### 基底要素とラベル
+
+カルーセルの基底要素は`<dads-carousel>`カスタム要素です。この要素には`role="region"`を付与し、適切なラベルを設定する必要があります。ラベルの付け方は、見出しの有無によって異なります。
+
+##### 見出しがある場合
+
+見出しを使用する場合は、見出し要素にIDを付与し、基底要素の`aria-labelledby`属性でそのIDを参照します。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-labelledby="carousel-heading" ...>
+  <div class="dads-carousel__inner">
+    <h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+    ...
+  </div>
+</dads-carousel>
+```
+
+##### 見出しがない場合
+
+見出しを使用しない場合は、基底要素の`aria-label`属性で直接ラベルを指定します。推奨値は「スライドショー」です。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-label="スライドショー" ...>
+  <div class="dads-carousel__inner">
+    ...
+  </div>
+</dads-carousel>
+```
+
+#### 見出し
+
+`.dads-carousel__heading`要素は任意で追加できる見出しです。カルーセルの内容を説明する見出しを表示する場合に使用します。
+
+```html
+<h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+```
+
+- 見出しのレベル（`<h2>`、`<h3>`など）は、ページの文書構造に応じて適切なものを選択してください
+- 見出しには一意のIDを付与し、基底要素の`aria-labelledby`属性で参照してください
+
 #### メインパネル
 
 `.dads-carousel__panels`要素内の`dads-carousel__main`がメインパネルです。1枚目のスライドの情報を記述してください。

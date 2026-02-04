@@ -23,6 +23,28 @@
   }
 }
 
+.dads-carousel__heading {
+  margin-top: 0;
+  margin-bottom: calc(16 / 16 * 1rem);
+  font-size: calc(20 / 16 * 1rem);
+  line-height: 1.5;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 30rem) {
+  .dads-carousel__heading {
+    font-size: calc(24 / 16 * 1rem);
+  }
+}
+
+@media (min-width: 64rem) {
+  .dads-carousel__heading {
+    font-size: calc(32 / 16 * 1rem);
+    letter-spacing: 0.01em;
+  }
+}
+
 .dads-carousel__number {
   margin: 0;
   display: flex;
