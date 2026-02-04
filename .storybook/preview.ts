@@ -15,6 +15,7 @@ const preview: Preview = {
     },
     docs: {
       theme: dadsTheme,
+      codePanel: true,
     },
     options: {
       storySort: {
@@ -29,6 +30,7 @@ const preview: Preview = {
             "インプットテキスト",
             "引用ブロック",
             "カード",
+            "箇条書きリスト",
             "カルーセル",
             "カレンダー",
             "緊急時バナー",
@@ -57,7 +59,6 @@ const preview: Preview = {
             "ユーティリティーリンク",
             "ラジオボタン",
             "ランゲージセレクター",
-            "リスト",
             "リソースリスト",
             "リンク",
             "*",

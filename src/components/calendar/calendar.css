@@ -24,6 +24,14 @@
 .dads-calendar__nav-button.dads-button[data-size="sm"] {
   width: calc(44 / 16 * 1rem);
   min-width: 0;
+  padding: 0;
+  --button-outline-hover-bg-color: var(--color-neutral-white);
+}
+
+@media (hover: hover) {
+  .dads-calendar__nav-button.dads-button[data-size="sm"]:hover {
+    border-width: calc(3 / 16 * 1rem);
+  }
 }
 
 .dads-calendar__current-month {

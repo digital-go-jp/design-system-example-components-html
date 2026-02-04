@@ -2,6 +2,7 @@ import { Controls, Description, Meta, Primary, Source, Subtitle, Title, Unstyled
  
 import * as CarouselStories from "./carousel.stories";
 import carouselCss from "./carousel.css?raw";
+import carouselSingleCss from "./carousel-single.css?raw";
 import disclosureCss from "../disclosure/disclosure.css?raw";
 import carouselJs from "./carousel.js?raw";
 
@@ -40,6 +41,46 @@ import carousel1024At2x from "./docs/carousel-1024@2x.webp";
 `<link>` / `<script>`タグで読み込んでも、ビルドツールなどでバンドルしても構いません。スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
 
 ### マークアップ
+
+#### 基底要素とラベル
+
+カルーセルの基底要素は`<dads-carousel>`カスタム要素です。この要素には`role="region"`を付与し、適切なラベルを設定する必要があります。ラベルの付け方は、見出しの有無によって異なります。
+
+##### 見出しがある場合
+
+見出しを使用する場合は、見出し要素にIDを付与し、基底要素の`aria-labelledby`属性でそのIDを参照します。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-labelledby="carousel-heading" ...>
+  <div class="dads-carousel__inner">
+    <h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+    ...
+  </div>
+</dads-carousel>
+```
+
+##### 見出しがない場合
+
+見出しを使用しない場合は、基底要素の`aria-label`属性で直接ラベルを指定します。推奨値は「スライドショー」です。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-label="スライドショー" ...>
+  <div class="dads-carousel__inner">
+    ...
+  </div>
+</dads-carousel>
+```
+
+#### 見出し
+
+`.dads-carousel__heading`要素は任意で追加できる見出しです。カルーセルの内容を説明する見出しを表示する場合に使用します。
+
+```html
+<h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+```
+
+- 見出しのレベル（`<h2>`、`<h3>`など）は、ページの文書構造に応じて適切なものを選択してください
+- 見出しには一意のIDを付与し、基底要素の`aria-labelledby`属性で参照してください
 
 #### メインパネル
 
@@ -128,9 +169,55 @@ import carousel1024At2x from "./docs/carousel-1024@2x.webp";
 </li>
 ```
 
+## シングル（スライドが1枚のみの場合）
+
+スライドが1枚のみの場合は、シンプルなマークアップを使用できます。この場合、カルーセルのナビゲーション機能は不要となるため、依存するファイルが異なります。
+
+### 必要なファイルを読み込む
+
+シングルの場合は以下のファイルのみを読み込みます。
+
+- `carousel-single.css`
+
+### マークアップ
+
+シングルの場合は`<dads-carousel>`カスタム要素ではなく、シンプルな`<div>`要素を使用します。
+
+```html
+<div class="dads-carousel-single">
+  <span class="dads-carousel-single__link">
+    <img class="dads-carousel-single__image" src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
+  </span>
+</div>
+```
+
+画像にリンクを設定する場合は、`<span>`要素を`<a>`要素に置き換えてください。
+
+```html
+<div class="dads-carousel-single">
+  <a class="dads-carousel-single__link" href="{リンクURL}">
+    <img class="dads-carousel-single__image" src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
+  </a>
+</div>
+```
+
 ## カスタマイズ
 
 提供しているコードをカスタマイズする際は、以下の点に注意してください。また、下記に言及がなくても、[コンポーネントのガイドライン](https://design.digital.go.jp/dads/components/carousel/)に記載された内容を遵守してください。
+
+### 高解像度の画像を提供する場合
+
+高解像度ディスプレイ向けに2倍の解像度の画像を提供する場合は、`<img>`要素に`srcset`属性を追加します。
+
+```html
+<img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
+```
+
+- `src`属性には通常解像度（1x）の画像を指定します
+- `srcset`属性には、2倍解像度の画像に` 2x`を付けて指定します
+- 画像の幅および高さには、通常解像度（1x）の画像のサイズを指定します
+
+この指定はカルーセル内のすべての`<img>`要素（メインパネル、ネクストパネル、すべてのスライド内の画像）に適用してください。
 
 ### ブレークポイントを変更する
 
@@ -165,21 +252,29 @@ CSSは、`carousel.css`にある下記の記述を全て修正してください
 
 ※注：スライドを番号付きで呼ぶために、数値に前置きする単位を指定します。例えば英語の場合は`"Slide "`などとします。
 
-## CSS
+## ソースコード
 
-### carousel.css
+<details>
+  <summary>carousel.css</summary>
+  <Source code={carouselCss} language="css" />
+</details>
 
-<Source code={carouselCss} language="css" />
+<details>
+  <summary>carousel-single.css</summary>
+  <Source code={carouselSingleCss} language="css" />
+</details>
 
-### disclosure.css
+<details>
+  <summary>carousel.js</summary>
+  <Source code={carouselJs} language="javascript" />
+</details>
 
-<Source code={disclosureCss} language="css" />
+### 依存ファイル
 
-## JavaScript
-
-### carousel.js
-
-<Source code={carouselJs} language="javascript" />
+<details>
+  <summary>disclosure.css</summary>
+  <Source code={disclosureCss} language="css" />
+</details>
 
 </div>
 </Unstyled>
