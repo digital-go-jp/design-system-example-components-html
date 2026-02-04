@@ -5,28 +5,55 @@
   list-style-type: revert;
 }
 
-.dads-list > .dads-list__item {
+.dads-list > li {
   --_spacing: 0;
   padding-top: var(--_spacing);
   padding-bottom: var(--_spacing);
 }
 
-.dads-list > .dads-list__item > :first-child {
-  margin-top: var(--_spacing);
-}
-
-.dads-list > .dads-list__item > :last-child {
-  margin-bottom: calc(-1 * var(--_spacing));
-}
-
-.dads-list[data-spacing="4"] > .dads-list__item {
+.dads-list[data-spacing="4"] > li {
   --_spacing: calc(4 / 16 * 1rem);
 }
 
-.dads-list[data-spacing="8"] > .dads-list__item {
+.dads-list[data-spacing="8"] > li {
   --_spacing: calc(8 / 16 * 1rem);
 }
 
-.dads-list[data-spacing="12"] > .dads-list__item {
+.dads-list[data-spacing="12"] > li {
   --_spacing: calc(12 / 16 * 1rem);
+}
+
+.dads-list[data-marker="number"] {
+  display: grid;
+  grid-template-columns: minmax(calc(32 / 16 * 1rem), auto) 1fr;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.dads-list[data-marker="number"] > li,
+.dads-list[data-marker="number"] > li > a {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: inherit;
+  align-items: baseline;
+}
+
+.dads-list[data-marker="number"] > li > a > span {
+  text-decoration-thickness: inherit;
+}
+
+.dads-list[data-marker="number"] > li > :not(a, span) {
+  grid-column: 2;
+}
+
+@supports (grid-template-columns: subgrid) {
+  .dads-list[data-marker="number"] > li,
+  .dads-list[data-marker="number"] > li > a {
+    grid-template-columns: subgrid;
+  }
+}
+
+.dads-list .dads-list {
+  margin-top: var(--_spacing);
+  margin-bottom: calc(-1 * var(--_spacing));
 }
