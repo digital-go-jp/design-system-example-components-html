@@ -3,4 +3,4 @@ import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
 
 const { dirname } = import.meta;
 
-resetCssVrt("carousel-normal", path.join(dirname, "normal.html"));
+resetCssVrt("carousel-normal", path.join(dirname, "container.html"));
