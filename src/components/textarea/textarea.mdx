@@ -1,8 +1,9 @@
-import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as TextareaStories from "./textarea.stories";
 import textareaCss from "./textarea.css?raw";
 import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
+import textareaCounterJs from "./textarea-counter.js?raw";
 
 <Meta of={TextareaStories} />
 
@@ -13,8 +14,8 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Subtitle />
 <Description />
 
-<Canvas of={TextareaStories.Playground} withToolbar />
-<Controls of={TextareaStories.Playground} />
+<Primary />
+<Controls />
 
 ## ソースコード
 
@@ -34,6 +35,11 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <Source code={textareaCss} language="css" />
 </details>
 
+<details>
+  <summary>textarea-counter.js</summary>
+  <Source code={textareaCounterJs} language="javascript" />
+</details>
+
 ### 依存ファイル
 
 <details>
@@ -43,6 +49,23 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 
 ## 使い方
 
+### インストール
+
+#### 必要なファイル
+
+- **共通**
+  - `textarea.css`
+- **文字数カウンターを使用する場合**
+  - `textarea-counter.js`
+- **フォームコントロールラベルと組み合わせる場合**
+  - `form-control-label.css`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+```html
+<script type="module" src="textarea-counter.js"></script>
+```
+
 ### ラベルの関連付け
 
 テキストエリアは[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs)と組み合わせて使用し、`<label>`要素の`for`属性で`<textarea>`要素のIDを指定します。
@@ -50,7 +73,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 ```html
 <div class="dads-form-control-label" data-size="md">
   <label class="dads-form-control-label__label" for="comment-textarea">
-    コメント
+    ラベル
     <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
   </label>
   <p id="comment-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
@@ -62,7 +85,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 </div>
 ```
 
-### エラー状態の実装
+### エラー状態
 
 エラー状態のテキストエリアには、`<textarea>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
 
@@ -99,6 +122,62 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 ```html
 <textarea class="dads-textarea__textarea" disabled></textarea>
 ```
+
+### 文字数カウンター（dads-textarea-counter）
+
+`<dads-textarea-counter>`要素は、テキストエリアの文字数をカウントし、上限を超えた場合にエラー状態を表示するカスタム要素です。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="counter-textarea">
+    ラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="counter-support-text" class="dads-form-control-label__support-text">20文字以内で入力してください</p>
+  <div>
+    <span class="dads-textarea">
+      <textarea id="counter-textarea" class="dads-textarea__textarea" aria-describedby="counter-support-text"></textarea>
+      <dads-textarea-counter class="dads-textarea__counter" for="counter-textarea" max="20"></dads-textarea-counter>
+    </span>
+  </div>
+</div>
+```
+
+#### 属性
+
+| 属性 | 説明 |
+| --- | --- |
+| `for` | 対象となる`<textarea>`要素の`id`（必須） |
+| `max` | 文字数の上限（必須、例：`max="100"`） |
+
+#### スクリーンリーダーへの読み上げ
+
+文字数カウンターは、入力中の文字数の状況をスクリーンリーダーで自動的に読み上げます。読み上げには以下の2種類があります。
+
+1. 入力文字数が上限以内の場合、「残り`{count}`文字」と読み上げます。読み上げまでの待機時間は残り文字数に応じて動的に変化し、残り文字数が少ないほど短い間隔（最短1秒）で、多いほど長い間隔で読み上げます。
+2. 入力文字数が上限を超過している場合、「`{count}`文字超過」と即座に読み上げます。超過中は入力のたびに常に即時通知されます。
+
+#### メッセージのカスタマイズ
+
+`data-*`属性でメッセージをカスタマイズできます。
+
+```html
+<!-- UIを英語化する例 -->
+<dads-textarea-counter
+  class="dads-textarea__counter"
+  for="my-textarea"
+  max="100"
+  data-error-exceeded="{count} characters exceeded."
+  data-announce-exceeded="{count} characters exceeded."
+  data-announce-remaining="{count} characters remaining."
+></dads-textarea-counter>
+```
+
+| 属性 | デフォルトメッセージ | 利用可能な変数 |
+| --- | --- | --- |
+| `data-error-exceeded` | `{count}文字超過しています` | `{count}` |
+| `data-announce-exceeded` | `{count}文字超過` | `{count}` |
+| `data-announce-remaining` | `残り{count}文字` | `{count}` |
 
 <Stories title="デモ" includePrimary={false} />
 

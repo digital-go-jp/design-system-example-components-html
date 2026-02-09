@@ -9,6 +9,7 @@
 }
 
 .dads-textarea__textarea {
+  display: block;
   box-sizing: border-box;
   max-width: 100%;
   border: 1px solid var(--color-neutral-solid-gray-600);
@@ -65,5 +66,18 @@
 .dads-textarea__error-text {
   margin: calc(8 / 16 * 1rem) 0 0 0;
   display: block;
+  color: var(--color-semantic-error-1);
+}
+
+.dads-textarea__counter {
+  display: block;
+  margin-top: calc(8 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-600);
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.dads-textarea__counter[data-exceeded] {
   color: var(--color-semantic-error-1);
 }

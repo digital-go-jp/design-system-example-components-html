@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as SelectStories from "./select.stories";
 import selectCss from "./select.css?raw";
@@ -13,8 +13,8 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Subtitle />
 <Description />
 
-<Canvas of={SelectStories.Playground} withToolbar />
-<Controls of={SelectStories.Playground} />
+<Primary />
+<Controls />
 
 ## ソースコード
 
@@ -90,7 +90,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 </div>
 ```
 
-### エラー状態の実装
+### エラー状態
 
 エラー状態のセレクトボックスには、`<select>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
 

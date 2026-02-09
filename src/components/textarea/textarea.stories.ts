@@ -3,9 +3,11 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../form-control-label/form-control-label.css";
 import "./textarea.css";
+import "./textarea-counter.js";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
 import readonly from "./readonly.html?raw";
+import withCounter from "./with-counter.html?raw";
 
 const meta = {
   title: "Components/テキストエリア",
@@ -77,3 +79,6 @@ export const WithFormControlLabel: StoryObj<{ size: string }> = {
 
 export const Readonly = () =>
   new HtmlFragment(readonly, ".dads-form-control-label").toString();
+
+export const WithCounter = () =>
+  new HtmlFragment(withCounter, ".dads-form-control-label").toString();
