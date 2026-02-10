@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as CheckboxStories from "./checkbox.stories";
 import checkboxCss from "./checkbox.css?raw";
@@ -12,11 +12,59 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使用上の注意
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 基本形（ラベル付き）
+
+```html
+<label class="dads-checkbox" data-size="sm">
+  <span class="dads-checkbox__checkbox">
+    <input class="dads-checkbox__input" type="checkbox">
+  </span>
+  <span class="dads-checkbox__label">ラベル</span>
+</label>
+```
+
+#### スタンドアロン（ラベルなし）
+
+```html
+<span class="dads-checkbox" data-size="sm">
+  <span class="dads-checkbox__checkbox">
+    <input id="article-1-checkbox" class="dads-checkbox__input" type="checkbox">
+  </span>
+</span>
+```
+
+</details>
+
+<details>
+  <summary>checkbox.css</summary>
+  <Source code={checkboxCss} language="css" />
+</details>
+
+### 依存ファイル
+
+<details>
+  <summary>form-control-label.css</summary>
+  <Source code={formControlLabelCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `sm`, `md`, `lg` | チェックボックスのサイズ |
+
+## 使い方
 
 ### 選択肢ラベルおよびチェックボックスのマークアップ
 
@@ -30,6 +78,8 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <span class="dads-checkbox__label">ラベル</span>
 </label>
 ```
+
+### チェックボックスと選択肢ラベルを離して配置する場合
 
 チェックボックスと選択肢ラベルを離して配置する場合、選択肢ラベルのみを`<label>`要素でマークアップし、チェックボックスに付与したIDを`for`属性に指定します。
 
@@ -51,7 +101,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 
 ### `<label>`要素が使えない場合のマークアップ
 
-状況によっては`<label>`要素が使えない場合があります。例えば、選択肢ラベルに該当するテキストがリンクである場合です。その場合、選択肢ラベルに該当するテキストを含む要素に`aria-labelledby`属性を付与し、チェックボックスのアクセシブルな名前を指定します。`<label>`要素は使用しません。
+状況によっては`<label>`要素が使えない場合があります。例えば、選択肢ラベルに該当するテキストがリンクである場合です。その場合、選択肢ラベルに該当するテキストを含む要素に`aria-labelledby`属性を付与し、チェックボックスのアクセシブルな名前を指定します。
 
 ```html
 <tr>
@@ -75,19 +125,54 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 
 詳細は[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs#複数のコントロールにラベルを付ける)を参照してください。
 
-## ソースコード
+```html
+<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
+  <div>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">足立区</span>
+    </label>
+    <label class="dads-checkbox" data-size="sm">
+      <span class="dads-checkbox__checkbox">
+        <input class="dads-checkbox__input" type="checkbox">
+      </span>
+      <span class="dads-checkbox__label">荒川区</span>
+    </label>
+    <!-- 以下、必要な項目分繰り返す -->
+  </div>
+</fieldset>
+```
 
-<details>
-  <summary>checkbox.css</summary>
-  <Source code={checkboxCss} language="css" />
-</details>
+### エラー状態の実装
 
-### 依存ファイル
+エラー状態のチェックボックスには、`<input>`要素に`aria-invalid="true"`を設定します。
 
-<details>
-  <summary>form-control-label.css</summary>
-  <Source code={formControlLabelCss} language="css" />
-</details>
+```html
+<input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
+```
+
+エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
+
+### 不確定状態（indeterminate）の実装
+
+チェックボックスの不確定状態（一部のみ選択されている状態）は、JavaScriptで`indeterminate`プロパティを設定することで実装できます。
+
+```javascript
+checkbox.indeterminate = true;
+```
+
+<Stories title="デモ" includePrimary={false} />
+
+## 参考情報
+
+- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
 
 </div>
 </Unstyled>
