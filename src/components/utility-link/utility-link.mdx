@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as UtilityLinkStories from "./utility-link.stories";
 import utilityLinkCss from "./utility-link.css?raw";
@@ -11,16 +11,67 @@ import utilityLinkCss from "./utility-link.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<a class="dads-utility-link" href="#">
+  <svg class="dads-utility-link__lead-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+  </svg>
+  <span class="dads-utility-link__label">リンクテキスト</span>
+</a>
+```
+
+</details>
 
 <details>
   <summary>utility-link.css</summary>
   <Source code={utilityLinkCss} language="css" />
 </details>
+
+## 使い方
+
+### アイコンの配置
+
+リードアイコン（`dads-utility-link__lead-icon`）はリンクの内容を視覚的に補足するための装飾です。必要に応じて追加・省略できます。
+
+```html
+<!-- アイコンなし -->
+<a class="dads-utility-link" href="#">
+  <span class="dads-utility-link__label">リンクテキスト</span>
+</a>
+
+<!-- アイコンあり -->
+<a class="dads-utility-link" href="#">
+  <svg class="dads-utility-link__lead-icon" ... aria-hidden="true">...</svg>
+  <span class="dads-utility-link__label">リンクテキスト</span>
+</a>
+```
+
+### 外部リンクの実装
+
+外部リンク（`target="_blank"`）の場合、末尾に外部リンクアイコン（`dads-utility-link__tail-icon`）を追加します。アイコンには`role="img"`と`aria-label="新規タブで開きます"`を設定し、スクリーンリーダーでリンクの動作を伝えます。
+
+```html
+<a class="dads-utility-link" href="#" target="_blank">
+  <svg class="dads-utility-link__lead-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <path d="..."/>
+  </svg>
+  <span class="dads-utility-link__label">リンクテキスト</span>
+  <svg class="dads-utility-link__tail-icon" width="16" height="16" viewBox="0 0 48 48" fill="currentcolor" role="img" aria-label="新規タブで開きます">
+    <path d="M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z"/>
+  </svg>
+</a>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
