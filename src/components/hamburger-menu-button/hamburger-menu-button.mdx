@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as HamburgerMenuButtonStories from "./hamburger-menu-button.stories";
 import hamburgerMenuButtonCss from "./hamburger-menu-button.css?raw";
@@ -12,11 +12,34 @@ import hamburgerMenuIconButtonCss from "./hamburger-menu-icon-button.css?raw";
 <Title />
 <Subtitle />
 <Description />
-<Primary />
-<Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### テキスト付きボタン
+
+```html
+<button class="dads-hamburger-menu-button" type="button">
+  <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 18V16H21V18H3ZM3 13V11H21V13H3ZM3 8V6H21V8H3Z" fill="currentcolor"/>
+  </svg>
+  メニュー
+</button>
+```
+
+#### アイコンのみ（モバイル向け）
+
+```html
+<button class="dads-hamburger-menu-icon-button" type="button">
+  <svg class="dads-hamburger-menu-icon-button__icon" width="44" height="44" viewBox="0 0 44 44" role="img" aria-label="メニュー">
+    <path d="M39 23v2H5v-2h34Zm0-6H5v-2h34v2Zm0-8H5V7h34v2ZM31 33.2h8v1.5h-8v-1.5ZM29 33c-.4 1.2-.3 2.5-.5 3.7H30v1.2H23v-1.3H27l.4-2.7H24v-1.3c1.2 0 2.9.3 4.2 0l1 .5ZM14.5 31c2 .2 4.2.2 6.3 0v1.5h-6.3V31Zm-.8 4.9c2.5 0 5.3.2 8 0v1.5a85 85 0 0 0-8 0v-1.5ZM12.3 30.5c-.6 1.2-1 2.5-1.7 3.6.9.7 1.7 1.4 2.4 2.2l-1 1-2.2-2c-.9 1-2 2-3.7 3l-1.1-1c1.6-.8 2.8-1.8 3.7-3a27 27 0 0 0-2.6-1.8l.8-1a40 40 0 0 1 2.6 1.8c.7-1 1.2-2.2 1.4-3.3l1.4.5Z" fill="currentcolor" />
+  </svg>
+</button>
+```
+
+</details>
 
 <details>
   <summary>hamburger-menu-button.css</summary>
@@ -27,6 +50,34 @@ import hamburgerMenuIconButtonCss from "./hamburger-menu-icon-button.css?raw";
   <summary>hamburger-menu-icon-button.css</summary>
   <Source code={hamburgerMenuIconButtonCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+このコンポーネントには2種類のスタイルがあります。
+
+#### デスクトップ・モバイル共通コンポーネント
+
+原則としてこちらを使用します。
+
+<Canvas of={HamburgerMenuButtonStories.DesktopAndMobile} />
+
+#### モバイル条件付きコンポーネント
+
+ヘッダーの領域が限定され、デスクトップ・モバイル共通コンポーネントを使用するために十分な領域が確保できない場合に限り使用できるコンポーネントです。
+
+<Canvas of={HamburgerMenuButtonStories.MobileConditional} />
+<Canvas of={HamburgerMenuButtonStories.MobileConditionalEn} />
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **デスクトップ・モバイル共通コンポーネント**: `hamburger-menu-button.css`
+- **モバイル条件付きコンポーネント**: `hamburger-menu-icon-button.css`
 
 </div>
 </Unstyled>
