@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as HeadingStories from "./heading.stories";
 import headingCss from "./heading.css?raw";
@@ -11,16 +11,106 @@ import headingCss from "./heading.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 基本形
+
+```html
+<div class="dads-heading" data-size="36">
+  <h2 class="dads-heading__heading">見出しテキスト</h2>
+</div>
+```
+
+#### ショルダーテキスト付き
+
+```html
+<hgroup class="dads-heading" data-size="36">
+  <p class="dads-heading__shoulder">ショルダーテキスト</p>
+  <h2 class="dads-heading__heading">見出しテキスト</h2>
+</hgroup>
+```
+
+</details>
 
 <details>
   <summary>heading.css</summary>
   <Source code={headingCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `64`, `57`, `45`, `36`, `32`, `28`, `24`, `20`, `18`, `16` | 見出しのフォントサイズ（px相当） |
+| `data-chip` | （属性の有無） | 左端に縦線を表示 |
+| `data-rule` | `8`, `6`, `4`, `2` | 下線の太さ（px相当） |
+
+## 使い方
+
+### マークアップ
+
+- **基本形**: ショルダーテキストがない場合は`<div>`要素を使用します
+- **ショルダーテキスト付き**: `<hgroup>`要素で見出しとショルダーテキストをグループ化します
+- **見出しレベル**: `<h1>`〜`<h6>`のいずれかを使用し、ページの文書構造に適したレベルを選択してください
+
+### チップ（縦線）を追加する
+
+`data-chip`属性を追加すると、見出しの左端に縦線が表示されます。
+
+```html
+<div class="dads-heading" data-size="36" data-chip>
+  <h2 class="dads-heading__heading">見出しテキスト</h2>
+</div>
+```
+
+### 下線を追加する
+
+`data-rule`属性を追加すると、見出しの下に線が表示されます。
+
+```html
+<div class="dads-heading" data-size="36" data-rule="6">
+  <h2 class="dads-heading__heading">見出しテキスト</h2>
+</div>
+```
+
+### アイコンを追加する
+
+見出しテキストの前にアイコンを追加できます。
+
+```html
+<div class="dads-heading" data-size="36">
+  <h2 class="dads-heading__heading">
+    <span class="dads-heading__icon">
+      <svg class="dads-heading__icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <!-- アイコンのパス -->
+      </svg>
+    </span>
+    見出しテキスト
+  </h2>
+</div>
+```
+
+### ショルダーテキストを追加する
+
+見出しの上に小さなテキスト（ショルダーテキスト）を追加できます。この場合、ルート要素を`<hgroup>`に変更します。
+
+```html
+<hgroup class="dads-heading" data-size="36">
+  <p class="dads-heading__shoulder">ショルダーテキスト</p>
+  <h2 class="dads-heading__heading">見出しテキスト</h2>
+</hgroup>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
