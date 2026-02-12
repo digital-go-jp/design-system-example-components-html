@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as DrawerStories from "./drawer.stories";
 import drawerCss from "./drawer.css?raw";
@@ -12,13 +12,86 @@ import hamburgerMenuButtonCss from "../hamburger-menu-button/hamburger-menu-butt
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使用上の注意
+## ソースコード
 
-### スクロールおよびリフローの制御
+<details>
+  <summary>HTML</summary>
+
+```html
+<button class="dads-hamburger-menu-button" type="button" command="show-modal" commandfor="dads-drawer">
+  <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 18V16H21V18H3ZM3 13V11H21V13H3ZM3 8V6H21V8H3Z" fill="currentcolor"/>
+  </svg>
+  メニュー
+</button>
+
+<dialog id="dads-drawer" class="dads-drawer" data-placement="right" aria-labelledby="dads-drawer-heading">
+  <h2 id="dads-drawer-heading" class="dads-u-visually-hidden">メニュー</h2>
+  <div class="dads-drawer__header">
+    <button class="dads-hamburger-menu-button" type="button" command="close" commandfor="dads-drawer">
+      <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M32 95L25 88L53 60L25 32L32 25L60 53L88 25L95 32L67 60L95 88L88 95L60 67L32 95Z" fill="currentcolor"/>
+      </svg>
+      閉じる
+    </button>
+  </div>
+  <div class="dads-drawer__body">
+    <!-- ドロワーのコンテンツ -->
+  </div>
+</dialog>
+```
+
+</details>
+
+<details>
+  <summary>drawer.css</summary>
+  <Source code={drawerCss} language="css" />
+</details>
+
+### 依存ファイル
+
+<details>
+  <summary>hamburger-menu-button.css</summary>
+  <Source code={hamburgerMenuButtonCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-placement` | `left`, `right` | ドロワーの表示位置 |
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **共通**
+  - `drawer.css`
+- **追加で必要**
+  - `hamburger-menu-button.css`（開閉ボタンを使用する場合）
+
+### マークアップ
+
+#### アクセシブルな名前
+
+`<dialog>`要素には`aria-labelledby`属性を使用して、ドロワーにアクセシブルな名前を付与してください。視覚的に見出しが不要な場合は`dads-u-visually-hidden`クラスで非表示にできます。
+
+```html
+<dialog id="dads-drawer" class="dads-drawer" data-placement="right" aria-labelledby="dads-drawer-heading">
+  <h2 id="dads-drawer-heading" class="dads-u-visually-hidden">メニュー</h2>
+  ...
+</dialog>
+```
+
+#### スクロールおよびリフローの制御
 
 本コードスニペットでは、ドロワーの実装に`<dialog>`要素によるモーダルダイアログを使用しています。モーダルダイアログを適切な形で提示するために、以下に対応する必要があります。
 
@@ -45,7 +118,7 @@ body:has(:modal) {
 
 コードスニペット（HTML版）では上記のコードが含まれた状態のグローバルCSSを提供しています。プロダクトの状況に応じて適宜書き換えて使用してください。
 
-### Invoker Commands APIポリフィルを使用する
+#### Invoker Commands APIポリフィルを使用する
 
 本コードスニペットでは、ドロワーの開閉にInvoker Commands APIを使用しています。このAPIを使用すると、ドロワーの開閉のためのJavaScriptコードが不要になります。提供時点でChromeおよびEdgeのみが対応しています。対応していないブラウザではドロワーを立ち上げることができませんが、ポリフィルライブラリを導入することで未対応ブラウザでも動作させることが可能です。
 
@@ -53,7 +126,7 @@ body:has(:modal) {
 
 以下に代表的なポリフィルの使用方法を記載します。
 
-#### 1. パッケージをダウンロードし使用する
+##### 1. パッケージをダウンロードし使用する
 
 以下のコマンドでライブラリをダウンロードし、静的配信されるディレクトリに配置します。
 
@@ -67,7 +140,7 @@ curl -LO https://unpkg.com/invokers-polyfill/invoker.min.js
 <script src="path/to/invoker.min.js"></script>
 ```
 
-#### 2. npmパッケージを使用する
+##### 2. npmパッケージを使用する
 
 以下のコマンドでライブラリをインストールします。
 
@@ -81,19 +154,7 @@ npm install invokers-polyfill
 import "invokers-polyfill";
 ```
 
-## ソースコード
-
-<details>
-  <summary>drawer.css</summary>
-  <Source code={drawerCss} language="css" />
-</details>
-
-### 依存ファイル
-
-<details>
-  <summary>hamburger-menu-button.css</summary>
-  <Source code={hamburgerMenuButtonCss} language="css" />
-</details>
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
