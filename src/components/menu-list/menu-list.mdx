@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as MenuListStories from "./menu-list.stories";
 import menuListCss from "./menu-list.css?raw";
@@ -11,16 +11,191 @@ import menuListCss from "./menu-list.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 基本形
+
+```html
+<ul class="dads-menu-list">
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+      <span class="dads-menu-list__label">
+        メニュー項目
+      </span>
+    </button>
+  </li>
+</ul>
+```
+
+#### アイコン付き
+
+```html
+<ul class="dads-menu-list">
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+      <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <!-- アイコンのpath -->
+      </svg>
+      <span class="dads-menu-list__label">
+        メニュー項目
+        <svg class="dads-menu-list__tail-icon" width="16" height="16" viewBox="0 0 48 48" role="img" aria-label="新規タブで開きます"><!-- アイコンのpath --></svg>
+      </span>
+      <svg class="dads-menu-list__end-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <!-- アイコンのpath -->
+      </svg>
+    </button>
+  </li>
+</ul>
+```
+
+#### 子メニュー付き
+
+```html
+<ul class="dads-menu-list">
+  <li>
+    <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" data-expanded>
+      <span class="dads-menu-list__label">
+        親メニュー項目
+      </span>
+      <svg class="dads-menu-list__end-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+        <path d="M12.5 17.1 3.5 8l1-1 8 8 8-8 1 1-9 9.1Z"/>
+      </svg>
+    </button>
+    <ul class="dads-menu-list" style="--menu-list-indentation: 1;">
+      <li>
+        <button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+          <span class="dads-menu-list__label">
+            子メニュー項目
+          </span>
+        </button>
+      </li>
+    </ul>
+  </li>
+</ul>
+```
+
+</details>
 
 <details>
   <summary>menu-list.css</summary>
   <Source code={menuListCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-type` | `standard`, `box` | メニュー項目のスタイル。`standard`は角丸、`box`は矩形 |
+| `data-size` | `regular`, `small` | メニュー項目のサイズ |
+
+### 状態属性
+
+| 属性 | 説明 |
+| --- | --- |
+| `data-current` | 現在選択中のメニュー項目を示す |
+| `data-expanded` | 子メニューが展開されていることを示す（end-iconが180度回転） |
+
+### CSSカスタムプロパティ
+
+| プロパティ | 説明 |
+| --- | --- |
+| `--menu-list-indentation` | インデントレベル（子メニューに`1`、孫メニューに`2`など） |
+
+## 使い方
+
+### メニュー項目の要素
+
+メニュー項目には`<button>`要素または`<a>`要素を使用できます。
+
+- ナビゲーションリンクの場合: `<a>`要素を使用
+- アクションの場合: `<button>`要素を使用
+
+```html
+<!-- リンクの場合 -->
+<a class="dads-menu-list__item" href="/page" data-type="standard" data-size="regular">
+  <span class="dads-menu-list__label">ページへ移動</span>
+</a>
+
+<!-- ボタンの場合 -->
+<button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular">
+  <span class="dads-menu-list__label">アクションを実行</span>
+</button>
+```
+
+### アイコンの追加
+
+メニュー項目には3種類のアイコンを配置できます。
+
+| クラス | 位置 | 用途 |
+| --- | --- | --- |
+| `dads-menu-list__front-icon` | 項目の先頭 | カテゴリや機能を示すアイコン |
+| `dads-menu-list__tail-icon` | ラベルの末尾 | 外部リンクなどの補足アイコン |
+| `dads-menu-list__end-icon` | 項目の末尾 | 展開/折りたたみの矢印アイコン |
+
+### 現在位置の表示
+
+現在選択中・表示中の項目を示すには、`data-current`属性を追加します。注意点として、後述するARIA属性も併用する必要があります。
+
+```html
+<a class="dads-menu-list__item" href="/current-page" data-type="standard" data-size="regular" data-current>
+  <span class="dads-menu-list__label">現在のページ</span>
+</a>
+```
+
+`data-current`が設定された項目の親メニュー項目は自動的に薄いハイライトが適用されます。
+
+#### アクセシビリティ属性の併用
+
+`data-current`属性は視覚的なスタイルのみを制御し、スクリーンリーダーには状態が伝わりません。支援技術に現在の状態を伝えるため、用途に応じて適切なARIA属性を併用してください。
+
+| 用途 | 使用する属性 | 説明 |
+| --- | --- | --- |
+| 現在のページ/位置 | `aria-current="page"` | ナビゲーション内で現在表示中のページを示す |
+| 現在のステップ | `aria-current="step"` | ウィザードやプロセス内の現在のステップを示す |
+| 選択状態 | `aria-selected="true"` | リストボックスで選択中の項目を示す |
+| チェック状態 | `aria-checked="true"` | メニュー内のチェック可能な項目の状態を示す |
+
+```html
+<!-- ナビゲーションで現在のページを示す場合 -->
+<a class="dads-menu-list__item" href="/current-page" data-type="standard" data-size="regular" data-current aria-current="page">
+  <span class="dads-menu-list__label">現在のページ</span>
+</a>
+```
+
+### 子メニューのインデント
+
+子メニューにはCSSカスタムプロパティ`--menu-list-indentation`でインデントレベルを設定します。
+
+```html
+<ul class="dads-menu-list" style="--menu-list-indentation: 1;">
+  <!-- 子メニュー項目 -->
+</ul>
+```
+
+- `data-type="standard"`: 項目全体が左にインデントされる
+- `data-type="box"`: `padding-left`が増加してインデントされる
+
+### 展開状態の表示
+
+子メニューを持つ項目が展開されている場合、`data-expanded`属性を追加します。これにより`dads-menu-list__end-icon`が180度回転します。
+
+```html
+<button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" data-expanded>
+  <span class="dads-menu-list__label">展開中のメニュー</span>
+  <svg class="dads-menu-list__end-icon" ...>...</svg>
+</button>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
