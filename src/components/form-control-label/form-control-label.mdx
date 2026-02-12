@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as FormControlLabelStories from "./form-control-label.stories";
 import formControlLabelCss from "./form-control-label.css?raw";
@@ -14,6 +14,60 @@ import formControlLabelCss from "./form-control-label.css?raw";
 
 フォームコントロールラベルは、インプットテキストやセレクトボックス等のコントロールや、チェックボックス等をまとめたグループにラベルを付与するコンポーネントです。
 
+<Primary />
+<Controls />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 単一のコントロール
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="single-input">
+    ラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="single-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div>
+    <!-- コントロール（インプットテキスト等）をここに配置 -->
+  </div>
+</div>
+```
+
+#### 複数のコントロール（グループ）
+
+```html
+<fieldset class="dads-form-control-label" data-size="md" aria-describedby="multiple-error-text multiple-support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="multiple-support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
+  <div>
+    <!-- チェックボックスやラジオボタン等をここに配置 -->
+  </div>
+  <p id="multiple-error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
+</fieldset>
+```
+
+</details>
+
+<details>
+  <summary>form-control-label.css</summary>
+  <Source code={formControlLabelCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `sm`, `md`, `lg` | ラベルのサイズ |
+
 ## 使い方
 
 ### 単一のコントロールにラベルを付ける
@@ -23,14 +77,6 @@ import formControlLabelCss from "./form-control-label.css?raw";
 <Canvas of={FormControlLabelStories.Single} meta={FormControlLabelStories} />
 <Controls of={FormControlLabelStories.Single} meta={FormControlLabelStories} />
 
-加えて、以下の点にも留意してください。
-
-- サポートテキストがある場合、サポートテキストに`id`属性を付与し、`aria-describedby`属性を使用してコントロールを関連付けます。
-- エラーテキストがある場合、エラーテキストに`id`属性を付与し、`aria-describedby`属性を使用してコントロールを関連付けます。
-- サポートテキストおよびエラーテキストがある場合、両方の`id`をスペースで区切って`aria-describedby`属性に指定します。
-
-エラーテキストは、フォームコントロールラベルが提供するパーツを使用できますが、各コントロールが提供するパーツを使用しても構いません。
-
 ### 複数のコントロールにラベルを付ける
 
 チェックボックス、ラジオボタンまたは日付ピッカー等、複数のコントロールをまとめたグループにラベルを付ける場合、`<fieldset>`要素でグループを明示し、`<legend>`要素を使用してグループのラベルを指定します。
@@ -38,16 +84,39 @@ import formControlLabelCss from "./form-control-label.css?raw";
 <Canvas of={FormControlLabelStories.Multiple} meta={FormControlLabelStories} />
 <Controls of={FormControlLabelStories.Multiple} meta={FormControlLabelStories} />
 
-加えて、以下の点にも留意してください。
+### 必須/任意の表示
 
-- サポートテキストがある場合、サポートテキストに`id`属性を付与し、`aria-describedby`属性を使用してグループを関連付けます。
-- エラーテキストがある場合、エラーテキストに`id`属性を付与し、`aria-describedby`属性を使用してグループを関連付けます。
+`.dads-form-control-label__requirement`要素で必須・任意を表示します。テキストと`data-required`属性の両方を設定してください。`data-required="true"`の場合、テキストが赤色で表示されます。
+
+```html
+<!-- 必須 -->
+<label class="dads-form-control-label__label" for="input-id">
+  ラベル
+  <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+</label>
+
+<!-- 任意 -->
+<label class="dads-form-control-label__label" for="input-id">
+  ラベル
+  <span class="dads-form-control-label__requirement" data-required="false">※任意</span>
+</label>
+```
+
+### エラーテキストの配置
+
+エラーテキストは、フォームコントロールラベルが提供するパーツ（`.dads-form-control-label__error-text`）を使用できますが、各コントロールが提供するパーツを使用しても構いません。
+
+### アクセシビリティ
+
+#### サポートテキストとエラーテキストの関連付け
+
+- サポートテキストがある場合、サポートテキストに`id`属性を付与し、`aria-describedby`属性を使用してコントロールまたはグループを関連付けます。
+- エラーテキストがある場合、エラーテキストに`id`属性を付与し、`aria-describedby`属性を使用してコントロールまたはグループを関連付けます。
 - サポートテキストおよびエラーテキストがある場合、両方の`id`をスペースで区切って`aria-describedby`属性に指定します。
-- エラーテキストには、フォームコントロールラベルが提供するパーツを使用してください。
 
 #### チェックボックスと`<fieldset>`要素の組み合わせにおける読み上げについて
 
-チェックボックスを`<fieldset aria-labelledby="...">`要素に含める場合において、ブラウザ、支援技術、またはそれらの組み合わせによっては、サポートテキストおよびエラーテキストを適切に読み上げない問題が確認されています。
+チェックボックスを`<fieldset aria-describedby="...">`要素に含める場合において、ブラウザ、支援技術、またはそれらの組み合わせによっては、サポートテキストおよびエラーテキストを適切に読み上げない問題が確認されています。
 
 現時点で回避策はありません。各チェックボックスに`aria-describedby`属性を使用してサポートテキストおよびエラーテキストのIDを指定することで、支援技術がチェックボックスに関連付けられたサポートテキストおよびエラーテキストを読み上げることができますが、フォーカスを移動するたびに同一のテキストが読み上げられ冗長であるため、この方法は推奨していません。
 
@@ -56,8 +125,8 @@ import formControlLabelCss from "./form-control-label.css?raw";
   <dd>NVDA日本語版 2024.4.2 + Chrome 137</dd>
   <dt>再現手順</dt>
   <dd>
-    1. 当ページで提供しているコードスニペットを使用する。サポートテキストおよびチェックボックスを含む`<fieldset>`要素を作成し、`<fieldset>`要素に`aria-describedby="{サポートテキストのID}"`を付与する。
-    2. Tabキーを押してチェックボックスにフォーカスを移動する。
+    1. 当ページで提供しているコードスニペットを使用する。サポートテキストおよびチェックボックスを含む`<fieldset>`要素を作成し、`<fieldset>`要素に`aria-describedby="{サポートテキストのID}"`を付与する。<br />
+    2. Tabキーを押してチェックボックスにフォーカスを移動する。<br />
     3. `<fieldset>`要素に紐づくサポートテキストが読み上げられないことを確認する。
   </dd>
 </dl>
@@ -66,14 +135,7 @@ import formControlLabelCss from "./form-control-label.css?raw";
 
 ##### 参考情報
 
-- [aria-describedby not reported for group in browse mode · Issue #12718 · nvaccess/nvda](https://github.com/nvaccess/nvda/issues/12718)
-
-## ソースコード
-
-<details>
-  <summary>form-control-label.css</summary>
-  <Source code={formControlLabelCss} language="css" />
-</details>
+- [aria-describedby not reported for group in browse mode - Issue #12718 - nvaccess/nvda](https://github.com/nvaccess/nvda/issues/12718)
 
 </div>
 </Unstyled>
