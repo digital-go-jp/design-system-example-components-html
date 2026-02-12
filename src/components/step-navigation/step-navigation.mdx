@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as StepNavigationStories from "./step-navigation.stories";
 import stepNavigationCss from "./step-navigation.css?raw";
@@ -25,9 +25,250 @@ import stepNavigationCss from "./step-navigation.css?raw";
 ## ソースコード
 
 <details>
+  <summary>HTML</summary>
+
+#### 基本形
+
+```html
+<div class="dads-step-navigation" data-orientation="horizontal" data-size="normal">
+  <p class="dads-u-visually-hidden">全3ステップ中、1ステップ目まで到達済み</p>
+  <ul>
+    <li class="dads-step-navigation__step" data-state="reached" data-first aria-current="true">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">1</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step">
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">2</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+    <li class="dads-step-navigation__step" data-last>
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">3</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+      <p class="dads-step-navigation__description">ステップの説明が入ります。</p>
+    </li>
+  </ul>
+</div>
+```
+
+#### リンク付き（ナビゲーションとして使用）
+
+```html
+<nav class="dads-step-navigation" data-orientation="horizontal" data-size="normal" aria-label="ステップ">
+  <p class="dads-u-visually-hidden">全3ステップ中、2ステップ目まで到達済み</p>
+  <ul>
+    <li class="dads-step-navigation__step" data-state="completed" data-first>
+      <a class="dads-step-navigation__header" href="#">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">
+          1
+          <span class="dads-step-navigation__state-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#666"/>
+              <path d="M10 17.5 19.8 8l-1.5-1.5-8.1 8-4.1-4L4.5 12l5.6 5.5Z" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="dads-u-visually-hidden">完了</span>
+        </span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </a>
+    </li>
+    <li class="dads-step-navigation__step" data-state="reached" aria-current="true">
+      <a class="dads-step-navigation__header" href="#">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">2</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </a>
+    </li>
+    <li class="dads-step-navigation__step" data-last>
+      <span class="dads-step-navigation__header">
+        <span class="dads-u-visually-hidden">ステップ</span>
+        <span class="dads-step-navigation__number">3</span>
+        <span class="dads-step-navigation__title">ステップのタイトル</span>
+      </span>
+    </li>
+  </ul>
+</nav>
+```
+
+</details>
+
+<details>
   <summary>step-navigation.css</summary>
   <Source code={stepNavigationCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-orientation` | `horizontal`, `vertical` | ステップナビゲーションの向き |
+| `data-size` | `normal`, `small` | ステップナビゲーションのサイズ |
+
+### ステップの状態
+
+各ステップ（`.dads-step-navigation__step`）に`data-state`属性を設定して状態を表示します。
+
+| 値 | 説明 |
+| --- | --- |
+| （なし） | デフォルト状態（未到達） |
+| `reached` | 到達済み |
+| `completed` | 完了済み |
+| `editing` | 編集中 |
+| `error` | エラー |
+| `skipped` | スキップ |
+
+### ステップの位置属性
+
+| 属性 | 説明 |
+| --- | --- |
+| `data-first` | 最初のステップであることを示す（上部/左部の接続線を非表示にする） |
+| `data-last` | 最後のステップであることを示す（下部/右部の接続線を非表示にする） |
+
+## 使い方
+
+### 現在のステップを示す
+
+現在のステップには`aria-current="true"`属性を設定します。
+
+```html
+<li class="dads-step-navigation__step" data-state="reached" aria-current="true">
+  ...
+</li>
+```
+
+### 状態アイコンを表示する
+
+`completed`、`editing`、`error`状態では、番号の右上に状態アイコンを表示できます。
+
+#### 完了状態
+
+```html
+<span class="dads-step-navigation__number">
+  1
+  <span class="dads-step-navigation__state-icon">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="12" fill="#666"/>
+      <path d="M10 17.5 19.8 8l-1.5-1.5-8.1 8-4.1-4L4.5 12l5.6 5.5Z" fill="#fff"/>
+    </svg>
+  </span>
+  <span class="dads-u-visually-hidden">完了</span>
+</span>
+```
+
+#### 編集中状態
+
+```html
+<span class="dads-step-navigation__number">
+  1
+  <span class="dads-step-navigation__state-icon">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5.8 20c-.5 0-1-.2-1.3-.5-.3-.4-.5-.8-.5-1.3V5.6c0-.5.2-.9.5-1.3.4-.3.8-.5 1.3-.5h8L12 5.6H5.8v12.6h12.6V12l1.8-1.8v8c0 .5-.2 1-.5 1.3-.4.3-.8.5-1.3.5H5.8Zm3.6-5.4v-3.8l8.3-8.3a1.8 1.8 0 0 1 2.5 0l1.3 1.3.4.6a1.7 1.7 0 0 1 0 1.3c-.1.3-.2.5-.4.6l-8.3 8.3H9.4Zm1.8-1.8h1.3l5.2-5.2L17 7l-.7-.7-5.2 5.2v1.3Z" fill="#333"/>
+    </svg>
+  </span>
+  <span class="dads-step-navigation__state-label">編集中</span>
+</span>
+```
+
+#### エラー状態
+
+```html
+<span class="dads-step-navigation__number">
+  1
+  <span class="dads-step-navigation__state-icon">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M1 21 12 2l11 19H1Zm3.5-2h15L12 6 4.5 19Zm7.5-1c.3 0 .5-.1.7-.3.2-.2.3-.4.3-.7a1 1 0 0 0-.3-.7 1 1 0 0 0-.7-.3 1 1 0 0 0-.7.3 1 1 0 0 0-.3.7c0 .3.1.5.3.7.2.2.4.3.7.3Zm-1-3h2v-5h-2v5Z" fill="#ec0000"/>
+    </svg>
+  </span>
+  <span class="dads-step-navigation__state-label">エラー</span>
+</span>
+```
+
+### ステップをリンクまたはボタンにする
+
+過去のステップに戻れるようにする場合、ヘッダー要素を`<a>`または`<button>`に変更します。
+
+#### リンクとして使用する場合
+
+ルート要素を`<nav>`に変更し、`aria-label`を設定します。
+
+```html
+<nav class="dads-step-navigation" ... aria-label="ステップ">
+  <ul>
+    <li class="dads-step-navigation__step" data-state="completed">
+      <a class="dads-step-navigation__header" href="#">
+        ...
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+#### ボタンとして使用する場合
+
+```html
+<div class="dads-step-navigation" ...>
+  <ul>
+    <li class="dads-step-navigation__step" data-state="completed">
+      <button class="dads-step-navigation__header" type="button">
+        ...
+      </button>
+    </li>
+  </ul>
+</div>
+```
+
+### 番号のみで使用する
+
+タイトルと説明を省略し、番号のみのステップナビゲーションにできます。
+
+```html
+<li class="dads-step-navigation__step" data-state="reached" data-first aria-current="true">
+  <span class="dads-step-navigation__header">
+    <span class="dads-u-visually-hidden">ステップ</span>
+    <span class="dads-step-navigation__number">1</span>
+  </span>
+</li>
+```
+
+### ステップ幅をカスタマイズする（水平方向のみ）
+
+水平方向のステップナビゲーションでは、CSSカスタムプロパティでステップの幅を調整できます。
+
+```html
+<div class="dads-step-navigation" data-orientation="horizontal" data-size="normal" style="--_step-width: 200; --_step-min-width: 120;">
+  ...
+</div>
+```
+
+| プロパティ | デフォルト値 | 説明 |
+| --- | --- | --- |
+| `--_step-width` | `320` | ステップの幅（px単位の数値、単位なし） |
+| `--_step-min-width` | `160` | ステップの最小幅（px単位の数値、単位なし） |
+
+### アクセシビリティ
+
+#### スクリーンリーダーが情報を得やすくする
+
+全体の進捗状況をスクリーンリーダーに伝えるため、コンポーネント冒頭にある非表示テキストに、進捗状況の概要を記述してください。
+
+```html
+<p class="dads-u-visually-hidden">全3ステップ中、2ステップ目まで到達済み</p>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
