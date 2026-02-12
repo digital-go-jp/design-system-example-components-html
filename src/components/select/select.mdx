@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as SelectStories from "./select.stories";
 import selectCss from "./select.css?raw";
@@ -12,11 +12,32 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<span class="dads-select">
+  <span class="dads-select__control">
+    <select class="dads-select__select" data-size="md">
+      <option value="">選択してください</option>
+      <option value="1">選択肢1</option>
+      <option value="2">選択肢2</option>
+      <option value="3">選択肢3</option>
+    </select>
+    <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+    </svg>
+  </span>
+</span>
+```
+
+</details>
 
 <details>
   <summary>select.css</summary>
@@ -29,6 +50,77 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <summary>form-control-label.css</summary>
   <Source code={formControlLabelCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `sm`, `md`, `lg` | セレクトボックスの高さ |
+
+## 使い方
+
+### ラベルの関連付け
+
+セレクトボックスは[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs)と組み合わせて使用し、`<label>`要素の`for`属性で`<select>`要素のIDを指定します。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="area-select">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="area-support-text" class="dads-form-control-label__support-text">該当する区を選択してください。</p>
+  <div>
+    <span class="dads-select">
+      <span class="dads-select__control">
+        <select id="area-select" class="dads-select__select" data-size="md" aria-describedby="area-support-text">
+          <option value="">選択してください</option>
+          <option value="1">足立区</option>
+          <option value="2">荒川区</option>
+          <option value="3">板橋区</option>
+        </select>
+        <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+        </svg>
+      </span>
+    </span>
+  </div>
+</div>
+```
+
+### エラー状態の実装
+
+エラー状態のセレクトボックスには、`<select>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
+
+```html
+<span class="dads-select">
+  <span class="dads-select__control">
+    <select class="dads-select__select" data-size="md" aria-invalid="true" aria-describedby="error-text">
+      <option value="">選択してください</option>
+      <option value="1">選択肢1</option>
+    </select>
+    <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+    </svg>
+  </span>
+  <span id="error-text" class="dads-select__error-text">＊エラーテキストが入ります。</span>
+</span>
+```
+
+### 無効状態
+
+`disabled`属性を使用して選択を無効化できます。
+
+```html
+<select class="dads-select__select" data-size="md" disabled>
+  <option value="">選択してください</option>
+  <option value="1">選択肢1</option>
+</select>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
