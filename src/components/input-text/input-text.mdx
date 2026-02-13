@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as InputTextStories from "./input-text.stories";
 import inputTextCss from "./input-text.css?raw";
@@ -12,11 +12,22 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<span class="dads-input-text">
+  <input class="dads-input-text__input" type="text" data-size="sm">
+</span>
+```
+
+</details>
 
 <details>
   <summary>input-text.css</summary>
@@ -29,6 +40,74 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <summary>form-control-label.css</summary>
   <Source code={formControlLabelCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `sm`, `md`, `lg` | インプットテキストの高さ |
+
+## 使い方
+
+### ラベルの関連付け
+
+インプットテキストは[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs)と組み合わせて使用し、`<label>`要素の`for`属性で`<input>`要素のIDを指定します。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="name-input">
+    氏名
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <div>
+    <span class="dads-input-text">
+      <input id="name-input" class="dads-input-text__input" type="text" data-size="md">
+    </span>
+  </div>
+</div>
+```
+
+### エラー状態の実装
+
+エラー状態のインプットテキストには、`<input>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
+
+```html
+<span class="dads-input-text">
+  <input class="dads-input-text__input" type="text" data-size="sm" aria-invalid="true" aria-describedby="error-text">
+  <span id="error-text" class="dads-input-text__error-text">＊エラーテキストが入ります。</span>
+</span>
+```
+
+### 読み取り専用状態
+
+入力済みの値を編集不可にする場合は、`readonly`属性を使用します。ラベルには「編集不可」のステータスを表示し、サポートテキストで編集できない理由を説明してください。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="readonly-input">
+    ラベル
+    <span class="dads-form-control-label__status">編集不可</span>
+  </label>
+  <p id="readonly-support-text" class="dads-form-control-label__support-text">編集できない理由が入ります。</p>
+  <div>
+    <span class="dads-input-text">
+      <input id="readonly-input" class="dads-input-text__input" type="text" value="入力されたテキスト" readonly data-size="md" aria-describedby="readonly-support-text">
+    </span>
+  </div>
+</div>
+```
+
+### 無効状態
+
+`disabled`属性を使用して入力を無効化できます。
+
+```html
+<input class="dads-input-text__input" type="text" disabled data-size="sm">
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

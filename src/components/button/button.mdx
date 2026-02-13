@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ButtonStories from "./button.stories";
 import buttonCss from "./button.css?raw";
@@ -11,16 +11,80 @@ import buttonCss from "./button.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### button要素
+
+```html
+<button class="dads-button" data-size="md" data-type="solid-fill">ボタン</button>
+```
+
+#### a要素（リンク）
+
+```html
+<a href="#" class="dads-button" data-size="md" data-type="solid-fill">ボタン</a>
+```
+
+</details>
 
 <details>
   <summary>button.css</summary>
   <Source code={buttonCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-type` | `solid-fill`, `outline`, `text` | ボタンのスタイル |
+| `data-size` | `lg`, `md`, `sm`, `xs` | ボタンのサイズ |
+
+## 使い方
+
+### 要素の選択
+
+- **アクションを実行する場合**: `<button>`要素を使用してください（フォーム送信、ダイアログを開くなど）
+- **ページ遷移する場合**: `<a>`要素を使用してください
+
+### 無効状態
+
+`<button>`要素には`disabled`属性を付与します。
+
+```html
+<button class="dads-button" data-size="md" data-type="solid-fill" disabled>ボタン</button>
+```
+
+`<a>`要素には`disabled`属性が使えないため、`href`属性を削除し、`role="link"`と`aria-disabled="true"`を付与します。
+
+```html
+<a class="dads-button" data-size="md" data-type="solid-fill" role="link" aria-disabled="true">ボタン</a>
+```
+
+### アイコンの追加
+
+アイコンはボタンのテキストの前後に配置できます。`<svg>`要素に`dads-button__icon`クラスを付与してください。
+
+```html
+<button class="dads-button" data-size="md" data-type="solid-fill">
+  <svg class="dads-button__icon" width="24" height="24" aria-hidden="true"><path d="M21 11H13V3H11V11H3V13H11V21H13V13H21V11Z" fill="currentcolor"/></svg>
+  ボタン
+  <svg class="dads-button__icon" width="16" height="16" viewBox="0 0 48 48" role="img" aria-label="新規タブで開きます"><path d="M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z" fill="currentcolor"/></svg>
+</button>
+```
+
+- **装飾的なアイコン**: `aria-hidden="true"`を付与して支援技術から隠します
+- **意味を持つアイコン**: `role="img"`と`aria-label`で代替テキストを提供します
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

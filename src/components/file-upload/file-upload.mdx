@@ -1,11 +1,10 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as FileUploadStories from "./file-upload.stories";
 import buttonCss from "../button/button.css?raw";
-import fileUploadCss from "../file-upload/file-upload.css?raw";
-import formControlLabelCss from "../form-control-label/form-control-label.css?raw";
-import headingCss from "../heading/heading.css?raw";
-import fileUploadJs from "../file-upload/file-upload.js?raw";
+import checkboxCss from "../checkbox/checkbox.css?raw";
+import fileUploadCss from "./file-upload.css?raw";
+import fileUploadJs from "./file-upload.js?raw";
 
 <Meta of={FileUploadStories} />
 
@@ -15,49 +14,176 @@ import fileUploadJs from "../file-upload/file-upload.js?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使い方
+## ソースコード
 
-### 基本的な使い方
-
-`<dads-file-upload>`要素は、ファイル選択、ドラッグ&ドロップ、シンプルなクライアントサイドバリデーション機能を提供するカスタム要素です。
-
-#### 必要なファイル
+<details>
+  <summary>HTML</summary>
 
 ```html
-<!-- CSS -->
-<link rel="stylesheet" href="button.css">
-<link rel="stylesheet" href="checkbox.css">
-<link rel="stylesheet" href="file-upload.css">
+<dads-file-upload
+  class="dads-file-upload"
+  max-files="5"
+  max-total-size="10MB"
+  max-file-size="5MB"
+  data-error-invalid-type="PNG/JPEG/GIF形式の画像、Excel/Word/PowerPoint/PDF形式のドキュメントだけが選択できます。"
+>
+  <input
+    id="file-upload-1-input"
+    class="dads-file-upload__input"
+    type="file"
+    name="file-upload-1"
+    multiple
+    accept=".png,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt,.pdf"
+    data-js-input
+  >
 
-<!-- JavaScript -->
-<script type="module" src="file-upload.js"></script>
+  <div class="dads-u-visually-hidden" aria-live="polite" data-js-announcer></div>
+  <div class="dads-u-visually-hidden" aria-live="assertive" data-js-announcer-assertive></div>
+
+  <div class="dads-file-upload__inner">
+    <div class="dads-file-upload__drop-area" data-js-drop-area>
+      <div class="dads-file-upload__button-area">
+        <button
+          id="file-upload-1-button"
+          class="dads-button"
+          data-type="outline"
+          data-size="md"
+          type="button"
+          aria-labelledby="file-upload-1-label file-upload-1-button"
+          aria-describedby="file-upload-1-selected-files file-upload-1-error-messages file-upload-1-support-text"
+          data-js-select-button
+        >
+          ファイルを選択
+        </button>
+        <p>または、このエリア内にドラッグ＆ドロップ</p>
+      </div>
+      <p id="file-upload-1-selected-files" class="dads-file-upload__select-summary" data-js-select-summary></p>
+      <ul id="file-upload-1-error-messages" class="dads-file-upload__error-messages" data-js-error-messages></ul>
+      <p class="dads-file-upload__expand-drop-area">
+        <label class="dads-checkbox" data-size="md">
+          <span class="dads-checkbox__checkbox">
+            <input class="dads-checkbox__input" type="checkbox" data-js-expand-drop-area>
+          </span>
+          <span class="dads-checkbox__label">ドラッグ＆ドロップの範囲をこのブラウザウィンドウ全体に広げる</span>
+        </label>
+      </p>
+    </div>
+    <p class="dads-file-upload__empty-message" data-js-empty-message>ファイルが選択されていません</p>
+    <ul class="dads-file-upload__file-list" data-js-file-list hidden></ul>
+  </div>
+
+  <div class="dads-file-upload__viewport-overlay" data-js-viewport-overlay hidden>
+    <div class="dads-file-upload__viewport-overlay-message">
+      <span>このエリア内にファイルを</span><span>ドラッグ＆ドロップ</span>
+    </div>
+  </div>
+
+  <template data-js-template>
+    <li class="dads-file-upload__file-item">
+      <div class="dads-file-upload__file-marker"></div>
+      <div class="dads-file-upload__file-info" data-js-file-info>
+        <p>
+          <span class="dads-file-upload__file-name" data-slot="fileName"></span>
+          <span class="dads-file-upload__file-meta">
+            <span data-slot="fileSize"></span>（<span data-slot="fileSizeBytes"></span>バイト）
+          </span>
+        </p>
+      </div>
+      <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+    </li>
+  </template>
+</dads-file-upload>
 ```
 
-これらのファイルを読み込むことで、HTML内に記述する`<dads-file-upload>`が正しく動作するようになります。
+</details>
 
-これらのファイルを直接`<link>` / `<script>`タグで読み込んでも、ビルドツールなどでバンドルしても構いません。
+<details>
+  <summary>file-upload.css</summary>
+  <Source code={fileUploadCss} language="css" />
+</details>
 
-スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+<details>
+  <summary>file-upload.js</summary>
+  <Source code={fileUploadJs} language="javascript" />
+</details>
 
-#### 主要な属性
+### 依存ファイル
 
-##### `<dads-file-upload>` 要素の属性
+<details>
+  <summary>button.css</summary>
+  <Source code={buttonCss} language="css" />
+</details>
 
-- `max-files`: 選択可能なファイル数の上限（例：`max-files="5"`）
-- `max-file-size`: 1ファイルあたりのサイズ上限（例：`max-file-size="5MB"`）
-- `max-total-size`: 全ファイルの合計サイズ上限（例：`max-total-size="10MB"`）
+<details>
+  <summary>checkbox.css</summary>
+  <Source code={checkboxCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `max-files` | 数値 | 選択可能なファイル数の上限 |
+| `max-file-size` | サイズ文字列（例：`5MB`） | 1ファイルあたりのサイズ上限 |
+| `max-total-size` | サイズ文字列（例：`10MB`） | 全ファイルの合計サイズ上限 |
 
 サイズの単位は `B`, `KB`, `MB`, `GB` が使用できます。
 
-##### `<input>` 要素の属性
+### 機能仕様
 
-- `name`: フォーム送信時のフィールド名（例：`name="upload_files"`）
-- `multiple`: 複数ファイルの選択を許可する場合に指定
-- `accept`: 許可するファイル形式（例：`accept=".png,.jpg,.pdf"`）
+- **ファイル選択**: ボタンクリックまたはドラッグ＆ドロップでファイルを選択
+- **バリデーション**: ファイル数、ファイルサイズ、ファイル形式のクライアントサイド検証
+- **ドロップエリア拡張**: チェックボックスでブラウザウィンドウ全体をドロップエリアに拡張可能
+- **スクリーンリーダー対応**: ドラッグ＆ドロップ時のライブリージョンによる読み上げ
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **CSS**
+  - `file-upload.css`
+  - `button.css`
+  - `checkbox.css`（ドロップエリア拡張機能を使用する場合）
+- **JavaScript**
+  - `file-upload.js`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+### マークアップ
+
+[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs)と組み合わせて使用してください。ラベル、サポートテキスト、コントロールを適切に関連付けることで、アクセシビリティが向上します。
+
+### ドロップエリアなしで使用する
+
+ドラッグ＆ドロップ機能が不要な場合、`.dads-file-upload__drop-area`要素と`.dads-file-upload__viewport-overlay`要素を削除し、ボタンエリアを直接配置します。
+
+```html
+<dads-file-upload class="dads-file-upload" max-files="5">
+  <input class="dads-file-upload__input" type="file" name="file" multiple data-js-input>
+  <div class="dads-u-visually-hidden" aria-live="polite" data-js-announcer></div>
+  <div class="dads-u-visually-hidden" aria-live="assertive" data-js-announcer-assertive></div>
+  <div class="dads-file-upload__inner">
+    <div class="dads-file-upload__button-area">
+      <button class="dads-button" data-type="outline" data-size="md" type="button" data-js-select-button>
+        ファイルを選択
+      </button>
+    </div>
+    <p class="dads-file-upload__select-summary" data-js-select-summary></p>
+    <ul class="dads-file-upload__error-messages" data-js-error-messages></ul>
+    <p class="dads-file-upload__empty-message" data-js-empty-message>ファイルが選択されていません</p>
+    <ul class="dads-file-upload__file-list" data-js-file-list hidden></ul>
+  </div>
+  <template data-js-template><!-- 省略 --></template>
+</dads-file-upload>
+```
 
 ### 複数ステップフォームでの使い方
 
@@ -146,14 +272,13 @@ import fileUploadJs from "../file-upload/file-upload.js?raw";
 コンポーネントは初期化時に `data-js-file-list` 内の既存項目を読み込み、内部状態として保持します。
 ユーザーが新たにファイルを選択すると、既存ファイルの後ろに追加されます。
 
-## カスタマイズ方法
+## カスタマイズ
 
 ### エラーメッセージのカスタマイズ
 
 エラーメッセージは `data-error-*` 属性でカスタマイズできます。
 
 ```html
-<!-- エラーの詳細を表示する例 -->
 <dads-file-upload 
   class="dads-file-upload"
   max-files="5"
@@ -170,51 +295,19 @@ import fileUploadJs from "../file-upload/file-upload.js?raw";
 
 #### 利用可能なエラーメッセージ属性
 
-<table>
-  <thead>
-    <tr>
-      <th>属性</th>
-      <th>デフォルトメッセージ</th>
-      <th>利用可能な変数</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>data-error-max-files</code></td>
-      <td>選択できるファイル数が上限を超過しています。</td>
-      <td><code>\{max}</code>, <code>\{current}</code></td>
-    </tr>
-    <tr>
-      <td><code>data-error-max-total-size</code></td>
-      <td>選択できるファイルサイズの合計が上限を超過しています。</td>
-      <td><code>\{max}</code>, <code>\{current}</code></td>
-    </tr>
-    <tr>
-      <td><code>data-error-invalid-type</code></td>
-      <td>許可されていないファイル形式です。</td>
-      <td>なし</td>
-    </tr>
-    <tr>
-      <td><code>data-error-max-file-size</code></td>
-      <td>ファイルサイズが上限を超過しています。</td>
-      <td><code>\{max}</code></td>
-    </tr>
-    <tr>
-      <td><code>data-error-has-file-errors</code></td>
-      <td>選択したファイルにエラーがあります。該当ファイルをチェックしてください。</td>
-      <td>なし</td>
-    </tr>
-  </tbody>
-</table>
+| 属性 | デフォルトメッセージ | 利用可能な変数 |
+| --- | --- | --- |
+| `data-error-max-files` | 選択できるファイル数が上限を超過しています。 | `{max}`, `{current}` |
+| `data-error-max-total-size` | 選択できるファイルサイズの合計が上限を超過しています。 | `{max}`, `{current}` |
+| `data-error-invalid-type` | 許可されていないファイル形式です。 | なし |
+| `data-error-max-file-size` | ファイルサイズが上限を超過しています。 | `{max}`, `{current}` |
+| `data-error-has-file-errors` | 選択したファイルにエラーがあります。該当ファイルをチェックしてください。 | なし |
 
-### UIを英語化する例
+### UIを英語化する
 
 ```html
 <dads-file-upload 
   class="dads-file-upload"
-  max-files="5"
-  max-file-size="5MB"
-  max-total-size="10MB"
   data-error-max-files="The number of files that can be selected has exceeded the limit."
   data-error-max-total-size="The total size of files that can be selected has exceeded the limit."
   data-error-invalid-type="This file format is not allowed."
@@ -228,61 +321,19 @@ import fileUploadJs from "../file-upload/file-upload.js?raw";
 </dads-file-upload>
 ```
 
-### ファイル行のフォーマットカスタマイズ
+### ファイルリストのテンプレートカスタマイズ
 
 ファイルリストの各項目の表示は `template[data-js-template]` を編集することでカスタマイズできます。
 
-#### デフォルトのテンプレート
-
-```html
-<template data-js-template>
-  <li class="dads-file-upload__file-item">
-    <div class="dads-file-upload__file-marker"></div>
-    <div class="dads-file-upload__file-info" data-js-file-info>
-      <p>
-        <span class="dads-file-upload__file-name" data-slot="fileName"></span>
-        <span class="dads-file-upload__file-meta">
-          <span data-slot="fileSize"></span>（<span data-slot="fileSizeBytes"></span>バイト）
-        </span>
-      </p>
-    </div>
-    <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
-  </li>
-</template>
-```
-
 #### 利用可能なスロット
 
-テンプレート内で `data-slot` 属性を使用することで、ファイル情報を動的に挿入できます。
+| スロット名 | 内容 | 例 |
+| --- | --- | --- |
+| `fileName` | ファイル名 | `document.pdf` |
+| `fileSize` | フォーマット済みファイルサイズ | `2.5MB` |
+| `fileSizeBytes` | バイト数（カンマ区切り） | `2,621,440` |
 
-<table>
-  <thead>
-    <tr>
-      <th>スロット名</th>
-      <th>内容</th>
-      <th>例</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>fileName</code></td>
-      <td>ファイル名</td>
-      <td><code>document.pdf</code></td>
-    </tr>
-    <tr>
-      <td><code>fileSize</code></td>
-      <td>フォーマット済みファイルサイズ</td>
-      <td><code>2.5 MB</code></td>
-    </tr>
-    <tr>
-      <td><code>fileSizeBytes</code></td>
-      <td>バイト数（カンマ区切り）</td>
-      <td><code>2,621,440</code></td>
-    </tr>
-  </tbody>
-</table>
-
-### JavaScript APIの使用
+### JavaScript API
 
 コンポーネントはJavaScript経由でも操作できます。
 
@@ -306,34 +357,7 @@ console.log(fileUpload.files);
 console.log(fileUpload.errors);
 ```
 
-## ソースコード
-
-<details>
-  <summary>file-upload.css</summary>
-  <Source code={fileUploadCss} language="css" />
-</details>
-
-<details>
-  <summary>file-upload.js</summary>
-  <Source code={fileUploadJs} language="javascript" />
-</details>
-
-### 依存ファイル
-
-<details>
-  <summary>button.css</summary>
-  <Source code={buttonCss} language="css" />
-</details>
-
-<details>
-  <summary>form-control-label.css</summary>
-  <Source code={formControlLabelCss} language="css" />
-</details>
-
-<details>
-  <summary>heading.css</summary>
-  <Source code={headingCss} language="css" />
-</details>
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

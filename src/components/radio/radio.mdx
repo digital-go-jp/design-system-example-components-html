@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as RadioStories from "./radio.stories";
 import radioCss from "./radio.css?raw";
@@ -12,11 +12,59 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使用上の注意
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 基本形（ラベル付き）
+
+```html
+<label class="dads-radio" data-size="sm">
+  <span class="dads-radio__radio">
+    <input class="dads-radio__input" type="radio" name="group-name">
+  </span>
+  <span class="dads-radio__label">ラベル</span>
+</label>
+```
+
+#### スタンドアロン（ラベルなし）
+
+```html
+<span class="dads-radio" data-size="sm">
+  <span class="dads-radio__radio">
+    <input id="row-1-radio" class="dads-radio__input" type="radio" name="group-name">
+  </span>
+</span>
+```
+
+</details>
+
+<details>
+  <summary>radio.css</summary>
+  <Source code={radioCss} language="css" />
+</details>
+
+### 依存ファイル
+
+<details>
+  <summary>form-control-label.css</summary>
+  <Source code={formControlLabelCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `sm`, `md`, `lg` | ラジオボタンのサイズ |
+
+## 使い方
 
 ### 選択肢ラベルおよびラジオボタンのマークアップ
 
@@ -25,11 +73,13 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 ```html
 <label class="dads-radio" data-size="sm">
   <span class="dads-radio__radio">
-    <input class="dads-radio__input" type="radio" name="doc-1">
+    <input class="dads-radio__input" type="radio" name="group-name">
   </span>
   <span class="dads-radio__label">ラベル</span>
 </label>
 ```
+
+### ラジオボタンと選択肢ラベルを離して配置する場合
 
 ラジオボタンと選択肢ラベルを離して配置する場合、選択肢ラベルのみを`<label>`要素でマークアップし、ラジオボタンに付与したIDを`for`属性に指定します。
 
@@ -38,7 +88,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <td>
     <span class="dads-radio" data-size="sm">
       <span class="dads-radio__radio">
-        <input id="row-1-radio" class="dads-radio__input" type="radio" name="doc-2">
+        <input id="row-1-radio" class="dads-radio__input" type="radio" name="group-name">
       </span>
     </span>
   </td>
@@ -58,12 +108,12 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <td>
     <span class="dads-radio" data-size="sm">
       <span class="dads-radio__radio">
-        <input class="dads-radio__input" type="radio" name="doc-3" aria-labelledby="row-1-radio-label">
+        <input class="dads-radio__input" type="radio" name="group-name" aria-labelledby="row-1-radio-label">
       </span>
     </span>
   </td>
   <td>
-    <a id="row-1-radio-label" href>記事タイトル</a>
+    <a id="row-1-radio-label" href="#">記事タイトル</a>
   </td>
   …
 </tr>
@@ -75,19 +125,46 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 
 詳細は[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs#複数のコントロールにラベルを付ける)を参照してください。
 
-## ソースコード
+```html
+<fieldset class="dads-form-control-label" data-size="sm" aria-describedby="support-text">
+  <legend class="dads-form-control-label__label">
+    東京23区
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="support-text" class="dads-form-control-label__support-text">該当する区を選択してください。</p>
+  <div>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="tokyo-ward">
+      </span>
+      <span class="dads-radio__label">足立区</span>
+    </label>
+    <label class="dads-radio" data-size="sm">
+      <span class="dads-radio__radio">
+        <input class="dads-radio__input" type="radio" name="tokyo-ward">
+      </span>
+      <span class="dads-radio__label">荒川区</span>
+    </label>
+    <!-- 以下、必要な項目分繰り返す -->
+  </div>
+</fieldset>
+```
 
-<details>
-  <summary>radio.css</summary>
-  <Source code={radioCss} language="css" />
-</details>
+### エラー状態の実装
 
-### 依存ファイル
+エラー状態のラジオボタンには、`<input>`要素に`aria-invalid="true"`を設定します。
 
-<details>
-  <summary>form-control-label.css</summary>
-  <Source code={formControlLabelCss} language="css" />
-</details>
+```html
+<input class="dads-radio__input" type="radio" name="group-name" aria-invalid="true">
+```
+
+エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
+
+<Stories title="デモ" includePrimary={false} />
+
+## 参考情報
+
+- [H71: fieldset 要素及び legend 要素を使用して、フォームコントロールのグループに関する説明を提供する [WCAG 2.1]](https://waic.jp/translations/WCAG21/Techniques/html/H71)
 
 </div>
 </Unstyled>

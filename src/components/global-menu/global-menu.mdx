@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as GlobalMenuStories from "./global-menu.stories";
 import globalMenuCss from "./global-menu.css?raw";
@@ -11,16 +11,91 @@ import globalMenuCss from "./global-menu.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### リンクのみ
+
+```html
+<ul class="dads-global-menu">
+  <li class="dads-global-menu__item">
+    <a class="dads-global-menu__item-inner" href="#">メニュー1</a>
+  </li>
+  <li class="dads-global-menu__item">
+    <a class="dads-global-menu__item-inner" href="#">メニュー2</a>
+  </li>
+  <li class="dads-global-menu__item">
+    <a class="dads-global-menu__item-inner" href="#">メニュー3</a>
+  </li>
+</ul>
+```
+
+#### サブメニューを開くボタン
+
+```html
+<ul class="dads-global-menu">
+  <li class="dads-global-menu__item">
+    <button class="dads-global-menu__item-inner" type="button" aria-expanded="false">
+      <span class="dads-global-menu__label">メニュー1</span>
+      <svg class="dads-global-menu__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+      </svg>
+    </button>
+  </li>
+  <li class="dads-global-menu__item">
+    <a class="dads-global-menu__item-inner" href="#">メニュー2</a>
+  </li>
+  <li class="dads-global-menu__item">
+    <a class="dads-global-menu__item-inner" href="#">メニュー3</a>
+  </li>
+</ul>
+```
+
+</details>
 
 <details>
   <summary>global-menu.css</summary>
   <Source code={globalMenuCss} language="css" />
 </details>
+
+## 仕様
+
+### 機能仕様
+
+- **リンク項目**: `<a>`要素を使用し、`href`属性で遷移先を指定します
+- **サブメニュー付き項目**: `<button>`要素を使用し、`aria-expanded`属性でサブメニューの開閉状態を示します
+- **現在地表示**: `aria-current`属性を設定すると、現在のページであることを視覚的に示します
+
+## 使い方
+
+### アイコンを追加する
+
+メニュー項目の先頭にアイコンを追加できます。
+
+```html
+<a class="dads-global-menu__item-inner" href="#">
+  <svg class="dads-global-menu__front-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <!-- アイコンのパス -->
+  </svg>
+  <span class="dads-global-menu__label">メニュー1</span>
+</a>
+```
+
+### 現在のページを示す
+
+現在表示中のページに対応するメニュー項目には`aria-current`属性を設定します。
+
+```html
+<a class="dads-global-menu__item-inner" href="#" aria-current="true">メニュー1</a>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

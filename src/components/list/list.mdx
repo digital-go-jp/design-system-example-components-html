@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ListStories from "./list.stories";
 import listCss from "./list.css?raw";
@@ -11,16 +11,101 @@ import listCss from "./list.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### 順序なしリスト
+
+```html
+<ul class="dads-list" data-spacing="4">
+  <li>リストアイテム1</li>
+  <li>リストアイテム2</li>
+  <li>
+    リストアイテム3
+    <ul class="dads-list" data-spacing="4">
+      <li>ネストされたアイテム</li>
+    </ul>
+  </li>
+</ul>
+```
+
+#### 番号付きリスト
+
+```html
+<ul class="dads-list" data-marker="number" data-spacing="4">
+  <li><span>1. </span><span>リストアイテム1</span></li>
+  <li><span>2. </span><span>リストアイテム2</span></li>
+  <li>
+    <span>3. </span><span>リストアイテム3</span>
+    <ul class="dads-list" data-spacing="4">
+      <li>ネストされたアイテム</li>
+    </ul>
+  </li>
+</ul>
+```
+
+</details>
 
 <details>
   <summary>list.css</summary>
   <Source code={listCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-spacing` | `4`, `8`, `12` | リスト項目間の垂直方向の間隔（px）|
+| `data-marker` | `number` | 番号付きリストとして表示 |
+
+## 使い方
+
+### 番号付きリスト
+
+番号付きリストを使用する場合は、`data-marker="number"`を設定し、各リスト項目内に番号用の`<span>`要素とテキスト用の`<span>`要素を配置します。
+
+```html
+<ul class="dads-list" data-marker="number" data-spacing="4">
+  <li><span>１　</span><span>番号はテキストとして記述します</span></li>
+  <li><span>２　</span><span>丸数字や括弧付きなど任意の形式が使用可能です</span></li>
+</ul>
+```
+
+### リンク付きリスト項目
+
+番号付きリストでリスト項目全体をリンクにする場合は、`<li>`要素の直下に`<a>`要素を配置し、その中に番号とテキストの`<span>`要素を含めます。
+
+```html
+<li><a class="dads-link" href="#"><span>3. </span><span>リンク付きアイテム</span></a></li>
+```
+
+### ネストされたリスト
+
+リストはネストして使用できます。ネストされたリストにも同じ`data-spacing`属性を設定してください。
+
+```html
+<ul class="dads-list" data-spacing="4">
+  <li>
+    親アイテム
+    <ul class="dads-list" data-spacing="4">
+      <li>子アイテム1</li>
+      <li>子アイテム2</li>
+    </ul>
+  </li>
+</ul>
+```
+
+順序なしリストと番号付きリストを組み合わせてネストすることも可能です。
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

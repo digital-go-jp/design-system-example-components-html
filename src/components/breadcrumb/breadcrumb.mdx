@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as BreadcrumbStories from "./breadcrumb.stories";
 import breadcrumbCss from "./breadcrumb.css?raw";
@@ -11,13 +11,75 @@ import breadcrumbCss from "./breadcrumb.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使用上の注意
+## ソースコード
 
-### 同一ページ内で`id`属性の重複を避ける
+<details>
+  <summary>HTML</summary>
+
+```html
+<nav class="dads-breadcrumb" aria-labelledby="breadcrumb-label">
+  <span id="breadcrumb-label" class="dads-u-visually-hidden">現在位置</span>
+  <ol class="dads-breadcrumb__list">
+    <li class="dads-breadcrumb__item">
+      <a class="dads-breadcrumb__link" href="#">ホーム</a>
+      <span class="dads-breadcrumb__separator">
+        <svg class="dads-breadcrumb__separator-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M4.5 11L4 10.5L8 6.5L4 2.5L4.5 2L9 6.5L4.5 11Z" fill="currentcolor" />
+        </svg>
+      </span>
+    </li>
+    <li class="dads-breadcrumb__item">
+      <a class="dads-breadcrumb__link" href="#">組織情報</a>
+      <span class="dads-breadcrumb__separator">
+        <svg class="dads-breadcrumb__separator-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M4.5 11L4 10.5L8 6.5L4 2.5L4.5 2L9 6.5L4.5 11Z" fill="currentcolor" />
+        </svg>
+      </span>
+    </li>
+    <li class="dads-breadcrumb__item" aria-current="page">
+      現在のページ
+    </li>
+  </ol>
+</nav>
+```
+
+</details>
+
+<details>
+  <summary>breadcrumb.css</summary>
+  <Source code={breadcrumbCss} language="css" />
+</details>
+
+## 使い方
+
+### ラベルを表示する
+
+ラベルを視覚的に表示する場合は、`dads-u-visually-hidden`の代わりに`dads-breadcrumb__label`クラスを使用します。
+
+```html
+<span id="breadcrumb-label" class="dads-breadcrumb__label">現在位置</span>
+```
+
+### ホームアイコンを追加する
+
+リンクテキストの前にアイコンを追加できます。アイコンには`dads-breadcrumb__link-icon`クラスと`aria-hidden="true"`を付与します。
+
+```html
+<a class="dads-breadcrumb__link" href="#">
+  <svg class="dads-breadcrumb__link-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="M3 13L3 6L8 2L13 6V13H9V9H7V13H3Z" fill="currentcolor"/>
+  </svg>
+  ホーム
+</a>
+```
+
+### マークアップ
+
+#### 同一ページ内で`id`属性の重複を避ける
 
 `aria-labelledby`属性によってナビゲーションのラベルを`id="breadcrumb-label"`で指定しています。同一ページ内に複数のパンくずリストを配置する場合は、`id`値が重複しないようにユニークな値を付けてください。
 
@@ -29,18 +91,15 @@ import breadcrumbCss from "./breadcrumb.css?raw";
 </nav>
 ```
 
-### `aria-labelledby`属性でラベルと紐づける
+### アクセシビリティ
+
+#### `aria-labelledby`属性でラベルと紐づける
 
 `<nav>`要素の`aria-labelledby`属性を使用し、ナビゲーションのラベルとして機能する要素と関連付けます。ページ内のランドマークとして名前をつけることで、支援技術ユーザーのナビゲーションの手掛かりになります。
 
 `aria-label`属性を使うことでも同様の結果を得られますが、自動翻訳ツールのサポートが万全でない場合があります。堅牢性の確保のため、原則として`aria-labelledby`属性を使用してください。
 
-## ソースコード
-
-<details>
-  <summary>breadcrumb.css</summary>
-  <Source code={breadcrumbCss} language="css" />
-</details>
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

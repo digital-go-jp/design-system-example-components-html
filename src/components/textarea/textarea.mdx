@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as TextareaStories from "./textarea.stories";
 import textareaCss from "./textarea.css?raw";
@@ -12,11 +12,22 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<span class="dads-textarea">
+  <textarea class="dads-textarea__textarea"></textarea>
+</span>
+```
+
+</details>
 
 <details>
   <summary>textarea.css</summary>
@@ -29,6 +40,67 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
   <summary>form-control-label.css</summary>
   <Source code={formControlLabelCss} language="css" />
 </details>
+
+## 使い方
+
+### ラベルの関連付け
+
+テキストエリアは[フォームコントロールラベル](?path=/docs/components-フォームコントロールラベル--docs)と組み合わせて使用し、`<label>`要素の`for`属性で`<textarea>`要素のIDを指定します。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="comment-textarea">
+    コメント
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </label>
+  <p id="comment-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div>
+    <span class="dads-textarea">
+      <textarea id="comment-textarea" class="dads-textarea__textarea" aria-describedby="comment-support-text"></textarea>
+    </span>
+  </div>
+</div>
+```
+
+### エラー状態の実装
+
+エラー状態のテキストエリアには、`<textarea>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
+
+```html
+<span class="dads-textarea">
+  <textarea class="dads-textarea__textarea" aria-invalid="true" aria-describedby="error-text"></textarea>
+  <span id="error-text" class="dads-textarea__error-text">＊エラーテキストが入ります。</span>
+</span>
+```
+
+### 読み取り専用状態
+
+入力済みの値を編集不可にする場合は、`readonly`属性を使用します。ラベルには「編集不可」のステータスを表示し、サポートテキストで編集できない理由を説明してください。
+
+```html
+<div class="dads-form-control-label" data-size="md">
+  <label class="dads-form-control-label__label" for="readonly-textarea">
+    ラベル
+    <span class="dads-form-control-label__status">編集不可</span>
+  </label>
+  <p id="readonly-support-text" class="dads-form-control-label__support-text">編集できない理由が入ります。</p>
+  <div>
+    <span class="dads-textarea">
+      <textarea id="readonly-textarea" class="dads-textarea__textarea" readonly aria-describedby="readonly-support-text">入力されたテキスト</textarea>
+    </span>
+  </div>
+</div>
+```
+
+### 無効状態
+
+`disabled`属性を使用して入力を無効化できます。
+
+```html
+<textarea class="dads-textarea__textarea" disabled></textarea>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
