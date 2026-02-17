@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tab (Arrow Key Navigation)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../../../.storybook/prose.css">
+<link rel="stylesheet" href="../link/link.css">
+<link rel="stylesheet" href="tab.css">
+<script type="module" src="tab-aria.js"></script>
+</head>
+<body>
+
+<dads-tab-aria class="dads-tab">
+  <div class="dads-tab__list" role="tablist">
+    <a class="dads-tab__tab" href="#tab-panel-1" role="tab" aria-selected="true"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#tab-panel-2" role="tab" aria-selected="false"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#tab-panel-3" role="tab" aria-selected="false"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#tab-panel-4" role="tab" aria-selected="false"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#tab-panel-5" role="tab" aria-selected="false"><span>タブラベル</span></a>
+  </div>
+  <div class="dads-tab__panels">
+    <div id="tab-panel-1" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      <div class="prose">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      </div>
+    </div>
+    <div id="tab-panel-2" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      <div class="prose">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam. <a class="dads-link" href="#">リンクテキスト</a></p>
+      </div>
+    </div>
+    <div id="tab-panel-3" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      <div class="prose">
+        <ul>
+          <li>リスト項目あ</li>
+          <li>リスト項目い</li>
+          <li>リスト項目う</li>
+          <li>リスト項目え</li>
+          <li>リスト項目お</li>
+          <li>リスト項目か</li>
+        </ul>
+      </div>
+    </div>
+    <div id="tab-panel-4" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      <div class="prose">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <dl>
+          <dt>用語あ</dt>
+          <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</dd>
+          <dt>用語い</dt>
+          <dd>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+          <dt>用語う</dt>
+          <dd>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</dd>
+        </dl>
+      </div>
+    </div>
+    <div id="tab-panel-5" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      <div class="prose">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <blockquote>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </blockquote>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <a class="dads-link" href="#">リンクテキスト</a></p>
+      </div>
+    </div>
+  </div>
+</dads-tab-aria>
+
+</body>
+</html>
