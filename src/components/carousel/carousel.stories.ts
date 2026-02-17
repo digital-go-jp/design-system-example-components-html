@@ -67,26 +67,10 @@ const meta = {
 
 export default meta;
 
-interface ContainerCarouselProps {
-  hasHeading: boolean;
-  headingLabel?: string;
-}
-
-export const Container: StoryObj<ContainerCarouselProps> = {
+export const Container: StoryObj = {
   name: "Container (Multi Slides)",
-  render: (args) => {
+  render: () => {
     const fragment = new HtmlFragment(container, "dads-carousel");
-    const heading = fragment.root.querySelector(".dads-carousel__heading");
-
-    if (!heading) throw new Error("");
-
-    if (!args.hasHeading || !args.headingLabel) {
-      heading.remove();
-      fragment.root.removeAttribute("aria-labelledby");
-      fragment.root.setAttribute("aria-label", "スライドショー");
-    } else {
-      heading.textContent = args.headingLabel;
-    }
 
     fragment.root.querySelectorAll("img").forEach((img) => {
       updateImageSrcAndSrcset(img);
@@ -94,36 +78,16 @@ export const Container: StoryObj<ContainerCarouselProps> = {
 
     return fragment.toString();
   },
-  argTypes: {
-    hasHeading: { control: "boolean" },
-    headingLabel: { control: "text", if: { arg: "hasHeading" } },
-  },
-  args: {
-    hasHeading: true,
-    headingLabel: "開催中のイベント",
-  },
 };
 
-export const ContainerWithoutLink: StoryObj<ContainerCarouselProps> = {
+export const ContainerWithoutLink: StoryObj = {
   name: "Container (Multi Slides without Links)",
-  render: (args) => {
+  render: () => {
     const fragment = new HtmlFragment(container, "dads-carousel");
 
     fragment.root.querySelectorAll("img").forEach((img) => {
       updateImageSrcAndSrcset(img);
     });
-
-    const heading = fragment.root.querySelector(".dads-carousel__heading");
-
-    if (!heading) throw new Error("");
-
-    if (!args.hasHeading || !args.headingLabel) {
-      heading.remove();
-      fragment.root.removeAttribute("aria-labelledby");
-      fragment.root.setAttribute("aria-label", "スライドショー");
-    } else {
-      heading.textContent = args.headingLabel;
-    }
 
     fragment.root.querySelectorAll("a[href]").forEach((anchor) => {
       anchor.removeAttribute("href");
@@ -132,14 +96,6 @@ export const ContainerWithoutLink: StoryObj<ContainerCarouselProps> = {
     });
 
     return fragment.toString();
-  },
-  argTypes: {
-    hasHeading: { control: "boolean" },
-    headingLabel: { control: "text", if: { arg: "hasHeading" } },
-  },
-  args: {
-    hasHeading: true,
-    headingLabel: "開催中のイベント",
   },
 };
 
