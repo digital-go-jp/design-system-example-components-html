@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as EmergencyBannerStories from "./emergency-banner.stories";
 import emergencyBannerCss from "./emergency-banner.css?raw";
@@ -11,16 +11,63 @@ import emergencyBannerCss from "./emergency-banner.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<article class="dads-emergency-banner">
+  <header class="dads-emergency-banner__header">
+    <h2 class="dads-emergency-banner__heading">【緊急】〇〇地区に避難準備情報が発令されました</h2>
+    <time class="dads-emergency-banner__timestamp" datetime="2024-01-01T06:00:00+09:00">2024年1月1日 06:00更新</time>
+  </header>
+  <div class="dads-emergency-banner__body">
+    <p>1時23分に○○地区に対して避難準備情報が発令されました。お年寄りの方等避難に時間がかかる方は、直ちに指定避難所へ避難してください。</p>
+  </div>
+  <div class="dads-emergency-banner__action">
+    <a class="dads-emergency-banner__button" href="#">
+      指定避難所を確認する
+    </a>
+  </div>
+</article>
+```
+
+</details>
 
 <details>
   <summary>emergency-banner.css</summary>
   <Source code={emergencyBannerCss} language="css" />
 </details>
+
+## 使い方
+
+### マークアップ
+
+緊急時バナーは`<article>`要素を使用します。見出しには適切な見出しレベル（`<h1>`〜`<h6>`）を設定してください。
+
+### リンクボタン
+
+リンクボタンはオプションです。不要な場合は`.dads-emergency-banner__action`要素を削除してください。
+
+リンクボタンが別タブで開く場合は、`target="_blank"`を指定し、アイコンで視覚的に示します。
+
+```html
+<a class="dads-emergency-banner__button" href="#" target="_blank">
+  指定避難所を確認する
+  <span class="dads-emergency-banner__button-icon">
+    <svg class="dads-emergency-banner__button-icon-glyph" width="16" height="16" viewBox="0 0 48 48" role="img" aria-label="新規タブで開きます"><path d="M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z" fill="currentcolor"/></svg>
+  </span>
+</a>
+```
+
+アイコンには`role="img"`と`aria-label`で代替テキストを提供し、支援技術のユーザーにも別タブで開くことを伝えます。
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

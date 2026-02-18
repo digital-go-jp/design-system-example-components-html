@@ -1,10 +1,10 @@
-import { Controls, Description, Meta, Primary, Source, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as CarouselStories from "./carousel.stories";
 import carouselCss from "./carousel.css?raw";
 import carouselSingleCss from "./carousel-single.css?raw";
-import disclosureCss from "../disclosure/disclosure.css?raw";
 import carouselJs from "./carousel.js?raw";
+import disclosureCss from "../disclosure/disclosure.css?raw";
 
 import carousel1024 from "./docs/carousel-1024.webp";
 import carousel1024At2x from "./docs/carousel-1024@2x.webp";
@@ -24,235 +24,130 @@ import carousel1024At2x from "./docs/carousel-1024@2x.webp";
 
 コンテナ幅が1024pxの地点にブレークポイントを持つカルーセルの作例です。各スライドは横幅696pxです。
 
-コードスニペットにおける実際の動作は[NormalのStory](?path=/story/components-カルーセル--normal)を参照してください。
+コードスニペットにおける実際の動作は、ナビゲーションから[各Story](?path=/story/components-カルーセル--container)を参照してください。
 
-## 使い方
+## ソースコード
 
-カルーセルコンポーネントをウェブページに導入するために必要なファイルや読み込み手順、利用時に注意すべきポイントをまとめます。
+<details>
+  <summary>HTML</summary>
 
-### 必要なファイルを読み込む
-
-以下のファイルを読み込むことで、HTML内に記述する`<dads-carousel>`および`<dads-carousel-step-nav>`が正しく動作します。
-
-- `carousel.css`  
-- `disclosure.css`  
-- `carousel.js`  
-
-`<link>` / `<script>`タグで読み込んでも、ビルドツールなどでバンドルしても構いません。スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
-
-### マークアップ
-
-#### 基底要素とラベル
-
-カルーセルの基底要素は`<dads-carousel>`カスタム要素です。この要素には`role="region"`を付与し、適切なラベルを設定する必要があります。ラベルの付け方は、見出しの有無によって異なります。
-
-##### 見出しがある場合
-
-見出しを使用する場合は、見出し要素にIDを付与し、基底要素の`aria-labelledby`属性でそのIDを参照します。
+#### 複数スライド（マルチ）
 
 ```html
-<dads-carousel class="dads-carousel" role="region" aria-labelledby="carousel-heading" ...>
+<dads-carousel class="dads-carousel" breakpoint-rem="64" role="region" aria-labelledby="carousel-heading" data-js-unit="スライド">
   <div class="dads-carousel__inner">
     <h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
-    ...
+    <div class="dads-carousel__panels">
+      <div class="dads-carousel__panel-set">
+        <p class="dads-carousel__number dads-carousel__panel-number" aria-current="true" aria-hidden="true" data-js-current-number></p>
+        <div class="dads-carousel__main" aria-live="polite" aria-atomic="true">
+          <div class="dads-carousel__main-panel" data-js-main-panel>
+            <a class="dads-carousel__main-link" href="#link1" data-js-main-link>
+              <span class="dads-u-visually-hidden" data-js-main-label>スライド1</span>
+              <div class="dads-carousel__image-container" data-js-main-images>
+                <img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="画像の代替テキスト" width="696" height="392">
+              </div>
+            </a>
+          </div>
+        </div>
+        <p class="dads-carousel__next">
+          <button type="button" data-js-next-button>
+            <span class="dads-carousel__next-image-container" data-js-next-image-container>
+              <img src="image-2.webp" srcset="image-2@2x.webp 2x" alt="" width="696" height="392">
+            </span>
+            <span class="dads-carousel__next-image-label">次のスライド</span>
+          </button>
+        </p>
+        <div class="dads-carousel__main-bg"><div data-js-main-bg></div></div>
+        <div class="dads-carousel__next-bg"><div data-js-next-bg></div></div>
+      </div>
+    </div>
+    <div class="dads-carousel__controls">
+      <dads-carousel-step-nav>
+        <ul class="dads-carousel__step-nav" role="tablist" aria-label="スライド選択">
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>1
+            </button>
+          </li>
+          <li role="presentation">
+            <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
+              <span class="dads-u-visually-hidden">スライド</span>2
+            </button>
+          </li>
+          <!-- 必要なスライド数分繰り返す -->
+        </ul>
+      </dads-carousel-step-nav>
+      <p class="dads-carousel__page-nav">
+        <button type="button" data-js-prev-slide-button>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m5.27 8 5.33-5.33-.93-.94L3.4 8l6.27 6.27.93-.94L5.27 8Z" fill="currentcolor"></path>
+          </svg>
+          <span class="dads-u-visually-hidden">前のスライド</span>
+        </button>
+        <span data-js-current-slide></span>
+        <button type="button" data-js-next-slide-button>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m6 1.73-.93.94L10.4 8l-5.33 5.33.93.94L12.27 8 6 1.73Z" fill="currentcolor"></path>
+          </svg>
+          <span class="dads-u-visually-hidden">次のスライド</span>
+        </button>
+      </p>
+      <details class="dads-carousel__others dads-disclosure">
+        <summary class="dads-disclosure__summary">
+          <svg class="dads-disclosure__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="11" fill="currentcolor"/>
+            <circle class="dads-disclosure__icon-circle" cx="12" cy="12" r="8" fill="currentcolor"/>
+            <path class="dads-disclosure__icon-triangle" d="M17 10H7L12 15L17 10Z" fill="Canvas"/>
+          </svg>
+          すべてのスライド
+        </summary>
+        <div class="dads-carousel__others-content dads-disclosure__content">
+          <ul data-js-slide-container>
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">1</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link1">
+                  <span class="dads-u-visually-hidden">スライド1</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="画像の代替テキスト" width="696" height="392">
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+            <li class="dads-carousel__panel-set" data-js-slide>
+              <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">2</p>
+              <div class="dads-carousel__main">
+                <a class="dads-carousel__main-link" href="#link2">
+                  <span class="dads-u-visually-hidden">スライド2</span>
+                  <div class="dads-carousel__image-container">
+                    <img src="image-2.webp" srcset="image-2@2x.webp 2x" alt="画像の代替テキスト" width="696" height="392">
+                  </div>
+                </a>
+              </div>
+              <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
+            </li>
+            <!-- 必要なスライド数分繰り返す -->
+          </ul>
+        </div>
+      </details>
+    </div>
   </div>
 </dads-carousel>
 ```
 
-##### 見出しがない場合
-
-見出しを使用しない場合は、基底要素の`aria-label`属性で直接ラベルを指定します。推奨値は「スライドショー」です。
-
-```html
-<dads-carousel class="dads-carousel" role="region" aria-label="スライドショー" ...>
-  <div class="dads-carousel__inner">
-    ...
-  </div>
-</dads-carousel>
-```
-
-#### 見出し
-
-`.dads-carousel__heading`要素は任意で追加できる見出しです。カルーセルの内容を説明する見出しを表示する場合に使用します。
-
-```html
-<h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
-```
-
-- 見出しのレベル（`<h2>`、`<h3>`など）は、ページの文書構造に応じて適切なものを選択してください
-- 見出しには一意のIDを付与し、基底要素の`aria-labelledby`属性で参照してください
-
-#### メインパネル
-
-`.dads-carousel__panels`要素内の`dads-carousel__main`がメインパネルです。1枚目のスライドの情報を記述してください。
-
-- リンクURL（ない場合は`href`属性ごと省略可）
-- リンクターゲット（ない場合は`target`属性ごと省略可）
-- 画像のURL
-- 画像の代替テキスト
-- 画像の幅および高さ
-
-```html
-<div class="dads-carousel__main" aria-live="polite" aria-atomic="true">
-  <div class="dads-carousel__main-panel" data-js-main-panel>
-    <a class="dads-carousel__main-link" href="{リンクURL}" target="{リンクターゲット}" data-js-main-link>
-      <span class="dads-u-visually-hidden" data-js-main-label>スライド1</span>
-      <div class="dads-carousel__image-container" data-js-main-images>
-        <img src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
-      </div>
-    </a>
-  </div>
-</div>
-```
-
-#### ネクストパネル
-
-`.dads-carousel__panels`要素内の`dads-carousel__next`がネクストパネルです。2枚目のスライドの情報を記述してください。
-
-- 画像のURL
-- 画像の幅および高さ
-- **画像の`alt`属性は空にします**
-
-```html
-<p class="dads-carousel__next">
-  <button type="button" data-js-next-button>
-    <span class="dads-carousel__next-image-container" data-js-next-image-container>
-      <img src="{画像のURL}" alt="" width="{画像の幅}" height="{画像の高さ}">
-    </span>
-    <span class="dads-carousel__next-image-label">次のスライド</span>
-  </button>
-</p>
-```
-
-#### ステップナビゲーション
-
-`.dads-carousel__step-nav`要素内にスライド枚数分の`<li>`要素を記述してください。スライド番号を1から順番に記述します。
-
-```html
-<li role="presentation">
-  <button class="dads-carousel__step dads-carousel__number" type="button" role="tab">
-    <span class="dads-u-visually-hidden">スライド</span>{スライド番号}
-  </button>
-</li>
-<li role="presentation">
-  ...
-</li>
-...
-```
-
-#### すべてのスライド
-
-`.dads-carousel__others-content`要素内の`<ul>`要素が全スライドのコンテナです。最初のスライドも含め、全てのスライドの情報を記述してください。
-
-- スライド番号（**2箇所あり**）
-- リンクURL（ない場合は`href`属性ごと省略可）
-- リンクターゲット（ない場合は`target`属性ごと省略可）
-- 画像のURL
-- 画像の代替テキスト
-- 画像の幅および高さ
-
-```html
-<li class="dads-carousel__panel-set" data-js-slide>
-  <p class="dads-carousel__number dads-carousel__panel-number" aria-hidden="true">{スライド番号}</p>
-  <div class="dads-carousel__main">
-    <a class="dads-carousel__main-link" href="{リンクURL}" target="{リンクターゲット}">
-      <span class="dads-u-visually-hidden">スライド{スライド番号}</span>
-      <div class="dads-carousel__image-container">
-        <img src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
-      </div>
-    </a>
-  </div>
-  <div class="dads-carousel__main-bg"><div data-js-bg-container></div></div>
-</li>
-<li class="dads-carousel__panel-set" data-js-slide>
-  ...
-</li>
-```
-
-## シングル（スライドが1枚のみの場合）
-
-スライドが1枚のみの場合は、シンプルなマークアップを使用できます。この場合、カルーセルのナビゲーション機能は不要となるため、依存するファイルが異なります。
-
-### 必要なファイルを読み込む
-
-シングルの場合は以下のファイルのみを読み込みます。
-
-- `carousel-single.css`
-
-### マークアップ
-
-シングルの場合は`<dads-carousel>`カスタム要素ではなく、シンプルな`<div>`要素を使用します。
+#### シングル（スライドが1枚のみ）
 
 ```html
 <div class="dads-carousel-single">
   <span class="dads-carousel-single__link">
-    <img class="dads-carousel-single__image" src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
+    <img class="dads-carousel-single__image" src="image.webp" srcset="image@2x.webp 2x" alt="画像の代替テキスト" width="1024" height="392">
   </span>
 </div>
 ```
 
-画像にリンクを設定する場合は、`<span>`要素を`<a>`要素に置き換えてください。
-
-```html
-<div class="dads-carousel-single">
-  <a class="dads-carousel-single__link" href="{リンクURL}">
-    <img class="dads-carousel-single__image" src="{画像のURL}" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
-  </a>
-</div>
-```
-
-## カスタマイズ
-
-提供しているコードをカスタマイズする際は、以下の点に注意してください。また、下記に言及がなくても、[コンポーネントのガイドライン](https://design.digital.go.jp/dads/components/carousel/)に記載された内容を遵守してください。
-
-### 高解像度の画像を提供する場合
-
-高解像度ディスプレイ向けに2倍の解像度の画像を提供する場合は、`<img>`要素に`srcset`属性を追加します。
-
-```html
-<img src="image-1.webp" srcset="image-1@2x.webp 2x" alt="{画像の代替テキスト}" width="{画像の幅}" height="{画像の高さ}">
-```
-
-- `src`属性には通常解像度（1x）の画像を指定します
-- `srcset`属性には、2倍解像度の画像に` 2x`を付けて指定します
-- 画像の幅および高さには、通常解像度（1x）の画像のサイズを指定します
-
-この指定はカルーセル内のすべての`<img>`要素（メインパネル、ネクストパネル、すべてのスライド内の画像）に適用してください。
-
-### ブレークポイントを変更する
-
-規定のブレークポイントはコンテナ幅を基準とした1024pxです。ブレークポイントを変更するにはHTMLおよびCSSを修正します。
-
-HTMLは、`dads-carousel`カスタム要素の`breakpoint-rem`属性値を修正してください。数値の単位は`rem`です。
-
-```html
-<!-- 64（= 64rem = 1remが16pxのとき1024px）を任意の値に変更する -->
-<dads-carousel breakpoint-rem="64" ...>
-```
-
-CSSは、`carousel.css`にある下記の記述を全て修正してください。
-
-```css
-/* 64rem（= 1remが16pxのとき1024px）を任意の値に変更する */
-@container (min-width: 64rem) {
-  ...
-}
-```
-
-### 多言語化
-
-カルーセルのコードスニペットには日本語のテキストが含まれています。コンポーネント全体を翻訳する場合、表示されているテキストのみならず、下記の非表示テキストも翻訳する必要があります。
-
-- `.dads-carousel`要素の`aria-label`属性
-- `.dads-carousel`要素の`data-js-unit`属性（※注）
-- `.dads-carousel__main-link`要素に含まれるスライドの番号付き表記
-- `.dads-carousel__step-nav`要素の`aria-label`属性
-- `.dads-carousel__step`要素に含まれるスライドの番号付き表記
-- `.dads-carousel__page-nav`要素に含まれる「次のスライド」および「前のスライド」
-
-※注：スライドを番号付きで呼ぶために、数値に前置きする単位を指定します。例えば英語の場合は`"Slide "`などとします。
-
-## ソースコード
+</details>
 
 <details>
   <summary>carousel.css</summary>
@@ -275,6 +170,119 @@ CSSは、`carousel.css`にある下記の記述を全て修正してください
   <summary>disclosure.css</summary>
   <Source code={disclosureCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `breakpoint-rem` | 数値（例：`64`） | レスポンシブのブレークポイント。単位は`rem` |
+| `data-js-unit` | 文字列（例：`スライド`） | スライドの番号に前置きする単位 |
+
+## 使い方
+
+### インストール
+
+#### 複数スライド（マルチ）の場合
+
+- `carousel.css`
+- `carousel.js`
+- `disclosure.css`
+
+#### シングル（1枚のみ）の場合
+
+- `carousel-single.css`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+### 基底要素とラベル
+
+カルーセルの基底要素は`<dads-carousel>`カスタム要素です。この要素には`role="region"`を付与し、適切なラベルを設定する必要があります。
+
+#### 見出しがある場合
+
+見出しを使用する場合は、見出し要素にIDを付与し、基底要素の`aria-labelledby`属性でそのIDを参照します。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-labelledby="carousel-heading" ...>
+  <div class="dads-carousel__inner">
+    <h2 id="carousel-heading" class="dads-carousel__heading">開催中のイベント</h2>
+    ...
+  </div>
+</dads-carousel>
+```
+
+#### 見出しがない場合
+
+見出しを使用しない場合は、基底要素の`aria-label`属性で直接ラベルを指定します。
+
+```html
+<dads-carousel class="dads-carousel" role="region" aria-label="スライドショー" ...>
+  ...
+</dads-carousel>
+```
+
+### メインパネル
+
+`.dads-carousel__main`内のメインパネルには、1枚目のスライドの情報を記述します。リンクがない場合は`href`属性を省略できます。
+
+### ネクストパネル
+
+`.dads-carousel__next`内のネクストパネルには、2枚目のスライドの情報を記述します。画像の`alt`属性は空にします。
+
+### ステップナビゲーション
+
+`.dads-carousel__step-nav`要素内にスライド枚数分の`<li>`要素を記述してください。
+
+### すべてのスライド
+
+`.dads-carousel__others-content`要素内の`<ul>`要素に、最初のスライドも含め全てのスライドの情報を記述します。
+
+### シングル（1枚のみ）
+
+スライドが1枚のみの場合は、シンプルなマークアップを使用できます。画像にリンクを設定する場合は、`<span>`要素を`<a>`要素に置き換えてください。
+
+```html
+<div class="dads-carousel-single">
+  <a class="dads-carousel-single__link" href="...">
+    <img class="dads-carousel-single__image" src="..." alt="..." width="..." height="...">
+  </a>
+</div>
+```
+
+## カスタマイズ
+
+### 高解像度の画像を提供する場合
+
+高解像度ディスプレイ向けに2倍の解像度の画像を提供する場合は、`<img>`要素に`srcset`属性を追加します。
+
+```html
+<img src="image.webp" srcset="image@2x.webp 2x" alt="..." width="..." height="...">
+```
+
+### ブレークポイントを変更する
+
+規定のブレークポイントはコンテナ幅を基準とした1024px（64rem）です。ブレークポイントを変更するにはHTMLとCSSの両方を修正します。
+
+HTMLは`breakpoint-rem`属性値を修正してください。
+
+```html
+<dads-carousel breakpoint-rem="64" ...>
+```
+
+CSSは`carousel.css`にある`@container (min-width: 64rem)`の記述を全て修正してください。
+
+### 多言語化
+
+カルーセルのコードスニペットには日本語のテキストが含まれています。翻訳する場合は、表示されているテキストに加え、下記の非表示テキストも翻訳してください。
+
+- `.dads-carousel`要素の`aria-label`属性
+- `.dads-carousel`要素の`data-js-unit`属性
+- `.dads-carousel__main-link`要素に含まれるスライドの番号付き表記
+- `.dads-carousel__step-nav`要素の`aria-label`属性
+- `.dads-carousel__step`要素に含まれるスライドの番号付き表記
+- `.dads-carousel__page-nav`要素に含まれる「次のスライド」および「前のスライド」
 
 </div>
 </Unstyled>

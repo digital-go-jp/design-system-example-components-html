@@ -1,9 +1,9 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as CalendarStories from "./calendar.stories";
 import buttonCss from "../button/button.css?raw";
-import calendarCss from "../calendar/calendar.css?raw";
-import calendarJs from "../calendar/calendar.js?raw";
+import calendarCss from "./calendar.css?raw";
+import calendarJs from "./calendar.js?raw";
 import selectCss from "../select/select.css?raw";
 
 <Meta of={CalendarStories} />
@@ -14,42 +14,69 @@ import selectCss from "../select/select.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使い方
+## ソースコード
 
-カレンダーコンポーネントをウェブページに導入するために必要なファイルや読み込み手順、利用時に注意すべきポイントをまとめます。
-
-### 必要なファイルを読み込む
-
-以下のファイルを読み込むことで、HTML内に記述する`<dads-calendar>`が正しく動作します。
-
-- `button.css`  
-- `calendar.css`  
-- `calendar.js`  
-- `select.css`  
-
-`<link>` / `<script>`タグで読み込んでも、ビルドツールなどでバンドルしても構いません。スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
-
-### 選択可能範囲の指定
-
-`min-date`および`max-date`属性を使用して、ユーザーが選択できる日付の範囲を制限できます。`YYYY-MM-DD`形式で指定します。
+<details>
+  <summary>HTML</summary>
 
 ```html
-<dads-calendar min-date="2023-01-01" max-date="2024-12-31">
-  ...
+<dads-calendar class="dads-calendar" role="application">
+  <div class="dads-u-visually-hidden"><h2 data-js-calendar-heading aria-live="polite"></h2></div>
+  <div class="dads-calendar__controls">
+    <span class="dads-select">
+      <span class="dads-select__control">
+        <select class="dads-select__select" data-size="sm" aria-label="年" data-js-year-select></select>
+        <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+        </svg>
+      </span>
+    </span>
+    <div class="dads-calendar__navigation">
+      <button class="dads-button dads-calendar__nav-button" data-size="sm" data-type="outline" data-js-prev-month-button>
+        <svg width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="前の月">
+          <path d="m5.27 8 5.33-5.33-.93-.94L3.4 8l6.27 6.27.93-.94L5.27 8Z" fill="currentcolor" />
+        </svg>
+      </button>
+      <p class="dads-calendar__current-month" data-js-current-month></p>
+      <button class="dads-button dads-calendar__nav-button" data-size="sm" data-type="outline" data-js-next-month-button>
+        <svg width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="次の月">
+          <path d="m6 1.73-.93.94L10.4 8l-5.33 5.33.93.94L12.27 8 6 1.73Z" fill="currentcolor" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <table class="dads-calendar__table" role="grid" data-js-calendar-table>
+    <thead>
+      <tr>
+        <th class="dads-calendar__header-cell" scope="col">日</th>
+        <th class="dads-calendar__header-cell" scope="col">月</th>
+        <th class="dads-calendar__header-cell" scope="col">火</th>
+        <th class="dads-calendar__header-cell" scope="col">水</th>
+        <th class="dads-calendar__header-cell" scope="col">木</th>
+        <th class="dads-calendar__header-cell" scope="col">金</th>
+        <th class="dads-calendar__header-cell" scope="col">土</th>
+      </tr>
+    </thead>
+    <tbody data-js-calendar-tbody>
+      <template data-js-cell-template>
+        <td class="dads-calendar__data-cell" role="gridcell">
+          <button class="dads-calendar__date" data-js-date-button></button>
+        </td>
+      </template>
+    </tbody>
+  </table>
+  <div class="dads-calendar__footer">
+    <button class="dads-button" data-size="sm" data-type="text" data-js-delete-button>削除</button>
+    <button class="dads-button" data-size="sm" data-type="outline" data-js-today-button>今日</button>
+  </div>
 </dads-calendar>
 ```
 
-指定した日付はいずれも「選択可能」な日付として取り扱われます。日付を指定しない場合、デフォルトで1年前から1年後までの範囲が選択可能になります。
-
-### イベント
-
-`dads-calendar`は、日付が選択されたときに`date-selected`イベントを発火します。このイベントは、選択された日付を含むオブジェクトを`detail`プロパティに持ちます。
-
-## ソースコード
+</details>
 
 <details>
   <summary>calendar.css</summary>
@@ -72,6 +99,62 @@ import selectCss from "../select/select.css?raw";
   <summary>select.css</summary>
   <Source code={selectCss} language="css" />
 </details>
+
+## 仕様
+
+### 選択可能範囲
+
+`min-date`および`max-date`属性を使用して、ユーザーが選択できる日付の範囲を制限できます。`YYYY-MM-DD`形式で指定します。
+
+```html
+<dads-calendar min-date="2023-01-01" max-date="2024-12-31">
+  ...
+</dads-calendar>
+```
+
+指定した日付はいずれも「選択可能」な日付として取り扱われます。日付を指定しない場合、デフォルトで1年前から1年後までの範囲が選択可能になります。
+
+### イベント
+
+`dads-calendar`は、日付が選択されたときに`date-selected`イベントを発火します。このイベントは、選択された日付を含むオブジェクトを`detail`プロパティに持ちます。
+
+```javascript
+const calendar = document.querySelector("dads-calendar");
+calendar.addEventListener("date-selected", (e) => {
+  const date = e.detail.date;
+  if (date) {
+    console.log("選択された日付:", date);
+  } else {
+    console.log("日付が削除されました");
+  }
+});
+```
+
+### キーボード操作
+
+カレンダーグリッド内では、以下のキーボード操作がサポートされています。
+
+| キー | 動作 |
+| --- | --- |
+| 矢印キー（上下左右） | 日付間を移動 |
+| Enter / Space | 日付を選択 |
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **共通**
+  - `calendar.css`
+  - `calendar.js`
+- **追加で必要**
+  - `button.css`
+  - `select.css`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

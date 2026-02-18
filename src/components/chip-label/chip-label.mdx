@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ChipLabelStories from "./chip-label.stories";
 import chipLabelCss from "./chip-label.css?raw";
@@ -11,15 +11,68 @@ import chipLabelCss from "./chip-label.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<span class="dads-chip-label" data-style="text" data-color="gray">
+  <svg class="dads-chip-label__icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <path d="M4.6 20.5c-.5-.1-1-.6-1.1-1l16-16c.5.1.9.6 1 1l-16 16Zm-1.1-6.4v-2L12 3.4h2.1L3.5 14.1Zm0-7.4V5.3c0-1 .8-1.8 1.8-1.8h1.4L3.5 6.7Zm13.8 13.8 3.2-3.2v1.4c0 1-.8 1.8-1.8 1.8h-1.4Zm-7.4 0L20.5 9.9v2L12 20.6H9.9Z"/>
+  </svg>
+  ラベル
+</span>
+```
+
+</details>
+
+<details>
+  <summary>chip-label.css</summary>
+  <Source code={chipLabelCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-style` | `text`, `outline`, `filled-outline`, `fill` | チップラベルのスタイル |
+| `data-color` | `gray`, `blue`, `light-blue`, `cyan`, `green`, `lime`, `yellow`, `orange`, `red`, `magenta`, `purple` | チップラベルの色 |
 
 ## 使い方
 
+### アイコン付きチップラベル
+
+アイコンを表示する場合は、`<svg>`要素に`.dads-chip-label__icon`クラスを付与します。アイコンは装飾的なため`aria-hidden="true"`を設定してください。
+
+```html
+<span class="dads-chip-label" data-style="text" data-color="gray">
+  <svg class="dads-chip-label__icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+    <!-- アイコンのパス -->
+  </svg>
+  ラベル
+</span>
+```
+
+### アイコンなしチップラベル
+
+アイコンが不要な場合は`<svg>`要素を省略します。
+
+```html
+<span class="dads-chip-label" data-style="text" data-color="gray">
+  ラベル
+</span>
+```
+
 ### 任意の色を使う
 
-下記のように所定のCSSカスタムプロパティを使用することで、チップラベルに任意の色を指定できます。
+所定のCSSカスタムプロパティを使用することで、チップラベルに任意の色を指定できます。
 
 ```html
 <span class="dads-chip-label" data-style="filled-outline" style="
@@ -34,41 +87,16 @@ import chipLabelCss from "./chip-label.css?raw";
 </span>
 ```
 
-上書き可能なカスタムプロパティの色は下記の通りです。
+上書き可能なカスタムプロパティは下記の通りです。
 
-<table>
-  <thead>
-    <tr>
-      <th>プロパティ</th>
-      <th>用途</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>--_non-text</code></td>
-      <td><code>outline</code>と<code>filled-outline</code>タイプの外枠、<code>fill</code>タイプの背景、アイコン</td>
-    </tr>
-    <tr>
-      <td><code>--_bg</code></td>
-      <td><code>filled-outline</code>タイプの背景</td>
-    </tr>
-    <tr>
-      <td><code>--_text</code></td>
-      <td><code>text</code>と<code>outline</code>タイプのテキスト</td>
-    </tr>
-    <tr>
-      <td><code>--_text-dark</code></td>
-      <td><code>filled-outline</code>タイプのテキスト</td>
-    </tr>
-  </tbody>
-</table>
+| プロパティ | 用途 |
+| --- | --- |
+| `--_non-text` | `outline`と`filled-outline`タイプの外枠、`fill`タイプの背景、アイコン |
+| `--_bg` | `filled-outline`タイプの背景 |
+| `--_text` | `text`と`outline`タイプのテキスト |
+| `--_text-dark` | `filled-outline`タイプのテキスト |
 
-## ソースコード
-
-<details>
-  <summary>chip-label.css</summary>
-  <Source code={chipLabelCss} language="css" />
-</details>
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

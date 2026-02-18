@@ -1,5 +1,5 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
-
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
 import * as DescriptionListStories from "./description-list.stories";
 import descriptionListCss from "./description-list.css?raw";
 
@@ -11,13 +11,48 @@ import descriptionListCss from "./description-list.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
-## 使用例
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<dl class="dads-description-list">
+  <div class="dads-description-list__item">
+    <dt>項目名1</dt>
+    <dd>これは項目1の説明文です。</dd>
+  </div>
+  <div class="dads-description-list__item">
+    <dt>項目名2</dt>
+    <dd>これは項目2の説明文です。</dd>
+  </div>
+</dl>
+```
+
+</details>
+
+<details>
+  <summary>description-list.css</summary>
+  <Source code={descriptionListCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-marker` | `bullet`, `custom` | マーカーの種類 |
+
+## 使い方
 
 ### 基本的な使い方
+
+説明リストは`<dl>`、`<dt>`、`<dd>`要素を使用します。各項目を`<div>`要素で囲むことでグループ化できます。
 
 ```html
 <dl class="dads-description-list">
@@ -34,7 +69,7 @@ import descriptionListCss from "./description-list.css?raw";
 
 ### ブレット付き
 
-マーカーとしてブレットを表示する場合は、`data-marker="bullet"`を指定します。
+マーカーとしてブレット（丸点）を表示する場合は、`data-marker="bullet"`を指定します。
 
 ```html
 <dl class="dads-description-list" data-marker="bullet">
@@ -51,7 +86,7 @@ import descriptionListCss from "./description-list.css?raw";
 
 ### カスタムマーカー付き
 
-独自のマーカーを使用する場合は、`data-marker="custom"`を指定します。カスタムマーカーは`dt`要素の最初の`<span>`要素で指定します。
+独自のマーカー（連番、アイコンなど）を使用する場合は、`data-marker="custom"`を指定します。カスタムマーカーは`<dt>`要素の最初の`<span>`要素で指定します。
 
 ```html
 <dl class="dads-description-list" data-marker="custom">
@@ -66,12 +101,21 @@ import descriptionListCss from "./description-list.css?raw";
 </dl>
 ```
 
-## ソースコード
+アイコンをマーカーとして使用することもできます。
 
-<details>
-  <summary>description-list.css</summary>
-  <Source code={descriptionListCss} language="css" />
-</details>
+```html
+<dl class="dads-description-list" data-marker="custom">
+  <div class="dads-description-list__item">
+    <dt>
+      <span><img src="icon.svg" alt="①" width="24" height="24" style="position: relative; bottom: -5px; margin-top: -5px; display: block;"></span>
+      項目名1
+    </dt>
+    <dd>これは項目1の説明文です。</dd>
+  </div>
+</dl>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>

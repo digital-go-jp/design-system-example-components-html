@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as MenuListBoxStories from "./menu-list-box.stories";
 import menuListCss from "../menu-list/menu-list.css?raw";
@@ -13,11 +13,44 @@ import menuListBoxJs from "./menu-list-box.js?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<dads-menu-list-box class="dads-menu-list-box">
+  <button id="menu-opener" class="dads-menu-list-box__opener" type="button" aria-controls="menu-popup" aria-haspopup="menu" aria-expanded="false" data-size="sm" data-style="text" data-text-weight="normal">
+    <svg class="dads-menu-list-box__opener-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+      <!-- アイコンのpath -->
+    </svg>
+    メニュー
+    <svg class="dads-menu-list-box__opener-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+      <path d="m20.5 6.6-8 8-8-8L3.1 8l9.4 9.4L21.9 8l-1.4-1.4Z"/>
+    </svg>
+  </button>
+  <div class="dads-menu-list-box__popup" hidden>
+    <ul id="menu-popup" class="dads-menu-list" role="menu" aria-labelledby="menu-opener">
+      <li role="presentation">
+        <button class="dads-menu-list__item" type="button" data-type="box" data-size="regular" role="menuitem">
+          <svg class="dads-menu-list__front-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
+            <!-- アイコンのpath -->
+          </svg>
+          <span class="dads-menu-list__label">
+            メニュー項目
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</dads-menu-list-box>
+```
+
+</details>
 
 <details>
   <summary>menu-list-box.css</summary>
@@ -35,6 +68,122 @@ import menuListBoxJs from "./menu-list-box.js?raw";
   <summary>menu-list.css</summary>
   <Source code={menuListCss} language="css" />
 </details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 要素 | 値 | 説明 |
+| --- | --- | --- | --- |
+| `data-size` | opener | `sm`, `md` | オープナーボタンのサイズ |
+| `data-style` | opener | `text`, `outlined`, `filled` | オープナーボタンのスタイル |
+| `data-text-weight` | opener | `normal`, `bold` | オープナーボタンのフォントウェイト |
+
+### 機能仕様
+
+#### カスタム要素
+
+`<dads-menu-list-box>`はカスタム要素として実装されており、以下の機能を提供します。
+
+- メニューの開閉
+- キーボードナビゲーション
+- フォーカス管理
+- 外部クリックでの閉じ処理
+
+#### キーボード操作
+
+| キー | オープナーにフォーカス時 | メニュー項目にフォーカス時 |
+| --- | --- | --- |
+| `Enter` / `Space` | メニューを開閉 | 項目を選択 |
+| `↓` | メニューを開き最初の項目にフォーカス | 次の項目にフォーカス |
+| `↑` | メニューを開き最後の項目にフォーカス | 前の項目にフォーカス |
+| `Home` | — | 最初の項目にフォーカス |
+| `End` | — | 最後の項目にフォーカス |
+| `Escape` | — | メニューを閉じてオープナーにフォーカス |
+
+#### カスタムイベント
+
+メニュー項目が選択されると`menuitemselect`イベントが発火します。
+
+```javascript
+menuListBox.addEventListener('menuitemselect', (event) => {
+  console.log(event.detail.selectedItem);   // 選択されたDOM要素
+  console.log(event.detail.selectedValue);  // 選択された項目のテキスト
+  console.log(event.detail.selectedIndex);  // 選択された項目のインデックス
+});
+```
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **コンポーネント本体**
+  - `menu-list-box.css`
+  - `menu-list-box.js`
+- **依存ファイル**
+  - `menu-list.css`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+```html
+<link rel="stylesheet" href="menu-list.css">
+<link rel="stylesheet" href="menu-list-box.css">
+<script type="module" src="menu-list-box.js"></script>
+```
+
+### マークアップ
+
+#### 必須のARIA属性
+
+アクセシビリティを確保するため、以下の属性を正しく設定してください。
+
+##### オープナーボタン
+
+- `id`: メニューの`aria-labelledby`から参照される
+- `aria-controls`: ポップアップメニューのIDを指定
+- `aria-haspopup="menu"`: メニューを持つことを示す
+- `aria-expanded`: メニューの開閉状態（初期値は`"false"`）
+
+##### ポップアップメニュー
+
+- `role="menu"`: メニューであることを示す
+- `aria-labelledby`: オープナーボタンのIDを参照
+
+##### メニュー項目
+
+- `role="menuitem"`: メニュー項目であることを示す
+- 親の`<li>`には`role="presentation"`を設定
+
+```html
+<button id="opener-id" aria-controls="menu-id" aria-haspopup="menu" aria-expanded="false" ...>
+  ...
+</button>
+<div class="dads-menu-list-box__popup" hidden>
+  <ul id="menu-id" role="menu" aria-labelledby="opener-id">
+    <li role="presentation">
+      <button role="menuitem" ...>...</button>
+    </li>
+  </ul>
+</div>
+```
+
+#### メニュー項目のスタイル
+
+ポップアップ内のメニュー項目には`data-type="box"`を使用してください。`data-type="standard"`は角丸のスタイルで、サイドバーナビゲーションなどに適しています。
+
+```html
+<button class="dads-menu-list__item" data-type="box" data-size="regular" role="menuitem">
+  ...
+</button>
+```
+
+<Stories title="デモ" includePrimary={false} />
+
+## 参考情報
+
+- [WAI-ARIA Authoring Practices - Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
 
 </div>
 </Unstyled>

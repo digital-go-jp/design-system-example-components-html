@@ -1,4 +1,4 @@
-import { Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as LinkStories from "./link.stories";
 import linkCss from "./link.css?raw";
@@ -11,16 +11,42 @@ import linkCss from "./link.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
 <Primary />
 <Controls />
-<Stories includePrimary={false} />
 
 ## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<a class="dads-link" href="#">リンクテキスト</a>
+```
+
+</details>
 
 <details>
   <summary>link.css</summary>
   <Source code={linkCss} language="css" />
 </details>
+
+## 使い方
+
+### 新規タブで開く場合
+
+`target="_blank"`を指定したリンクには、新規タブで開くことを示すアイコンを追加してください。アイコンには`role="img"`と`aria-label`で代替テキストを提供し、支援技術のユーザーにもリンクの動作が伝わるようにします。
+
+```html
+<a class="dads-link" href="#" target="_blank">
+  リンクテキスト
+  <svg class="dads-link__icon" width="16" height="16" viewBox="0 0 48 48" role="img" aria-label="新規タブで開きます">
+    <path d="M22 6V9H9V39H39V26H42V42H6V6H22ZM42 6V20H39V11.2L21 29L19 27L36.8 9H28V6H42Z" fill="currentcolor"/>
+  </svg>
+</a>
+```
+
+<Stories title="デモ" includePrimary={false} />
 
 </div>
 </Unstyled>
