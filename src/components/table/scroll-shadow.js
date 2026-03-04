@@ -1,18 +1,15 @@
 export class ScrollShadow extends HTMLElement {
-  constructor() {
-    super();
-    this.subscriptions = [];
-  }
+  #abort = null;
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.setup();
     this.setupEventListeners();
     this.update();
   }
 
   disconnectedCallback() {
-    for (const subscription of this.subscriptions) subscription.remove();
-    this.subscriptions = [];
+    this.#abort.abort();
     this.teardown();
   }
 
@@ -68,10 +65,9 @@ export class ScrollShadow extends HTMLElement {
   }
 
   setupEventListeners() {
-    this.subscriptions.push(
-      subscribe(this, "scroll", () => this.update()),
-      subscribe(window, "resize", () => this.update()),
-    );
+    const { signal } = this.#abort;
+    this.addEventListener("scroll", () => this.update(), { signal });
+    window.addEventListener("resize", () => this.update(), { signal });
   }
 
   update() {
@@ -104,11 +100,6 @@ export class ScrollShadow extends HTMLElement {
   getPaddingValue() {
     return resolveVarPx(this, "--scroll-shadow-padding");
   }
-}
-
-function subscribe(el, ...args) {
-  el.addEventListener(...args);
-  return { remove: () => el.removeEventListener(...args) };
 }
 
 function resolveVarPx(targetEl, varName) {
