@@ -1,7 +1,7 @@
 export class Carousel extends HTMLElement {
   #slideData = [];
   #currentIndex = 0;
-  #abort = new AbortController();
+  #abort = null;
   #widthObserver = null;
 
   connectedCallback() {
@@ -9,6 +9,8 @@ export class Carousel extends HTMLElement {
       console.error(`<${this.localName}>: "breakpoint-rem" attr is required.`);
       return;
     }
+
+    this.#abort = new AbortController();
 
     this.#widthObserver = new WidthObserver(this, this.breakpointRem);
 
@@ -235,9 +237,10 @@ export class Carousel extends HTMLElement {
 
 export class CarouselStepNav extends HTMLElement {
   #selectedIndex = 0;
-  #abort = new AbortController();
+  #abort = null;
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.setupEventListeners();
     this.update();
   }
