@@ -3,17 +3,17 @@ export class ScrollShadow extends HTMLElement {
 
   connectedCallback() {
     this.#abort = new AbortController();
-    this.setup();
-    this.setupEventListeners();
-    this.update();
+    this.#setup();
+    this.#setupEventListeners();
+    this.#update();
   }
 
   disconnectedCallback() {
     this.#abort.abort();
-    this.teardown();
+    this.#teardown();
   }
 
-  setup() {
+  #setup() {
     Object.assign(this.style, {
       position: "relative",
       marginRight: "calc(var(--scroll-shadow-padding) * -1)",
@@ -58,46 +58,46 @@ export class ScrollShadow extends HTMLElement {
     );
   }
 
-  teardown() {
+  #teardown() {
     this.removeAttribute("tabindex");
     this.querySelector(".dads-scroll-shadow__left")?.remove();
     this.querySelector(".dads-scroll-shadow__right")?.remove();
   }
 
-  setupEventListeners() {
+  #setupEventListeners() {
     const { signal } = this.#abort;
-    this.addEventListener("scroll", () => this.update(), { signal });
-    window.addEventListener("resize", () => this.update(), { signal });
+    this.addEventListener("scroll", () => this.#update(), { signal });
+    window.addEventListener("resize", () => this.#update(), { signal });
   }
 
-  update() {
-    if (this.leftShadow) {
-      this.leftShadow.style.opacity = this.hasLeftShadow ? "1" : "0";
+  #update() {
+    if (this.#leftShadow) {
+      this.#leftShadow.style.opacity = this.#hasLeftShadow ? "1" : "0";
     }
-    if (this.rightShadow) {
-      this.rightShadow.style.opacity = this.hasRightShadow ? "1" : "0";
+    if (this.#rightShadow) {
+      this.#rightShadow.style.opacity = this.#hasRightShadow ? "1" : "0";
     }
   }
 
-  get leftShadow() {
+  get #leftShadow() {
     return this.querySelector(".dads-scroll-shadow__left");
   }
 
-  get rightShadow() {
+  get #rightShadow() {
     return this.querySelector(".dads-scroll-shadow__right");
   }
 
-  get hasLeftShadow() {
-    const paddingValue = this.getPaddingValue();
+  get #hasLeftShadow() {
+    const paddingValue = this.#getPaddingValue();
     return this.scrollLeft > paddingValue;
   }
 
-  get hasRightShadow() {
-    const paddingValue = this.getPaddingValue();
+  get #hasRightShadow() {
+    const paddingValue = this.#getPaddingValue();
     return this.scrollLeft + this.clientWidth < this.scrollWidth - paddingValue;
   }
 
-  getPaddingValue() {
+  #getPaddingValue() {
     return resolveVarPx(this, "--scroll-shadow-padding");
   }
 }
