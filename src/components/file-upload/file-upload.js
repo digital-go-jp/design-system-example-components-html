@@ -66,9 +66,9 @@ export class FileUpload extends HTMLElement {
   }
 
   addFiles(files) {
-    const filesToAdd = this.isMultiple ? files : files.slice(0, 1);
+    const filesToAdd = this.#isMultiple ? files : files.slice(0, 1);
 
-    if (!this.isMultiple && this.files.length > 0) {
+    if (!this.#isMultiple && this.files.length > 0) {
       this.files.forEach((file) => {
         if (file.element) {
           file.element.remove();
@@ -104,9 +104,9 @@ export class FileUpload extends HTMLElement {
     this.#updateUI();
   }
 
-  setExpandedDropArea(expanded) {
-    if (this.expandDropAreaCheckbox) {
-      this.expandDropAreaCheckbox.checked = expanded;
+  #setExpandedDropArea(expanded) {
+    if (this.#expandDropAreaCheckbox) {
+      this.#expandDropAreaCheckbox.checked = expanded;
     }
   }
 
@@ -121,27 +121,27 @@ export class FileUpload extends HTMLElement {
   #setupEventListeners() {
     const signal = this.#abort.signal;
 
-    this.selectButton.addEventListener(
+    this.#selectButton.addEventListener(
       "click",
       (e) => {
         e.preventDefault();
-        this.fallbackInput.click();
+        this.#fallbackInput.click();
       },
       { signal },
     );
 
-    this.fallbackInput.addEventListener(
+    this.#fallbackInput.addEventListener(
       "change",
       (e) => {
         const files = Array.from(e.target.files || []);
         this.addFiles(files);
-        this.fallbackInput.value = "";
-        this.selectButton.focus();
+        this.#fallbackInput.value = "";
+        this.#selectButton.focus();
       },
       { signal },
     );
 
-    const dropZone = this.dropArea || this.selectButton;
+    const dropZone = this.#dropArea || this.#selectButton;
 
     dropZone.addEventListener(
       "dragenter",
@@ -190,17 +190,17 @@ export class FileUpload extends HTMLElement {
 
         const files = Array.from(e.dataTransfer?.files || []);
         this.addFiles(files);
-        this.selectButton.focus();
+        this.#selectButton.focus();
       },
       { signal },
     );
 
-    this.expandDropAreaCheckbox?.addEventListener(
+    this.#expandDropAreaCheckbox?.addEventListener(
       "change",
       (e) => {
         if (e.target.checked) {
           if (activeExpandedComponent && activeExpandedComponent !== this) {
-            activeExpandedComponent.setExpandedDropArea(false);
+            activeExpandedComponent.#setExpandedDropArea(false);
           }
           activeExpandedComponent = this;
         } else {
@@ -215,7 +215,7 @@ export class FileUpload extends HTMLElement {
     document.documentElement.addEventListener(
       "dragover",
       (e) => {
-        if (this.expandDropAreaCheckbox?.checked) {
+        if (this.#expandDropAreaCheckbox?.checked) {
           e.preventDefault();
           this.#showViewportOverlay();
         }
@@ -271,7 +271,7 @@ export class FileUpload extends HTMLElement {
 
         const files = Array.from(e.dataTransfer?.files || []);
         this.addFiles(files);
-        this.selectButton.focus();
+        this.#selectButton.focus();
       },
       { signal },
     );
@@ -310,7 +310,7 @@ export class FileUpload extends HTMLElement {
   }
 
   #announceText(text, assertive = false) {
-    const announcer = assertive ? this.announcerAssertive : this.announcer;
+    const announcer = assertive ? this.#announcerAssertive : this.#announcer;
     if (!announcer || !text) return;
 
     const timerKey = `announce_${assertive ? "assertive" : "polite"}`;
@@ -352,7 +352,7 @@ export class FileUpload extends HTMLElement {
     const totalCount = this.files.length;
 
     if (totalCount === 0) {
-      this.selectButton.focus();
+      this.#selectButton.focus();
     } else if (index < this.files.length) {
       const nextFile = this.files[index];
       nextFile.element.querySelector("[data-js-remove-button]")?.focus();
@@ -376,7 +376,7 @@ export class FileUpload extends HTMLElement {
   }
 
   #loadExistingFiles() {
-    const existingItems = this.fileList.querySelectorAll(":scope > li");
+    const existingItems = this.#fileList.querySelectorAll(":scope > li");
     existingItems.forEach((item) => {
       const fileId = `file-${Math.random().toString(36).slice(-8)}`;
       item.dataset.id = fileId;
@@ -427,7 +427,7 @@ export class FileUpload extends HTMLElement {
       );
     }
 
-    const accept = this.fallbackInput.accept;
+    const accept = this.#fallbackInput.accept;
     const allowedExtensions = parseAcceptAttribute(accept);
     const maxFileSize = parseSize(this.getAttribute("max-file-size"));
     const maxTotalSize = parseSize(this.getAttribute("max-total-size"));
@@ -480,14 +480,14 @@ export class FileUpload extends HTMLElement {
     this.#updateFileList();
 
     if (this.files.length === 0) {
-      this.emptyMessage.removeAttribute("hidden");
-      this.fileList.setAttribute("hidden", "");
+      this.#emptyMessage.removeAttribute("hidden");
+      this.#fileList.setAttribute("hidden", "");
     } else {
-      this.emptyMessage.setAttribute("hidden", "");
-      this.fileList.removeAttribute("hidden");
+      this.#emptyMessage.setAttribute("hidden", "");
+      this.#fileList.removeAttribute("hidden");
     }
 
-    this.setAttribute("data-multiple", this.isMultiple ? "true" : "false");
+    this.setAttribute("data-multiple", this.#isMultiple ? "true" : "false");
 
     if (this.errors.length > 0) {
       this.setAttribute("data-has-error", "true");
@@ -498,7 +498,7 @@ export class FileUpload extends HTMLElement {
 
   #updateSelectedFilesMessage() {
     if (this.files.length === 0) {
-      this.selectSummary.textContent = "";
+      this.#selectSummary.textContent = "";
       return;
     }
 
@@ -513,16 +513,16 @@ export class FileUpload extends HTMLElement {
       sizeBytes: sizeBytes,
     });
 
-    this.selectSummary.textContent = message;
+    this.#selectSummary.textContent = message;
   }
 
   #updateErrorMessages() {
-    this.errorMessagesContainer.innerHTML = "";
+    this.#errorMessagesContainer.innerHTML = "";
 
     for (const errorText of this.errors) {
       const li = document.createElement("li");
       li.textContent = `＊${errorText}`;
-      this.errorMessagesContainer.appendChild(li);
+      this.#errorMessagesContainer.appendChild(li);
     }
   }
 
@@ -532,14 +532,14 @@ export class FileUpload extends HTMLElement {
     newFiles.forEach((fileInfo) => {
       const li = this.#createFileItem(fileInfo);
       fileInfo.element = li;
-      this.fileList.appendChild(li);
+      this.#fileList.appendChild(li);
     });
   }
 
   #createFileItem(fileInfo) {
     const hasErrors = fileInfo.errors && fileInfo.errors.length > 0;
 
-    const clone = this.fileItemTemplate.content.cloneNode(true);
+    const clone = this.#fileItemTemplate.content.cloneNode(true);
 
     const slots = {
       fileName: fileInfo.name,
@@ -584,7 +584,7 @@ export class FileUpload extends HTMLElement {
 
     const fileInput = document.createElement("input");
     fileInput.type = "file";
-    fileInput.name = this.fallbackInput.name;
+    fileInput.name = this.#fallbackInput.name;
 
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(fileInfo.file);
@@ -595,52 +595,52 @@ export class FileUpload extends HTMLElement {
     return li;
   }
 
-  get dropArea() {
+  get #dropArea() {
     return this.querySelector("[data-js-drop-area]");
   }
 
-  get fallbackInput() {
+  get #fallbackInput() {
     return this.querySelector("[data-js-input]");
   }
 
-  get selectButton() {
+  get #selectButton() {
     return this.querySelector("[data-js-select-button]");
   }
 
-  get emptyMessage() {
+  get #emptyMessage() {
     return this.querySelector("[data-js-empty-message]");
   }
 
-  get fileList() {
+  get #fileList() {
     return this.querySelector("[data-js-file-list]");
   }
 
-  get errorMessagesContainer() {
+  get #errorMessagesContainer() {
     return this.querySelector("[data-js-error-messages]");
   }
 
-  get fileItemTemplate() {
+  get #fileItemTemplate() {
     return this.querySelector("[data-js-template]");
   }
 
-  get expandDropAreaCheckbox() {
+  get #expandDropAreaCheckbox() {
     return this.querySelector("[data-js-expand-drop-area]");
   }
 
-  get announcer() {
+  get #announcer() {
     return this.querySelector("[data-js-announcer]");
   }
 
-  get announcerAssertive() {
+  get #announcerAssertive() {
     return this.querySelector("[data-js-announcer-assertive]");
   }
 
-  get selectSummary() {
+  get #selectSummary() {
     return this.querySelector("[data-js-select-summary]");
   }
 
-  get isMultiple() {
-    return this.fallbackInput.hasAttribute("multiple");
+  get #isMultiple() {
+    return this.#fallbackInput.hasAttribute("multiple");
   }
 }
 
