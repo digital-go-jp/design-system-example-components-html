@@ -12,24 +12,24 @@ export class Carousel extends HTMLElement {
 
     this.#abort = new AbortController();
 
-    this.#widthObserver = new WidthObserver(this, this.breakpointRem);
+    this.#widthObserver = new WidthObserver(this, this.#breakpointRem);
 
-    this.collectSlideData();
-    this.initializeSlideBgs();
-    this.setupEventListeners();
+    this.#collectSlideData();
+    this.#initializeSlideBgs();
+    this.#setupEventListeners();
 
     requestAnimationFrame(() => {
-      this.update();
+      this.#update();
     });
   }
 
   disconnectedCallback() {
-    this.#abort.abort();
+    this.#abort?.abort();
     this.#widthObserver?.disconnect();
   }
 
-  collectSlideData() {
-    this.#slideData = this.slides.map((slide) => {
+  #collectSlideData() {
+    this.#slideData = this.#slides.map((slide) => {
       const link = slide.querySelector("a");
       const href = link?.href;
       const target = link?.target;
@@ -39,24 +39,24 @@ export class Carousel extends HTMLElement {
     });
   }
 
-  initializeSlideBgs() {
+  #initializeSlideBgs() {
     for (const slide of this.#slideData) {
       const bg = slide.el.querySelector("[data-js-bg-container]");
-      const image = this.getSlideImage(slide, { noAlt: true });
+      const image = this.#getSlideImage(slide, { noAlt: true });
       bg.innerHTML = "";
       bg.appendChild(image);
     }
   }
 
-  setupEventListeners() {
+  #setupEventListeners() {
     const signal = this.#abort.signal;
 
-    this.nextButton.addEventListener("click", () => this.next(), { signal });
+    this.#nextButton.addEventListener("click", () => this.next(), { signal });
 
-    this.prevSlideButton.addEventListener("click", () => this.prev(), {
+    this.#prevSlideButton.addEventListener("click", () => this.prev(), {
       signal,
     });
-    this.nextSlideButton.addEventListener("click", () => this.next(), {
+    this.#nextSlideButton.addEventListener("click", () => this.next(), {
       signal,
     });
 
@@ -64,74 +64,74 @@ export class Carousel extends HTMLElement {
       signal,
     });
 
-    this.#widthObserver.addEventListener("change", () => this.update(), {
+    this.#widthObserver.addEventListener("change", () => this.#update(), {
       signal,
     });
   }
 
-  update() {
+  #update() {
     const nextIndex = (this.#currentIndex + 1) % this.#slideData.length;
     const current = this.#slideData[this.#currentIndex];
     const next = this.#slideData[nextIndex];
 
-    this.currentNumber.textContent = this.#currentIndex + 1;
+    this.#currentNumber.textContent = this.#currentIndex + 1;
 
     if (this.#widthObserver.matches) {
-      this.mainPanel.setAttribute("role", "tabpanel");
-      this.mainPanel.setAttribute(
+      this.#mainPanel.setAttribute("role", "tabpanel");
+      this.#mainPanel.setAttribute(
         "aria-label",
-        `${this.unit}${this.#currentIndex + 1}`,
+        `${this.#unit}${this.#currentIndex + 1}`,
       );
     } else {
-      this.mainPanel.removeAttribute("role");
-      this.mainPanel.removeAttribute("aria-label");
+      this.#mainPanel.removeAttribute("role");
+      this.#mainPanel.removeAttribute("aria-label");
     }
 
     if (current.href) {
-      this.mainLink.href = current.href;
-      this.mainLink.target = current.target || "_self";
-      this.mainLink.rel = current.rel || "";
+      this.#mainLink.href = current.href;
+      this.#mainLink.target = current.target || "_self";
+      this.#mainLink.rel = current.rel || "";
     } else {
-      this.mainLink.removeAttribute("href");
-      this.mainLink.removeAttribute("target");
-      this.mainLink.removeAttribute("rel");
+      this.#mainLink.removeAttribute("href");
+      this.#mainLink.removeAttribute("target");
+      this.#mainLink.removeAttribute("rel");
     }
 
-    this.mainLabel.textContent = `${this.unit}${this.#currentIndex + 1}`;
+    this.#mainLabel.textContent = `${this.#unit}${this.#currentIndex + 1}`;
 
-    const mainImage = this.getSlideImage(current);
-    this.mainImages.innerHTML = "";
-    this.mainImages.appendChild(mainImage);
+    const mainImage = this.#getSlideImage(current);
+    this.#mainImages.innerHTML = "";
+    this.#mainImages.appendChild(mainImage);
 
-    const mainImageBg = this.getSlideImage(current, { noAlt: true });
-    this.mainBg.innerHTML = "";
-    this.mainBg.appendChild(mainImageBg);
+    const mainImageBg = this.#getSlideImage(current, { noAlt: true });
+    this.#mainBg.innerHTML = "";
+    this.#mainBg.appendChild(mainImageBg);
 
     // Workaround for macOS Safari reading bug
-    this.mainLink.replaceWith(this.mainLink.cloneNode(true));
+    this.#mainLink.replaceWith(this.#mainLink.cloneNode(true));
 
-    const nextImage = this.getSlideImage(next, { noAlt: true });
-    this.nextImageContainer.innerHTML = "";
-    this.nextImageContainer.appendChild(nextImage);
+    const nextImage = this.#getSlideImage(next, { noAlt: true });
+    this.#nextImageContainer.innerHTML = "";
+    this.#nextImageContainer.appendChild(nextImage);
 
-    const nextImageBg = this.getSlideImage(next, { noAlt: true });
-    this.nextBg.innerHTML = "";
-    this.nextBg.appendChild(nextImageBg);
+    const nextImageBg = this.#getSlideImage(next, { noAlt: true });
+    this.#nextBg.innerHTML = "";
+    this.#nextBg.appendChild(nextImageBg);
 
-    this.currentSlide.textContent = `${this.#currentIndex + 1} / ${this.#slideData.length}`;
+    this.#currentSlide.textContent = `${this.#currentIndex + 1} / ${this.#slideData.length}`;
 
-    this.slideContainer.innerHTML = "";
-    this.slideContainer.append(
+    this.#slideContainer.innerHTML = "";
+    this.#slideContainer.append(
       ...[
         ...this.#slideData.slice(this.#currentIndex + 1),
         ...this.#slideData.slice(0, this.#currentIndex),
       ].map((slide) => slide.el),
     );
 
-    this.stepNav.setSelectedIndex(this.#currentIndex);
+    this.#stepNav.setSelectedIndex(this.#currentIndex);
   }
 
-  getSlideImage(slide, { noAlt } = {}) {
+  #getSlideImage(slide, { noAlt } = {}) {
     const picture = slide.el.querySelector("picture");
     const img = slide.el.querySelector("img");
 
@@ -147,90 +147,87 @@ export class Carousel extends HTMLElement {
 
   next() {
     this.#currentIndex = (this.#currentIndex + 1) % this.#slideData.length;
-    this.update();
+    this.#update();
   }
 
   prev() {
     this.#currentIndex =
       (this.#currentIndex + this.#slideData.length - 1) %
       this.#slideData.length;
-    this.update();
+    this.#update();
   }
 
   goTo(index) {
+    if (index < 0 || index >= this.#slideData.length) return;
     this.#currentIndex = index;
-    this.update();
+    this.#update();
   }
 
-  get breakpointRem() {
+  get #breakpointRem() {
     return parseFloat(this.getAttribute("breakpoint-rem"));
   }
 
-  get unit() {
+  get #unit() {
     return this.getAttribute("data-js-unit") || "Slide ";
   }
 
-  get slides() {
+  get #slides() {
     return Array.from(this.querySelectorAll("[data-js-slide]"));
   }
 
-  get inner() {
-    return this.firstElementChild;
-  }
-
-  get mainPanel() {
+  get #mainPanel() {
     return this.querySelector("[data-js-main-panel]");
   }
 
-  get mainLink() {
+  get #mainLink() {
     return this.querySelector("[data-js-main-link]");
   }
 
-  get mainLabel() {
+  get #mainLabel() {
     return this.querySelector("[data-js-main-label]");
   }
 
-  get mainImages() {
+  get #mainImages() {
     return this.querySelector("[data-js-main-images]");
   }
 
-  get mainBg() {
+  get #mainBg() {
     return this.querySelector("[data-js-main-bg]");
   }
 
-  get currentNumber() {
+  get #currentNumber() {
     return this.querySelector("[data-js-current-number]");
   }
 
-  get nextButton() {
+  get #nextButton() {
     return this.querySelector("[data-js-next-button]");
   }
 
-  get nextImageContainer() {
+  get #nextImageContainer() {
     return this.querySelector("[data-js-next-image-container]");
   }
 
-  get nextBg() {
+  get #nextBg() {
     return this.querySelector("[data-js-next-bg]");
   }
 
-  get stepNav() {
+  get #stepNav() {
     return this.querySelector("dads-carousel-step-nav");
   }
 
-  get prevSlideButton() {
+  get #prevSlideButton() {
     return this.querySelector("[data-js-prev-slide-button]");
   }
 
-  get nextSlideButton() {
+  get #nextSlideButton() {
     return this.querySelector("[data-js-next-slide-button]");
   }
 
-  get currentSlide() {
+  get #currentSlide() {
     return this.querySelector("[data-js-current-slide]");
   }
 
-  get slideContainer() {
+  get #slideContainer() {
     return this.querySelector("[data-js-slide-container]");
   }
 }
@@ -241,19 +238,19 @@ export class CarouselStepNav extends HTMLElement {
 
   connectedCallback() {
     this.#abort = new AbortController();
-    this.setupEventListeners();
-    this.update();
+    this.#setupEventListeners();
+    this.#update();
   }
 
   disconnectedCallback() {
     this.#abort.abort();
   }
 
-  setupEventListeners() {
+  #setupEventListeners() {
     const signal = this.#abort.signal;
 
-    this.tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => this.selectTab(index), { signal });
+    this.#tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => this.#selectTab(index), { signal });
     });
 
     this.addEventListener(
@@ -261,32 +258,32 @@ export class CarouselStepNav extends HTMLElement {
       (event) => {
         if (event.key === "ArrowRight" || event.key === "ArrowDown") {
           event.preventDefault();
-          this.next();
+          this.#next();
         } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
           event.preventDefault();
-          this.prev();
+          this.#prev();
         }
       },
       { signal },
     );
   }
 
-  next() {
-    const newIndex = (this.#selectedIndex + 1) % this.tabs.length;
-    this.selectTab(newIndex);
+  #next() {
+    const newIndex = (this.#selectedIndex + 1) % this.#tabs.length;
+    this.#selectTab(newIndex);
   }
 
-  prev() {
+  #prev() {
     const newIndex =
-      (this.#selectedIndex + this.tabs.length - 1) % this.tabs.length;
-    this.selectTab(newIndex);
+      (this.#selectedIndex + this.#tabs.length - 1) % this.#tabs.length;
+    this.#selectTab(newIndex);
   }
 
-  selectTab(index) {
+  #selectTab(index) {
     this.#selectedIndex = index;
-    this.update();
+    this.#update();
 
-    this.tabs[index].focus();
+    this.#tabs[index].focus();
 
     const event = new CustomEvent("select", {
       detail: { index },
@@ -297,18 +294,18 @@ export class CarouselStepNav extends HTMLElement {
 
   setSelectedIndex(index) {
     this.#selectedIndex = index;
-    this.update();
+    this.#update();
   }
 
-  update() {
-    this.tabs.forEach((tab, i) => {
+  #update() {
+    this.#tabs.forEach((tab, i) => {
       const isSelected = i === this.#selectedIndex;
       tab.setAttribute("aria-selected", isSelected ? "true" : "false");
       tab.tabIndex = isSelected ? 0 : -1;
     });
   }
 
-  get tabs() {
+  get #tabs() {
     return Array.from(this.querySelectorAll("[role='tab']"));
   }
 }
