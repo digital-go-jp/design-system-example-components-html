@@ -1,33 +1,45 @@
 export class MenuListBox extends HTMLElement {
-  constructor() {
-    super();
-    this.subscriptions = [];
-  }
+  #abort = null;
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.setupEventListeners();
   }
 
   disconnectedCallback() {
-    for (const subscription of this.subscriptions) subscription.remove();
-    this.subscriptions = [];
+    this.#abort.abort();
   }
 
   setupEventListeners() {
-    this.subscriptions.push(
-      subscribe(this.opener, "click", (e) => this.handleOpenerClick(e)),
-      subscribe(this.opener, "keydown", (e) => this.handleOpenerKeydown(e)),
-      subscribe(this.menu, "keydown", (e) => this.handleMenuKeydown(e)),
-      subscribe(this.menu, "focusout", (e) => this.handleMenuFocusOut(e)),
-      subscribe(document, "click", (e) => this.handleClickOutside(e)),
-      subscribe(document, "keydown", (e) => this.handleEscape(e)),
-    );
-
-    this.menuItems.forEach((item) => {
-      this.subscriptions.push(
-        subscribe(item, "click", (e) => this.handleMenuItemClick(e)),
-      );
+    const { signal } = this.#abort;
+    this.opener.addEventListener("click", (e) => this.handleOpenerClick(e), {
+      signal,
     });
+    this.opener.addEventListener(
+      "keydown",
+      (e) => this.handleOpenerKeydown(e),
+      { signal },
+    );
+    this.menu.addEventListener("keydown", (e) => this.handleMenuKeydown(e), {
+      signal,
+    });
+    this.menu.addEventListener("focusout", (e) => this.handleMenuFocusOut(e), {
+      signal,
+    });
+    document.addEventListener("click", (e) => this.handleClickOutside(e), {
+      signal,
+    });
+    document.addEventListener("keydown", (e) => this.handleEscape(e), {
+      signal,
+    });
+    this.addEventListener(
+      "click",
+      (event) => {
+        const item = event.target.closest("[data-js-menu-item]");
+        if (item) this.selectMenuItem(item);
+      },
+      { signal },
+    );
   }
 
   handleOpenerClick(event) {
@@ -74,11 +86,6 @@ export class MenuListBox extends HTMLElement {
         this.focusLastMenuItem();
         break;
     }
-  }
-
-  handleMenuItemClick(event) {
-    const menuItem = event.currentTarget;
-    this.selectMenuItem(menuItem);
   }
 
   handleClickOutside(event) {
@@ -178,19 +185,19 @@ export class MenuListBox extends HTMLElement {
   }
 
   get opener() {
-    return this.querySelector(".dads-menu-list-box__opener");
+    return this.querySelector("[data-js-opener]");
   }
 
   get popup() {
-    return this.querySelector(".dads-menu-list-box__popup");
+    return this.querySelector("[data-js-popup]");
   }
 
   get menu() {
-    return this.querySelector('[role="menu"]');
+    return this.querySelector("[data-js-menu]");
   }
 
   get menuItems() {
-    return Array.from(this.querySelectorAll('[role="menuitem"]'));
+    return Array.from(this.querySelectorAll("[data-js-menu-item]"));
   }
 
   get isOpen() {
@@ -200,11 +207,6 @@ export class MenuListBox extends HTMLElement {
   get currentIndex() {
     return this.menuItems.findIndex((item) => item === document.activeElement);
   }
-}
-
-function subscribe(el, ...args) {
-  el.addEventListener(...args);
-  return { remove: () => el.removeEventListener(...args) };
 }
 
 customElements.define("dads-menu-list-box", MenuListBox);
