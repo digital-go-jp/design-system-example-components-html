@@ -214,6 +214,10 @@
   margin-bottom: 0;
 }
 
+.dads-notification-banner__timestamp time {
+  text-autospace: normal;
+}
+
 .dads-notification-banner__actions {
   margin-bottom: calc(-8 / 16 * 1rem);
   display: grid;
