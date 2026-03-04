@@ -1,52 +1,60 @@
 export class DatePicker extends HTMLElement {
-  constructor() {
-    super();
-    this.subscriptions = [];
-  }
+  #abort = null;
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.setupEventListeners();
   }
 
   disconnectedCallback() {
-    for (const subscription of this.subscriptions) subscription.remove();
-    this.subscriptions = [];
+    this.#abort.abort();
   }
 
   setupEventListeners() {
+    const { signal } = this.#abort;
     if (this.isConsolidated) {
       if (this.yearInput) {
-        this.subscriptions.push(
-          subscribe(this.yearInput, "keydown", (e) =>
-            this.handleInputKeydown(e, "year"),
-          ),
+        this.yearInput.addEventListener(
+          "keydown",
+          (e) => this.handleInputKeydown(e, "year"),
+          { signal },
         );
       }
       if (this.monthInput) {
-        this.subscriptions.push(
-          subscribe(this.monthInput, "keydown", (e) =>
-            this.handleInputKeydown(e, "month"),
-          ),
+        this.monthInput.addEventListener(
+          "keydown",
+          (e) => this.handleInputKeydown(e, "month"),
+          { signal },
         );
       }
       if (this.dayInput) {
-        this.subscriptions.push(
-          subscribe(this.dayInput, "keydown", (e) =>
-            this.handleInputKeydown(e, "day"),
-          ),
+        this.dayInput.addEventListener(
+          "keydown",
+          (e) => this.handleInputKeydown(e, "day"),
+          { signal },
         );
       }
     }
 
     if (this.isCalendar) {
-      this.subscriptions.push(
-        subscribe(this, "date-selected", (e) => this.handleDateSelected(e)),
-        subscribe(this.calendarButton, "click", () => this.toggleCalendar()),
-        subscribe(this.calendarPopover, "keydown", (e) =>
-          this.handlePopoverKeydown(e),
-        ),
-        subscribe(this.backdrop, "click", () => this.closeCalendar()),
+      this.addEventListener(
+        "date-selected",
+        (e) => this.handleDateSelected(e),
+        { signal },
       );
+      this.calendarButton.addEventListener(
+        "click",
+        () => this.toggleCalendar(),
+        { signal },
+      );
+      this.calendarPopover.addEventListener(
+        "keydown",
+        (e) => this.handlePopoverKeydown(e),
+        { signal },
+      );
+      this.backdrop.addEventListener("click", () => this.closeCalendar(), {
+        signal,
+      });
     }
   }
 
@@ -218,11 +226,6 @@ export class DatePicker extends HTMLElement {
   get backdrop() {
     return this.querySelector("[data-js-backdrop]");
   }
-}
-
-function subscribe(el, ...args) {
-  el.addEventListener(...args);
-  return { remove: () => el.removeEventListener(...args) };
 }
 
 customElements.define("dads-date-picker", DatePicker);
