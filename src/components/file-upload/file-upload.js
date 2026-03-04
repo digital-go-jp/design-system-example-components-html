@@ -428,26 +428,26 @@ export class FileUpload extends HTMLElement {
     }
 
     const accept = this.fallbackInput.accept;
-    const allowedExtensions = this.#parseAcceptAttribute(accept);
-    const maxFileSize = this.#parseSize(this.getAttribute("max-file-size"));
-    const maxTotalSize = this.#parseSize(this.getAttribute("max-total-size"));
+    const allowedExtensions = parseAcceptAttribute(accept);
+    const maxFileSize = parseSize(this.getAttribute("max-file-size"));
+    const maxTotalSize = parseSize(this.getAttribute("max-total-size"));
     const totalSize = this.files.reduce((sum, fileInfo) => {
       return sum + (fileInfo.size || 0);
     }, 0);
 
     newFiles.forEach((fileInfo) => {
       if (allowedExtensions.length > 0) {
-        const ext = this.#getFileExtension(fileInfo.name);
+        const ext = getFileExtension(fileInfo.name);
         const mimeType = fileInfo.file.type;
 
-        if (!this.#isFileTypeAllowed(ext, mimeType, allowedExtensions)) {
+        if (!isFileTypeAllowed(ext, mimeType, allowedExtensions)) {
           fileInfo.errors.push(this.#getMessage("error", "invalidType"));
         }
       }
 
       if (maxFileSize && fileInfo.size > maxFileSize) {
         const { size1: maxFormatted, size2: currentFormatted } =
-          this.#formatSizeWithDiff(maxFileSize, fileInfo.size);
+          formatSizeWithDiff(maxFileSize, fileInfo.size);
         fileInfo.errors.push(
           this.#getMessage("error", "maxFileSize", {
             max: maxFormatted,
@@ -459,7 +459,7 @@ export class FileUpload extends HTMLElement {
 
     if (maxTotalSize && totalSize > maxTotalSize) {
       const { size1: maxFormatted, size2: currentFormatted } =
-        this.#formatSizeWithDiff(maxTotalSize, totalSize);
+        formatSizeWithDiff(maxTotalSize, totalSize);
       this.errors.push(
         this.#getMessage("error", "maxTotalSize", {
           max: maxFormatted,
@@ -471,96 +471,6 @@ export class FileUpload extends HTMLElement {
     const hasFileErrors = this.files.some((f) => f.errors?.length > 0);
     if (hasFileErrors) {
       this.errors.unshift(this.#getMessage("error", "hasFileErrors"));
-    }
-  }
-
-  #parseAcceptAttribute(accept) {
-    if (!accept) return [];
-    return accept.split(",").map((s) => s.trim().toLowerCase());
-  }
-
-  #getFileExtension(filename) {
-    const match = filename.match(/\.([^.]+)$/);
-    return match ? `.${match[1].toLowerCase()}` : "";
-  }
-
-  #isFileTypeAllowed(ext, mimeType, allowedExtensions) {
-    return allowedExtensions.some((allowed) => {
-      if (allowed.includes("/*")) {
-        const [category] = allowed.split("/");
-        return mimeType.startsWith(`${category}/`);
-      }
-      if (allowed.startsWith(".")) {
-        return ext === allowed;
-      }
-      return mimeType === allowed;
-    });
-  }
-
-  #parseSize(sizeStr) {
-    if (!sizeStr) return null;
-
-    const units = {
-      b: 1,
-      kb: 1024,
-      mb: 1024 * 1024,
-      gb: 1024 * 1024 * 1024,
-    };
-
-    const match = sizeStr
-      .toLowerCase()
-      .match(/^(\d+(?:\.\d+)?)\s*(b|kb|mb|gb)?$/);
-    if (!match) return null;
-
-    const value = parseFloat(match[1]);
-    const unit = match[2] || "b";
-
-    return value * units[unit];
-  }
-
-  #formatSize(bytes, precision = null) {
-    if (bytes === 0) return "0B";
-
-    const units = ["B", "KB", "MB", "GB"];
-    const k = 1024;
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    const decimals = precision !== null ? precision : i > 0 ? 1 : 0;
-    return `${parseFloat((bytes / k ** i).toFixed(decimals))}${units[i]}`;
-  }
-
-  #formatSizeWithDiff(bytes1, bytes2) {
-    if (bytes1 === 0) return { size1: "0B", size2: this.#formatSize(bytes2) };
-    if (bytes2 === 0) return { size1: this.#formatSize(bytes1), size2: "0B" };
-
-    const units = ["B", "KB", "MB", "GB"];
-    const k = 1024;
-    const i1 = Math.floor(Math.log(bytes1) / Math.log(k));
-    const i2 = Math.floor(Math.log(bytes2) / Math.log(k));
-
-    const i = Math.max(i1, i2);
-    const value1 = bytes1 / k ** i;
-    const value2 = bytes2 / k ** i;
-
-    if (i === 0 || value1 === value2) {
-      const precision = i > 0 ? 1 : 0;
-      return {
-        size1: this.#formatSize(bytes1, precision),
-        size2: this.#formatSize(bytes2, precision),
-      };
-    }
-
-    let precision = 1;
-    while (true) {
-      const formatted1 = value1.toFixed(precision);
-      const formatted2 = value2.toFixed(precision);
-      if (formatted1 !== formatted2) {
-        return {
-          size1: `${parseFloat(formatted1)}${units[i]}`,
-          size2: `${parseFloat(formatted2)}${units[i]}`,
-        };
-      }
-      precision++;
     }
   }
 
@@ -594,7 +504,7 @@ export class FileUpload extends HTMLElement {
 
     const currentFileCount = this.files.length;
     const currentTotalSize = this.files.reduce((sum, f) => sum + f.size, 0);
-    const sizeFormatted = this.#formatSize(currentTotalSize);
+    const sizeFormatted = formatSize(currentTotalSize);
     const sizeBytes = currentTotalSize.toLocaleString();
 
     const message = this.#getMessage("label", "selectedFiles", {
@@ -633,7 +543,7 @@ export class FileUpload extends HTMLElement {
 
     const slots = {
       fileName: fileInfo.name,
-      fileSize: this.#formatSize(fileInfo.size),
+      fileSize: formatSize(fileInfo.size),
       fileSizeBytes: fileInfo.size.toLocaleString(),
     };
 
