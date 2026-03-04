@@ -1,22 +1,20 @@
 export class Calendar extends HTMLElement {
-  constructor() {
-    super();
-    this.subscriptions = [];
-    this.displayYear = new Date().getFullYear();
-    this.displayMonth = new Date().getMonth();
-    this.selectedDate = null;
-    this.minDate = null;
-    this.maxDate = null;
-  }
+  #abort = null;
+  #displayYear = new Date().getFullYear();
+  #displayMonth = new Date().getMonth();
+  #selectedDate = null;
+  #minDate = null;
+  #maxDate = null;
+  #cellTemplate = null;
 
   connectedCallback() {
+    this.#abort = new AbortController();
     this.initializeCalendar();
     this.setupEventListeners();
   }
 
   disconnectedCallback() {
-    for (const subscription of this.subscriptions) subscription.remove();
-    this.subscriptions = [];
+    this.#abort.abort();
   }
 
   static observedAttributes = ["min-date", "max-date"];
@@ -35,15 +33,40 @@ export class Calendar extends HTMLElement {
   }
 
   setupEventListeners() {
-    this.subscriptions.push(
-      subscribe(this.calendarTable, "click", (e) => this.handleDateClick(e)),
-      subscribe(this.calendarTable, "keydown", (e) => this.handleKeydown(e)),
-      subscribe(this.prevMonthButton, "click", () => this.navigateMonth(-1)),
-      subscribe(this.nextMonthButton, "click", () => this.navigateMonth(1)),
-      subscribe(this.yearSelect, "change", (e) => this.handleYearChange(e)),
-      subscribe(this.deleteButton, "click", () => this.deleteSelectedDate()),
-      subscribe(this.todayButton, "click", () => this.selectToday()),
+    const { signal } = this.#abort;
+    this.calendarTable.addEventListener(
+      "click",
+      (e) => this.handleDateClick(e),
+      { signal },
     );
+    this.calendarTable.addEventListener(
+      "keydown",
+      (e) => this.handleKeydown(e),
+      { signal },
+    );
+    this.prevMonthButton.addEventListener(
+      "click",
+      () => this.navigateMonth(-1),
+      { signal },
+    );
+    this.nextMonthButton.addEventListener(
+      "click",
+      () => this.navigateMonth(1),
+      { signal },
+    );
+    this.yearSelect.addEventListener(
+      "change",
+      (e) => this.handleYearChange(e),
+      { signal },
+    );
+    this.deleteButton.addEventListener(
+      "click",
+      () => this.deleteSelectedDate(),
+      { signal },
+    );
+    this.todayButton.addEventListener("click", () => this.selectToday(), {
+      signal,
+    });
   }
 
   initializeDateRange() {
@@ -62,25 +85,25 @@ export class Calendar extends HTMLElement {
 
     if (/^\d{4}-\d{2}-\d{2}$/.test(minDateAttr)) {
       const [year, month, date] = minDateAttr.split("-");
-      this.minDate = new Date(year, month - 1, date);
+      this.#minDate = new Date(year, month - 1, date);
     } else {
-      this.minDate = new Date(nowYear - 1, nowMonth, nowDate);
+      this.#minDate = new Date(nowYear - 1, nowMonth, nowDate);
     }
 
     if (/^\d{4}-\d{2}-\d{2}$/.test(maxDateAttr)) {
       const [year, month, date] = maxDateAttr.split("-");
-      this.maxDate = new Date(year, month - 1, Number(date) + 1);
+      this.#maxDate = new Date(year, month - 1, Number(date) + 1);
     } else {
-      this.maxDate = new Date(nowYear + 1, nowMonth, nowDate);
+      this.#maxDate = new Date(nowYear + 1, nowMonth, nowDate);
     }
 
     const closestDate = this.getClosestDateInRange(now);
-    this.displayYear = closestDate.getFullYear();
-    this.displayMonth = closestDate.getMonth();
+    this.#displayYear = closestDate.getFullYear();
+    this.#displayMonth = closestDate.getMonth();
   }
 
   populateYearSelect() {
-    const startYear = this.minDate.getFullYear();
+    const startYear = this.#minDate.getFullYear();
     const endYear = this.previousMaxDate.getFullYear();
 
     this.yearSelect.innerHTML = "";
@@ -92,7 +115,7 @@ export class Calendar extends HTMLElement {
       this.yearSelect.appendChild(option);
     }
 
-    this.yearSelect.value = this.displayYear;
+    this.yearSelect.value = this.#displayYear;
   }
 
   // 和暦付きの年表示
@@ -121,23 +144,24 @@ export class Calendar extends HTMLElement {
       date.getMonth(),
       date.getDate(),
     );
-    return dateOnly >= this.minDate && dateOnly < this.maxDate;
+    return dateOnly >= this.#minDate && dateOnly < this.#maxDate;
   }
 
   getClosestDateInRange(date) {
-    if (date < this.minDate) {
-      return new Date(this.minDate);
+    if (date < this.#minDate) {
+      return new Date(this.#minDate);
     }
-    if (date >= this.maxDate) {
+    if (date >= this.#maxDate) {
       return new Date(this.previousMaxDate);
     }
     return new Date(date);
   }
 
   renderCalendar() {
+    const displayYear = this.#displayYear;
+    const displayMonth = this.#displayMonth;
+    const selectedDate = this.#selectedDate;
     const {
-      displayYear,
-      displayMonth,
       yearSelect,
       prevMonthButton,
       isPreviousMonthAvailable,
@@ -146,7 +170,6 @@ export class Calendar extends HTMLElement {
       isNextMonthAvailable,
       calendarHeadingForAnnouncement,
       calendarTable,
-      selectedDate,
       tbody,
       calendarHasSelectedDate,
       calendarHasToday,
@@ -338,7 +361,7 @@ export class Calendar extends HTMLElement {
   }
 
   selectDate(date) {
-    this.selectedDate = date;
+    this.#selectedDate = date;
     this.renderCalendar();
 
     this.dispatchEvent(
@@ -352,11 +375,11 @@ export class Calendar extends HTMLElement {
   navigateMonth(direction) {
     if (direction === -1 && !this.isPreviousMonthAvailable) return;
     if (direction === 1 && !this.isNextMonthAvailable) return;
-    this.setDisplayMonth(this.displayYear, this.displayMonth + direction);
+    this.setDisplayMonth(this.#displayYear, this.#displayMonth + direction);
   }
 
   handleYearChange(e) {
-    this.setDisplayMonth(Number.parseInt(e.target.value), this.displayMonth);
+    this.setDisplayMonth(Number.parseInt(e.target.value), this.#displayMonth);
   }
 
   deleteSelectedDate() {
@@ -374,9 +397,9 @@ export class Calendar extends HTMLElement {
 
   setSelectedDate(date) {
     if (date && this.isDateInRange(date)) {
-      this.selectedDate = date;
+      this.#selectedDate = date;
     } else {
-      this.selectedDate = null;
+      this.#selectedDate = null;
     }
     this.renderCalendar();
   }
@@ -385,9 +408,9 @@ export class Calendar extends HTMLElement {
     const monthToDisplay = this.getClosestDateInRange(new Date(y, m, 1));
     const year = monthToDisplay.getFullYear();
     const month = monthToDisplay.getMonth();
-    const changed = this.displayYear !== year || this.displayMonth !== month;
-    this.displayYear = year;
-    this.displayMonth = month;
+    const changed = this.#displayYear !== year || this.#displayMonth !== month;
+    this.#displayYear = year;
+    this.#displayMonth = month;
     if (changed) this.renderCalendar();
   }
 
@@ -400,21 +423,21 @@ export class Calendar extends HTMLElement {
 
   get previousMaxDate() {
     return new Date(
-      this.maxDate.getFullYear(),
-      this.maxDate.getMonth(),
-      this.maxDate.getDate() - 1,
+      this.#maxDate.getFullYear(),
+      this.#maxDate.getMonth(),
+      this.#maxDate.getDate() - 1,
     );
   }
 
   get isPreviousMonthAvailable() {
-    const prevMonthLastDay = new Date(this.displayYear, this.displayMonth, 0);
+    const prevMonthLastDay = new Date(this.#displayYear, this.#displayMonth, 0);
     return this.isDateInRange(prevMonthLastDay);
   }
 
   get isNextMonthAvailable() {
     const nextMonthFirstDay = new Date(
-      this.displayYear,
-      this.displayMonth + 1,
+      this.#displayYear,
+      this.#displayMonth + 1,
       1,
     );
     return this.isDateInRange(nextMonthFirstDay);
@@ -422,9 +445,9 @@ export class Calendar extends HTMLElement {
 
   get calendarHasSelectedDate() {
     return (
-      this.selectedDate &&
-      this.displayYear === this.selectedDate.getFullYear() &&
-      this.displayMonth === this.selectedDate.getMonth()
+      this.#selectedDate &&
+      this.#displayYear === this.#selectedDate.getFullYear() &&
+      this.#displayMonth === this.#selectedDate.getMonth()
     );
   }
 
@@ -432,8 +455,8 @@ export class Calendar extends HTMLElement {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     return (
-      this.displayYear === today.getFullYear() &&
-      this.displayMonth === today.getMonth() &&
+      this.#displayYear === today.getFullYear() &&
+      this.#displayMonth === today.getMonth() &&
       this.isDateInRange(today)
     );
   }
@@ -466,12 +489,11 @@ export class Calendar extends HTMLElement {
     return this.querySelector("[data-js-calendar-tbody]");
   }
 
-  _cellTemplate = null;
   get cellTemplate() {
-    if (!this._cellTemplate) {
-      this._cellTemplate = this.querySelector("[data-js-cell-template]");
+    if (!this.#cellTemplate) {
+      this.#cellTemplate = this.querySelector("[data-js-cell-template]");
     }
-    return this._cellTemplate;
+    return this.#cellTemplate;
   }
 
   get deleteButton() {
@@ -481,11 +503,6 @@ export class Calendar extends HTMLElement {
   get todayButton() {
     return this.querySelector("[data-js-today-button]");
   }
-}
-
-function subscribe(el, ...args) {
-  el.addEventListener(...args);
-  return { remove: () => el.removeEventListener(...args) };
 }
 
 customElements.define("dads-calendar", Calendar);
