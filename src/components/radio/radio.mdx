@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as RadioStories from "./radio.stories";
 import radioCss from "./radio.css?raw";
@@ -13,8 +13,8 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={RadioStories.Playground} withToolbar />
+<Controls of={RadioStories.Playground} />
 
 ## ソースコード
 

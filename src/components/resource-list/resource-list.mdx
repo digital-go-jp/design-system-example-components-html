@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ResourceListStories from "./resource-list.stories";
 import resourceListCss from "./resource-list.css?raw";
@@ -14,8 +14,8 @@ import radioCss from "../radio/radio.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={ResourceListStories.Playground} withToolbar />
+<Controls of={ResourceListStories.Playground} />
 
 ## ソースコード
 

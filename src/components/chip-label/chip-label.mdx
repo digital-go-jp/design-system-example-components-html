@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ChipLabelStories from "./chip-label.stories";
 import chipLabelCss from "./chip-label.css?raw";
@@ -12,8 +12,8 @@ import chipLabelCss from "./chip-label.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={ChipLabelStories.Playground} withToolbar />
+<Controls of={ChipLabelStories.Playground} />
 
 ## ソースコード
 

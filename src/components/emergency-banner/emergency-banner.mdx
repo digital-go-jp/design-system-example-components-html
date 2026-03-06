@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as EmergencyBannerStories from "./emergency-banner.stories";
 import emergencyBannerCss from "./emergency-banner.css?raw";
@@ -12,8 +12,8 @@ import emergencyBannerCss from "./emergency-banner.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={EmergencyBannerStories.Playground} withToolbar />
+<Controls of={EmergencyBannerStories.Playground} />
 
 ## ソースコード
 

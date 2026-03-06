@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as FormControlLabelStories from "./form-control-label.stories";
 import formControlLabelCss from "./form-control-label.css?raw";
@@ -14,8 +14,8 @@ import formControlLabelCss from "./form-control-label.css?raw";
 
 フォームコントロールラベルは、インプットテキストやセレクトボックス等のコントロールや、チェックボックス等をまとめたグループにラベルを付与するコンポーネントです。
 
-<Primary />
-<Controls />
+<Canvas of={FormControlLabelStories.Single} withToolbar />
+<Controls of={FormControlLabelStories.Single} />
 
 ## ソースコード
 
