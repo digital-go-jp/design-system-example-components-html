@@ -41,6 +41,7 @@
 
 .dads-emergency-banner__timestamp {
   display: block;
+  text-autospace: normal;
 }
 
 .dads-emergency-banner__body {

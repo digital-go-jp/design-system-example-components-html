@@ -5,4 +5,4 @@ const { dirname } = import.meta;
 
 resetCssVrt("all-checkboxes", path.join(dirname, "all-checkboxes.html"));
 
-resetCssVrt("stacked", path.join(dirname, "stacked.html"));
+resetCssVrt("checkbox-stacked", path.join(dirname, "stacked.html"));

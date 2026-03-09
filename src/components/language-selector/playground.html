@@ -18,7 +18,7 @@
 
 <dads-language-selector class="dads-language-selector">
   <div class="dads-menu-list-box">
-    <button id="language-selector-opener" class="dads-menu-list-box__opener" type="button" aria-controls="language-selector-popup" aria-expanded="false" data-size="sm" data-style="text" data-text-weight="normal">
+    <button id="language-selector-opener" class="dads-menu-list-box__opener" type="button" data-js-opener aria-controls="language-selector-popup" aria-expanded="false" data-size="sm" data-style="text" data-text-weight="normal">
       <svg class="dads-menu-list-box__opener-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
         <path d="M12 21.5A9.5 9.5 0 0 1 2.5 12c0-5.2 4.3-9.5 9.5-9.5s9.6 4.3 9.5 9.5c0 5.2-4.3 9.5-9.5 9.5Zm0-1.5c1-1.3 1.7-2.8 2.1-4.3H10c.4 1.5 1 3 2.1 4.3Zm-2-.3c-.8-1.2-1.4-2.6-1.7-4H5c1 2 3 3.5 5.2 4Zm4 0c2.2-.5 4-2 5-4h-3.3c-.4 1.4-1 2.8-1.8 4Zm-9.7-5.5H8a13 13 0 0 1 0-4.4H4.3a8 8 0 0 0 0 4.4Zm5.2 0h5c.2-1.5.2-3 0-4.4h-5c-.2 1.5-.2 3 0 4.4Zm6.5 0h3.7a8 8 0 0 0 0-4.4H16c.2 1.5.2 3 0 4.4Zm-.3-5.9H19c-1-2-3-3.5-5.2-4 .8 1.2 1.4 2.6 1.8 4Zm-5.8 0H14A12 12 0 0 0 12 4a12 12 0 0 0-2.1 4.3Zm-5 0h3.4c.4-1.4 1-2.8 1.8-4-2.3.5-4.1 2-5.2 4Z"/>
       </svg>
@@ -27,10 +27,10 @@
         <path d="m20.5 6.6-8 8-8-8L3.1 8l9.4 9.4L21.9 8l-1.4-1.4Z"/>
       </svg>
     </button>
-    <div id="language-selector-popup" class="dads-menu-list-box__popup" hidden>
-      <ul class="dads-menu-list">
+    <div id="language-selector-popup" class="dads-menu-list-box__popup" data-js-popup hidden>
+      <ul class="dads-menu-list" data-js-menu>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="ja" hreflang="ja" data-type="box" data-size="regular" data-current aria-current="true">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="ja" hreflang="ja" data-type="box" data-size="regular" data-current aria-current="true">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -40,7 +40,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="en" hreflang="en" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="en" hreflang="en" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -50,7 +50,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="zh-cn" hreflang="zh-cn" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="zh-cn" hreflang="zh-cn" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -60,7 +60,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="zh-tw" hreflang="zh-tw" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="zh-tw" hreflang="zh-tw" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -70,7 +70,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="ko" hreflang="ko" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="ko" hreflang="ko" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -80,7 +80,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="es" hreflang="es" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="es" hreflang="es" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -90,7 +90,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="id" hreflang="id" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="id" hreflang="id" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
@@ -100,7 +100,7 @@
           </a>
         </li>
         <li>
-          <a class="dads-menu-list__item" href="#" lang="vi" hreflang="vi" data-type="box" data-size="regular">
+          <a class="dads-menu-list__item" data-js-menu-item href="#" lang="vi" hreflang="vi" data-type="box" data-size="regular">
             <svg class="dads-menu-list__front-icon dads-language-selector__check" width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" aria-hidden="true">
               <path d="m9.5 18-5.7-5.7 1.5-1.4 4.2 4.3L18.7 6l1.4 1.4L9.5 18Z"/>
             </svg>
