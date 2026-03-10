@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as NotificationBannerStories from "./notification-banner.stories";
 import notificationBannerCss from "./notification-banner.css?raw";
@@ -13,8 +13,8 @@ import buttonCss from "../button/button.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={NotificationBannerStories.Success} withToolbar />
+<Controls of={NotificationBannerStories.Success} />
 
 ## ソースコード
 

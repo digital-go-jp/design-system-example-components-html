@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as UtilityLinkStories from "./utility-link.stories";
 import utilityLinkCss from "./utility-link.css?raw";
@@ -12,8 +12,8 @@ import utilityLinkCss from "./utility-link.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={UtilityLinkStories.Playground} withToolbar />
+<Controls of={UtilityLinkStories.Playground} />
 
 ## ソースコード
 

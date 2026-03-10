@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as MenuListBoxStories from "./menu-list-box.stories";
 import menuListCss from "../menu-list/menu-list.css?raw";
@@ -14,8 +14,8 @@ import menuListBoxJs from "./menu-list-box.js?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={MenuListBoxStories.Playground} withToolbar />
+<Controls of={MenuListBoxStories.Playground} />
 
 ## ソースコード
 
