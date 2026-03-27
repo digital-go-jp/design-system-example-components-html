@@ -1,0 +1,204 @@
+.dads-progress-indicator {
+  display: flex;
+  gap: calc(16 / 16 * 1rem) calc(8 / 16 * 1rem);
+  justify-content: center;
+  align-items: center;
+  color: var(--color-neutral-solid-gray-900);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+dads-progress-indicator:not([active]) {
+  display: none;
+}
+
+dads-progress-indicator:not([active]) * {
+  animation: none !important;
+}
+
+.dads-progress-indicator[data-type="stacked"] {
+  flex-direction: column;
+}
+
+.dads-progress-indicator[data-type="stacked-underlay"] {
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+  width: fit-content;
+  border-radius: calc(16 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-500);
+  background-color: var(--color-neutral-white);
+}
+
+.dads-progress-indicator[data-type="stacked-underlay"]:has(
+    .dads-progress-indicator__spinner,
+    .dads-progress-indicator__static
+  ) {
+  min-width: calc(128 / 16 * 1rem);
+  min-height: calc(128 / 16 * 1rem);
+  padding: calc(16 / 16 * 1rem);
+}
+
+.dads-progress-indicator[data-type="stacked-underlay"]:has(
+    .dads-progress-indicator__linear
+  ) {
+  padding: calc(24 / 16 * 1rem);
+}
+
+.dads-progress-indicator__track {
+  stroke: currentcolor;
+  color: var(--color-primitive-blue-100);
+}
+
+.dads-progress-indicator__bar {
+  color: var(--color-primitive-blue-1200);
+  stroke-dashoffset: calc(100 - clamp(0, var(--value, 35), 100));
+}
+
+.dads-progress-indicator__border {
+  color: var(--color-primitive-blue-1200);
+}
+
+/* Spinner type */
+
+.dads-progress-indicator__spinner g {
+  transform-origin: center;
+}
+
+.dads-progress-indicator__spinner .dads-progress-indicator__bar {
+  stroke-dasharray: 100;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.dads-progress-indicator__spinner[data-indeterminate] g {
+  animation: dads-spinner-rotate 13s linear infinite;
+}
+
+.dads-progress-indicator__spinner[data-indeterminate] g > g {
+  animation: dads-spinner-group-rotate 2.5s linear infinite;
+}
+
+.dads-progress-indicator__spinner[data-indeterminate]
+  .dads-progress-indicator__bar {
+  animation:
+    dads-spinner-bar-rotate 2.5s cubic-bezier(0.4, 0, 0.3, 1) infinite,
+    dads-spinner-bar-dash 2.5s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+}
+
+@keyframes dads-spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dads-spinner-group-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(135deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes dads-spinner-bar-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  4% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(360deg);
+    animation-timing-function: cubic-bezier(0.5, 0.4, 0.3, 0.9);
+  }
+  100% {
+    transform: rotate(540deg);
+  }
+}
+
+@keyframes dads-spinner-bar-dash {
+  0% {
+    stroke-dasharray: 8 92;
+    stroke-dashoffset: 4;
+  }
+  30% {
+    stroke-dasharray: 80 20;
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dasharray: 8 92;
+    stroke-dashoffset: 4;
+  }
+}
+
+/* Linear type */
+
+.dads-progress-indicator__linear .dads-progress-indicator__bar {
+  stroke-dasharray: 100;
+}
+
+.dads-progress-indicator__linear[data-indeterminate]
+  .dads-progress-indicator__bar {
+  stroke-dasharray: 35 65;
+  animation: dads-linear-rotate 4s linear infinite;
+}
+
+/* Static type */
+
+.dads-progress-indicator__static {
+  color: var(--color-primitive-blue-1200);
+}
+
+@keyframes dads-linear-rotate {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dads-progress-indicator__spinner,
+  .dads-progress-indicator__spinner *,
+  .dads-progress-indicator__linear,
+  .dads-progress-indicator__linear * {
+    animation: none !important;
+  }
+}
+
+/* Percentage display */
+
+.dads-progress-indicator__percentage span {
+  display: inline-block;
+  min-width: 2ch;
+  text-align: right;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (forced-colors: active) {
+  .dads-progress-indicator__track {
+    color: Canvas;
+  }
+
+  .dads-progress-indicator__bar,
+  .dads-progress-indicator__border {
+    color: CanvasText;
+  }
+
+  .dads-progress-indicator__static {
+    color: CanvasText;
+  }
+}

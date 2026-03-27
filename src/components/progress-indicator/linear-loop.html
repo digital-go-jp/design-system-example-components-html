@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Progress Indicator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="progress-indicator.css">
+<link rel="stylesheet" href="progress-indicator.stories.css">
+<script type="module" src="progress-indicator.js"></script>
+</head>
+<body>
+
+<dads-progress-indicator class="dads-progress-indicator" data-type="stacked" intent="passive" active>
+  <svg class="dads-progress-indicator__linear" data-js-indicator width="240" height="4" viewBox="0 0 240 4" stroke="currentcolor" fill="none" aria-hidden="true">
+    <line class="dads-progress-indicator__track" x1="0" y1="2" x2="240" y2="2" stroke-width="4"></line>
+    <line class="dads-progress-indicator__bar" x1="0" y1="2" x2="240" y2="2" stroke-width="4" pathLength="100"></line>
+    <line class="dads-progress-indicator__border" x1="0" y1="3.5" x2="240" y2="3.5" stroke-width="1"></line>
+  </svg>
+  <span class="dads-progress-indicator__label" data-js-label>ラベル</span>
+</dads-progress-indicator>
+
+<dads-progress-indicator class="dads-progress-indicator" data-type="inlined" intent="passive" active>
+  <svg class="dads-progress-indicator__linear" data-js-indicator width="80" height="4" viewBox="0 0 80 4" stroke="currentcolor" fill="none" aria-hidden="true">
+    <line class="dads-progress-indicator__track" x1="0" y1="2" x2="80" y2="2" stroke-width="4"></line>
+    <line class="dads-progress-indicator__bar" x1="0" y1="2" x2="80" y2="2" stroke-width="4" pathLength="100"></line>
+    <line class="dads-progress-indicator__border" x1="0" y1="3.5" x2="80" y2="3.5" stroke-width="1"></line>
+  </svg>
+  <span class="dads-progress-indicator__label" data-js-label>ラベル</span>
+</dads-progress-indicator>
+
+<dads-progress-indicator class="dads-progress-indicator" data-type="stacked-underlay" intent="passive" active>
+  <svg class="dads-progress-indicator__linear" data-js-indicator width="240" height="4" viewBox="0 0 240 4" stroke="currentcolor" fill="none" aria-hidden="true">
+    <line class="dads-progress-indicator__track" x1="0" y1="2" x2="240" y2="2" stroke-width="4"></line>
+    <line class="dads-progress-indicator__bar" x1="0" y1="2" x2="240" y2="2" stroke-width="4" pathLength="100"></line>
+    <line class="dads-progress-indicator__border" x1="0" y1="3.5" x2="240" y2="3.5" stroke-width="1"></line>
+  </svg>
+  <span class="dads-progress-indicator__label" data-js-label>ラベル</span>
+</dads-progress-indicator>
+
+</body>
+</html>
