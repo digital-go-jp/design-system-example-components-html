@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as GlobalMenuStories from "./global-menu.stories";
 import globalMenuCss from "./global-menu.css?raw";
@@ -12,8 +12,8 @@ import globalMenuCss from "./global-menu.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={GlobalMenuStories.Playground} withToolbar />
+<Controls of={GlobalMenuStories.Playground} />
 
 ## ソースコード
 

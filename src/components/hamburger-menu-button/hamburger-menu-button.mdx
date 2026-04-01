@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as HamburgerMenuButtonStories from "./hamburger-menu-button.stories";
 import hamburgerMenuButtonCss from "./hamburger-menu-button.css?raw";
@@ -12,6 +12,9 @@ import hamburgerMenuIconButtonCss from "./hamburger-menu-icon-button.css?raw";
 <Title />
 <Subtitle />
 <Description />
+
+<Canvas of={HamburgerMenuButtonStories.DesktopAndMobile} />
+<Controls of={HamburgerMenuButtonStories.Playground} />
 
 ## ソースコード
 

@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as LinkStories from "./link.stories";
 import linkCss from "./link.css?raw";
@@ -12,8 +12,8 @@ import linkCss from "./link.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={LinkStories.Playground} withToolbar />
+<Controls of={LinkStories.Playground} />
 
 ## ソースコード
 

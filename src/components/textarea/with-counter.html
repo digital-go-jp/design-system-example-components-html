@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Textarea with Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<link rel="stylesheet" href="textarea.css">
+<script type="module" src="textarea-counter.js"></script>
+</head>
+<body>
+
+<div style="display: grid; row-gap: 2rem;">
+
+  <div class="dads-form-control-label" data-size="md">
+    <label class="dads-form-control-label__label" for="counter-textarea">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </label>
+    <p id="counter-support-text" class="dads-form-control-label__support-text">20文字以内で入力してください</p>
+    <div>
+      <span class="dads-textarea">
+        <textarea id="counter-textarea" class="dads-textarea__textarea" aria-describedby="counter-support-text"></textarea>
+        <dads-textarea-counter class="dads-textarea__counter" for="counter-textarea" max="20"></dads-textarea-counter>
+      </span>
+    </div>
+  </div>
+
+  <div class="dads-form-control-label" data-size="md">
+    <label class="dads-form-control-label__label" for="counter-textarea-2">
+      ラベル
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </label>
+    <p id="counter-support-text-2" class="dads-form-control-label__support-text">1000文字以内で入力してください</p>
+    <div>
+      <span class="dads-textarea">
+        <textarea id="counter-textarea-2" class="dads-textarea__textarea" aria-describedby="counter-support-text-2"></textarea>
+        <dads-textarea-counter class="dads-textarea__counter" for="counter-textarea-2" max="1000"></dads-textarea-counter>
+      </span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

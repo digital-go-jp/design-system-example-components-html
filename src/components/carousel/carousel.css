@@ -212,6 +212,7 @@
 .dads-carousel__next-bg > div img {
   width: auto;
   height: 200%;
+  max-width: none;
 }
 
 .dads-carousel__next-bg > div::after {

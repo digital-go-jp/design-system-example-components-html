@@ -1,0 +1,4 @@
+:has(> .dads-progress-indicator) {
+  display: grid;
+  gap: 4rem;
+}

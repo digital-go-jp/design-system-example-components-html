@@ -5,4 +5,4 @@ const { dirname } = import.meta;
 
 resetCssVrt("all-radios", path.join(dirname, "all-radios.html"));
 
-resetCssVrt("stacked", path.join(dirname, "stacked.html"));
+resetCssVrt("radio-stacked", path.join(dirname, "stacked.html"));

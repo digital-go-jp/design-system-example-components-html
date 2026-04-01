@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as InputTextStories from "./input-text.stories";
 import inputTextCss from "./input-text.css?raw";
@@ -13,8 +13,8 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={InputTextStories.Playground} withToolbar />
+<Controls of={InputTextStories.Playground} />
 
 ## ソースコード
 
@@ -69,7 +69,7 @@ import formControlLabelCss from "../form-control-label/form-control-label.css?ra
 </div>
 ```
 
-### エラー状態の実装
+### エラー状態
 
 エラー状態のインプットテキストには、`<input>`要素に`aria-invalid="true"`を設定します。エラーメッセージを表示する場合は、`aria-describedby`属性を使用してエラーテキストを関連付けてください。
 

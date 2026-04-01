@@ -1,4 +1,4 @@
-import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
  
 import * as ListStories from "./list.stories";
 import listCss from "./list.css?raw";
@@ -12,8 +12,8 @@ import listCss from "./list.css?raw";
 <Subtitle />
 <Description />
 
-<Primary />
-<Controls />
+<Canvas of={ListStories.AllLists} withToolbar />
+<Controls of={ListStories.AllLists} />
 
 ## ソースコード
 

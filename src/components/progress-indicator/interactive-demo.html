@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Progress Indicator Interactive Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="progress-indicator.css">
+<link rel="stylesheet" href="../button/button.css">
+<script type="module" src="progress-indicator.js"></script>
+</head>
+<body>
+
+<div class="demo-container">
+  <!-- Loop タイプのデモ -->
+  <section class="demo-section">
+    <h3 class="demo-title">Loop タイプ（不確定進捗）</h3>
+    <p class="demo-description">処理時間が不明な場合に使用します。15秒後に自動的に完了します。5秒経過ごとに読み込み中であることをスクリーンリーダーに通知します。</p>
+    <div class="demo-controls">
+      <button id="demo-loop-start" type="button" class="dads-button" data-size="md" data-type="solid-fill">ローディング開始</button>
+    </div>
+    <dads-progress-indicator
+      id="demo-loop-progress"
+      class="dads-progress-indicator"
+      data-type="stacked"
+      intent="explicit"
+    >
+      <svg class="dads-progress-indicator__spinner" data-js-indicator width="48" height="48" viewBox="0 0 48 48" stroke="currentcolor" fill="none" aria-hidden="true">
+        <circle class="dads-progress-indicator__track" cx="24" cy="24" r="22" stroke-width="4"></circle>
+        <g><g><circle class="dads-progress-indicator__bar" cx="24" cy="24" r="22" stroke-width="4" pathLength="100"></circle></g></g>
+        <circle class="dads-progress-indicator__border" cx="24" cy="24" r="23.5" stroke-width="1"></circle>
+      </svg>
+      <span class="dads-progress-indicator__label" data-js-label>読み込み中</span>
+    </dads-progress-indicator>
+  </section>
+
+  <!-- Fill タイプのデモ -->
+  <section class="demo-section">
+    <h3 class="demo-title">Fill タイプ（確定進捗）</h3>
+    <p class="demo-description">進捗率が把握できる場合に使用します。15秒かけて100%まで進行します。5秒経過ごとに進捗状況をスクリーンリーダーに通知します。</p>
+    <div class="demo-controls">
+      <button id="demo-fill-start" type="button" class="dads-button" data-size="md" data-type="solid-fill">ローディング開始</button>
+    </div>
+    <dads-progress-indicator
+      id="demo-fill-progress"
+      class="dads-progress-indicator"
+      data-type="stacked"
+      intent="explicit"
+      value="0"
+    >
+      <svg class="dads-progress-indicator__linear" data-js-indicator width="240" height="4" viewBox="0 0 240 4" stroke="currentcolor" fill="none" aria-hidden="true">
+        <line class="dads-progress-indicator__track" x1="0" y1="2" x2="240" y2="2" stroke-width="4"></line>
+        <line class="dads-progress-indicator__bar" x1="0" y1="2" x2="240" y2="2" stroke-width="4" pathLength="100"></line>
+        <line class="dads-progress-indicator__border" x1="0" y1="3.5" x2="240" y2="3.5" stroke-width="1"></line>
+      </svg>
+      <span class="dads-progress-indicator__label" data-js-label>読み込み中 <span class="dads-progress-indicator__percentage" data-js-percentage></span></span>
+    </dads-progress-indicator>
+  </section>
+
+  <!-- Passive タイプのデモ（無限スクロール想定） -->
+  <section class="demo-section">
+    <h3 class="demo-title">Passive タイプ（通知なし）</h3>
+    <p class="demo-description">スクロール等の暗黙的な操作で起動するローディングです。スクリーンリーダーへの通知は行いません。5秒後に完了します。</p>
+    <div class="demo-controls">
+      <button id="demo-passive-start" type="button" class="dads-button" data-size="md" data-type="solid-fill">ローディング開始</button>
+    </div>
+    <dads-progress-indicator
+      id="demo-passive-progress"
+      class="dads-progress-indicator"
+      data-type="inlined"
+      intent="passive"
+    >
+      <svg class="dads-progress-indicator__spinner" data-js-indicator width="24" height="24" viewBox="0 0 24 24" stroke="currentcolor" fill="none" aria-hidden="true">
+        <circle class="dads-progress-indicator__track" cx="12" cy="12" r="8" stroke-width="3"></circle>
+        <g><g><circle class="dads-progress-indicator__bar" cx="12" cy="12" r="8" stroke-width="3" pathLength="100"></circle></g></g>
+        <circle class="dads-progress-indicator__border" cx="12" cy="12" r="9.5" stroke-width="1"></circle>
+      </svg>
+      <span class="dads-progress-indicator__label" data-js-label>読み込み中</span>
+    </dads-progress-indicator>
+  </section>
+</div>
+
+<style>
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .demo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .demo-title {
+    margin: 0;
+    color: var(--color-neutral-solid-gray-900);
+    font-size: calc(20 / 16 * 1rem);
+    font-weight: bold;
+  }
+
+  .demo-description {
+    margin: 0;
+    color: var(--color-neutral-solid-gray-700);
+    font-size: calc(16 / 16 * 1rem);
+  }
+</style>
+
+<script type="module">
+  // Loop タイプのデモ
+  const loopStartBtn = document.getElementById('demo-loop-start');
+  const loopProgress = document.getElementById('demo-loop-progress');
+  let loopTimer = 0;
+
+  loopStartBtn?.addEventListener('click', () => {
+    clearTimeout(loopTimer);
+    loopProgress.stop();
+    loopProgress.start();
+
+    loopTimer = setTimeout(() => {
+      loopProgress.stop();
+    }, 15000);
+  });
+
+  // Fill タイプのデモ
+  const fillStartBtn = document.getElementById('demo-fill-start');
+  const fillProgress = document.getElementById('demo-fill-progress');
+  let fillTimer = 0;
+
+  const DURATION = 15000;
+  const INTERVAL = 200;
+  const STEPS = DURATION / INTERVAL;
+
+  fillStartBtn?.addEventListener('click', () => {
+    clearInterval(fillTimer);
+    fillProgress.stop();
+    fillProgress.value = 0;
+    fillProgress.start();
+
+    let currentStep = 0;
+
+    fillTimer = setInterval(() => {
+      currentStep++;
+      const progress = Math.min(100, Math.round((currentStep / STEPS) * 100));
+      fillProgress.value = progress;
+
+      if (progress >= 100) {
+        clearInterval(fillTimer);
+        fillProgress.stop();
+      }
+    }, INTERVAL);
+  });
+
+  // Passive タイプのデモ
+  const passiveStartBtn = document.getElementById('demo-passive-start');
+  const passiveProgress = document.getElementById('demo-passive-progress');
+  let passiveTimer = 0;
+
+  passiveStartBtn?.addEventListener('click', () => {
+    clearTimeout(passiveTimer);
+    passiveProgress.stop();
+    passiveProgress.start();
+
+    passiveTimer = setTimeout(() => {
+      passiveProgress.stop();
+    }, 5000);
+  });
+</script>
+
+</body>
+</html>
