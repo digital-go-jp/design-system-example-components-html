@@ -81,4 +81,4 @@ export const Readonly = () =>
   new HtmlFragment(readonly, ".dads-form-control-label").toString();
 
 export const WithCounter = () =>
-  new HtmlFragment(withCounter, ".dads-form-control-label").toString();
+  new HtmlFragment(withCounter, "body > div").toString();
