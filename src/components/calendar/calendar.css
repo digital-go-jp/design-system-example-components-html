@@ -25,7 +25,6 @@
   width: calc(44 / 16 * 1rem);
   min-width: 0;
   padding: 0;
-  --button-outline-hover-bg-color: var(--color-neutral-white);
 }
 
 @media (hover: hover) {
@@ -78,14 +77,18 @@
   font: inherit;
   letter-spacing: inherit;
   text-underline-offset: calc(3 / 16 * 1rem);
-  cursor: pointer;
 }
 
 @media (hover: hover) {
-  .dads-calendar__date:hover {
+  .dads-calendar__date:not([data-selected]):hover {
+    border: 1px solid var(--color-neutral-black);
     background-color: var(--color-neutral-solid-gray-50);
     text-decoration: underline;
   }
+}
+
+.dads-calendar__date:not([data-selected]):active {
+  background-color: var(--color-neutral-solid-gray-100);
 }
 
 .dads-calendar__date:focus-visible {
