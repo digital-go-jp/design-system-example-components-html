@@ -2,8 +2,13 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../button/button.css";
+import "../disclosure/disclosure.css";
+import "../checkbox/checkbox.css";
+import "../form-control-label/form-control-label.css";
+import "../radio/radio.css";
 import "./search-box.css";
 import playground from "./playground.html?raw";
+import withDetail from "./with-detail.html?raw";
 
 const meta = {
   title: "Components/検索ボックス",
@@ -47,3 +52,6 @@ export const Playground: StoryObj<SearchBoxPlaygroundProps> = {
     hasOption: true,
   },
 };
+
+export const WithDetail = () =>
+  new HtmlFragment(withDetail, "body > *").toString({ trimBlankLines: true });

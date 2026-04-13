@@ -3,6 +3,7 @@ import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, 
 import * as SearchBoxStories from "./search-box.stories";
 import searchBoxCss from "./search-box.css?raw";
 import buttonCss from "../button/button.css?raw";
+import disclosureCss from "../disclosure/disclosure.css?raw";
 
 <Meta of={SearchBoxStories} />
 
@@ -20,6 +21,8 @@ import buttonCss from "../button/button.css?raw";
 
 <details>
   <summary>HTML</summary>
+
+#### 基本形
 
 ```html
 <div class="dads-search-box" data-size="lg">
@@ -49,6 +52,62 @@ import buttonCss from "../button/button.css?raw";
 </div>
 ```
 
+#### 詳細検索パネルあり
+
+```html
+<div class="dads-search-box" data-size="lg">
+  <div class="dads-search-box__fields">
+    <label class="dads-search-box__select">
+      <span>検索対象</span>
+      <select name="scope">
+        <option value="">すべて</option>
+        <option value="images">画像</option>
+        <option value="files">ファイル</option>
+        <option value="map">地図</option>
+        <option value="videos">動画</option>
+      </select>
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+      </svg>
+    </label>
+    <label class="dads-search-box__input">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+      </svg>
+      <span class="dads-u-visually-hidden">検索</span>
+      <input type="search" name="q">
+    </label>
+  </div>
+
+  <details class="dads-search-box__detail dads-disclosure">
+    <summary class="dads-disclosure__summary">
+      <svg class="dads-disclosure__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="currentcolor"/>
+        <circle class="dads-disclosure__icon-circle" cx="12" cy="12" r="8" fill="currentcolor"/>
+        <path class="dads-disclosure__icon-triangle" d="M17 10H7L12 15L17 10Z" fill="Canvas"/>
+      </svg>
+      詳細検索
+    </summary>
+    <div class="dads-disclosure__content">
+
+      <!-- パネルの中身（自由に構成） -->
+
+      <div class="dads-search-box__detail-actions">
+        <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">
+          <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+          </svg>
+          検索
+        </button>
+        <button class="dads-button" type="reset" data-type="text" data-size="sm">検索条件をクリア</button>
+      </div>
+    </div>
+  </details>
+
+  <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">検索</button>
+</div>
+```
+
 </details>
 
 <details>
@@ -61,6 +120,11 @@ import buttonCss from "../button/button.css?raw";
 <details>
   <summary>button.css</summary>
   <Source code={buttonCss} language="css" />
+</details>
+
+<details>
+  <summary>disclosure.css</summary>
+  <Source code={disclosureCss} language="css" />
 </details>
 
 ## 仕様
@@ -79,8 +143,9 @@ import buttonCss from "../button/button.css?raw";
 
 - **共通**
   - `search-box.css`
+  - `button.css`
 - **追加で必要**
-  - `button.css`（検索ボタンを使用する場合）
+  - `disclosure.css`（詳細検索パネルを使用する場合）
 
 ### サイズを変更する
 
@@ -113,6 +178,18 @@ import buttonCss from "../button/button.css?raw";
   <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">検索</button>
 </div>
 ```
+
+### 詳細検索パネルを追加する
+
+詳細検索パネルは`.dads-search-box__detail`クラスと`dads-disclosure`クラスを付与した`<details>`要素で実装します。`.dads-search-box__fields`と`.dads-button`の間に配置します（「詳細検索パネルあり」のHTMLを参照）。
+
+#### 開閉状態
+
+初期状態で開いておく場合は`<details>`要素に`open`属性を追加します。
+
+#### パネルの中身
+
+`.dads-disclosure__content`内のコンテンツは自由に構成できます。デモでは[ラジオボタン](?path=/docs/components-ラジオボタン--docs)や[チェックボックス](?path=/docs/components-チェックボックス--docs)を使用しています。
 
 ### アクセシビリティ
 
