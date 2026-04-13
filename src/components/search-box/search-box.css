@@ -220,3 +220,35 @@
 .dads-search-box .dads-button {
   cursor: pointer;
 }
+
+.dads-search-box[data-size="md"] .dads-search-box__select > span {
+  top: calc(50% - 1.125rem);
+}
+
+.dads-search-box[data-size="md"] .dads-search-box__select > select {
+  padding-top: calc(18 / 16 * 1rem);
+}
+
+.dads-search-box[data-size="md"] .dads-search-box__input > input {
+  padding-top: calc(11 / 16 * 1rem);
+  padding-bottom: calc(11 / 16 * 1rem);
+}
+
+.dads-search-box[data-size="sm"] .dads-search-box__select > span {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.dads-search-box[data-size="sm"] .dads-search-box__select > select {
+  padding-top: 0;
+}
+
+.dads-search-box[data-size="sm"] .dads-search-box__input > input {
+  padding-top: calc(7 / 16 * 1rem);
+  padding-bottom: calc(7 / 16 * 1rem);
+}

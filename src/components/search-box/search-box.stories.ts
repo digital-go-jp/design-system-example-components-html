@@ -12,6 +12,7 @@ const meta = {
 export default meta;
 
 interface SearchBoxPlaygroundProps {
+  size: "lg" | "md" | "sm";
   hasOption: boolean;
 }
 
@@ -20,8 +21,13 @@ export const Playground: StoryObj<SearchBoxPlaygroundProps> = {
     const fragment = new HtmlFragment(playground, ".dads-search-box");
     const searchBox = fragment.root;
     const option = searchBox.querySelector(".dads-search-box__select");
+    const button = searchBox.querySelector(".dads-button");
 
     if (!option) throw new Error();
+    if (!button) throw new Error();
+
+    searchBox.setAttribute("data-size", args.size);
+    button.setAttribute("data-size", args.size);
 
     if (!args.hasOption) {
       option.remove();
@@ -30,9 +36,14 @@ export const Playground: StoryObj<SearchBoxPlaygroundProps> = {
     return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
+    size: {
+      control: { type: "radio" },
+      options: ["lg", "md", "sm"],
+    },
     hasOption: { control: "boolean" },
   },
   args: {
+    size: "lg",
     hasOption: true,
   },
 };

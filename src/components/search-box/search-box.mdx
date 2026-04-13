@@ -22,7 +22,7 @@ import buttonCss from "../button/button.css?raw";
   <summary>HTML</summary>
 
 ```html
-<div class="dads-search-box">
+<div class="dads-search-box" data-size="lg">
   <div class="dads-search-box__fields">
     <label class="dads-search-box__select">
       <span>検索対象</span>
@@ -63,6 +63,14 @@ import buttonCss from "../button/button.css?raw";
   <Source code={buttonCss} language="css" />
 </details>
 
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `lg`（デフォルト）, `md`, `sm` | 検索ボックスのサイズ |
+
 ## 使い方
 
 ### インストール
@@ -74,12 +82,25 @@ import buttonCss from "../button/button.css?raw";
 - **追加で必要**
   - `button.css`（検索ボタンを使用する場合）
 
+### サイズを変更する
+
+`data-size`属性を`.dads-search-box`要素と`.dads-button`要素の両方に同じ値で指定します。
+
+```html
+<div class="dads-search-box" data-size="md">
+  ...
+  <button class="dads-button" type="submit" data-type="solid-fill" data-size="md">検索</button>
+</div>
+```
+
+`sm`サイズでは、絞り込みオプション（`.dads-search-box__select`）のラベル（`<span>`）が視覚的に非表示になります（DOM上には存在します）。
+
 ### 絞り込みオプションを非表示にする
 
 絞り込みオプション（`.dads-search-box__select`）は任意です。検索対象を絞り込む必要がない場合は、この要素を削除してください。
 
 ```html
-<div class="dads-search-box">
+<div class="dads-search-box" data-size="lg">
   <div class="dads-search-box__fields">
     <label class="dads-search-box__input">
       <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
