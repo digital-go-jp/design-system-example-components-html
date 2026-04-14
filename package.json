@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@storybook/addon-a11y": "^10.2.15",
-    "@storybook/addon-docs": "^10.2.15",
-    "@storybook/html-vite": "^10.2.15",
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/html-vite": "^10.3.5",
     "bootstrap": "^5.3.8",
     "invokers-polyfill": "^1.0.1",
     "kiso.css": "^1.2.4",
@@ -27,7 +27,7 @@
     "normalize.css": "^8.0.1",
     "remark-gfm": "^4.0.1",
     "reset-css": "^5.0.2",
-    "storybook": "^10.2.15",
+    "storybook": "^10.3.5",
     "tailwindcss": "^4.2.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
