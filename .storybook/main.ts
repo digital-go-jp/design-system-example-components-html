@@ -15,6 +15,7 @@ const config: StorybookConfig = {
       },
     },
     "@storybook/addon-a11y",
+    import.meta.resolve("./addons/html-validator"),
   ],
   framework: {
     name: "@storybook/html-vite",
