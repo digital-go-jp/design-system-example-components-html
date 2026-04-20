@@ -275,9 +275,14 @@
 @media (hover: hover) {
   .dads-date-picker__calendar-button:enabled:hover {
     border-width: calc(3 / 16 * 1rem);
+    background-color: var(--color-primitive-blue-200);
     padding-right: calc(10 / 16 * 1rem);
     padding-left: calc(10 / 16 * 1rem);
   }
+}
+
+.dads-date-picker__calendar-button:enabled:active {
+  background-color: var(--color-primitive-blue-300);
 }
 
 .dads-date-picker__calendar-button:focus-visible {

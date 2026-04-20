@@ -169,6 +169,32 @@
   }
 }
 
+@media (hover: hover) {
+  .dads-step-navigation__header:any-link:hover .dads-step-navigation__number,
+  .dads-step-navigation__header:enabled:hover .dads-step-navigation__number {
+    outline: 1px solid;
+  }
+
+  .dads-step-navigation__step[data-state="reached"]
+    :is(
+      .dads-step-navigation__header:any-link,
+      .dads-step-navigation__header:enabled
+    ):hover
+    .dads-step-navigation__number {
+    outline-color: var(--color-neutral-solid-gray-800);
+  }
+
+  .dads-step-navigation__step[data-state="skipped"]
+    :is(
+      .dads-step-navigation__header:any-link,
+      .dads-step-navigation__header:enabled
+    ):hover
+    .dads-step-navigation__number {
+    outline: none;
+    border-width: 2px;
+  }
+}
+
 .dads-step-navigation__header:focus-visible .dads-step-navigation__number {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);

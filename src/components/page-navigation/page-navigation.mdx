@@ -1,0 +1,200 @@
+import { Canvas, Controls, Description, Meta, Primary, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+
+import * as PageNavigationStories from "./page-navigation.stories";
+import pageNavigationCss from "./page-navigation.css?raw";
+import buttonCss from "../button/button.css?raw";
+
+<Meta of={PageNavigationStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+<Canvas of={PageNavigationStories.Text} withToolbar />
+<Controls of={PageNavigationStories.Text} />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+#### テキスト型
+
+```html
+<nav class="dads-page-navigation" aria-label="ページ">
+  <button class="dads-button" type="button" data-type="text" data-size="md" data-control="prev">
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+    </svg>
+    前のページ
+  </button>
+  <span class="dads-page-navigation__counter">5 / 9,999</span>
+  <button class="dads-button" type="button" data-type="text" data-size="md" data-control="next">
+    次のページ
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 2.6 7.6 4l8 8-8 8L9 21.4l9.4-9.4z" fill="currentcolor"/>
+    </svg>
+  </button>
+</nav>
+```
+
+#### アウトライン型
+
+```html
+<nav class="dads-page-navigation" aria-label="ページ">
+  <button class="dads-button" type="button" data-type="outline" data-size="lg" data-control="prev">
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+    </svg>
+    前のページ
+  </button>
+  <span class="dads-page-navigation__counter">5 / 9,999</span>
+  <button class="dads-button" type="button" data-type="outline" data-size="lg" data-control="next">
+    次のページ
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 2.6 7.6 4l8 8-8 8L9 21.4l9.4-9.4z" fill="currentcolor"/>
+    </svg>
+  </button>
+</nav>
+```
+
+#### 矢印型
+
+```html
+<nav class="dads-page-navigation" aria-label="ページ">
+  <button class="dads-page-navigation__arrow-button" type="button" data-size="lg" data-control="prev">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+    </svg>
+    <span class="dads-u-visually-hidden">前のページ</span>
+  </button>
+  <span class="dads-page-navigation__counter">5 / 9,999</span>
+  <button class="dads-page-navigation__arrow-button" type="button" data-size="lg" data-control="next">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 2.6 7.6 4l8 8-8 8L9 21.4l9.4-9.4z" fill="currentcolor"/>
+    </svg>
+    <span class="dads-u-visually-hidden">次のページ</span>
+  </button>
+</nav>
+```
+
+</details>
+
+<details>
+  <summary>page-navigation.css</summary>
+  <Source code={pageNavigationCss} language="css" />
+</details>
+
+<details>
+  <summary>button.css</summary>
+  <Source code={buttonCss} language="css" />
+</details>
+
+## 使い方
+
+### ボタンまたはリンクを使用する
+
+ページ遷移がURLの変化を伴う場合は`<a>`要素を、そうでない場合は`<button>`要素を使用します。
+
+```html
+<!-- ボタンの場合 -->
+<button class="dads-button" type="button" data-type="text" data-size="md" data-control="prev">
+  <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+  </svg>
+  前のページ
+</button>
+
+<!-- リンクの場合 -->
+<a class="dads-button" href="/page/4" data-type="text" data-size="md" data-control="prev">
+  <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+  </svg>
+  前のページ
+</a>
+```
+
+矢印型でも同様に`<button type="button">`と`<a href="...">`を切り替えます。
+
+```html
+<!-- ボタンの場合 -->
+<button class="dads-page-navigation__arrow-button" type="button" data-size="lg" data-control="prev">
+  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+  </svg>
+  <span class="dads-u-visually-hidden">前のページ</span>
+</button>
+
+<!-- リンクの場合 -->
+<a class="dads-page-navigation__arrow-button" href="/page/4" data-size="lg" data-control="prev">
+  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+  </svg>
+  <span class="dads-u-visually-hidden">前のページ</span>
+</a>
+```
+
+### ページ数に応じた表示制御
+
+ページ数に応じて、ナビゲーションの表示を切り替えてください。
+
+- 合計1ページのとき、`.dads-page-navigation` 要素自体を出力しない。
+- 最初のページのとき、「前のページ」ボタンを出力しない。`disabled`属性は使用しません。
+- 最後のページのとき、「次のページ」ボタンを出力しない。`disabled`属性は使用しません。
+
+```html
+<!-- 合計1ページの場合: 要素を出力しない -->
+
+<!-- 最初のページ（前のページボタンなし）の場合 -->
+<nav class="dads-page-navigation" aria-label="ページ">
+  <span class="dads-page-navigation__counter">1 / 10</span>
+  <button class="dads-button" type="button" data-type="text" data-size="md" data-control="next">
+    次のページ
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 2.6 7.6 4l8 8-8 8L9 21.4l9.4-9.4z" fill="currentcolor"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- 最後のページ（次のページボタンなし）の場合 -->
+<nav class="dads-page-navigation" aria-label="ページ">
+  <button class="dads-button" type="button" data-type="text" data-size="md" data-control="prev">
+    <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+    </svg>
+    前のページ
+  </button>
+  <span class="dads-page-navigation__counter">10 / 10</span>
+</nav>
+```
+
+### アクセシビリティ
+
+`<nav>` 要素の `aria-label` 属性は、ナビゲーションの対象が伝わるラベルに書き換えてください。ロール名（「ナビゲーション」）と読み上げが重複しないよう、「ページネーション」のような冗長な表現は避けることを推奨します。
+
+```html
+<!-- 記事一覧のページナビゲーションの場合 -->
+<nav class="dads-page-navigation" aria-label="記事一覧">...</nav>
+
+<!-- 検索結果のページナビゲーションの場合 -->
+<nav class="dads-page-navigation" aria-label="検索結果">...</nav>
+```
+
+矢印型はボタンに可視テキストがないため、`dads-u-visually-hidden` クラスを使ったスクリーンリーダー向けテキストを必ず含めてください。
+
+```html
+<button class="dads-page-navigation__arrow-button" type="button" data-size="lg" data-control="prev">
+  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m7.9 12 8-8-1.4-1.4L5.1 12l9.4 9.4 1.4-1.4z" fill="currentcolor"/>
+  </svg>
+  <span class="dads-u-visually-hidden">前のページ</span>
+</button>
+```
+
+<Stories title="デモ" includePrimary={false} />
+
+</div>
+</Unstyled>
