@@ -1,0 +1,115 @@
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+
+import * as ImageStories from "./image.stories";
+import imageCss from "./image.css?raw";
+
+<Meta of={ImageStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+<Canvas of={ImageStories.Playground} withToolbar />
+<Controls of={ImageStories.Playground} />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<figure class="dads-image">
+  <div class="dads-image__image-area" data-bordered>
+    <img class="dads-image__img" src="sample.png" srcset="sample@2x.png 2x" alt="山と空のサンプル画像" width="696" height="392">
+  </div>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。</figcaption>
+</figure>
+```
+
+</details>
+
+<details>
+  <summary>image.css</summary>
+  <Source code={imageCss} language="css" />
+</details>
+
+## 使い方
+
+### 画像に枠線をつける
+
+画像に枠線をつけるには、`.dads-image__image-area`要素に`data-bordered`属性を追加します。
+
+```html
+<figure class="dads-image">
+  <div class="dads-image__image-area" data-bordered>
+    <img class="dads-image__img" src="sample.png" alt="サンプル画像" width="696" height="392">
+  </div>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。</figcaption>
+</figure>
+```
+
+### リンク付き画像にする
+
+画像にリンクを設定するには、`.dads-image__image-area`を`<a>`要素に変更します。
+
+```html
+<figure class="dads-image">
+  <a class="dads-image__image-area" href="#">
+    <img class="dads-image__img" src="sample.png" alt="サンプル画像" width="696" height="392">
+  </a>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。</figcaption>
+</figure>
+```
+
+### 幅100%で表示する
+
+画像の固有サイズにかかわらずコンテナ幅いっぱいに表示するには、`.dads-image`要素に`data-full-width`属性を追加します。
+
+```html
+<figure class="dads-image" data-full-width>
+  <div class="dads-image__image-area" data-bordered>
+    <img class="dads-image__img" src="sample.png" alt="サンプル画像" width="696" height="392">
+  </div>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。</figcaption>
+</figure>
+```
+
+### `<picture>`要素を使う
+
+画面幅に応じて異なる画像を出し分けるには、`<picture>`要素を使用できます。
+
+```html
+<figure class="dads-image">
+  <div class="dads-image__image-area" data-bordered>
+    <picture>
+      <source srcset="sample-mobile.png, sample-mobile@2x.png 2x" media="(max-width: 40rem)">
+      <img class="dads-image__img" src="sample.png" srcset="sample@2x.png 2x" alt="サンプル画像" width="696" height="392">
+    </picture>
+  </div>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。</figcaption>
+</figure>
+```
+
+### キャプションを省略する
+
+キャプションが不要な場合は、`<figcaption>`要素を省略できます。
+
+```html
+<figure class="dads-image">
+  <div class="dads-image__image-area">
+    <img class="dads-image__img" src="sample.png" alt="サンプル画像" width="696" height="392">
+  </div>
+</figure>
+```
+
+### アクセシビリティ
+
+- `<img>`要素には適切な`alt`属性を必ず設定してください。`alt`属性に空の文字列を設定したり、`alt`属性を省略したりすることは許容されません。
+
+<Stories title="デモ" includePrimary={false} />
+
+</div>
+</Unstyled>
