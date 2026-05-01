@@ -27,9 +27,12 @@ interface SpinnerLoopProps {
 export const SpinnerLoop: StoryObj<SpinnerLoopProps> = {
   name: "Spinner (Loop)",
   render: (args) => {
-    const fragment = new HtmlFragment(spinnerLoop, "dads-progress-indicator");
+    const fragment = new HtmlFragment(
+      spinnerLoop,
+      "[data-story-loop-controls]",
+    );
 
-    for (const root of fragment.roots) {
+    for (const root of fragment.root.children) {
       const label = root.querySelector(".dads-progress-indicator__label");
       if (label) {
         label.textContent = args.label;
@@ -90,9 +93,9 @@ interface LinearLoopProps {
 export const LinearLoop: StoryObj<LinearLoopProps> = {
   name: "Linear (Loop)",
   render: (args) => {
-    const fragment = new HtmlFragment(linearLoop, "dads-progress-indicator");
+    const fragment = new HtmlFragment(linearLoop, "[data-story-loop-controls]");
 
-    for (const root of fragment.roots) {
+    for (const root of fragment.root.children) {
       const label = root.querySelector(".dads-progress-indicator__label");
       if (label) {
         label.textContent = args.label;
