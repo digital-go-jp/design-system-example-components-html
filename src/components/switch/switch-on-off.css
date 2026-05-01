@@ -1,0 +1,145 @@
+.dads-switch-on-off {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dads-switch-on-off__button {
+  --switch-on-off-track-bg-color: var(--color-neutral-white);
+  --switch-on-off-track-border-color: var(--color-neutral-solid-gray-600);
+  --switch-on-off-track-shadow: none;
+  --switch-on-off-thumb-color: var(--color-neutral-solid-gray-800);
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dads-switch-on-off__button:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+  border-radius: calc(9999 / 16 * 1rem);
+}
+
+/* For expanding the clickable area */
+.dads-switch-on-off__button::before {
+  position: absolute;
+  inset: calc(-4 / 16 * 1rem) 0;
+  content: "";
+}
+
+.dads-switch-on-off__track {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: calc(56 / 16 * 1rem);
+  border-radius: calc(9999 / 16 * 1rem);
+  border: 2px solid var(--switch-on-off-track-border-color);
+  background-color: var(--switch-on-off-track-bg-color);
+  box-shadow: var(--switch-on-off-track-shadow);
+  padding: calc(4 / 16 * 1rem);
+}
+
+.dads-switch-on-off__thumb {
+  display: block;
+  width: calc(24 / 16 * 1rem);
+  height: calc(24 / 16 * 1rem);
+  border-radius: 50%;
+  background-color: var(--switch-on-off-thumb-color);
+}
+
+.dads-switch-on-off__icon {
+  display: none;
+  width: calc(24 / 16 * 1rem);
+  height: calc(24 / 16 * 1rem);
+  flex-shrink: 0;
+  color: var(--color-neutral-white);
+}
+
+/* Checked */
+
+.dads-switch-on-off__button[aria-checked="true"] {
+  --switch-on-off-track-bg-color: var(--color-key-50);
+  --switch-on-off-track-border-color: var(--color-key-900);
+  --switch-on-off-thumb-color: var(--color-key-900);
+}
+
+.dads-switch-on-off__button[aria-checked="true"] .dads-switch-on-off__thumb {
+  margin-left: auto;
+}
+
+.dads-switch-on-off__button[aria-checked="true"] .dads-switch-on-off__icon {
+  display: block;
+}
+
+/* Hover, Active */
+
+@media (hover: hover) {
+  .dads-switch-on-off__button:hover {
+    --switch-on-off-track-border-color: var(--color-neutral-black);
+    --switch-on-off-track-shadow: 0 0 0 calc(4 / 16 * 1rem)
+      var(--color-neutral-solid-gray-420);
+    --switch-on-off-thumb-color: var(--color-neutral-black);
+  }
+
+  /* :where() keeps the specificity low so that Disabled can override it */
+  .dads-switch-on-off__button:where([aria-checked="true"]):hover {
+    --switch-on-off-track-border-color: var(--color-key-1100);
+    --switch-on-off-thumb-color: var(--color-key-1100);
+  }
+
+  .dads-switch-on-off__button:active {
+    --switch-on-off-track-shadow: 0 0 0 calc(6 / 16 * 1rem)
+      var(--color-neutral-solid-gray-600);
+  }
+}
+
+/* Disabled */
+
+.dads-switch-on-off__button:is(:disabled, [aria-disabled="true"]) {
+  --switch-on-off-track-bg-color: var(--color-neutral-solid-gray-50);
+  --switch-on-off-track-border-color: var(--color-neutral-solid-gray-300);
+  --switch-on-off-track-shadow: none;
+  --switch-on-off-thumb-color: var(--color-neutral-solid-gray-300);
+}
+
+/* Forced colors */
+
+@media (forced-colors: active) {
+  .dads-switch-on-off__track {
+    border-color: ButtonText;
+  }
+
+  .dads-switch-on-off__thumb {
+    background-color: ButtonText;
+  }
+
+  .dads-switch-on-off__icon {
+    color: Canvas;
+  }
+
+  .dads-switch-on-off__button[aria-checked="true"] .dads-switch-on-off__track {
+    border-color: Highlight;
+  }
+
+  .dads-switch-on-off__button[aria-checked="true"] .dads-switch-on-off__thumb {
+    background-color: Highlight;
+  }
+
+  .dads-switch-on-off__button:is(:disabled, [aria-disabled="true"])
+    .dads-switch-on-off__track {
+    border-color: GrayText;
+  }
+
+  .dads-switch-on-off__button:is(:disabled, [aria-disabled="true"])
+    .dads-switch-on-off__thumb {
+    background-color: GrayText;
+  }
+}

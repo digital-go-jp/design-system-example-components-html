@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Switch (On/Off)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="switch-on-off.css">
+<script type="module" src="switch-on-off.js"></script>
+</head>
+<body>
+
+<dads-switch-on-off class="dads-switch-on-off">
+  <button id="switch" class="dads-switch-on-off__button" type="button" role="switch" aria-checked="false" data-js-toggle>
+    <span class="dads-switch-on-off__track" aria-hidden="true">
+      <span class="dads-switch-on-off__thumb">
+        <svg class="dads-switch-on-off__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="m10.4 16.3-4.1-4.1 1.2-1.3 2.9 2.9 6-6.1 1.3 1.2z" fill="currentcolor"/>
+        </svg>
+      </span>
+    </span>
+  </button>
+</dads-switch-on-off>
+
+</body>
+</html>

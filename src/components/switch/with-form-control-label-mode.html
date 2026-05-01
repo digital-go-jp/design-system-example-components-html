@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Switch (Mode) with Form Control Label</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<link rel="stylesheet" href="switch-mode.css">
+<script type="module" src="switch-mode.js"></script>
+</head>
+<body>
+
+<fieldset class="dads-form-control-label" data-size="md">
+  <legend class="dads-form-control-label__label">
+    ラベル
+    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  </legend>
+  <p id="with-label-mode-support-text" class="dads-form-control-label__support-text">サポートテキスト</p>
+  <div>
+    <dads-switch-mode class="dads-switch-mode">
+      <button class="dads-switch-mode__option" type="button" role="switch" aria-checked="true" aria-describedby="with-label-mode-support-text" data-js-option>
+        <span class="dads-switch-mode__label">ライト</span>
+      </button>
+      <span class="dads-switch-mode__control" aria-hidden="true">
+        <span class="dads-switch-mode__rail">
+          <span class="dads-switch-mode__thumb"></span>
+        </span>
+      </span>
+      <button class="dads-switch-mode__option" type="button" role="switch" aria-checked="false" aria-describedby="with-label-mode-support-text" data-js-option>
+        <span class="dads-switch-mode__label">ダーク</span>
+      </button>
+    </dads-switch-mode>
+  </div>
+</fieldset>
+
+</body>
+</html>
