@@ -35,7 +35,11 @@ export const SpinnerLoop: StoryObj<SpinnerLoopProps> = {
     for (const root of fragment.root.children) {
       const label = root.querySelector(".dads-progress-indicator__label");
       if (label) {
-        label.textContent = args.label;
+        if (args.label) {
+          label.textContent = args.label;
+        } else {
+          label.remove();
+        }
       }
     }
 
@@ -98,7 +102,11 @@ export const LinearLoop: StoryObj<LinearLoopProps> = {
     for (const root of fragment.root.children) {
       const label = root.querySelector(".dads-progress-indicator__label");
       if (label) {
-        label.textContent = args.label;
+        if (args.label) {
+          label.textContent = args.label;
+        } else {
+          label.remove();
+        }
       }
     }
 
