@@ -1,15 +1,20 @@
 import React, { useCallback, useState } from "react";
 import { addons, types, useChannel } from "storybook/manager-api";
-import { AddonPanel, Badge, Button, Placeholder } from "storybook/internal/components";
+import {
+  AddonPanel,
+  Badge,
+  Button,
+  Placeholder,
+} from "storybook/internal/components";
 import { styled } from "storybook/theming";
 import { ADDON_ID, EVENTS, PANEL_ID } from "./constants";
 
 // --- 定数 ---
 
 const TYPE_META = {
-  error:   { label: "エラー", color: "#ec0000" },
-  warning: { label: "警告",   color: "#927200" },
-  info:    { label: "情報",   color: "#0017c1" },
+  error: { label: "エラー", color: "#ec0000" },
+  warning: { label: "警告", color: "#927200" },
+  info: { label: "情報", color: "#0017c1" },
 };
 
 // --- スタイル ---
@@ -122,7 +127,9 @@ function HtmlValidatorPanel() {
 
   const errors = messages.filter((m) => m.type === "error");
   const warnings = messages.filter((m) => m.subType === "warning");
-  const infos = messages.filter((m) => m.type === "info" && m.subType !== "warning");
+  const infos = messages.filter(
+    (m) => m.type === "info" && m.subType !== "warning",
+  );
   const hasMessages = messages.length > 0;
 
   return (
@@ -139,12 +146,12 @@ function HtmlValidatorPanel() {
         </Button>
 
         {status === "done" && !hasMessages && (
-          <SummaryText color="#197a4b">
-            問題は検出されませんでした
-          </SummaryText>
+          <SummaryText color="#197a4b">問題は検出されませんでした</SummaryText>
         )}
         {status === "done" && hasMessages && (
-          <span style={{ display: "inline-flex", gap: 12, alignItems: "center" }}>
+          <span
+            style={{ display: "inline-flex", gap: 12, alignItems: "center" }}
+          >
             {errors.length > 0 && (
               <SummaryItem>
                 <Badge status="negative">{errors.length}</Badge>
@@ -168,7 +175,7 @@ function HtmlValidatorPanel() {
       </ActionBar>
 
       {status === "error" && (
-        <Placeholder style={{ fontSize: 16, padding: 0, textAlign: 'left' }}>
+        <Placeholder style={{ fontSize: 16, padding: 0, textAlign: "left" }}>
           Validator API との通信に失敗しました: {errorText}
         </Placeholder>
       )}
@@ -176,7 +183,12 @@ function HtmlValidatorPanel() {
       {status === "done" && hasMessages && (
         <MessageList>
           {messages.map((msg, i) => {
-            const kind = msg.type === "error" ? "error" : msg.subType === "warning" ? "warning" : "info";
+            const kind =
+              msg.type === "error"
+                ? "error"
+                : msg.subType === "warning"
+                  ? "warning"
+                  : "info";
             const meta = TYPE_META[kind];
             return (
               <MessageItem key={i}>
@@ -196,9 +208,9 @@ function HtmlValidatorPanel() {
       )}
 
       {status === "idle" && (
-        <Placeholder style={{ fontSize: 16, padding: 0, textAlign: 'left' }}>
-          「チェックする」ボタンをクリックすると、現在表示中のストーリーの HTML を
-          Nu HTML Checker (validator.w3.org/nu) で検証します。
+        <Placeholder style={{ fontSize: 16, padding: 0, textAlign: "left" }}>
+          「チェックする」ボタンをクリックすると、現在表示中のストーリーの HTML
+          を Nu HTML Checker (validator.w3.org/nu) で検証します。
         </Placeholder>
       )}
     </PanelContainer>
