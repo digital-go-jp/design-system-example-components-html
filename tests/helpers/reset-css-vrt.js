@@ -112,23 +112,18 @@ const compareWithBaseline = async (page, filePath, cssText, options) => {
       PNG.sync.write(diff),
     );
 
-    testInfo.attachments.push(
-      {
-        name: "baseline",
-        contentType: "image/png",
-        path: path.join(outputDir, `${sanitizedTitle}-baseline.png`),
-      },
-      {
-        name: "comparison",
-        contentType: "image/png",
-        path: path.join(outputDir, `${sanitizedTitle}-comparison.png`),
-      },
-      {
-        name: "diff",
-        contentType: "image/png",
-        path: path.join(outputDir, `${sanitizedTitle}-diff.png`),
-      },
-    );
+    await testInfo.attach("baseline", {
+      path: path.join(outputDir, `${sanitizedTitle}-baseline.png`),
+      contentType: "image/png",
+    });
+    await testInfo.attach("comparison", {
+      path: path.join(outputDir, `${sanitizedTitle}-comparison.png`),
+      contentType: "image/png",
+    });
+    await testInfo.attach("diff", {
+      path: path.join(outputDir, `${sanitizedTitle}-diff.png`),
+      contentType: "image/png",
+    });
   }
 
   // maxDiffPixelRatio: 0 に相当（アンチエイリアシングの微差はthresholdで吸収）
