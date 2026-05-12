@@ -768,19 +768,18 @@ resetCssVrt("stacked", path.join(dirname, "stacked.html"), {
 
 `resetCssVrt` は以下のテストを自動生成する:
 
-1. オリジナルのスクリーンショットを作成
-2. Normalize.css適用時の表示に変化がないこと
-3. Bootstrap Reboot適用時の表示に変化がないこと
-4. Tailwind Preflight適用時の表示に変化がないこと
-5. Eric Meyer's Reset CSS適用時の表示に変化がないこと
-6. kiso.css適用時の表示に変化がないこと
-7. 継承プロパティやグローバルスタイルが定義済みの時の表示に変化がないこと
+1. Normalize.css適用時の表示に変化がないこと
+2. Bootstrap Reboot適用時の表示に変化がないこと
+3. Tailwind Preflight適用時の表示に変化がないこと
+4. Eric Meyer's Reset CSS適用時の表示に変化がないこと
+5. kiso.css適用時の表示に変化がないこと
+6. 継承プロパティやグローバルスタイルが定義済みの時の表示に変化がないこと
 
-テスト実行には全HTMLバリエーションのスナップショットが必要。初回実行時は `--update-snapshots` フラグを使用する。
+各テスト内でベースライン（リセットCSS未適用）のスクリーンショットを取得し、リセットCSS適用後のスクリーンショットと pixelmatch で比較する。スナップショットファイルは生成されないため、`--update-snapshots` は不要。
 
 #### テスト名
 
-`resetCssVrt` の第1引数はテスト名（=スナップショットのファイル名プレフィックス）。コンポーネント内で一意にする。
+`resetCssVrt` の第1引数はテスト名。コンポーネント内で一意にする。
 
 ### 機能テスト（.test.js）
 
