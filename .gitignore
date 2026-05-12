@@ -30,3 +30,7 @@ storybook-static/
 test-results/
 
 src/**/*-snapshots/
+
+# Vitest
+.vitest-attachments/
+**/__screenshots__/

@@ -1,308 +1,266 @@
-import path from "node:path";
-import { test, expect } from "@playwright/test";
-import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { page, userEvent } from "vitest/browser";
+import "./menu-list-box.js";
 
-const { dirname } = import.meta;
+// ---------------------------------------------------------------------------
+// HTML テンプレート
+// ---------------------------------------------------------------------------
+const MENU_HTML = `
+<dads-menu-list-box class="dads-menu-list-box">
+  <button id="opener-1" class="dads-menu-list-box__opener" type="button" data-js-opener aria-controls="menu-1" aria-haspopup="menu" aria-expanded="false">
+    メニュー
+  </button>
+  <div class="dads-menu-list-box__popup" data-js-popup hidden>
+    <ul id="menu-1" class="dads-menu-list" data-js-menu role="menu" aria-labelledby="opener-1">
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目1</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目2</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目3</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目4</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目5</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目6</span></button></li>
+      <li role="presentation"><button class="dads-menu-list__item" type="button" role="menuitem" data-js-menu-item tabindex="-1"><span class="dads-menu-list__label">メニュー項目7</span></button></li>
+    </ul>
+  </div>
+</dads-menu-list-box>
+<button id="outside-btn" type="button">外部ボタン</button>
+`;
 
-resetCssVrt("menu-list-box", path.join(dirname, "playground.html"));
+// ---------------------------------------------------------------------------
+// ヘルパー
+// ---------------------------------------------------------------------------
+function mount() {
+  document.body.innerHTML = MENU_HTML;
+}
 
-// メニューリストボックスをセットアップするヘルパー関数
-const setupMenuListBox = async (page) => {
-  await page.goto(`file://${path.join(dirname, "./playground.html")}`);
-  return page.locator("dads-menu-list-box");
-};
+const openerEl = () => document.querySelector("[data-js-opener]");
+const popupEl = () => document.querySelector("[data-js-popup]");
+const menuItemEls = () =>
+  Array.from(document.querySelectorAll("[data-js-menu-item]"));
 
-test.describe("メニューリストボックス機能テスト", () => {
-  test.describe("メニューの開閉動作", () => {
-    test("クリックでメニューを開閉するべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
+// ---------------------------------------------------------------------------
+// テスト
+// ---------------------------------------------------------------------------
+describe("MenuListBox", () => {
+  beforeEach(() => {
+    mount();
+  });
 
-      // 初期状態ではメニューが閉じている
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(popup).toBeHidden();
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
 
-      // クリックでメニューを開く
-      await opener.click();
-      await expect(opener).toHaveAttribute("aria-expanded", "true");
-      await expect(popup).toBeVisible();
-
-      // 再度クリックでメニューを閉じる
-      await opener.click();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(popup).toBeHidden();
+  // =========================================================================
+  // 初期状態
+  // =========================================================================
+  describe("初期状態", () => {
+    test("メニューが閉じている", () => {
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(popupEl().hidden).toBe(true);
     });
 
-    test("外部クリックでメニューを閉じるべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-
-      // メニューを開く
-      await opener.click();
-      await expect(popup).toBeVisible();
-
-      // 外部をクリック
-      await page.locator("body").click({ force: true });
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-    });
-
-    test("Escapeキーでメニューを閉じるべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-
-      // メニューを開く
-      await opener.click();
-      await expect(popup).toBeVisible();
-
-      // Escapeキーを押す
-      await page.keyboard.press("Escape");
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(opener).toBeFocused();
+    test("全メニュー項目の tabindex が -1", () => {
+      for (const item of menuItemEls()) {
+        expect(item.getAttribute("tabindex")).toBe("-1");
+      }
     });
   });
 
-  test.describe("キーボードナビゲーション - オープナー", () => {
-    test("下矢印キーでメニューを開いて最初の項目にフォーカスするべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-      const firstMenuItem = menuListBox.locator('[role="menuitem"]').first();
+  // =========================================================================
+  // メニューの開閉
+  // =========================================================================
+  describe("メニューの開閉", () => {
+    test("クリックでメニューを開閉する", async () => {
+      const opener = page.getByRole("button", { name: "メニュー" });
 
-      await opener.focus();
-      await page.keyboard.press("ArrowDown");
+      await opener.click();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
+      expect(popupEl().hidden).toBe(false);
 
-      await expect(popup).toBeVisible();
-      await expect(opener).toHaveAttribute("aria-expanded", "true");
-      await expect(firstMenuItem).toBeFocused();
-      await expect(firstMenuItem).toHaveAttribute("tabindex", "0");
+      await opener.click();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(popupEl().hidden).toBe(true);
     });
 
-    test("上矢印キーでメニューを開いて最後の項目にフォーカスするべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-      const lastMenuItem = menuListBox.locator('[role="menuitem"]').last();
+    test("外部クリックでメニューを閉じる", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
 
-      await opener.focus();
-      await page.keyboard.press("ArrowUp");
-
-      await expect(popup).toBeVisible();
-      await expect(opener).toHaveAttribute("aria-expanded", "true");
-      await expect(lastMenuItem).toBeFocused();
-      await expect(lastMenuItem).toHaveAttribute("tabindex", "0");
+      await userEvent.click(document.getElementById("outside-btn"));
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
     });
 
-    test("Enterキーでメニューを開いて最初の項目にフォーカスするべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-      const firstMenuItem = menuListBox.locator('[role="menuitem"]').first();
+    test("Escapeキーでメニューを閉じ、オープナーにフォーカスが戻る", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
 
-      await opener.focus();
-      await page.keyboard.press("Enter");
-
-      await expect(popup).toBeVisible();
-      await expect(opener).toHaveAttribute("aria-expanded", "true");
-      await expect(firstMenuItem).toBeFocused();
+      await userEvent.keyboard("{Escape}");
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(document.activeElement).toBe(openerEl());
     });
 
-    test("Spaceキーでメニューを開いて最初の項目にフォーカスするべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-      const firstMenuItem = menuListBox.locator('[role="menuitem"]').first();
+    test("Tab キーでフォーカスがメニュー外に移動するとメニューが閉じる", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
 
-      await opener.focus();
-      await page.keyboard.press("Space");
-
-      await expect(popup).toBeVisible();
-      await expect(opener).toHaveAttribute("aria-expanded", "true");
-      await expect(firstMenuItem).toBeFocused();
+      await userEvent.tab();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
     });
   });
 
-  test.describe("キーボードナビゲーション - メニュー内", () => {
-    test("下矢印キーで次の項目にフォーカスするべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const menuItems = menuListBox.locator('[role="menuitem"]');
-      const firstMenuItem = menuItems.first();
-      const secondMenuItem = menuItems.nth(1);
+  // =========================================================================
+  // キーボードナビゲーション: オープナー
+  // =========================================================================
+  describe("キーボードナビゲーション: オープナー", () => {
+    test("ArrowDown でメニューを開き最初の項目にフォーカス", async () => {
+      openerEl().focus();
+      await userEvent.keyboard("{ArrowDown}");
 
-      // メニューを開いて最初の項目にフォーカス
-      await opener.click();
-      await expect(firstMenuItem).toBeFocused();
-
-      // 下矢印で次の項目へ
-      await page.keyboard.press("ArrowDown");
-      await expect(secondMenuItem).toBeFocused();
-      await expect(secondMenuItem).toHaveAttribute("tabindex", "0");
-      await expect(firstMenuItem).toHaveAttribute("tabindex", "-1");
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
+      const items = menuItemEls();
+      expect(document.activeElement).toBe(items[0]);
+      expect(items[0].getAttribute("tabindex")).toBe("0");
     });
 
-    test("上矢印キーで前の項目にフォーカスするべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const menuItems = menuListBox.locator('[role="menuitem"]');
-      const firstMenuItem = menuItems.first();
-      const secondMenuItem = menuItems.nth(1);
+    test("ArrowUp でメニューを開き最後の項目にフォーカス", async () => {
+      openerEl().focus();
+      await userEvent.keyboard("{ArrowUp}");
 
-      // メニューを開いて最初の項目にフォーカス
-      await opener.click();
-      await page.keyboard.press("ArrowDown"); // 2番目の項目へ
-      await expect(secondMenuItem).toBeFocused();
-
-      // 上矢印で前の項目へ
-      await page.keyboard.press("ArrowUp");
-      await expect(firstMenuItem).toBeFocused();
-      await expect(firstMenuItem).toHaveAttribute("tabindex", "0");
-      await expect(secondMenuItem).toHaveAttribute("tabindex", "-1");
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
+      const items = menuItemEls();
+      expect(document.activeElement).toBe(items[6]);
+      expect(items[6].getAttribute("tabindex")).toBe("0");
     });
 
-    test("矢印キーでメニュー項目を循環するべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const menuItems = menuListBox.locator('[role="menuitem"]');
-      const firstMenuItem = menuItems.first();
-      const lastMenuItem = menuItems.last();
+    test("Enter でメニューを開き最初の項目にフォーカス", async () => {
+      openerEl().focus();
+      await userEvent.keyboard("{Enter}");
 
-      // メニューを開く
-      await opener.click();
-
-      // 最初の項目から上矢印で最後の項目へ循環
-      await page.keyboard.press("ArrowUp");
-      await expect(lastMenuItem).toBeFocused();
-
-      // 最後の項目から下矢印で最初の項目へ循環
-      await page.keyboard.press("ArrowDown");
-      await expect(firstMenuItem).toBeFocused();
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
+      expect(document.activeElement).toBe(menuItemEls()[0]);
     });
 
-    test("Home/Endキーで最初/最後の項目にフォーカスするべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const menuItems = menuListBox.locator('[role="menuitem"]');
-      const firstMenuItem = menuItems.first();
-      const lastMenuItem = menuItems.last();
+    test("Space でメニューを開き最初の項目にフォーカス", async () => {
+      openerEl().focus();
+      await userEvent.keyboard("{ }");
 
-      // メニューを開く
-      await opener.click();
-
-      // Endキーで最後の項目へ
-      await page.keyboard.press("End");
-      await expect(lastMenuItem).toBeFocused();
-
-      // Homeキーで最初の項目へ
-      await page.keyboard.press("Home");
-      await expect(firstMenuItem).toBeFocused();
-    });
-
-    test("Tabキーでメニュー外にフォーカスが移動するとメニューを閉じるべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-
-      // メニューを開く
-      await opener.click();
-      await expect(popup).toBeVisible();
-
-      // Tabキーを押してメニュー外にフォーカスを移動
-      await page.keyboard.press("Tab");
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
+      expect(openerEl().getAttribute("aria-expanded")).toBe("true");
+      expect(document.activeElement).toBe(menuItemEls()[0]);
     });
   });
 
-  test.describe("メニューアイテムの操作", () => {
-    test("クリックでメニューアイテムを選択してメニューを閉じるべき", async ({
-      page,
-    }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
-      const secondMenuItem = menuListBox.locator('[role="menuitem"]').nth(1);
+  // =========================================================================
+  // キーボードナビゲーション: メニュー内
+  // =========================================================================
+  describe("キーボードナビゲーション: メニュー内", () => {
+    test("ArrowDown で次の項目にフォーカスし tabindex を更新", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      const items = menuItemEls();
+      expect(document.activeElement).toBe(items[0]);
 
-      // カスタムイベントをリッスン
-      await page.evaluate(() => {
-        window.selectedEventData = null;
-        document.addEventListener("menuitemselect", (e) => {
-          window.selectedEventData = e.detail;
-        });
-      });
-
-      // メニューを開いてアイテムをクリック
-      await opener.click();
-      await secondMenuItem.click();
-
-      // メニューが閉じられ、イベントが発火されることを確認
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(opener).toBeFocused();
-
-      const eventData = await page.evaluate(() => window.selectedEventData);
-      expect(eventData).toBeTruthy();
-      expect(eventData.selectedValue).toBe("メニュー項目2");
-      expect(eventData.selectedIndex).toBe(1);
+      await userEvent.keyboard("{ArrowDown}");
+      expect(document.activeElement).toBe(items[1]);
+      expect(items[1].getAttribute("tabindex")).toBe("0");
+      expect(items[0].getAttribute("tabindex")).toBe("-1");
     });
 
-    test("Enterキーでメニューアイテムを選択するべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
+    test("ArrowUp で前の項目にフォーカスし tabindex を更新", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      await userEvent.keyboard("{ArrowDown}"); // items[1]
 
-      // カスタムイベントをリッスン
-      await page.evaluate(() => {
-        window.selectedEventData = null;
-        document.addEventListener("menuitemselect", (e) => {
-          window.selectedEventData = e.detail;
-        });
-      });
-
-      // メニューを開いて2番目の項目にフォーカスしてEnterキー
-      await opener.click();
-      await page.keyboard.press("ArrowDown");
-      await page.keyboard.press("Enter");
-
-      // メニューが閉じられ、イベントが発火されることを確認
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(opener).toBeFocused();
-
-      const eventData = await page.evaluate(() => window.selectedEventData);
-      expect(eventData).toBeTruthy();
-      expect(eventData.selectedValue).toBe("メニュー項目2");
+      await userEvent.keyboard("{ArrowUp}");
+      const items = menuItemEls();
+      expect(document.activeElement).toBe(items[0]);
+      expect(items[0].getAttribute("tabindex")).toBe("0");
+      expect(items[1].getAttribute("tabindex")).toBe("-1");
     });
 
-    test("Spaceキーでメニューアイテムを選択するべき", async ({ page }) => {
-      const menuListBox = await setupMenuListBox(page);
-      const opener = menuListBox.locator(".dads-menu-list-box__opener");
-      const popup = menuListBox.locator(".dads-menu-list-box__popup");
+    test("最初の項目で ArrowUp を押すと最後の項目に循環する", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+      // フォーカスは items[0]
+      await userEvent.keyboard("{ArrowUp}");
+      expect(document.activeElement).toBe(menuItemEls()[6]);
+    });
 
-      // メニューを開いて最初の項目でSpaceキー
-      await opener.click();
-      await page.keyboard.press("Space");
+    test("最後の項目で ArrowDown を押すと最初の項目に循環する", async () => {
+      openerEl().focus();
+      await userEvent.keyboard("{ArrowUp}"); // open → items[6]
+      expect(document.activeElement).toBe(menuItemEls()[6]);
 
-      // メニューが閉じられることを確認
-      await expect(popup).toBeHidden();
-      await expect(opener).toHaveAttribute("aria-expanded", "false");
-      await expect(opener).toBeFocused();
+      await userEvent.keyboard("{ArrowDown}");
+      expect(document.activeElement).toBe(menuItemEls()[0]);
+    });
+
+    test("Home で最初の項目、End で最後の項目にフォーカス", async () => {
+      await page.getByRole("button", { name: "メニュー" }).click();
+
+      await userEvent.keyboard("{End}");
+      expect(document.activeElement).toBe(menuItemEls()[6]);
+
+      await userEvent.keyboard("{Home}");
+      expect(document.activeElement).toBe(menuItemEls()[0]);
+    });
+  });
+
+  // =========================================================================
+  // メニューアイテム選択
+  // =========================================================================
+  describe("メニューアイテム選択", () => {
+    test("クリックでアイテムを選択しメニューを閉じイベントを発火する", async () => {
+      const handler = vi.fn();
+      document.addEventListener("menuitemselect", handler);
+
+      await page.getByRole("button", { name: "メニュー" }).click();
+      await page.getByRole("menuitem", { name: "メニュー項目2" }).click();
+
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(document.activeElement).toBe(openerEl());
+
+      expect(handler).toHaveBeenCalledOnce();
+      const detail = handler.mock.calls[0][0].detail;
+      expect(detail.selectedValue).toBe("メニュー項目2");
+      expect(detail.selectedIndex).toBe(1);
+
+      document.removeEventListener("menuitemselect", handler);
+    });
+
+    test("Enter でアイテムを選択しメニューを閉じイベントを発火する", async () => {
+      const handler = vi.fn();
+      document.addEventListener("menuitemselect", handler);
+
+      await page.getByRole("button", { name: "メニュー" }).click();
+      await userEvent.keyboard("{ArrowDown}"); // items[1]
+      await userEvent.keyboard("{Enter}");
+
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(document.activeElement).toBe(openerEl());
+
+      expect(handler).toHaveBeenCalledOnce();
+      expect(handler.mock.calls[0][0].detail.selectedValue).toBe(
+        "メニュー項目2",
+      );
+      expect(handler.mock.calls[0][0].detail.selectedIndex).toBe(1);
+
+      document.removeEventListener("menuitemselect", handler);
+    });
+
+    test("Space でアイテムを選択しメニューを閉じる", async () => {
+      const handler = vi.fn();
+      document.addEventListener("menuitemselect", handler);
+
+      await page.getByRole("button", { name: "メニュー" }).click();
+      expect(document.activeElement).toBe(menuItemEls()[0]);
+      await userEvent.keyboard("{ }");
+
+      expect(openerEl().getAttribute("aria-expanded")).toBe("false");
+      expect(document.activeElement).toBe(openerEl());
+
+      expect(handler).toHaveBeenCalledOnce();
+      expect(handler.mock.calls[0][0].detail.selectedValue).toBe(
+        "メニュー項目1",
+      );
+      expect(handler.mock.calls[0][0].detail.selectedIndex).toBe(0);
+
+      document.removeEventListener("menuitemselect", handler);
     });
   });
 });
