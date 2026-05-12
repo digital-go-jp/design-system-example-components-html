@@ -1063,14 +1063,14 @@ WCAG 2.2のレベルAおよびレベルAA達成基準を全て満たすことを
 # Storybookの起動（開発サーバー）
 npm run storybook
 
-# 全VRTテストの実行（Playwright）
+# 全テストの実行（Vitest + Playwright VRT）
 npm test
+
+# VRTテストのみ実行（Playwright）
+npm run test:vrt
 
 # 特定のコンポーネントのVRTテスト
 npx playwright test src/components/<component-name>/<component-name>.vrt.js
-
-# VRTスナップショットの更新
-npx playwright test --update-snapshots
 
 # 全機能テストの実行（Vitest browser mode）
 npm run test:browser
