@@ -1,5 +1,4 @@
 import path from "node:path";
-import { test, expect } from "@playwright/test";
 import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
 
 const { dirname } = import.meta;
