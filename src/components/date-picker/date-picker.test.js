@@ -1,337 +1,677 @@
-import path from "node:path";
-import { test, expect } from "@playwright/test";
-import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { page, userEvent } from "vitest/browser";
+import "../calendar/calendar.js";
+import "./date-picker.js";
 
-const { dirname } = import.meta;
+// ---------------------------------------------------------------------------
+// 「今日」を 2025-06-15（日曜日）に固定する。
+// Calendar コンポーネントが内部で new Date() を使うため、
+// DatePicker のテストでも時刻を固定して決定性を確保する。
+// ---------------------------------------------------------------------------
+const FAKE_NOW = new Date(2025, 5, 15, 12, 0, 0);
 
-resetCssVrt(
-  "date-picker-consolidated",
-  path.join(dirname, "playground-consolidated.html"),
-);
-resetCssVrt(
-  "date-picker-separated",
-  path.join(dirname, "playground-separated.html"),
-);
+// ---------------------------------------------------------------------------
+// カレンダー部分のHTML（consolidated / separated で共有）
+// ---------------------------------------------------------------------------
+const calendarInnerHTML = `
+  <div class="dads-u-visually-hidden"><h2 data-js-calendar-heading aria-live="polite"></h2></div>
+  <div class="dads-calendar__controls">
+    <span class="dads-select">
+      <span class="dads-select__control">
+        <select class="dads-select__select" data-size="sm" aria-label="年" data-js-year-select></select>
+      </span>
+    </span>
+    <div class="dads-calendar__navigation">
+      <button class="dads-button" data-size="sm" data-type="outline" data-js-prev-month-button>
+        <svg width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="前の月"><path d="m5.27 8 5.33-5.33-.93-.94L3.4 8l6.27 6.27.93-.94L5.27 8Z" fill="currentcolor" /></svg>
+      </button>
+      <p class="dads-calendar__current-month" data-js-current-month></p>
+      <button class="dads-button" data-size="sm" data-type="outline" data-js-next-month-button>
+        <svg width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="次の月"><path d="m6 1.73-.93.94L10.4 8l-5.33 5.33.93.94L12.27 8 6 1.73Z" fill="currentcolor" /></svg>
+      </button>
+    </div>
+  </div>
+  <table class="dads-calendar__table" role="grid" data-js-calendar-table>
+    <thead>
+      <tr>
+        <th scope="col">日</th><th scope="col">月</th><th scope="col">火</th>
+        <th scope="col">水</th><th scope="col">木</th><th scope="col">金</th><th scope="col">土</th>
+      </tr>
+    </thead>
+    <tbody data-js-calendar-tbody>
+      <template data-js-cell-template>
+        <td class="dads-calendar__data-cell" role="gridcell">
+          <button class="dads-calendar__date" data-js-date-button></button>
+        </td>
+      </template>
+    </tbody>
+  </table>
+  <div class="dads-calendar__footer">
+    <button class="dads-button" data-size="sm" data-type="text" data-js-delete-button>削除</button>
+    <button class="dads-button" data-size="sm" data-type="outline" data-js-today-button>今日</button>
+  </div>`;
 
-// オプション付きでデートピッカーをセットアップするヘルパー関数
-const setupDatePicker = async (page, type = "consolidated", options = {}) => {
-  const { minDate, maxDate } = options;
-  const fileName =
-    type === "consolidated"
-      ? "playground-consolidated.html"
-      : "playground-separated.html";
+const consolidatedHTML = (calendarAttrs = "") => `
+<dads-date-picker class="dads-date-picker" data-type="consolidated">
+  <div class="dads-date-picker__controls" data-size="md">
+    <div class="dads-date-picker__inputs">
+      <label class="dads-date-picker__year">
+        <span class="dads-date-picker__label">年</span>
+        <input class="dads-date-picker__input" type="text" inputmode="numeric" data-js-year-input>
+      </label>
+      <label class="dads-date-picker__month">
+        <span class="dads-date-picker__label">月</span>
+        <input class="dads-date-picker__input" type="text" inputmode="numeric" data-js-month-input>
+      </label>
+      <label class="dads-date-picker__day">
+        <span class="dads-date-picker__label">日</span>
+        <input class="dads-date-picker__input" type="text" inputmode="numeric" data-js-day-input>
+      </label>
+    </div>
+    <button class="dads-date-picker__calendar-button" type="button" aria-haspopup="dialog" aria-expanded="false" data-js-calendar-button>
+      <svg width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="カレンダー">
+        <path d="M5 22C3.9 22 3 21.09 3 20V6C3 4.91 3.91 4 5 4H6V2H8V4H16V2H18V4H19C20.09 4 21 4.91 21 6V20C21 21.09 20.09 22 19 22H5ZM5 20H19V10H5V20Z" fill="currentcolor"/>
+      </svg>
+    </button>
+    <div class="dads-date-picker__calendar-popover" role="dialog" aria-label="カレンダー" aria-modal="true" data-js-calendar-popover style="display: none;">
+      <div class="dads-date-picker__backdrop" data-js-backdrop></div>
+      <dads-calendar class="dads-calendar" role="application" data-js-calendar ${calendarAttrs}>
+        ${calendarInnerHTML}
+      </dads-calendar>
+    </div>
+  </div>
+</dads-date-picker>`;
 
-  await page.goto(`file://${path.join(dirname, fileName)}`);
+const separatedHTML = (calendarAttrs = "") => `
+<dads-date-picker class="dads-date-picker" data-type="separated">
+  <div class="dads-date-picker__controls" data-size="md">
+    <div class="dads-date-picker__separated-inputs">
+      <label class="dads-date-picker__separated-year">
+        <span class="dads-date-picker__separated-label">年</span>
+        <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" data-js-year-input>
+      </label>
+      <label class="dads-date-picker__separated-month">
+        <span class="dads-date-picker__separated-label">月</span>
+        <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" data-js-month-input>
+      </label>
+      <label class="dads-date-picker__separated-day">
+        <span class="dads-date-picker__separated-label">日</span>
+        <input class="dads-date-picker__separated-input" type="text" inputmode="numeric" data-js-day-input>
+      </label>
+    </div>
+    <button class="dads-date-picker__calendar-button" type="button" aria-haspopup="dialog" aria-expanded="false" data-js-calendar-button>
+      <svg width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="カレンダー">
+        <path d="M5 22C3.9 22 3 21.09 3 20V6C3 4.91 3.91 4 5 4H6V2H8V4H16V2H18V4H19C20.09 4 21 4.91 21 6V20C21 21.09 20.09 22 19 22H5ZM5 20H19V10H5V20Z" fill="currentcolor"/>
+      </svg>
+    </button>
+    <div class="dads-date-picker__calendar-popover" role="dialog" aria-label="カレンダー" aria-modal="true" data-js-calendar-popover style="display: none;">
+      <div class="dads-date-picker__backdrop" data-js-backdrop></div>
+      <dads-calendar class="dads-calendar" role="application" data-js-calendar ${calendarAttrs}>
+        ${calendarInnerHTML}
+      </dads-calendar>
+    </div>
+  </div>
+</dads-date-picker>`;
 
-  // 提供されている場合はmin-dateとmax-date属性を設定
-  if (minDate || maxDate) {
-    await page.evaluate(
-      (attrs) => {
-        const calendar = document.querySelector("dads-calendar");
-        if (attrs.minDate) calendar.setAttribute("min-date", attrs.minDate);
-        if (attrs.maxDate) calendar.setAttribute("max-date", attrs.maxDate);
-      },
-      { minDate, maxDate },
-    );
-  }
+// ---------------------------------------------------------------------------
+// Setup / Teardown
+// ---------------------------------------------------------------------------
+
+beforeEach(() => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(FAKE_NOW);
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+  document.body.innerHTML = "";
+});
+
+/**
+ * Consolidated タイプの DatePicker をマウントして返す。
+ */
+const mountConsolidated = (options = {}) => {
+  const calAttrs = [];
+  if (options.minDate) calAttrs.push(`min-date="${options.minDate}"`);
+  if (options.maxDate) calAttrs.push(`max-date="${options.maxDate}"`);
+  document.body.innerHTML = consolidatedHTML(calAttrs.join(" "));
+  return document.querySelector("dads-date-picker");
 };
 
-// 機能テスト
-test.describe("DatePicker 機能テスト", () => {
-  test.describe("基本的な初期化とライフサイクル", () => {
-    test("適切に初期化されるべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+/**
+ * Separated タイプの DatePicker をマウントして返す。
+ */
+const mountSeparated = (options = {}) => {
+  const calAttrs = [];
+  if (options.minDate) calAttrs.push(`min-date="${options.minDate}"`);
+  if (options.maxDate) calAttrs.push(`max-date="${options.maxDate}"`);
+  document.body.innerHTML = separatedHTML(calAttrs.join(" "));
+  return document.querySelector("dads-date-picker");
+};
 
-      const datePicker = page.locator("dads-date-picker");
-      await expect(datePicker).toBeVisible();
+// ---------------------------------------------------------------------------
+// DOM helpers
+// ---------------------------------------------------------------------------
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const dayInput = page.getByRole("textbox", { name: "日" });
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
+const picker = () => document.querySelector("dads-date-picker");
+const yearInput = () => document.querySelector("[data-js-year-input]");
+const monthInput = () => document.querySelector("[data-js-month-input]");
+const dayInput = () => document.querySelector("[data-js-day-input]");
+const calendarButton = () =>
+  document.querySelector("[data-js-calendar-button]");
+const popover = () => document.querySelector("[data-js-calendar-popover]");
+const backdrop = () => document.querySelector("[data-js-backdrop]");
+const currentMonth = () =>
+  document.querySelector("[data-js-current-month]").textContent;
+const calendarYearSelect = () =>
+  document.querySelector("[data-js-year-select]");
 
-      await expect(yearInput).toBeVisible();
-      await expect(monthInput).toBeVisible();
-      await expect(dayInput).toBeVisible();
-      await expect(calendarButton).toBeVisible();
-      await expect(calendarButton).toHaveAttribute("aria-expanded", "false");
+const isPopoverVisible = () => {
+  const el = popover();
+  return el && el.style.display !== "none";
+};
+
+/** 入力欄にプログラム的に値を設定し input + change イベントを発火する */
+const fill = (el, value) => {
+  el.value = value;
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+  el.dispatchEvent(new Event("change", { bubbles: true }));
+};
+
+/** カレンダー内の enabled 日付ボタン */
+const enabledDateButtons = () => [
+  ...document.querySelectorAll("[data-js-date-button]:not(:disabled)"),
+];
+
+/** 指定日の enabled ボタン */
+const dateButtonFor = (day) =>
+  enabledDateButtons().find((b) => b.textContent === String(day));
+
+/** 選択中のボタン */
+const selectedButton = () => document.querySelector('[data-selected="true"]');
+
+/** カレンダーを開く */
+const openCalendar = async () => {
+  await page.getByRole("button", { name: "カレンダー" }).click();
+};
+
+// ===========================================================================
+// Tests
+// ===========================================================================
+
+describe("DatePicker", () => {
+  // -------------------------------------------------------------------------
+  // 初期化
+  // -------------------------------------------------------------------------
+  describe("初期化", () => {
+    test("Consolidated タイプで年・月・日入力欄とカレンダーボタンが表示される", () => {
+      mountConsolidated();
+
+      expect(yearInput()).not.toBeNull();
+      expect(monthInput()).not.toBeNull();
+      expect(dayInput()).not.toBeNull();
+      expect(calendarButton()).not.toBeNull();
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
+      expect(isPopoverVisible()).toBe(false);
+    });
+
+    test("Separated タイプでも年・月・日入力欄とカレンダーボタンが表示される", () => {
+      mountSeparated();
+
+      expect(yearInput()).not.toBeNull();
+      expect(monthInput()).not.toBeNull();
+      expect(dayInput()).not.toBeNull();
+      expect(calendarButton()).not.toBeNull();
     });
   });
 
-  test.describe("Consolidatedタイプのキーボードナビゲーション", () => {
-    test("右矢印キーで前方にナビゲートするべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+  // -------------------------------------------------------------------------
+  // カレンダーの開閉
+  // -------------------------------------------------------------------------
+  describe("カレンダーの開閉", () => {
+    test("カレンダーボタンクリックでポップオーバーが開く", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const dayInput = page.getByRole("textbox", { name: "日" });
-
-      // 年入力にフォーカスして末尾に移動
-      await yearInput.focus();
-      await yearInput.fill("2024");
-      await page.keyboard.press("End");
-
-      // 右矢印で月入力に移動するべき
-      await page.keyboard.press("ArrowRight");
-      await expect(monthInput).toBeFocused();
-
-      // 月を入力して末尾に移動
-      await monthInput.fill("12");
-      await page.keyboard.press("End");
-
-      // 右矢印で日入力に移動するべき
-      await page.keyboard.press("ArrowRight");
-      await expect(dayInput).toBeFocused();
+      await openCalendar();
+      expect(isPopoverVisible()).toBe(true);
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("true");
     });
 
-    test("左矢印キーで後方にナビゲートするべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+    test("開いた状態でカレンダーボタンを再度クリックすると閉じる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const dayInput = page.getByRole("textbox", { name: "日" });
+      await openCalendar();
+      expect(isPopoverVisible()).toBe(true);
 
-      // 日入力にフォーカスして先頭に移動
-      await dayInput.focus();
-      await dayInput.fill("15");
-      await page.keyboard.press("Home");
-
-      // 左矢印で月入力に移動するべき
-      await page.keyboard.press("ArrowLeft");
-      await expect(monthInput).toBeFocused();
-
-      // 月を入力して先頭に移動
-      await monthInput.fill("12");
-      await page.keyboard.press("Home");
-
-      // 左矢印で年入力に移動するべき
-      await page.keyboard.press("ArrowLeft");
-      await expect(yearInput).toBeFocused();
+      await page.getByRole("button", { name: "カレンダー" }).click();
+      expect(isPopoverVisible()).toBe(false);
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
     });
 
-    test("カーソルが入力の中央にある時はナビゲートしないべき", async ({
-      page,
-    }) => {
-      await setupDatePicker(page, "consolidated");
+    test("背景（backdrop）クリックでカレンダーが閉じる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
+      await openCalendar();
+      expect(isPopoverVisible()).toBe(true);
 
-      await yearInput.focus();
-      await yearInput.fill("2024");
-
-      // カーソルを中央に移動
-      await page.keyboard.press("Home");
-      await page.keyboard.press("ArrowRight");
-      await page.keyboard.press("ArrowRight");
-
-      // 右矢印はカーソルを移動するべきで、フォーカスは移動しない
-      await page.keyboard.press("ArrowRight");
-      await expect(yearInput).toBeFocused();
+      backdrop().click();
+      expect(isPopoverVisible()).toBe(false);
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
     });
-  });
 
-  test.describe("Separatedタイプの動作", () => {
-    test("キーボードナビゲーションを持たないべき", async ({ page }) => {
-      await setupDatePicker(page, "separated");
+    test("Escape キーでカレンダーが閉じる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
+      await openCalendar();
+      expect(isPopoverVisible()).toBe(true);
 
-      await yearInput.focus();
-      await yearInput.fill("2024");
-      await page.keyboard.press("End");
+      await userEvent.keyboard("{Escape}");
+      expect(isPopoverVisible()).toBe(false);
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
+    });
 
-      // separatedタイプでは右矢印で月入力に移動するべきではない
-      await page.keyboard.press("ArrowRight");
-      await expect(yearInput).toBeFocused();
+    test("カレンダーを閉じるとカレンダーボタンにフォーカスが戻る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+      await userEvent.keyboard("{Escape}");
+
+      expect(document.activeElement).toBe(calendarButton());
+    });
+
+    test("backdrop クリックで閉じた後もカレンダーボタンにフォーカスが戻る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+      backdrop().click();
+
+      expect(document.activeElement).toBe(calendarButton());
+    });
+
+    test("カレンダーを開くとカレンダー内の日付にフォーカスが移る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+
+      expect(document.activeElement.hasAttribute("data-js-date-button")).toBe(
+        true,
+      );
     });
   });
 
-  test.describe("カレンダーを開く", () => {
-    test("ボタンクリックでカレンダーを切り替えるべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+  // -------------------------------------------------------------------------
+  // 日付選択 → 入力欄への同期
+  // -------------------------------------------------------------------------
+  describe("日付選択と入力同期", () => {
+    test("カレンダーで日付を選択すると入力欄に値が反映される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
-      const calendarDialog = page.getByRole("dialog", { name: "カレンダー" });
+      await openCalendar();
+      await userEvent.click(dateButtonFor(20));
 
-      // 初期状態では閉じている
-      await expect(calendarButton).toHaveAttribute("aria-expanded", "false");
-      await expect(calendarDialog).not.toBeVisible();
-
-      // クリックして開く
-      await calendarButton.click();
-      await expect(calendarButton).toHaveAttribute("aria-expanded", "true");
-      await expect(calendarDialog).toBeVisible();
+      expect(yearInput().value).toBe("2025");
+      expect(monthInput().value).toBe("06");
+      expect(dayInput().value).toBe("20");
     });
 
-    test("背景クリックでカレンダーを閉じるべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+    test("日付選択後にカレンダーが自動で閉じる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
-      const calendarDialog = page.getByRole("dialog", { name: "カレンダー" });
-      const backdrop = page.locator("[data-js-backdrop]");
+      await openCalendar();
+      await userEvent.click(dateButtonFor(20));
 
-      // カレンダーを開く
-      await calendarButton.click();
-      await expect(calendarDialog).toBeVisible();
-
-      // 背景をクリックして閉じる
-      await backdrop.click();
-      await expect(calendarDialog).not.toBeVisible();
-      await expect(calendarButton).toHaveAttribute("aria-expanded", "false");
-      await expect(calendarButton).toBeFocused();
+      expect(isPopoverVisible()).toBe(false);
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
     });
 
-    test("Escapeキーでカレンダーを閉じるべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+    test("日付選択後にカレンダーボタンにフォーカスが戻る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
-      const calendarDialog = page.getByRole("dialog", { name: "カレンダー" });
+      await openCalendar();
+      await userEvent.click(dateButtonFor(20));
 
-      // カレンダーを開く
-      await calendarButton.click();
-      await expect(calendarDialog).toBeVisible();
-
-      // Escapeキーを押して閉じる
-      await page.keyboard.press("Escape");
-      await expect(calendarDialog).not.toBeVisible();
-      await expect(calendarButton).toHaveAttribute("aria-expanded", "false");
-      await expect(calendarButton).toBeFocused();
+      expect(document.activeElement).toBe(calendarButton());
     });
-  });
 
-  test.describe("日付選択シナリオ", () => {
-    test("選択した日付を入力フィールドに同期するべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+    test("1桁の月・日は0埋め2桁で入力欄に反映される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+      // January has single-digit month (1) and single-digit days
+      // Open calendar and navigate to January
+      await openCalendar();
+      // Use the calendar's prev button to go to January
+      const cal = document.querySelector("dads-calendar");
+      cal.setDisplayMonth(2025, 0); // January
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const dayInput = page.getByRole("textbox", { name: "日" });
+      await userEvent.click(dateButtonFor(5));
 
-      // カレンダーを開く
-      await calendarButton.click();
-
-      // カレンダーの準備ができるまで待って日付をクリック
-      const dateButton = page.getByRole("gridcell").getByRole("button").first();
-      await dateButton.click();
-
-      // 入力フィールドが適切な形式で埋められていることを確認
-      const yearValue = await yearInput.inputValue();
-      const monthValue = await monthInput.inputValue();
-      const dayValue = await dayInput.inputValue();
-
-      expect(yearValue).toMatch(/^\d{4}$/);
-      expect(monthValue).toMatch(/^\d{2}$/);
-      expect(dayValue).toMatch(/^\d{2}$/);
-
-      // カレンダーが閉じられるべき
-      const calendarDialog = page.getByRole("dialog", { name: "カレンダー" });
-      await expect(calendarDialog).not.toBeVisible();
+      expect(yearInput().value).toBe("2025");
+      expect(monthInput().value).toBe("01");
+      expect(dayInput().value).toBe("05");
     });
-  });
 
-  test.describe("フォーカストラップ", () => {
-    test("Tabキーでフォーカスをトラップするべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated");
+    test("削除ボタンで入力欄がクリアされる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
+      // まず日付を選択
+      await openCalendar();
+      await userEvent.click(dateButtonFor(20));
+      expect(yearInput().value).toBe("2025");
 
-      // カレンダーを開く
-      await calendarButton.click();
+      // 再度開いて削除
+      await openCalendar();
+      await page.getByRole("button", { name: "削除" }).click();
 
-      // カレンダー内のフォーカス可能な要素を取得
-      const yearSelect = page.getByRole("combobox", { name: "年" });
-      const deleteButton = page.getByRole("button", { name: "削除" });
-      const todayButton = page.getByRole("button", { name: "今日" });
+      expect(yearInput().value).toBe("");
+      expect(monthInput().value).toBe("");
+      expect(dayInput().value).toBe("");
+    });
 
-      // Tabキーでフォーカス可能な要素を循環するべき
-      await page.keyboard.press("Tab");
-      await expect(deleteButton).toBeFocused();
+    test("今日ボタンで今日の日付が入力欄に反映される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      await page.keyboard.press("Tab");
-      await expect(todayButton).toBeFocused();
+      await openCalendar();
+      await page.getByRole("button", { name: "今日" }).click();
 
-      await page.keyboard.press("Tab");
-      await expect(yearSelect).toBeFocused();
-      // Tabキーで最後のフォーカス可能な要素に戻るべき
-      await page.keyboard.press("Shift+Tab");
-      await expect(todayButton).toBeFocused();
+      // today = 2025-06-15
+      expect(yearInput().value).toBe("2025");
+      expect(monthInput().value).toBe("06");
+      expect(dayInput().value).toBe("15");
+    });
+
+    test("Separated タイプでも日付選択が入力欄に反映される", async () => {
+      mountSeparated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+      await userEvent.click(dateButtonFor(10));
+
+      expect(yearInput().value).toBe("2025");
+      expect(monthInput().value).toBe("06");
+      expect(dayInput().value).toBe("10");
     });
   });
 
-  test.describe("DatePickerとCalendarの統合", () => {
-    test("年と月が入力された時に正しい月を表示するべき", async ({ page }) => {
-      await setupDatePicker(page, "consolidated", {
-        minDate: "2025-01-01",
-        maxDate: "2025-12-31",
-      });
+  // -------------------------------------------------------------------------
+  // 入力値 → カレンダーへの同期
+  // -------------------------------------------------------------------------
+  describe("入力値からカレンダーへの同期", () => {
+    test("年と月が入力済みの状態でカレンダーを開くと入力した月が表示される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
+      fill(yearInput(), "2025");
+      fill(monthInput(), "03");
 
-      // 年と月を入力
-      await yearInput.fill("2025");
-      await monthInput.fill("03");
+      await openCalendar();
 
-      // カレンダーを開く
-      await calendarButton.click();
-
-      // 2025年3月が表示されていることを確認
-      const currentMonth = page.locator("[data-js-current-month]");
-      await expect(currentMonth).toContainText("3月");
-
-      const yearSelect = page.getByRole("combobox", { name: "年" });
-      await expect(yearSelect).toHaveValue("2025");
+      expect(currentMonth()).toBe("3月");
+      expect(calendarYearSelect().value).toBe("2025");
     });
 
-    test("範囲外の日付が入力された時に最も近い有効な月を表示するべき", async ({
-      page,
-    }) => {
-      await setupDatePicker(page, "consolidated", {
-        minDate: "2025-01-01",
-        maxDate: "2025-12-31",
-      });
+    test("年月日すべて入力済みの状態でカレンダーを開くとその日付が選択状態になる", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const yearInput = page.getByRole("textbox", { name: "年" });
-      const monthInput = page.getByRole("textbox", { name: "月" });
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
+      fill(yearInput(), "2025");
+      fill(monthInput(), "06");
+      fill(dayInput(), "20");
 
-      // 範囲外の日付を入力（遠い未来）
-      await yearInput.fill("2030");
-      await monthInput.fill("12");
+      await openCalendar();
 
-      // カレンダーを開く
-      await calendarButton.click();
-
-      // 2025年12月が表示されていることを確認
-      const currentMonth = page.locator("[data-js-current-month]");
-      await expect(currentMonth).toContainText("12月");
-
-      const yearSelect = page.getByRole("combobox", { name: "年" });
-      const yearValue = await yearSelect.inputValue();
-      expect(Number.parseInt(yearValue)).toBe(2025);
+      expect(selectedButton()).not.toBeNull();
+      expect(selectedButton().textContent).toBe("20");
     });
 
-    test("日付が入力されていない時に現在の月を表示するべき", async ({
-      page,
-    }) => {
-      await setupDatePicker(page, "consolidated");
+    test("範囲外の年月が入力された場合、最も近い有効な月が表示される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
 
-      const calendarButton = page.getByRole("button", { name: /カレンダー/ });
+      fill(yearInput(), "2030");
+      fill(monthInput(), "12");
 
-      // 日付を入力せずにカレンダーを開く
-      await calendarButton.click();
+      await openCalendar();
 
-      // 現在の月が表示されるべき
-      const today = new Date();
-      const currentMonth = page.locator("[data-js-current-month]");
-      await expect(currentMonth).toContainText(`${today.getMonth() + 1}月`);
+      expect(currentMonth()).toBe("12月");
+      expect(calendarYearSelect().value).toBe("2025");
+    });
 
-      const yearSelect = page.getByRole("combobox", { name: "年" });
-      const yearValue = await yearSelect.inputValue();
-      expect(Number.parseInt(yearValue)).toBe(today.getFullYear());
+    test("入力が空の状態でカレンダーを開くと今日の月が表示される", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+
+      // today = 2025-06-15
+      expect(currentMonth()).toBe("6月");
+      expect(calendarYearSelect().value).toBe("2025");
+    });
+
+    test("年のみ入力された状態でカレンダーを開いても正常に動作する", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      fill(yearInput(), "2025");
+      // 月は空 → NaN → setDisplayMonth は呼ばれない
+
+      await openCalendar();
+
+      // カレンダーは正常に表示される（今日の月）
+      expect(isPopoverVisible()).toBe(true);
+      expect(currentMonth()).toBe("6月");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // Consolidated タイプのキーボードナビゲーション
+  // -------------------------------------------------------------------------
+  describe("Consolidated: 入力欄間のキーボードナビゲーション", () => {
+    test("年入力の末尾で ArrowRight を押すと月入力にフォーカスが移る", async () => {
+      mountConsolidated();
+
+      const yi = yearInput();
+      yi.focus();
+      fill(yi, "2025");
+
+      await userEvent.keyboard("{ArrowRight}");
+      expect(document.activeElement).toBe(monthInput());
+    });
+
+    test("月入力の末尾で ArrowRight を押すと日入力にフォーカスが移る", async () => {
+      mountConsolidated();
+
+      const mi = monthInput();
+      mi.focus();
+      fill(mi, "06");
+
+      await userEvent.keyboard("{ArrowRight}");
+      expect(document.activeElement).toBe(dayInput());
+    });
+
+    test("日入力の先頭で ArrowLeft を押すと月入力にフォーカスが移る", async () => {
+      mountConsolidated();
+
+      const di = dayInput();
+      di.focus();
+      fill(di, "15");
+      await userEvent.keyboard("{Home}");
+
+      await userEvent.keyboard("{ArrowLeft}");
+      expect(document.activeElement).toBe(monthInput());
+    });
+
+    test("月入力の先頭で ArrowLeft を押すと年入力にフォーカスが移る", async () => {
+      mountConsolidated();
+
+      const mi = monthInput();
+      mi.focus();
+      fill(mi, "06");
+      await userEvent.keyboard("{Home}");
+
+      await userEvent.keyboard("{ArrowLeft}");
+      expect(document.activeElement).toBe(yearInput());
+    });
+
+    test("カーソルが入力値の途中にある場合はフィールド間移動しない", async () => {
+      mountConsolidated();
+
+      const yi = yearInput();
+      yi.focus();
+      fill(yi, "2025");
+      yi.setSelectionRange(2, 2);
+
+      await userEvent.keyboard("{ArrowRight}");
+      expect(document.activeElement).toBe(yi);
+    });
+
+    test("年入力の先頭で ArrowLeft を押してもフィールド移動しない", async () => {
+      mountConsolidated();
+
+      const yi = yearInput();
+      yi.focus();
+      fill(yi, "2025");
+      await userEvent.keyboard("{Home}");
+
+      await userEvent.keyboard("{ArrowLeft}");
+      expect(document.activeElement).toBe(yi);
+    });
+
+    test("日入力の末尾で ArrowRight を押してもフィールド移動しない", async () => {
+      mountConsolidated();
+
+      const di = dayInput();
+      di.focus();
+      fill(di, "15");
+      await userEvent.keyboard("{End}");
+
+      await userEvent.keyboard("{ArrowRight}");
+      expect(document.activeElement).toBe(di);
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // Separated タイプ
+  // -------------------------------------------------------------------------
+  describe("Separated: 入力欄間のキーボードナビゲーション", () => {
+    test("Separated タイプでは ArrowRight でフィールド間移動しない", async () => {
+      mountSeparated();
+
+      const yi = yearInput();
+      yi.focus();
+      fill(yi, "2025");
+      await userEvent.keyboard("{End}");
+
+      await userEvent.keyboard("{ArrowRight}");
+      expect(document.activeElement).toBe(yi);
+    });
+
+    test("Separated タイプでは ArrowLeft でフィールド間移動しない", async () => {
+      mountSeparated();
+
+      const di = dayInput();
+      di.focus();
+      fill(di, "15");
+      await userEvent.keyboard("{Home}");
+
+      await userEvent.keyboard("{ArrowLeft}");
+      expect(document.activeElement).toBe(di);
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // フォーカストラップ
+  // -------------------------------------------------------------------------
+  describe("フォーカストラップ", () => {
+    test("最後のフォーカス可能要素で Tab を押すと最初の要素に戻る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+
+      const focusableSelectors = [
+        "button:not([disabled])",
+        "select:not([disabled])",
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(",");
+      const focusableElements = [
+        ...popover().querySelectorAll(focusableSelectors),
+      ];
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      lastElement.focus();
+      expect(document.activeElement).toBe(lastElement);
+
+      await userEvent.tab();
+      expect(document.activeElement).toBe(firstElement);
+    });
+
+    test("最初のフォーカス可能要素で Shift+Tab を押すと最後の要素に移る", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+
+      await openCalendar();
+
+      const focusableSelectors = [
+        "button:not([disabled])",
+        "select:not([disabled])",
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(",");
+      const focusableElements = [
+        ...popover().querySelectorAll(focusableSelectors),
+      ];
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      firstElement.focus();
+      expect(document.activeElement).toBe(firstElement);
+
+      await userEvent.tab({ shift: true });
+      expect(document.activeElement).toBe(lastElement);
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // アクセシビリティ
+  // -------------------------------------------------------------------------
+  describe("アクセシビリティ", () => {
+    test("カレンダーボタンに aria-haspopup='dialog' が設定されている", () => {
+      mountConsolidated();
+      expect(calendarButton().getAttribute("aria-haspopup")).toBe("dialog");
+    });
+
+    test("ポップオーバーに role='dialog' と aria-modal='true' が設定されている", () => {
+      mountConsolidated();
+      expect(popover().getAttribute("role")).toBe("dialog");
+      expect(popover().getAttribute("aria-modal")).toBe("true");
+    });
+
+    test("ポップオーバーに aria-label='カレンダー' が設定されている", () => {
+      mountConsolidated();
+      expect(popover().getAttribute("aria-label")).toBe("カレンダー");
+    });
+
+    test("カレンダーが閉じている時は aria-expanded='false'", () => {
+      mountConsolidated();
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("false");
+    });
+
+    test("カレンダーが開いている時は aria-expanded='true'", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+      await openCalendar();
+      expect(calendarButton().getAttribute("aria-expanded")).toBe("true");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // ライフサイクル
+  // -------------------------------------------------------------------------
+  describe("ライフサイクル", () => {
+    test("DOM から削除した後に再接続しても正常に動作する", async () => {
+      mountConsolidated({ minDate: "2025-01-01", maxDate: "2025-12-31" });
+      const pickerEl = picker();
+
+      pickerEl.remove();
+      document.body.appendChild(pickerEl);
+
+      await openCalendar();
+      expect(isPopoverVisible()).toBe(true);
+
+      await userEvent.click(dateButtonFor(10));
+      expect(yearInput().value).toBe("2025");
+      expect(monthInput().value).toBe("06");
+      expect(dayInput().value).toBe("10");
     });
   });
 });

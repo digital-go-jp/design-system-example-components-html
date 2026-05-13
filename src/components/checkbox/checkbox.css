@@ -49,8 +49,8 @@
 
 @media (hover: hover) {
   .dads-checkbox__checkbox:has(
-      :not(:focus, :disabled, [aria-disabled="true"]):hover
-    ) {
+    :not(:focus, :disabled, [aria-disabled="true"]):hover
+  ) {
     background-color: var(--color-neutral-solid-gray-420);
   }
 }
@@ -92,9 +92,9 @@
 
 @media (hover: hover) {
   .dads-checkbox__input:is(:checked, :indeterminate):not(
-      :disabled,
-      [aria-disabled="true"]
-    ):hover {
+    :disabled,
+    [aria-disabled="true"]
+  ):hover {
     border-color: var(--_accent-hover-color);
     background-color: var(--_accent-hover-color);
   }

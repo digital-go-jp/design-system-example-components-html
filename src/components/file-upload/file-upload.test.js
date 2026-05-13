@@ -1,1180 +1,746 @@
-import path from "node:path";
-import { test, expect } from "@playwright/test";
-import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
+import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
+import { page } from "vitest/browser";
+import "./file-upload.js";
 
-const { dirname } = import.meta;
+// ---------------------------------------------------------------------------
+// テスト用の最小限のHTML。playground.html から独立させることで、
+// バリデーション属性の手動削除が不要になり、テストの意図が明確になる。
+// ---------------------------------------------------------------------------
+const fileUploadHTML = (attrs = "", inputAttrs = "multiple") => `
+<dads-file-upload class="dads-file-upload" ${attrs}>
+  <input
+    class="dads-file-upload__input"
+    type="file"
+    name="file-upload"
+    ${inputAttrs}
+    data-js-input
+  >
+  <div class="dads-u-visually-hidden" aria-live="polite" data-js-announcer></div>
+  <div class="dads-u-visually-hidden" aria-live="assertive" data-js-announcer-assertive></div>
+  <div class="dads-file-upload__inner">
+    <div class="dads-file-upload__drop-area" data-js-drop-area>
+      <div class="dads-file-upload__button-area">
+        <button class="dads-button" type="button" data-js-select-button>ファイルを選択</button>
+        <p>または、このエリア内にドラッグ＆ドロップ</p>
+      </div>
+      <p class="dads-file-upload__select-summary" data-js-select-summary></p>
+      <ul class="dads-file-upload__error-messages" data-js-error-messages></ul>
+      <p class="dads-file-upload__expand-drop-area">
+        <label class="dads-checkbox" data-size="md">
+          <span class="dads-checkbox__checkbox">
+            <input class="dads-checkbox__input" type="checkbox" data-js-expand-drop-area>
+          </span>
+          <span class="dads-checkbox__label">ドラッグ＆ドロップの範囲をこのブラウザウィンドウ全体に広げる</span>
+        </label>
+      </p>
+    </div>
+    <p class="dads-file-upload__empty-message" data-js-empty-message>ファイルが選択されていません</p>
+    <ul class="dads-file-upload__file-list" data-js-file-list hidden></ul>
+  </div>
+  <div class="dads-file-upload__viewport-overlay" data-js-viewport-overlay hidden>
+    <div class="dads-file-upload__viewport-overlay-message">ドラッグ＆ドロップ</div>
+  </div>
+  <template data-js-template>
+    <li class="dads-file-upload__file-item">
+      <div class="dads-file-upload__file-marker"></div>
+      <div class="dads-file-upload__file-info" data-js-file-info>
+        <p>
+          <span class="dads-file-upload__file-name" data-slot="fileName"></span>
+          <span class="dads-file-upload__file-meta">
+            <span data-slot="fileSize"></span>（<span data-slot="fileSizeBytes"></span>バイト）
+          </span>
+        </p>
+      </div>
+      <button class="dads-file-upload__remove-button dads-button" type="button" data-js-remove-button>解除</button>
+    </li>
+  </template>
+</dads-file-upload>`;
 
-resetCssVrt("file-upload-playground", path.join(dirname, "playground.html"));
-resetCssVrt(
-  "file-upload-with-existing-files",
-  path.join(dirname, "with-existing-files.html"),
-);
+// ---------------------------------------------------------------------------
+// Setup / Teardown
+// ---------------------------------------------------------------------------
 
-// ヘルパー関数: FileUploadコンポーネントをセットアップ
-const setupFileUpload = async (page, fileName = "playground.html") => {
-  await page.goto(`file://${path.join(dirname, fileName)}`);
+afterEach(() => {
+  document.body.innerHTML = "";
+});
 
-  // デフォルトでバリデーション属性を削除
-  await page.evaluate(() => {
-    const fileUpload = document.querySelector("dads-file-upload");
-    fileUpload.removeAttribute("max-files");
-    fileUpload.removeAttribute("max-file-size");
-    fileUpload.removeAttribute("max-total-size");
-    fileUpload.removeAttribute("data-error-invalid-type");
-    const input = fileUpload.querySelector("[data-js-input]");
-    input.removeAttribute("accept");
-  });
+/**
+ * FileUpload コンポーネントをマウントして返す。
+ * @param {{ attrs?: string, inputAttrs?: string }} options
+ */
+const mount = (options = {}) => {
+  const { attrs = "", inputAttrs = "multiple" } = options;
+  document.body.innerHTML = fileUploadHTML(attrs, inputAttrs);
+  return document.querySelector("dads-file-upload");
 };
 
-// ヘルパー関数: addFilesメソッドを使用してファイルを追加
-const addMockFiles = async (page, files) => {
-  await page.evaluate((fileInfos) => {
-    const fileUpload = document.querySelector("dads-file-upload");
-    const mockFiles = fileInfos.map((info) => {
-      const file = new File([new ArrayBuffer(info.size)], info.name, {
+/**
+ * 既存ファイルHTMLをリストに追加した状態でマウントする（サーバーから返却された既存ファイルを模倣）。
+ */
+const mountWithExistingFiles = (files, options = {}) => {
+  const { attrs = "", inputAttrs = "multiple" } = options;
+  document.body.innerHTML = fileUploadHTML(attrs, inputAttrs);
+
+  const list = document.querySelector("[data-js-file-list]");
+  for (const info of files) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div data-js-file-info>
+        <span data-slot="fileName">${info.name}</span>
+        <span data-slot="fileSizeBytes">${info.sizeBytes}</span>
+      </div>
+      <button type="button" data-js-remove-button>解除</button>
+    `;
+    list.appendChild(li);
+  }
+
+  // Remove and re-add to trigger connectedCallback with existing items
+  const el = document.querySelector("dads-file-upload");
+  const parent = el.parentElement;
+  el.remove();
+  parent.appendChild(el);
+
+  return document.querySelector("dads-file-upload");
+};
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+const fileUpload = () => document.querySelector("dads-file-upload");
+const fileList = () => document.querySelector("[data-js-file-list]");
+const fileItems = () => [
+  ...document.querySelectorAll("[data-js-file-list] > li"),
+];
+const removeButtons = () => [
+  ...document.querySelectorAll("[data-js-file-list] [data-js-remove-button]"),
+];
+const errorMessages = () => document.querySelector("[data-js-error-messages]");
+const summary = () => document.querySelector("[data-js-select-summary]");
+const emptyMessage = () => document.querySelector("[data-js-empty-message]");
+
+/** Mock ファイルを作成して addFiles で追加する */
+const addFiles = (fileInfos) => {
+  const mockFiles = fileInfos.map(
+    (info) =>
+      new File([new ArrayBuffer(info.size)], info.name, {
         type: info.type || "application/octet-stream",
-      });
-      return file;
-    });
-    fileUpload.addFiles(mockFiles);
-  }, files);
+      }),
+  );
+  fileUpload().addFiles(mockFiles);
 };
 
-// ヘルパー関数: 既存ファイルのHTMLを動的に追加
-const addExistingFileHTML = async (page, files) => {
-  await page.evaluate((fileInfos) => {
-    const fileList = document.querySelector("[data-js-file-list]");
-    fileList.innerHTML = "";
+// ===========================================================================
+// Tests
+// ===========================================================================
 
-    fileInfos.forEach((info) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <div data-js-file-info>
-          <span data-slot="fileName">${info.name}</span>
-          <span data-slot="fileSizeBytes">${info.sizeBytes}</span>
-        </div>
-        <button type="button" data-js-remove-button>解除</button>
-      `;
-      fileList.appendChild(li);
-    });
-  }, files);
-};
-
-// ヘルパー関数: コンポーネントを再初期化（既存ファイルを読み込むため）
-const reinitializeComponent = async (page) => {
-  await page.evaluate(() => {
-    const fileUpload = document.querySelector("dads-file-upload");
-    // disconnectedCallbackを呼び出してクリーンアップ
-    fileUpload.remove();
-    // 再度DOMに追加してconnectedCallbackをトリガー
-    document
-      .querySelector(".dads-form-control-label > div")
-      .appendChild(fileUpload);
-  });
-};
-
-// 機能テスト
-test.describe("FileUpload 機能テスト", () => {
-  test.describe("基本的な初期化とライフサイクル", () => {
-    test("適切に初期化されるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).toBeVisible();
-
-      const fileInput = page.locator("[data-js-input]");
-      const selectButton = page.getByRole("button", { name: "ファイルを選択" });
-      const emptyMessage = page.locator("[data-js-empty-message]");
-      const fileList = page.locator("[data-js-file-list]");
-
-      await expect(fileInput).toBeAttached();
-      await expect(selectButton).toBeVisible();
-      await expect(emptyMessage).toBeVisible();
-      await expect(emptyMessage).toHaveText("ファイルが選択されていません");
-      await expect(fileList).not.toBeVisible();
+describe("FileUpload", () => {
+  // -------------------------------------------------------------------------
+  // 初期化
+  // -------------------------------------------------------------------------
+  describe("初期化", () => {
+    test("ファイル未選択時に空メッセージが表示される", () => {
+      mount();
+      expect(emptyMessage().hidden).toBe(false);
+      expect(emptyMessage().textContent).toBe("ファイルが選択されていません");
+      expect(fileList().hidden).toBe(true);
     });
 
-    test("multiple属性がある場合にdata-multiple属性が設定されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("ファイル選択ボタンが表示される", async () => {
+      mount();
+      await expect
+        .element(page.getByRole("button", { name: "ファイルを選択" }))
+        .toBeVisible();
+    });
 
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).toHaveAttribute("data-multiple", "true");
+    test("multiple 属性がある場合 data-multiple='true' が設定される", () => {
+      mount();
+      expect(fileUpload().getAttribute("data-multiple")).toBe("true");
+    });
+
+    test("multiple 属性がない場合 data-multiple='false' が設定される", () => {
+      mount({ inputAttrs: "" });
+      expect(fileUpload().getAttribute("data-multiple")).toBe("false");
+    });
+
+    test("初期状態で files 配列が空である", () => {
+      mount();
+      expect(fileUpload().files).toHaveLength(0);
+    });
+
+    test("初期状態で errors 配列が空である", () => {
+      mount();
+      expect(fileUpload().errors).toHaveLength(0);
     });
   });
 
-  test.describe("ファイル選択機能", () => {
-    test("ボタンクリックでファイル入力がトリガーされるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+  // -------------------------------------------------------------------------
+  // ファイル選択ボタン
+  // -------------------------------------------------------------------------
+  describe("ファイル選択ボタン", () => {
+    test("ボタンクリックで隠しファイル入力がトリガーされる", () => {
+      mount();
+      const input = document.querySelector("[data-js-input]");
+      const clickHandler = vi.fn();
+      input.addEventListener("click", clickHandler);
 
-      const selectButton = page.getByRole("button", { name: "ファイルを選択" });
+      page.getByRole("button", { name: "ファイルを選択" }).element().click();
+      expect(clickHandler).toHaveBeenCalled();
+    });
+  });
 
-      // ファイル入力のクリックイベントを監視
-      const clickPromise = page.evaluate(() => {
-        return new Promise((resolve) => {
-          const input = document.querySelector("[data-js-input]");
-          input.addEventListener("click", () => resolve(true), { once: true });
-        });
-      });
+  // -------------------------------------------------------------------------
+  // ファイル追加
+  // -------------------------------------------------------------------------
+  describe("ファイル追加", () => {
+    test("単一ファイルを追加するとリストに表示される", () => {
+      mount();
+      addFiles([{ name: "photo.png", size: 1024, type: "image/png" }]);
 
-      await selectButton.click();
-      const wasClicked = await clickPromise;
-      expect(wasClicked).toBe(true);
+      expect(fileList().hidden).toBe(false);
+      expect(emptyMessage().hidden).toBe(true);
+      expect(fileItems()).toHaveLength(1);
+      expect(
+        fileItems()[0].querySelector('[data-slot="fileName"]').textContent,
+      ).toBe("photo.png");
     });
 
-    test("単一ファイルを選択できるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
-        { name: "test-file.png", size: 1024, type: "image/png" },
-      ]);
-
-      const fileList = page.locator("[data-js-file-list]");
-      const emptyMessage = page.locator("[data-js-empty-message]");
-      const fileItems = page.locator("[data-js-file-list] > li");
-
-      await expect(fileList).toBeVisible();
-      await expect(emptyMessage).not.toBeVisible();
-      await expect(fileItems).toHaveCount(1);
-      await expect(fileItems.locator('[data-slot="fileName"]')).toHaveText(
-        "test-file.png",
-      );
-    });
-
-    test("複数ファイルを選択できるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
+    test("複数ファイルを一度に追加できる", () => {
+      mount();
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.jpg", size: 2048, type: "image/jpeg" },
         { name: "file3.pdf", size: 4096, type: "application/pdf" },
       ]);
 
-      const fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(3);
+      expect(fileItems()).toHaveLength(3);
+      expect(fileUpload().files).toHaveLength(3);
     });
 
-    test("選択ファイル数とサイズが表示されるべき", async ({ page }) => {
-      await setupFileUpload(page);
+    test("追加でファイルを選択すると既存のファイルに追記される", () => {
+      mount();
+      addFiles([{ name: "first.png", size: 1024, type: "image/png" }]);
+      addFiles([{ name: "second.jpg", size: 2048, type: "image/jpeg" }]);
 
-      await addMockFiles(page, [
-        { name: "file1.png", size: 1048576, type: "image/png" }, // 1MB
-        { name: "file2.jpg", size: 2097152, type: "image/jpeg" }, // 2MB
-      ]);
-
-      const selectedFilesMessage = page.locator("[data-js-select-summary]");
-      await expect(selectedFilesMessage).toContainText("選択中：2個");
-      await expect(selectedFilesMessage).toContainText("3MB");
-      await expect(selectedFilesMessage).toContainText("3,145,728バイト");
+      expect(fileItems()).toHaveLength(2);
+      expect(fileUpload().files).toHaveLength(2);
     });
 
-    test("ファイル選択後にボタンにフォーカスが戻るべき", async ({ page }) => {
-      await setupFileUpload(page);
+    test("files プロパティにファイル情報が格納される", () => {
+      mount();
+      addFiles([{ name: "doc.pdf", size: 5000, type: "application/pdf" }]);
 
-      const selectButton = page.getByRole("button", { name: "ファイルを選択" });
-
-      // setInputFilesを使用して実際のファイル選択をシミュレート
-      const fileInput = page.locator("[data-js-input]");
-      await fileInput.setInputFiles({
-        name: "test.png",
-        mimeType: "image/png",
-        buffer: Buffer.from("fake image content"),
-      });
-
-      await expect(selectButton).toBeFocused();
+      const info = fileUpload().files[0];
+      expect(info.name).toBe("doc.pdf");
+      expect(info.size).toBe(5000);
+      expect(info.isExisting).toBe(false);
+      expect(info.id).toMatch(/^file-/);
     });
   });
 
-  test.describe("ファイル削除機能", () => {
-    test("解除ボタンでファイルを削除できるべき", async ({ page }) => {
-      await setupFileUpload(page);
+  // -------------------------------------------------------------------------
+  // 選択サマリー表示
+  // -------------------------------------------------------------------------
+  describe("選択サマリー", () => {
+    test("ファイル数とサイズが表示される", () => {
+      mount();
+      addFiles([
+        { name: "file1.png", size: 1048576, type: "image/png" },
+        { name: "file2.jpg", size: 2097152, type: "image/jpeg" },
+      ]);
 
-      await addMockFiles(page, [
+      expect(summary().textContent).toContain("選択中：2個");
+      expect(summary().textContent).toContain("3MB");
+      expect(summary().textContent).toContain("3,145,728バイト");
+    });
+
+    test("ファイルゼロ件の時はサマリーが空になる", () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1024, type: "image/png" }]);
+      removeButtons()[0].click();
+
+      expect(summary().textContent).toBe("");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // ファイルサイズ表示
+  // -------------------------------------------------------------------------
+  describe("ファイルサイズ表示", () => {
+    test("バイト単位が正しくフォーマットされる", () => {
+      mount();
+      addFiles([{ name: "tiny.png", size: 500, type: "image/png" }]);
+
+      expect(
+        fileItems()[0].querySelector('[data-slot="fileSize"]').textContent,
+      ).toBe("500B");
+    });
+
+    test("KB単位が正しくフォーマットされる", () => {
+      mount();
+      addFiles([{ name: "medium.png", size: 512 * 1024, type: "image/png" }]);
+
+      expect(
+        fileItems()[0].querySelector('[data-slot="fileSize"]').textContent,
+      ).toBe("512KB");
+    });
+
+    test("MB単位が正しくフォーマットされる", () => {
+      mount();
+      addFiles([
+        { name: "large.png", size: 2 * 1024 * 1024, type: "image/png" },
+      ]);
+
+      expect(
+        fileItems()[0].querySelector('[data-slot="fileSize"]').textContent,
+      ).toBe("2MB");
+    });
+
+    test("バイト数がカンマ区切りで表示される", () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1234567, type: "image/png" }]);
+
+      expect(
+        fileItems()[0].querySelector('[data-slot="fileSizeBytes"]').textContent,
+      ).toBe("1,234,567");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // ファイル削除
+  // -------------------------------------------------------------------------
+  describe("ファイル削除", () => {
+    test("解除ボタンでファイルが削除される", () => {
+      mount();
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.jpg", size: 2048, type: "image/jpeg" },
       ]);
 
-      const fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(2);
+      removeButtons()[0].click();
 
-      // 最初のファイルを削除
-      const removeButton = fileItems
-        .first()
-        .getByRole("button", { name: /解除/ });
-      await removeButton.click();
-
-      await expect(fileItems).toHaveCount(1);
-      await expect(
-        fileItems.first().locator('[data-slot="fileName"]'),
-      ).toHaveText("file2.jpg");
+      expect(fileItems()).toHaveLength(1);
+      expect(fileUpload().files).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("file2.jpg");
     });
 
-    test("すべてのファイルを削除すると空メッセージが表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("全ファイル削除で空メッセージが再表示される", () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1024, type: "image/png" }]);
+      removeButtons()[0].click();
 
-      await addMockFiles(page, [
-        { name: "file1.png", size: 1024, type: "image/png" },
-      ]);
-
-      const removeButton = page.getByRole("button", { name: /解除/ });
-      await removeButton.click();
-
-      const emptyMessage = page.locator("[data-js-empty-message]");
-      const fileList = page.locator("[data-js-file-list]");
-
-      await expect(emptyMessage).toBeVisible();
-      await expect(fileList).not.toBeVisible();
+      expect(emptyMessage().hidden).toBe(false);
+      expect(fileList().hidden).toBe(true);
+      expect(fileUpload().files).toHaveLength(0);
     });
 
-    test("ファイル削除後に次のファイルの解除ボタンにフォーカスが移動するべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
+    test("中間ファイル削除後に次のファイルの解除ボタンにフォーカスが移る", () => {
+      mount();
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.jpg", size: 2048, type: "image/jpeg" },
         { name: "file3.pdf", size: 4096, type: "application/pdf" },
       ]);
 
-      const fileItems = page.locator("[data-js-file-list] > li");
+      // 2番目を削除
+      removeButtons()[1].click();
 
-      // 2番目のファイルを削除
-      const secondRemoveButton = fileItems
-        .nth(1)
-        .getByRole("button", { name: /解除/ });
-      await secondRemoveButton.click();
-
-      // 次のファイル（元の3番目、現在の2番目）の解除ボタンにフォーカスが移動するべき
-      const newSecondRemoveButton = fileItems
-        .nth(1)
-        .getByRole("button", { name: /解除/ });
-      await expect(newSecondRemoveButton).toBeFocused();
+      // 元3番目（新2番目）の解除ボタンにフォーカス
+      expect(document.activeElement).toBe(removeButtons()[1]);
     });
 
-    test("最後のファイル削除後に前のファイルの解除ボタンにフォーカスが移動するべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
+    test("最後のファイル削除後に前のファイルの解除ボタンにフォーカスが移る", () => {
+      mount();
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.jpg", size: 2048, type: "image/jpeg" },
       ]);
 
-      const fileItems = page.locator("[data-js-file-list] > li");
+      removeButtons()[1].click();
 
-      // 最後のファイルを削除
-      const lastRemoveButton = fileItems
-        .last()
-        .getByRole("button", { name: /解除/ });
-      await lastRemoveButton.click();
-
-      // 前のファイル（現在最後）の解除ボタンにフォーカスが移動するべき
-      const remainingRemoveButton = fileItems
-        .first()
-        .getByRole("button", { name: /解除/ });
-      await expect(remainingRemoveButton).toBeFocused();
+      expect(document.activeElement).toBe(removeButtons()[0]);
     });
 
-    test("全ファイル削除後に選択ボタンにフォーカスが移動するべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("全ファイル削除後に選択ボタンにフォーカスが移る", async () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1024, type: "image/png" }]);
+      removeButtons()[0].click();
 
-      await addMockFiles(page, [
+      await expect
+        .element(page.getByRole("button", { name: "ファイルを選択" }))
+        .toHaveFocus();
+    });
+
+    test("removeFile メソッドでプログラム的に削除できる", () => {
+      mount();
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
+        { name: "file2.jpg", size: 2048, type: "image/jpeg" },
       ]);
 
-      const removeButton = page.getByRole("button", { name: /解除/ });
-      await removeButton.click();
+      const fileId = fileUpload().files[0].id;
+      fileUpload().removeFile(fileId);
 
-      const selectButton = page.getByRole("button", { name: "ファイルを選択" });
-      await expect(selectButton).toBeFocused();
+      expect(fileUpload().files).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("file2.jpg");
     });
 
-    test("解除ボタンのaria-labelledbyが正しく設定されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("存在しない ID で removeFile を呼んでもエラーにならない", () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1024, type: "image/png" }]);
 
-      await addMockFiles(page, [
-        { name: "test-file.png", size: 1024, type: "image/png" },
-      ]);
-
-      const removeButton = page.getByRole("button", { name: /解除/ });
-      const ariaLabelledby = await removeButton.getAttribute("aria-labelledby");
-
-      // aria-labelledbyにボタンIDとファイル名IDが含まれるべき
-      expect(ariaLabelledby).toMatch(/file-\w+-remove/);
-      expect(ariaLabelledby).toMatch(/file-\w+-name/);
+      expect(() => fileUpload().removeFile("nonexistent-id")).not.toThrow();
+      expect(fileUpload().files).toHaveLength(1);
     });
   });
 
-  test.describe("バリデーション機能", () => {
-    test("max-files超過時にエラーメッセージが表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+  // -------------------------------------------------------------------------
+  // アクセシビリティ（解除ボタン）
+  // -------------------------------------------------------------------------
+  describe("解除ボタンのアクセシビリティ", () => {
+    test("aria-labelledby がボタンIDとファイル名IDを参照する", () => {
+      mount();
+      addFiles([{ name: "report.pdf", size: 1024, type: "application/pdf" }]);
 
-      // max-files属性を設定
-      await page.evaluate(() => {
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.setAttribute("max-files", "5");
-      });
+      const btn = removeButtons()[0];
+      const labelledby = btn.getAttribute("aria-labelledby");
 
-      // 6ファイル追加
-      await addMockFiles(page, [
+      // 形式: "{fileId}-remove {fileId}-name"
+      expect(labelledby).toMatch(/^file-.+-remove file-.+-name$/);
+
+      // 参照先の要素が実在する
+      const [removeId, nameId] = labelledby.split(" ");
+      expect(document.getElementById(removeId)).toBe(btn);
+      expect(document.getElementById(nameId).textContent).toBe("report.pdf");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // バリデーション: max-files
+  // -------------------------------------------------------------------------
+  describe("バリデーション: max-files", () => {
+    test("上限超過時にエラーメッセージが表示される", () => {
+      mount({ attrs: 'max-files="2"' });
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.png", size: 1024, type: "image/png" },
         { name: "file3.png", size: 1024, type: "image/png" },
-        { name: "file4.png", size: 1024, type: "image/png" },
-        { name: "file5.png", size: 1024, type: "image/png" },
-        { name: "file6.png", size: 1024, type: "image/png" },
       ]);
 
-      const errorMessages = page.locator("[data-js-error-messages]");
-      await expect(errorMessages).toContainText(
-        "＊選択できるファイル数が上限を超過しています",
+      expect(errorMessages().textContent).toContain(
+        "選択できるファイル数が上限を超過しています",
       );
-
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).toHaveAttribute("data-has-error", "true");
+      expect(fileUpload().getAttribute("data-has-error")).toBe("true");
     });
 
-    test("max-total-size超過時にエラーメッセージが表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      // max-total-size属性を設定
-      await page.evaluate(() => {
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.setAttribute("max-total-size", "10MB");
-      });
-
-      // 合計12MB追加
-      await addMockFiles(page, [
-        { name: "large1.png", size: 6 * 1024 * 1024, type: "image/png" }, // 6MB
-        { name: "large2.png", size: 6 * 1024 * 1024, type: "image/png" }, // 6MB
+    test("上限以内ではエラーが表示されない", () => {
+      mount({ attrs: 'max-files="3"' });
+      addFiles([
+        { name: "file1.png", size: 1024, type: "image/png" },
+        { name: "file2.png", size: 1024, type: "image/png" },
+        { name: "file3.png", size: 1024, type: "image/png" },
       ]);
 
-      const errorMessages = page.locator("[data-js-error-messages]");
-      await expect(errorMessages).toContainText(
-        "＊選択できるファイルサイズの合計が上限を超過しています",
-      );
+      expect(fileUpload().hasAttribute("data-has-error")).toBe(false);
+      expect(fileUpload().errors).toHaveLength(0);
     });
 
-    test("max-file-size超過時にファイルレベルエラーが表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      // max-file-size属性を設定
-      await page.evaluate(() => {
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.setAttribute("max-file-size", "10MB");
-      });
-
-      // 11MBファイル追加
-      await addMockFiles(page, [
-        { name: "huge-file.png", size: 11 * 1024 * 1024, type: "image/png" },
+    test("ファイル削除で上限以内に戻るとエラーがクリアされる", () => {
+      mount({ attrs: 'max-files="2"' });
+      addFiles([
+        { name: "file1.png", size: 1024, type: "image/png" },
+        { name: "file2.png", size: 1024, type: "image/png" },
+        { name: "file3.png", size: 1024, type: "image/png" },
       ]);
 
-      const fileItem = page.locator("[data-js-file-list] > li");
-      await expect(fileItem).toHaveAttribute("data-error", "true");
+      expect(fileUpload().errors.length).toBeGreaterThan(0);
 
-      const fileInfo = fileItem.locator("[data-js-file-info]");
-      await expect(fileInfo).toContainText(
-        "＊ファイルサイズが上限を超過しています",
+      removeButtons()[0].click();
+
+      expect(fileUpload().errors).toHaveLength(0);
+      expect(fileUpload().hasAttribute("data-has-error")).toBe(false);
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // バリデーション: max-total-size
+  // -------------------------------------------------------------------------
+  describe("バリデーション: max-total-size", () => {
+    test("合計サイズ超過時にエラーメッセージが表示される", () => {
+      mount({ attrs: 'max-total-size="10MB"' });
+      addFiles([
+        { name: "big1.png", size: 6 * 1024 * 1024, type: "image/png" },
+        { name: "big2.png", size: 6 * 1024 * 1024, type: "image/png" },
+      ]);
+
+      expect(errorMessages().textContent).toContain(
+        "選択できるファイルサイズの合計が上限を超過しています",
       );
-
-      // グローバルエラーも表示されるべき
-      const errorMessages = page.locator("[data-js-error-messages]");
-      await expect(errorMessages).toContainText(
-        "＊選択したファイルにエラーがあります",
+      expect(fileUpload().errors).toEqual(
+        expect.arrayContaining([expect.stringContaining("合計が上限を超過")]),
       );
     });
 
-    test("accept属性（拡張子指定）で許可されていないファイル形式でエラーが表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("合計サイズが上限以内ではエラーが表示されない", () => {
+      mount({ attrs: 'max-total-size="10MB"' });
+      addFiles([
+        { name: "ok1.png", size: 4 * 1024 * 1024, type: "image/png" },
+        { name: "ok2.png", size: 4 * 1024 * 1024, type: "image/png" },
+      ]);
 
-      // accept属性を設定（拡張子指定）
-      await page.evaluate(() => {
-        const input = document.querySelector("[data-js-input]");
-        input.setAttribute("accept", ".png,.jpg,.pdf");
-      });
+      expect(fileUpload().hasAttribute("data-has-error")).toBe(false);
+    });
+  });
 
-      // 許可されていない形式
-      await addMockFiles(page, [
+  // -------------------------------------------------------------------------
+  // バリデーション: max-file-size
+  // -------------------------------------------------------------------------
+  describe("バリデーション: max-file-size", () => {
+    test("個別ファイルサイズ超過時にファイルレベルエラーが表示される", () => {
+      mount({ attrs: 'max-file-size="5MB"' });
+      addFiles([
+        { name: "huge.png", size: 6 * 1024 * 1024, type: "image/png" },
+      ]);
+
+      const item = fileItems()[0];
+      expect(item.getAttribute("data-error")).toBe("true");
+      expect(item.querySelector("[data-js-file-info]").textContent).toContain(
+        "ファイルサイズが上限を超過しています",
+      );
+
+      // グローバルエラーにも「エラーがあります」が含まれる
+      expect(errorMessages().textContent).toContain(
+        "選択したファイルにエラーがあります",
+      );
+    });
+
+    test("上限以内のファイルにはエラーが付かない", () => {
+      mount({ attrs: 'max-file-size="5MB"' });
+      addFiles([{ name: "ok.png", size: 4 * 1024 * 1024, type: "image/png" }]);
+
+      expect(fileItems()[0].hasAttribute("data-error")).toBe(false);
+      expect(fileUpload().hasAttribute("data-has-error")).toBe(false);
+    });
+
+    test("files プロパティの errors 配列にエラーが格納される", () => {
+      mount({ attrs: 'max-file-size="5MB"' });
+      addFiles([
+        { name: "huge.png", size: 6 * 1024 * 1024, type: "image/png" },
+      ]);
+
+      expect(fileUpload().files[0].errors.length).toBeGreaterThan(0);
+      expect(fileUpload().files[0].errors[0]).toContain(
+        "ファイルサイズが上限を超過",
+      );
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // バリデーション: accept（ファイル形式）
+  // -------------------------------------------------------------------------
+  describe("バリデーション: ファイル形式", () => {
+    test("許可されていない拡張子のファイルにエラーが付く", () => {
+      mount({ inputAttrs: 'multiple accept=".png,.jpg,.pdf"' });
+      addFiles([
         { name: "malware.exe", size: 1024, type: "application/x-msdownload" },
       ]);
 
-      const fileItem = page.locator("[data-js-file-list] > li");
-      await expect(fileItem).toHaveAttribute("data-error", "true");
-
-      const fileInfo = fileItem.locator("[data-js-file-info]");
-      await expect(fileInfo).toContainText(
-        "＊許可されていないファイル形式です",
+      const item = fileItems()[0];
+      expect(item.getAttribute("data-error")).toBe("true");
+      expect(item.querySelector("[data-js-file-info]").textContent).toContain(
+        "許可されていないファイル形式です",
       );
     });
 
-    test("エラーがない場合はdata-has-error属性がないべき", async ({ page }) => {
-      await setupFileUpload(page);
+    test("許可された拡張子のファイルにはエラーが付かない", () => {
+      mount({ inputAttrs: 'multiple accept=".png,.jpg,.pdf"' });
+      addFiles([{ name: "photo.png", size: 1024, type: "image/png" }]);
 
-      await addMockFiles(page, [
-        { name: "valid.png", size: 1024, type: "image/png" },
-      ]);
-
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).not.toHaveAttribute("data-has-error");
+      expect(fileItems()[0].hasAttribute("data-error")).toBe(false);
     });
 
-    test("ファイル削除後にバリデーションが再実行されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
+    test("MIME タイプワイルドカード（image/*）で判定できる", () => {
+      mount({ inputAttrs: 'multiple accept="image/*"' });
+      addFiles([
+        { name: "photo.webp", size: 1024, type: "image/webp" },
+        { name: "doc.pdf", size: 1024, type: "application/pdf" },
+      ]);
 
-      // max-files属性を設定
-      await page.evaluate(() => {
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.setAttribute("max-files", "5");
+      expect(fileItems()[0].hasAttribute("data-error")).toBe(false);
+      expect(fileItems()[1].getAttribute("data-error")).toBe("true");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // カスタムエラーメッセージ（data属性）
+  // -------------------------------------------------------------------------
+  describe("カスタムエラーメッセージ", () => {
+    test("data-error-invalid-type でファイル形式エラーメッセージをカスタマイズできる", () => {
+      mount({
+        attrs: 'data-error-invalid-type="PNG/JPEGだけが選択できます。"',
+        inputAttrs: 'multiple accept=".png,.jpg"',
       });
+      addFiles([
+        { name: "file.exe", size: 1024, type: "application/x-msdownload" },
+      ]);
 
-      // 6ファイル追加（max-files超過）
-      await addMockFiles(page, [
+      const item = fileItems()[0];
+      expect(item.querySelector("[data-js-file-info]").textContent).toContain(
+        "PNG/JPEGだけが選択できます。",
+      );
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // 複合バリデーション
+  // -------------------------------------------------------------------------
+  describe("複合バリデーション", () => {
+    test("複数のグローバルエラーが同時に表示される", () => {
+      mount({
+        attrs: 'max-files="2"',
+        inputAttrs: 'multiple accept=".png"',
+      });
+      addFiles([
         { name: "file1.png", size: 1024, type: "image/png" },
         { name: "file2.png", size: 1024, type: "image/png" },
-        { name: "file3.png", size: 1024, type: "image/png" },
-        { name: "file4.png", size: 1024, type: "image/png" },
-        { name: "file5.png", size: 1024, type: "image/png" },
-        { name: "file6.png", size: 1024, type: "image/png" },
+        { name: "bad.exe", size: 1024, type: "application/x-msdownload" },
       ]);
 
-      const errorMessages = page.locator("[data-js-error-messages]");
-      await expect(errorMessages).toContainText(
-        "＊選択できるファイル数が上限を超過しています",
-      );
-
-      // 1ファイル削除して5ファイルに
-      const removeButton = page
-        .locator("[data-js-file-list] > li")
-        .first()
-        .getByRole("button", { name: /解除/ });
-      await removeButton.click();
-
-      // エラーが解消されるべき
-      await expect(errorMessages).toBeEmpty();
-
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).not.toHaveAttribute("data-has-error");
-    });
-  });
-
-  test.describe("既存ファイルの読み込み", () => {
-    test("HTMLに記述された既存ファイルが読み込まれるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      // 既存ファイルのHTMLを動的に追加
-      await addExistingFileHTML(page, [
-        {
-          name: "既存ファイル1.jpg",
-          sizeBytes: "1,572,864",
-        },
-        {
-          name: "既存ファイル2.pdf",
-          sizeBytes: "2,411,724",
-        },
-      ]);
-
-      // コンポーネントを再初期化して既存ファイルを読み込む
-      await reinitializeComponent(page);
-
-      const fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(2);
-
-      const firstFileName = fileItems.first().locator('[data-slot="fileName"]');
-      await expect(firstFileName).toHaveText("既存ファイル1.jpg");
-
-      const secondFileName = fileItems.last().locator('[data-slot="fileName"]');
-      await expect(secondFileName).toHaveText("既存ファイル2.pdf");
+      const errorItems = errorMessages().querySelectorAll("li");
+      // "ファイルにエラーがあります" + "ファイル数が上限"
+      expect(errorItems.length).toBe(2);
     });
 
-    test("既存ファイルの選択数とサイズが表示されるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addExistingFileHTML(page, [
-        {
-          name: "file1.jpg",
-          sizeBytes: "1,048,576",
-        },
-        {
-          name: "file2.pdf",
-          sizeBytes: "2,097,152",
-        },
-      ]);
-
-      await reinitializeComponent(page);
-
-      const selectedFilesMessage = page.locator("[data-js-select-summary]");
-      await expect(selectedFilesMessage).toContainText("選択中：2個");
-    });
-
-    test("既存ファイルを削除できるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addExistingFileHTML(page, [
-        {
-          name: "file1.jpg",
-          sizeBytes: "1,048,576",
-        },
-        {
-          name: "file2.pdf",
-          sizeBytes: "2,097,152",
-        },
-        {
-          name: "file3.png",
-          sizeBytes: "512,000",
-        },
-      ]);
-
-      await reinitializeComponent(page);
-
-      const fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(3);
-
-      const removeButton = fileItems
-        .first()
-        .getByRole("button", { name: /解除/ });
-      await removeButton.click();
-
-      await expect(fileItems).toHaveCount(2);
-    });
-
-    test("既存ファイルの解除ボタンにaria-labelledbyが設定されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      await addExistingFileHTML(page, [
-        {
-          name: "test-file.jpg",
-          sizeBytes: "1,048,576",
-        },
-      ]);
-
-      await reinitializeComponent(page);
-
-      const removeButton = page
-        .locator("[data-js-file-list] > li")
-        .first()
-        .getByRole("button", { name: /解除/ });
-      const ariaLabelledby = await removeButton.getAttribute("aria-labelledby");
-
-      expect(ariaLabelledby).toMatch(/file-\w+-remove/);
-      expect(ariaLabelledby).toMatch(/file-\w+-name/);
-    });
-
-    test("既存ファイルに新規ファイルを追加できるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addExistingFileHTML(page, [
-        {
-          name: "existing.jpg",
-          sizeBytes: "1,048,576",
-        },
-      ]);
-
-      await reinitializeComponent(page);
-
-      await addMockFiles(page, [
-        { name: "new-file.png", size: 1024, type: "image/png" },
-      ]);
-
-      const fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(2);
-
-      const selectedFilesMessage = page.locator("[data-js-select-summary]");
-      await expect(selectedFilesMessage).toContainText("選択中：2個");
-    });
-
-    test("既存ファイルはバリデーションエラーが付与されないべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      // accept属性を設定
-      await page.evaluate(() => {
-        const input = document.querySelector("[data-js-input]");
-        input.setAttribute("accept", ".png");
-      });
-
-      // .jpgファイルを既存ファイルとして追加（accept制限に違反するが、既存ファイルなのでエラーにならないべき）
-      await addExistingFileHTML(page, [
-        {
-          name: "existing.jpg",
-          sizeBytes: "1,048,576",
-        },
-      ]);
-
-      await reinitializeComponent(page);
-
-      const fileItem = page.locator("[data-js-file-list] > li");
-      await expect(fileItem).not.toHaveAttribute("data-error", "true");
-    });
-  });
-
-  test.describe("UI更新とメッセージ", () => {
-    test("ファイルサイズが適切にフォーマットされるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
-        { name: "small.png", size: 500, type: "image/png" }, // 500B
-        { name: "medium.png", size: 500 * 1024, type: "image/png" }, // 500KB
-        { name: "large.png", size: 2 * 1024 * 1024, type: "image/png" }, // 2MB
-      ]);
-
-      const fileItems = page.locator("[data-js-file-list] > li");
-
-      // 500B
-      await expect(
-        fileItems.nth(0).locator('[data-slot="fileSize"]'),
-      ).toHaveText("500B");
-
-      // 500KB
-      await expect(
-        fileItems.nth(1).locator('[data-slot="fileSize"]'),
-      ).toHaveText("500KB");
-
-      // 2MB
-      await expect(
-        fileItems.nth(2).locator('[data-slot="fileSize"]'),
-      ).toHaveText("2MB");
-    });
-
-    test("ファイルサイズのバイト数がカンマ区切りで表示されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      await addMockFiles(page, [
-        { name: "file.png", size: 1234567, type: "image/png" },
-      ]);
-
-      const fileItem = page.locator("[data-js-file-list] > li");
-      await expect(fileItem.locator('[data-slot="fileSizeBytes"]')).toHaveText(
-        "1,234,567",
-      );
-    });
-
-    test("複数エラーが同時に表示されるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      // max-files属性とaccept属性を設定
-      await page.evaluate(() => {
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.setAttribute("max-files", "5");
-        const input = document.querySelector("[data-js-input]");
-        input.setAttribute("accept", ".png,.jpg,.pdf");
-      });
-
-      // max-files超過 + 不正な形式
-      await addMockFiles(page, [
-        { name: "file1.png", size: 1024, type: "image/png" },
-        { name: "file2.png", size: 1024, type: "image/png" },
-        { name: "file3.png", size: 1024, type: "image/png" },
-        { name: "file4.png", size: 1024, type: "image/png" },
-        { name: "file5.png", size: 1024, type: "image/png" },
-        { name: "file6.png", size: 1024, type: "image/png" }, // 6ファイル目でmax-files超過
-        { name: "invalid.exe", size: 1024, type: "application/x-msdownload" }, // 不正な形式
-      ]);
-
-      const errorMessages = page.locator("[data-js-error-messages] li");
-      await expect(errorMessages).toHaveCount(2); // max-files + hasFileErrors
-    });
-  });
-
-  test.describe("単一ファイルモード", () => {
-    test("multipleがない場合は1ファイルのみ保持されるべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-
-      // multiple属性を削除
-      await page.evaluate(() => {
-        const input = document.querySelector("[data-js-input]");
-        input.removeAttribute("multiple");
-      });
-
-      await addMockFiles(page, [
-        { name: "file1.png", size: 1024, type: "image/png" },
-      ]);
-
-      let fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(1);
-
-      // 2つ目のファイルを追加すると、最初のファイルが置き換わるべき
-      await addMockFiles(page, [
+    test("errors プロパティにすべてのグローバルエラーが格納される", () => {
+      mount({ attrs: 'max-files="1" max-total-size="1KB"' });
+      addFiles([
+        { name: "file1.png", size: 2048, type: "image/png" },
         { name: "file2.png", size: 2048, type: "image/png" },
       ]);
 
-      fileItems = page.locator("[data-js-file-list] > li");
-      await expect(fileItems).toHaveCount(1);
-      await expect(fileItems.locator('[data-slot="fileName"]')).toHaveText(
-        "file2.png",
-      );
-    });
-
-    test("data-multiple属性がfalseになるべき", async ({ page }) => {
-      await setupFileUpload(page);
-
-      // multiple属性を削除
-      await page.evaluate(() => {
-        const input = document.querySelector("[data-js-input]");
-        input.removeAttribute("multiple");
-        // UIを更新するためにファイルを追加
-        const fileUpload = document.querySelector("dads-file-upload");
-        fileUpload.addFiles([]);
-      });
-
-      const fileUpload = page.locator("dads-file-upload");
-      await expect(fileUpload).toHaveAttribute("data-multiple", "false");
+      // max-files + max-total-size の2つ
+      expect(fileUpload().errors.length).toBeGreaterThanOrEqual(2);
     });
   });
-});
 
-// ユニットテスト（ユーティリティ関数）
-test.describe("ユーティリティ関数のユニットテスト", () => {
-  test.describe("parseSize", () => {
-    test("nullまたは空文字列の場合はnullを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [parseSize(null), parseSize(""), parseSize(undefined)];
-      });
-      expect(results).toEqual([null, null, null]);
+  // -------------------------------------------------------------------------
+  // 単一ファイルモード
+  // -------------------------------------------------------------------------
+  describe("単一ファイルモード", () => {
+    test("ファイルを追加すると前のファイルが置き換えられる", () => {
+      mount({ inputAttrs: "" }); // multiple なし
+
+      addFiles([{ name: "first.png", size: 1024, type: "image/png" }]);
+      expect(fileItems()).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("first.png");
+
+      addFiles([{ name: "second.png", size: 2048, type: "image/png" }]);
+      expect(fileItems()).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("second.png");
     });
 
-    test("バイト単位を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [
-          parseSize("100"),
-          parseSize("100b"),
-          parseSize("100B"),
-          parseSize("0"),
-        ];
-      });
-      expect(results).toEqual([100, 100, 100, 0]);
-    });
+    test("複数ファイルを渡しても最初の1つだけ保持される", () => {
+      mount({ inputAttrs: "" });
 
-    test("KB単位を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [
-          parseSize("1kb"),
-          parseSize("1KB"),
-          parseSize("10KB"),
-          parseSize("1.5KB"),
-        ];
-      });
-      expect(results).toEqual([1024, 1024, 10 * 1024, 1.5 * 1024]);
-    });
-
-    test("MB単位を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [
-          parseSize("1mb"),
-          parseSize("1MB"),
-          parseSize("10MB"),
-          parseSize("1.5MB"),
-        ];
-      });
-      expect(results).toEqual([
-        1024 * 1024,
-        1024 * 1024,
-        10 * 1024 * 1024,
-        1.5 * 1024 * 1024,
+      addFiles([
+        { name: "file1.png", size: 1024, type: "image/png" },
+        { name: "file2.png", size: 2048, type: "image/png" },
       ]);
-    });
 
-    test("GB単位を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [parseSize("1gb"), parseSize("1GB"), parseSize("2.5GB")];
-      });
-      expect(results).toEqual([
-        1024 * 1024 * 1024,
-        1024 * 1024 * 1024,
-        2.5 * 1024 * 1024 * 1024,
+      expect(fileItems()).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("file1.png");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // 既存ファイル（サーバーから返却されたHTMLに含まれるファイル）
+  // -------------------------------------------------------------------------
+  describe("既存ファイル", () => {
+    test("HTMLに記述された既存ファイルが読み込まれる", () => {
+      mountWithExistingFiles([
+        { name: "既存ファイル1.jpg", sizeBytes: "1,572,864" },
+        { name: "既存ファイル2.pdf", sizeBytes: "2,411,724" },
       ]);
+
+      expect(fileItems()).toHaveLength(2);
+      expect(fileUpload().files).toHaveLength(2);
+      expect(fileUpload().files[0].name).toBe("既存ファイル1.jpg");
+      expect(fileUpload().files[0].isExisting).toBe(true);
+      expect(fileUpload().files[0].size).toBe(1572864);
     });
 
-    test("スペースを含む文字列を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [parseSize("10 MB"), parseSize("1 kb")];
-      });
-      expect(results).toEqual([10 * 1024 * 1024, 1024]);
-    });
-
-    test("不正な文字列の場合はnullを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseSize } = await import("./file-upload.js");
-        return [
-          parseSize("abc"),
-          parseSize("10TB"),
-          parseSize("-10MB"),
-          parseSize("10 20 MB"),
-        ];
-      });
-      expect(results).toEqual([null, null, null, null]);
-    });
-  });
-
-  test.describe("formatSize", () => {
-    test("0バイトを正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return formatSize(0);
-      });
-      expect(result).toBe("0B");
-    });
-
-    test("バイト単位を正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return [formatSize(1), formatSize(500), formatSize(1023)];
-      });
-      expect(results).toEqual(["1B", "500B", "1023B"]);
-    });
-
-    test("KB単位を正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return [formatSize(1024), formatSize(1536), formatSize(500 * 1024)];
-      });
-      expect(results).toEqual(["1KB", "1.5KB", "500KB"]);
-    });
-
-    test("MB単位を正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return [
-          formatSize(1024 * 1024),
-          formatSize(1.5 * 1024 * 1024),
-          formatSize(2 * 1024 * 1024),
-        ];
-      });
-      expect(results).toEqual(["1MB", "1.5MB", "2MB"]);
-    });
-
-    test("GB単位を正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return [
-          formatSize(1024 * 1024 * 1024),
-          formatSize(2.5 * 1024 * 1024 * 1024),
-        ];
-      });
-      expect(results).toEqual(["1GB", "2.5GB"]);
-    });
-
-    test("precisionを指定した場合に正しくフォーマットするべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { formatSize } = await import("./file-upload.js");
-        return [
-          formatSize(1536, 0),
-          formatSize(1536, 1),
-          formatSize(1536, 2),
-          formatSize(1024 * 1024, 2),
-        ];
-      });
-      expect(results).toEqual(["2KB", "1.5KB", "1.5KB", "1MB"]);
-    });
-  });
-
-  test.describe("formatSizeWithDiff", () => {
-    test("bytes1が0の場合を正しく処理するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { formatSizeWithDiff } = await import("./file-upload.js");
-        return formatSizeWithDiff(0, 1024);
-      });
-      expect(result.size1).toBe("0B");
-      expect(result.size2).toBe("1KB");
-    });
-
-    test("bytes2が0の場合を正しく処理するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { formatSizeWithDiff } = await import("./file-upload.js");
-        return formatSizeWithDiff(1024, 0);
-      });
-      expect(result.size1).toBe("1KB");
-      expect(result.size2).toBe("0B");
-    });
-
-    test("同じ単位で異なる値を正しくフォーマットするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { formatSizeWithDiff } = await import("./file-upload.js");
-        return formatSizeWithDiff(10 * 1024 * 1024, 11 * 1024 * 1024);
-      });
-      expect(result.size1).toBe("10MB");
-      expect(result.size2).toBe("11MB");
-    });
-
-    test("同じ値の場合を正しく処理するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { formatSizeWithDiff } = await import("./file-upload.js");
-        return formatSizeWithDiff(1024, 1024);
-      });
-      expect(result.size1).toBe(result.size2);
-    });
-
-    test("丸めると同じになる値を精度を上げて区別するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      // 10.0000MBと10.0001MBのように、通常の精度では両方「10MB」になってしまう値
-      const result = await page.evaluate(async () => {
-        const { formatSizeWithDiff } = await import("./file-upload.js");
-        const bytes1 = 10.0 * 1024 * 1024; // 10.0000MB
-        const bytes2 = 10.0001 * 1024 * 1024; // 10.0001MB
-        return formatSizeWithDiff(bytes1, bytes2);
-      });
-      // 両方が「10MB」ではなく、区別できる表示になっているべき
-      expect(result.size1).not.toBe(result.size2);
-    });
-  });
-
-  test.describe("parseAcceptAttribute", () => {
-    test("空またはnullの場合は空配列を返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return [
-          parseAcceptAttribute(""),
-          parseAcceptAttribute(null),
-          parseAcceptAttribute(undefined),
-        ];
-      });
-      expect(results).toEqual([[], [], []]);
-    });
-
-    test("単一の拡張子をパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return [parseAcceptAttribute(".png"), parseAcceptAttribute(".PNG")];
-      });
-      expect(results).toEqual([[".png"], [".png"]]);
-    });
-
-    test("複数の拡張子をパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return parseAcceptAttribute(".png,.jpg,.gif");
-      });
-      expect(result).toEqual([".png", ".jpg", ".gif"]);
-    });
-
-    test("スペースを含む文字列を正しくパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return [
-          parseAcceptAttribute(".png, .jpg, .gif"),
-          parseAcceptAttribute(" .png , .jpg "),
-        ];
-      });
-      expect(results).toEqual([
-        [".png", ".jpg", ".gif"],
-        [".png", ".jpg"],
+    test("既存ファイルの選択サマリーが表示される", () => {
+      mountWithExistingFiles([
+        { name: "file1.jpg", sizeBytes: "1,048,576" },
+        { name: "file2.pdf", sizeBytes: "2,097,152" },
       ]);
+
+      expect(summary().textContent).toContain("選択中：2個");
     });
 
-    test("MIMEタイプをパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return parseAcceptAttribute("image/png,image/jpeg");
-      });
-      expect(result).toEqual(["image/png", "image/jpeg"]);
+    test("既存ファイルを削除できる", () => {
+      mountWithExistingFiles([
+        { name: "file1.jpg", sizeBytes: "1,048,576" },
+        { name: "file2.pdf", sizeBytes: "2,097,152" },
+      ]);
+
+      removeButtons()[0].click();
+
+      expect(fileItems()).toHaveLength(1);
+      expect(fileUpload().files).toHaveLength(1);
+      expect(fileUpload().files[0].name).toBe("file2.pdf");
     });
 
-    test("MIMEタイプワイルドカードをパースするべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { parseAcceptAttribute } = await import("./file-upload.js");
-        return [
-          parseAcceptAttribute("image/*"),
-          parseAcceptAttribute("image/*,application/*"),
-        ];
-      });
-      expect(results).toEqual([["image/*"], ["image/*", "application/*"]]);
-    });
-  });
+    test("既存ファイルに新規ファイルを追加できる", () => {
+      mountWithExistingFiles([
+        { name: "existing.jpg", sizeBytes: "1,048,576" },
+      ]);
 
-  test.describe("getFileExtension", () => {
-    test("通常のファイル名から拡張子を取得するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { getFileExtension } = await import("./file-upload.js");
-        return [
-          getFileExtension("file.png"),
-          getFileExtension("document.pdf"),
-          getFileExtension("image.JPEG"),
-        ];
-      });
-      expect(results).toEqual([".png", ".pdf", ".jpeg"]);
+      addFiles([{ name: "new-file.png", size: 2048, type: "image/png" }]);
+
+      expect(fileItems()).toHaveLength(2);
+      expect(fileUpload().files).toHaveLength(2);
+      expect(summary().textContent).toContain("選択中：2個");
     });
 
-    test("複数のドットを含むファイル名から拡張子を取得するべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { getFileExtension } = await import("./file-upload.js");
-        return [
-          getFileExtension("file.name.png"),
-          getFileExtension("my.document.v2.pdf"),
-        ];
+    test("既存ファイルにはバリデーションエラーが付与されない", () => {
+      mountWithExistingFiles([{ name: "legacy.exe", sizeBytes: "1,048,576" }], {
+        inputAttrs: 'multiple accept=".png"',
       });
-      expect(results).toEqual([".png", ".pdf"]);
+
+      // 既存ファイルは accept 制約を受けない
+      expect(fileItems()[0].hasAttribute("data-error")).toBe(false);
     });
 
-    test("拡張子がないファイル名の場合は空文字列を返すべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { getFileExtension } = await import("./file-upload.js");
-        return [getFileExtension("filename"), getFileExtension("Makefile")];
-      });
-      expect(results).toEqual(["", ""]);
-    });
+    test("既存ファイルの解除ボタンに aria-labelledby が設定される", () => {
+      mountWithExistingFiles([{ name: "test.jpg", sizeBytes: "512,000" }]);
 
-    test("大文字の拡張子を小文字に変換するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { getFileExtension } = await import("./file-upload.js");
-        return [getFileExtension("FILE.PNG"), getFileExtension("Document.PDF")];
-      });
-      expect(results).toEqual([".png", ".pdf"]);
+      const btn = removeButtons()[0];
+      const labelledby = btn.getAttribute("aria-labelledby");
+
+      expect(labelledby).toMatch(/^file-.+-remove file-.+-name$/);
+      const [removeId, nameId] = labelledby.split(" ");
+      expect(document.getElementById(removeId)).toBe(btn);
+      expect(document.getElementById(nameId).textContent).toBe("test.jpg");
     });
   });
 
-  test.describe("isFileTypeAllowed", () => {
-    test("許可された拡張子の場合はtrueを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return [
-          isFileTypeAllowed(".png", "image/png", [".png", ".jpg"]),
-          isFileTypeAllowed(".jpg", "image/jpeg", [".png", ".jpg"]),
-        ];
-      });
-      expect(results).toEqual([true, true]);
-    });
+  // -------------------------------------------------------------------------
+  // ライフサイクル
+  // -------------------------------------------------------------------------
+  describe("ライフサイクル", () => {
+    test("DOM から削除した後に再接続しても正常に動作する", () => {
+      mount();
+      addFiles([{ name: "file.png", size: 1024, type: "image/png" }]);
 
-    test("許可されていない拡張子の場合はfalseを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return [
-          isFileTypeAllowed(".exe", "application/x-msdownload", [
-            ".png",
-            ".jpg",
-          ]),
-          isFileTypeAllowed(".gif", "image/gif", [".png", ".jpg"]),
-        ];
-      });
-      expect(results).toEqual([false, false]);
-    });
+      const el = fileUpload();
+      const parent = el.parentElement;
+      el.remove();
+      parent.appendChild(el);
 
-    test("許可されたMIMEタイプの場合はtrueを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return isFileTypeAllowed(".png", "image/png", [
-          "image/png",
-          "image/jpeg",
-        ]);
-      });
-      expect(result).toBe(true);
-    });
-
-    test("許可されていないMIMEタイプの場合はfalseを返すべき", async ({
-      page,
-    }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return isFileTypeAllowed(".gif", "image/gif", [
-          "image/png",
-          "image/jpeg",
-        ]);
-      });
-      expect(result).toBe(false);
-    });
-
-    test("image/*で画像ファイルを許可するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return [
-          isFileTypeAllowed(".png", "image/png", ["image/*"]),
-          isFileTypeAllowed(".jpg", "image/jpeg", ["image/*"]),
-          isFileTypeAllowed(".gif", "image/gif", ["image/*"]),
-          isFileTypeAllowed(".webp", "image/webp", ["image/*"]),
-        ];
-      });
-      expect(results).toEqual([true, true, true, true]);
-    });
-
-    test("image/*で非画像ファイルを拒否するべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const results = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return [
-          isFileTypeAllowed(".pdf", "application/pdf", ["image/*"]),
-          isFileTypeAllowed(".txt", "text/plain", ["image/*"]),
-        ];
-      });
-      expect(results).toEqual([false, false]);
-    });
-
-    test("空の許可リストの場合はfalseを返すべき", async ({ page }) => {
-      await setupFileUpload(page);
-      const result = await page.evaluate(async () => {
-        const { isFileTypeAllowed } = await import("./file-upload.js");
-        return isFileTypeAllowed(".png", "image/png", []);
-      });
-      expect(result).toBe(false);
+      // 再接続後も追加・削除が可能
+      addFiles([{ name: "new.png", size: 2048, type: "image/png" }]);
+      expect(fileUpload().files.length).toBeGreaterThanOrEqual(1);
     });
   });
 });

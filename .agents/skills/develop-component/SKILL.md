@@ -18,7 +18,9 @@ src/components/<component-name>/
 ├── <variation>.html               # 任意: 使い方が異なるバリエーション用HTML
 ├── <component-name>.stories.css   # 任意: Storybookストーリー専用のスタイル調整
 ├── <component-name>.stories.ts    # 必須: Storybookストーリー
-├── <component-name>.test.js       # 必須: テスト
+├── <component-name>.vrt.js        # 必須: VRT（Visual Regression Test、Playwright）
+├── <component-name>.test.js       # 任意: 機能テスト（Vitest browser mode、JSを含むコンポーネント）
+├── <component-name>.unit.js       # 任意: ユニットテスト（Vitest jsdom、純粋関数のロジック検証）
 ├── <component-name>.mdx           # 必須: ドキュメント（write-documentスキルを使用）
 └── <component-name>.js            # 任意: Custom Element（インタラクティブな場合）
 ```
@@ -710,9 +712,17 @@ import "./component-name.js"; // Custom Elementを登録
 import playground from "./playground.html?raw";
 ```
 
-## テスト（.test.js）
+## テスト
 
-### 基本形（CSS-onlyコンポーネント）
+テストは3種類に分かれる。
+
+- **VRT（Visual Regression Test）**: `.vrt.js` — Playwrightで実行。リセットCSS適用時にコンポーネントの見た目が変わらないことを検証する
+- **機能テスト**: `.test.js` — Vitest browser modeで実行。JSを含むインタラクティブなコンポーネントの動作を検証する
+- **ユニットテスト**: `.unit.js` — Vitest（jsdom）で実行。JSからエクスポートされた純粋関数のロジックを検証する
+
+### VRT（.vrt.js）
+
+#### 基本形（CSS-onlyコンポーネント）
 
 ```javascript
 import path from "node:path";
@@ -723,7 +733,7 @@ const { dirname } = import.meta;
 resetCssVrt("component-name", path.join(dirname, "playground.html"));
 ```
 
-### 複数のHTMLをテスト
+#### 複数のHTMLをテスト
 
 各HTMLファイルに対して `resetCssVrt` を呼び出す。
 
@@ -744,7 +754,7 @@ resetCssVrt(
 );
 ```
 
-### ignoreElementsオプション
+#### ignoreElementsオプション
 
 テスト結果に影響を与えるが本質的な差異ではない要素（例: アコーディオンの開閉コンテンツ）をVRTテストから除外する。
 
@@ -754,48 +764,268 @@ resetCssVrt("stacked", path.join(dirname, "stacked.html"), {
 });
 ```
 
-### resetCssVrtの仕組み
+#### resetCssVrtの仕組み
 
 `resetCssVrt` は以下のテストを自動生成する:
 
-1. オリジナルのスクリーンショットを作成
-2. Normalize.css適用時の表示に変化がないこと
-3. Bootstrap Reboot適用時の表示に変化がないこと
-4. Tailwind Preflight適用時の表示に変化がないこと
-5. Eric Meyer's Reset CSS適用時の表示に変化がないこと
-6. kiso.css適用時の表示に変化がないこと
-7. 継承プロパティやグローバルスタイルが定義済みの時の表示に変化がないこと
+1. Normalize.css適用時の表示に変化がないこと
+2. Bootstrap Reboot適用時の表示に変化がないこと
+3. Tailwind Preflight適用時の表示に変化がないこと
+4. Eric Meyer's Reset CSS適用時の表示に変化がないこと
+5. kiso.css適用時の表示に変化がないこと
+6. 継承プロパティやグローバルスタイルが定義済みの時の表示に変化がないこと
 
-テスト実行には全HTMLバリエーションのスナップショットが必要。初回実行時は `--update-snapshots` フラグを使用する。
+各テスト内でベースライン（リセットCSS未適用）のスクリーンショットを取得し、リセットCSS適用後のスクリーンショットと pixelmatch で比較する。スナップショットファイルは生成されないため、`--update-snapshots` は不要。
 
-### テスト名
+#### テスト名
 
-`resetCssVrt` の第1引数はテスト名（=スナップショットのファイル名プレフィックス）。コンポーネント内で一意にする。
+`resetCssVrt` の第1引数はテスト名。コンポーネント内で一意にする。
 
-### Playwright機能テスト（複雑なコンポーネント）
+### 機能テスト（.test.js）
 
-JSを含む複雑なコンポーネントでは、VRTに加えて機能テストも同じファイルに記述する。
+JSを含むインタラクティブなコンポーネントでは、Vitest browser modeで機能テストを記述する。
+
+#### 設計原則
+
+1. **決定的なテスト**: `new Date()` 等の現在時刻に依存する処理がある場合、`vi.useFakeTimers({ toFake: ["Date"] })` で時刻を固定し、実行日によって結果が変わらないようにする
+2. **具体的なアサーション**: 「変わったこと」ではなく「何に変わったか」を検証する。`not.toBe(initialValue)` ではなく `toBe("期待値")` を使う
+3. **playground.html から独立したHTML**: テスト用のHTMLをテストファイル内にインラインで定義し、playground.html のデモ用変更がテストに影響しないようにする。必要な `data-js-*` 属性・ARIA属性・構造のみを含む最小限のHTMLにする
+4. **1テスト1振る舞い**: 各テストは1つのアクションと、それに対する具体的な期待結果を検証する
+5. **不変条件の検証**: 「tabindex="0" のボタンが常に1つだけ存在する」のような不変条件を、状態変更のたびに検証する
+
+#### 基本構造
 
 ```javascript
-import path from "node:path";
-import { expect, test } from "@playwright/test";
-import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { page, userEvent } from "vitest/browser";
+import "./component-name.js";
 
-const { dirname } = import.meta;
+// 「今日」を固定する（時刻依存のコンポーネントの場合）
+const FAKE_NOW = new Date(2025, 5, 15, 12, 0, 0);
 
-// VRTテスト
-resetCssVrt("component-playground", path.join(dirname, "playground.html"));
+// テスト用の最小限のHTML（playground.html から独立）
+const componentHTML = (extraAttrs = "") => `
+<dads-component class="dads-component" ${extraAttrs}>
+  <button data-js-trigger-button>開く</button>
+  <div data-js-content>コンテンツ</div>
+</dads-component>`;
 
-// 機能テスト
-test.describe("ComponentName", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(`file://${path.join(dirname, "playground.html")}`);
+beforeEach(() => {
+  // 時刻依存のコンポーネントの場合のみ
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(FAKE_NOW);
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+  document.body.innerHTML = "";
+});
+
+/**
+ * コンポーネントをDOMにマウントして返す。
+ * 属性はHTML文字列に直接埋め込み、connectedCallback で1回だけ初期化させる。
+ */
+const mountComponent = async (options = {}) => {
+  const attrs = [];
+  if (options.minDate) attrs.push(`min-date="${options.minDate}"`);
+  if (options.maxDate) attrs.push(`max-date="${options.maxDate}"`);
+  document.body.innerHTML = componentHTML(attrs.join(" "));
+  return document.querySelector("dads-component");
+};
+
+// DOM helpers — テスト対象のコンポーネントに合わせて定義
+const enabledButtons = () =>
+  [...document.querySelectorAll("[data-js-button]:not(:disabled)")];
+
+const selectedButton = () =>
+  document.querySelector('[data-selected="true"]');
+
+describe("ComponentName", () => {
+  test("ボタンクリックで開閉する", async () => {
+    await mountComponent();
+    await page.getByRole("button", { name: "開く" }).click();
+    await expect
+      .element(page.getByRole("button", { name: "開く" }))
+      .toHaveAttribute("aria-expanded", "true");
+  });
+});
+```
+
+#### 時刻固定（`vi.useFakeTimers`）
+
+`new Date()` に依存するコンポーネント（カレンダー等）では、テスト結果が実行日によって変わる問題がある。`vi.useFakeTimers({ toFake: ["Date"] })` を使い、`Date` コンストラクタのみをフェイクにする。`setTimeout` や `requestAnimationFrame` はそのまま動作する。
+
+```javascript
+beforeEach(() => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(new Date(2025, 5, 15, 12, 0, 0)); // 2025-06-15 に固定
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+  document.body.innerHTML = "";
+});
+```
+
+**注意:**
+- `toFake: ["Date"]` を指定しないと `setTimeout` もフェイクになり、`await new Promise(resolve => setTimeout(resolve, 0))` が永遠に解決しなくなる
+- `afterEach` で `vi.useRealTimers()` を必ず呼び、他のテストに影響しないようにする
+- テストファイルの冒頭に、固定した日付でのカレンダー等の想定状態をコメントで書いておくと可読性が上がる
+
+#### インラインHTMLによるセットアップ
+
+テスト用HTMLをテストファイル内に文字列として定義し、`playground.html` への依存を排除する。
+
+```javascript
+// HTMLを関数にして、属性を動的に埋め込めるようにする
+const calendarHTML = (extraAttrs = "") => `
+<dads-calendar class="dads-calendar" role="application" ${extraAttrs}>
+  <!-- data-js-* 属性とARIA属性を含む最小限の構造 -->
+</dads-calendar>`;
+
+const mountCalendar = async (options = {}) => {
+  // 属性はHTML文字列に埋め込み、connectedCallback の1回の初期化で反映させる
+  const attrs = [];
+  if (options.minDate) attrs.push(`min-date="${options.minDate}"`);
+  if (options.maxDate) attrs.push(`max-date="${options.maxDate}"`);
+  document.body.innerHTML = calendarHTML(attrs.join(" "));
+  return document.querySelector("dads-calendar");
+};
+```
+
+**ポイント:**
+- 属性は `innerHTML` に直接埋め込むことで、`connectedCallback` → `attributeChangedCallback` の二重初期化を避ける
+- CSS クラスやSVG の装飾的属性は、JS の動作に影響しない限り省略してよい
+
+#### 要素の取得方法
+
+- **セマンティッククエリ（Vitest locator）**: ロール・ラベルで取得できる要素に使用する。テスト内で変数に入れて使い回せる（locatorは毎回最新のDOMを参照する）
+  - `page.getByRole("button", { name: "送信" })`
+  - `page.getByRole("combobox", { name: "年" })`
+  - `page.getByRole("menuitem", { name: "項目1" })`
+  - `page.getByText("メッセージ")`
+- **`document.querySelector`**: `data-js-*` 属性やCSSセレクタでの取得が必要な場合に使用する。Vitest browser modeには `page.locator()` のようなCSSセレクタlocatorは存在しない
+- **DOMヘルパー関数**: テスト全体で繰り返し使うクエリは、ファイル上部にヘルパー関数として定義する
+
+```javascript
+// セマンティッククエリ — locatorを変数に入れて使い回す
+const opener = page.getByRole("button", { name: "メニュー" });
+await opener.click();
+await expect.element(opener).toHaveAttribute("aria-expanded", "true");
+
+// DOM直接参照 — data-js-* 属性や内部状態の検証
+const currentMonth = document.querySelector("[data-js-current-month]");
+expect(currentMonth.textContent).toBe("6月");
+
+// DOMヘルパー — 繰り返し使うクエリを関数化
+const enabledButtons = () =>
+  [...document.querySelectorAll("[data-js-date-button]:not(:disabled)")];
+const buttonFor = (day) =>
+  enabledButtons().find((b) => b.textContent === String(day));
+const selectedButton = () =>
+  document.querySelector('[data-selected="true"]');
+```
+
+#### アサーション
+
+- **`expect.element(locator)`**: locatorに対するリトライ付きアサーション（非同期DOM更新の待機が必要な場合）
+- **`expect(value)`**: 同期的な値の検証（即座に反映されるDOM変更の場合）
+- **具体的な期待値を使う**: `not.toBe(initialValue)` ではなく `toBe("5月")` のように、何に変わるかを明示する
+
+```javascript
+// DO: 具体的な期待値
+await page.getByRole("button", { name: "前の月" }).click();
+expect(currentMonth()).toBe("5月");
+
+// DON'T: 「変わった」だけの検証
+const initial = currentMonth();
+await page.getByRole("button", { name: "前の月" }).click();
+expect(currentMonth()).not.toBe(initial);
+
+// DO: イベント detail の具体的な値を検証
+const date = handler.mock.calls[0][0].detail.date;
+expect(date.getFullYear()).toBe(2025);
+expect(date.getMonth()).toBe(5);
+expect(date.getDate()).toBe(20);
+
+// DON'T: detail が存在するかだけの検証
+expect(handler.mock.calls[0][0].detail.date).toBeTruthy();
+```
+
+#### ユーザー操作
+
+`userEvent`（CDPベースの実キーストローク）を使用する。
+
+```javascript
+import { userEvent } from "vitest/browser";
+
+// キーボード操作
+await userEvent.keyboard("{ArrowDown}");
+await userEvent.keyboard("{Escape}");
+await userEvent.keyboard("{Enter}");
+await userEvent.keyboard("{ }");  // Spaceキー
+
+// クリック
+await opener.click();                    // locator経由
+await userEvent.click(dateButton);       // DOM要素直接
+
+// タブ
+await userEvent.tab();
+await userEvent.tab({ shift: true });
+```
+
+**注意:**
+- Playwright locator の `click()` は `aria-disabled="true"` の要素でタイムアウトする（enabled になるのを待つため）。disabled 状態でのクリックをテストする場合は `element.click()` を使う
+- カレンダーなどDOM再描画が行われるコンポーネントでは、クリック後にボタン参照が古くなる。再描画後は `document.querySelector` で再取得する
+
+#### イベントハンドラの検証
+
+`vi.fn()` を使用し、イベントの `detail` の具体的な値まで検証する。
+
+```javascript
+const handler = vi.fn();
+cal().addEventListener("date-selected", handler);
+
+await userEvent.click(buttonFor(20));
+
+expect(handler).toHaveBeenCalledOnce();
+const date = handler.mock.calls[0][0].detail.date;
+expect(date.getFullYear()).toBe(2025);
+expect(date.getMonth()).toBe(5);
+expect(date.getDate()).toBe(20);
+```
+
+#### テストのカテゴリ
+
+機能テストでは以下のカテゴリを網羅的にカバーする。
+
+| カテゴリ | 検証内容の例 |
+|---|---|
+| 初期表示 | デフォルト状態での表示内容、属性値、範囲 |
+| 描画 | 要素の数、enabled/disabled状態、行数 |
+| ユーザー操作 | クリック、キーボードナビゲーション、選択/解除 |
+| イベント | CustomEvent の発火、detail の値、bubbles |
+| ナビゲーション制約 | 範囲外への移動が無視されること |
+| 外部API | public メソッドの正常系・異常系 |
+| 属性の動的変更 | `attributeChangedCallback` による再描画 |
+| アクセシビリティ | aria-label、aria-selected、tabindex管理、ライブリージョン |
+| エッジケース | 無効な入力、境界値、うるう年、DOM再接続 |
+
+### ユニットテスト（.unit.js）
+
+JSからエクスポートされた純粋関数（DOM操作を伴わないロジック）を検証する。jsdom環境で実行される。
+
+```javascript
+import { describe, test, expect } from "vitest";
+import { parseSize, formatSize } from "./component-name.js";
+
+describe("parseSize", () => {
+  test("MB単位を正しくパースするべき", () => {
+    expect(parseSize("10MB")).toBe(10 * 1024 * 1024);
   });
 
-  test("ボタンクリックで開閉する", async ({ page }) => {
-    const trigger = page.locator("[data-js-trigger-button]");
-    await trigger.click();
-    // アサーション...
+  test("不正な文字列の場合はnullを返すべき", () => {
+    expect(parseSize("abc")).toBe(null);
   });
 });
 ```
@@ -833,11 +1063,26 @@ WCAG 2.2のレベルAおよびレベルAA達成基準を全て満たすことを
 # Storybookの起動（開発サーバー）
 npm run storybook
 
-# 全テストの実行
+# 全テストの実行（Vitest + Playwright VRT）
 npm test
 
-# 特定のコンポーネントのテスト
-npx playwright test src/components/<component-name>/<component-name>.test.js
+# VRTテストのみ実行（Playwright）
+npm run test:vrt
+
+# 特定のコンポーネントのVRTテスト
+npx playwright test src/components/<component-name>/<component-name>.vrt.js
+
+# 全機能テストの実行（Vitest browser mode）
+npm run test:browser
+
+# 特定のコンポーネントの機能テスト
+npx vitest run --project browser src/components/<component-name>/<component-name>.test.js
+
+# ユニットテストの実行（Vitest jsdom）
+npx vitest run --project unit
+
+# 特定のコンポーネントのユニットテスト
+npx vitest run --project unit src/components/<component-name>/<component-name>.unit.js
 
 # フォーマット
 npx @biomejs/biome format --write src/components/<component-name>/
@@ -884,10 +1129,16 @@ npx @biomejs/biome format --write src/components/<component-name>/
 
 ### テスト
 
-- [ ] `resetCssVrt` で全HTMLのVRTテストを定義している
-- [ ] テスト名がコンポーネント内で一意である
+- [ ] `resetCssVrt` で全HTMLのVRTテストを `.vrt.js` ファイルに定義している
+- [ ] VRTテスト名がコンポーネント内で一意である
 - [ ] 必要に応じて `ignoreElements` オプションを使用している
-- [ ] JSを含むコンポーネントでは機能テストも記述している
+- [ ] JSを含むコンポーネントでは `.test.js` ファイルにVitest browser modeで機能テストを記述している
+- [ ] テスト用HTMLをテストファイル内にインラインで定義し、playground.html から独立させている
+- [ ] `new Date()` 等に依存する場合は `vi.useFakeTimers({ toFake: ["Date"] })` で時刻を固定している
+- [ ] アサーションには具体的な期待値を使い、「変わった」ではなく「何に変わったか」を検証している
+- [ ] イベントの `detail` の具体的な値まで検証している
+- [ ] `page.getByRole` 等のセマンティッククエリを優先し、`data-js-*` 属性には `document.querySelector` を使用している
+- [ ] 純粋関数をエクスポートしている場合は `.unit.js` ファイルにユニットテストを記述している
 
 ### JavaScript（該当する場合）
 

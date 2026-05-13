@@ -14,7 +14,12 @@ const validatorUrl = import.meta.env.VITE_VALIDATOR_URL || VALIDATOR_URL;
  * - #storybook-docs: Storybook Docs が注入するマークアップ
  * - .sb-wrapper: Storybook のラッパー要素
  */
-const EXCLUDE_SELECTORS = ["style", "#storybook-docs", ".sb-wrapper", "body > textarea"];
+const EXCLUDE_SELECTORS = [
+  "style",
+  "#storybook-docs",
+  ".sb-wrapper",
+  "body > textarea",
+];
 
 const getCleanHtml = () => {
   const cloned = document.documentElement.cloneNode(true);
@@ -39,7 +44,10 @@ channel.on(EVENTS.REQUEST, async () => {
     });
 
     if (!res.ok) {
-      channel.emit(EVENTS.ERROR, `Validator API error: ${res.status} ${res.statusText}`);
+      channel.emit(
+        EVENTS.ERROR,
+        `Validator API error: ${res.status} ${res.statusText}`,
+      );
       return;
     }
 
