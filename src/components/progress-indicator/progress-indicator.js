@@ -13,6 +13,9 @@ class ProgressIndicator extends HTMLElement {
         long: "読み込み中です",
         longWithValue: "{value}% 読み込みました。",
       },
+      label: {
+        defaultLabel: "読み込み中",
+      },
     };
   }
 
@@ -143,10 +146,16 @@ class ProgressIndicator extends HTMLElement {
     this.setAttribute("aria-valuemax", "100");
 
     const label = this.label;
-    if (label) {
+    if (label && label.textContent.trim() !== "") {
       const labelId = `dads-pi-${crypto.randomUUID()}`;
       label.id = labelId;
       this.setAttribute("aria-labelledby", labelId);
+    } else {
+      label?.remove();
+      this.setAttribute(
+        "aria-label",
+        this.#getMessage("label", "defaultLabel"),
+      );
     }
   }
 
@@ -177,12 +186,12 @@ class ProgressIndicator extends HTMLElement {
     return this.intent === "explicit";
   }
 
-  #getMessage(key, variables = {}) {
-    const datasetKey = `announce${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+  #getMessage(category, key, variables = {}) {
+    const datasetKey = `${category}${key.charAt(0).toUpperCase()}${key.slice(1)}`;
     let template = this.dataset[datasetKey];
 
     if (!template) {
-      template = ProgressIndicator.defaultMessages.announce[key] || "";
+      template = ProgressIndicator.defaultMessages[category]?.[key] || "";
     }
 
     return template.replace(/\{(\w+)\}/g, (match, variable) => {
@@ -192,7 +201,7 @@ class ProgressIndicator extends HTMLElement {
 
   #handleStart() {
     if (this.#shouldAnnounce()) {
-      this.#announce(this.#getMessage("start"));
+      this.#announce(this.#getMessage("announce", "start"));
       this.#scheduleLongAndRepeats();
     }
   }
@@ -201,7 +210,7 @@ class ProgressIndicator extends HTMLElement {
     this.#clearTimers();
 
     if (this.#shouldAnnounce()) {
-      this.#announce(this.#getMessage("end"));
+      this.#announce(this.#getMessage("announce", "end"));
     }
   }
 
@@ -220,10 +229,12 @@ class ProgressIndicator extends HTMLElement {
     const value = this.value;
     if (value !== null) {
       this.#announce(
-        this.#getMessage("longWithValue", { value: Math.round(value) }),
+        this.#getMessage("announce", "longWithValue", {
+          value: Math.round(value),
+        }),
       );
     } else {
-      this.#announce(this.#getMessage("long"));
+      this.#announce(this.#getMessage("announce", "long"));
     }
   }
 
