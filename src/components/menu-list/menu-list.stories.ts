@@ -102,4 +102,4 @@ export const Playground: StoryObj<MenuListPlaygroundProps> = {
 };
 
 export const HasChildren = () =>
-  new HtmlFragment(hasChildren, ".dads-menu-list").toString();
+  new HtmlFragment(hasChildren, "body > .dads-menu-list").toString();
