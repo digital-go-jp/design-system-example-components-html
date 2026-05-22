@@ -195,6 +195,24 @@ import menuListCss from "./menu-list.css?raw";
 </button>
 ```
 
+#### アクセシビリティ属性の併用
+
+`data-expanded`属性は視覚的なスタイルのみを制御し、スクリーンリーダーには展開状態が伝わりません。動的に開閉する場合は、`aria-expanded`属性を併用してスクリーンリーダーに展開状態を伝えてください。
+
+```html
+<!-- 展開時 -->
+<button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" data-expanded aria-expanded="true">
+  <span class="dads-menu-list__label">メニュー項目</span>
+  <svg class="dads-menu-list__end-icon" ...>...</svg>
+</button>
+
+<!-- 折りたたみ時 -->
+<button class="dads-menu-list__item" type="button" data-type="standard" data-size="regular" aria-expanded="false">
+  <span class="dads-menu-list__label">メニュー項目</span>
+  <svg class="dads-menu-list__end-icon" ...>...</svg>
+</button>
+```
+
 <Stories title="デモ" includePrimary={false} />
 
 </div>
