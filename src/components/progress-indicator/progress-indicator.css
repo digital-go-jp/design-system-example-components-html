@@ -35,17 +35,17 @@ dads-progress-indicator:not([active]) * {
 }
 
 .dads-progress-indicator[data-type="stacked-underlay"]:has(
-    .dads-progress-indicator__spinner,
-    .dads-progress-indicator__static
-  ) {
+  .dads-progress-indicator__spinner,
+  .dads-progress-indicator__static
+) {
   min-width: calc(128 / 16 * 1rem);
   min-height: calc(128 / 16 * 1rem);
   padding: calc(16 / 16 * 1rem);
 }
 
 .dads-progress-indicator[data-type="stacked-underlay"]:has(
-    .dads-progress-indicator__linear
-  ) {
+  .dads-progress-indicator__linear
+) {
   padding: calc(24 / 16 * 1rem);
 }
 

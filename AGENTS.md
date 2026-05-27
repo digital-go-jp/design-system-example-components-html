@@ -10,7 +10,7 @@ Framework-agnostic HTML/CSS/JavaScript component library for the Digital Agency 
 
 ```
 src/
-├── components/    # UI components (.css, .html, .stories.ts, .test.js, .mdx)
+├── components/    # UI components (.css, .html, .stories.ts, .vrt.js, .test.js, .unit.js, .mdx)
 ├── docs/          # Documentation (MDX)
 ├── helpers/       # TypeScript utilities
 └── global.css     # Design tokens
@@ -21,15 +21,12 @@ tests/helpers/     # Test utilities
 
 ```bash
 npm run storybook       # Dev server at localhost:6006
-npm test                # Run all Playwright VRT tests
+npm test                # Run all tests (Vitest + Playwright VRT)
 npm run format          # Format with Biome
 
-# Single test
-npx playwright test src/components/button/button.test.js
+# Single VRT test
+npx playwright test src/components/button/button.vrt.js
 npx playwright test -g "Normalize.css"
-
-# Update snapshots
-npx playwright test --update-snapshots
 ```
 
 ## How to Work in This Codebase

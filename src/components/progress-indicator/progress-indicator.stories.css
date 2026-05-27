@@ -1,4 +1,10 @@
 :has(> .dads-progress-indicator) {
   display: grid;
   gap: 4rem;
+  place-items: center;
+  min-block-size: 0;
+}
+
+[data-paused] .dads-progress-indicator * {
+  animation-play-state: paused !important;
 }

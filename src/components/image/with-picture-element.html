@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>画像</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="image.css">
+</head>
+<body>
+
+<figure class="dads-image">
+  <div class="dads-image__image-area" data-bordered>
+    <picture>
+      <source srcset="sample-mobile.png, sample-mobile@2x.png 2x" media="(max-width: 40rem)">
+      <img class="dads-image__img" src="sample.png" srcset="sample@2x.png 2x" alt="山と空のサンプル画像" width="696" height="392">
+    </picture>
+  </div>
+  <figcaption class="dads-image__caption" data-style="dashed">これはダミーの画像キャプションです。ダミーの画像キャプションは、デザインやレイアウトの作成時に使用される仮の文章です。</figcaption>
+</figure>
+
+</body>
+</html>

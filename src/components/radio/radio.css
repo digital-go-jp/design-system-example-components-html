@@ -52,8 +52,8 @@
 
 @media (hover: hover) {
   .dads-radio__radio:has(
-      :not(:focus, :disabled, [aria-disabled="true"]):hover
-    ) {
+    :not(:focus, :disabled, [aria-disabled="true"]):hover
+  ) {
     background-color: var(--color-neutral-solid-gray-420);
   }
 }
@@ -110,9 +110,9 @@
 
 @media (hover: hover) {
   .dads-radio__input:checked:not(
-      :disabled,
-      [aria-disabled="true"]
-    ):hover::before {
+    :disabled,
+    [aria-disabled="true"]
+  ):hover::before {
     background-color: var(--_accent-hover-color);
   }
 }

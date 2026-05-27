@@ -17,6 +17,13 @@ const preview: Preview = {
       theme: dadsTheme,
       codePanel: true,
     },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: "todo",
+    },
     options: {
       storySort: {
         order: [
@@ -31,14 +38,16 @@ const preview: Preview = {
             "引用ブロック",
             "カード",
             "箇条書きリスト",
+            "画像",
             "カルーセル",
             "カレンダー",
             "緊急時バナー",
-            "グローバルメニュー",
             "検索ボックス",
+            "水平メニュー",
             "ステップナビゲーション",
             "説明リスト",
             "セレクトボックス",
+            "タブ",
             "チェックボックス",
             "チップラベル",
             "ディスクロージャー",
@@ -53,6 +62,7 @@ const preview: Preview = {
             "ファイルアップロード／ドロップエリア",
             "フォームコントロールラベル",
             "プログレスインジケーター",
+            "ページナビゲーション",
             "ボタン",
             "見出し",
             "メニューリスト",

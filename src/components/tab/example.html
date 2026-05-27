@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../../../.storybook/prose.css">
+<link rel="stylesheet" href="../heading/heading.css">
+<link rel="stylesheet" href="../link/link.css">
+<link rel="stylesheet" href="tab.css">
+<script type="module" src="tab.js"></script>
+</head>
+<body>
+
+<div class="dads-heading" data-size="24" style="margin-bottom: calc(16 / 16 * 1rem);">
+  <h2 id="product-data-heading" class="dads-heading__heading">商品データ</h2>
+</div>
+
+<dads-tab class="dads-tab">
+  <ul class="dads-tab__list" data-js-tab-list aria-labelledby="product-data-heading">
+    <li><a class="dads-tab__tab" data-js-tab href="#ex-overview" aria-current="true"><span>概要</span></a></li>
+    <li><a class="dads-tab__tab" data-js-tab href="#ex-spec"><span>仕様</span></a></li>
+    <li><a class="dads-tab__tab" data-js-tab href="#ex-qa"><span>Q&amp;A</span></a></li>
+  </ul>
+  <div class="dads-tab__panels">
+    <div class="dads-tab__panel" id="ex-overview">
+      <div class="prose">
+        <p>軽量かつ高耐久なアルミニウム合金製ポータブルスピーカーです。防水・防塵性能（IP67）を備え、アウトドアからオフィスまで幅広いシーンで活躍します。</p>
+        <ul>
+          <li>最大20時間の連続再生</li>
+          <li>Bluetooth 5.3対応、接続距離最大30m</li>
+          <li>2台同時接続によるステレオペアリング機能</li>
+          <li>内蔵マイク搭載、ハンズフリー通話に対応</li>
+        </ul>
+        <p>充電はUSB-Cケーブル1本で完結。急速充電に対応しており、約1.5時間でフル充電が可能です。</p>
+      </div>
+    </div>
+    <div class="dads-tab__panel" id="ex-spec">
+      <div class="prose">
+        <dl>
+          <dt>本体サイズ</dt>
+          <dd>幅180mm × 高さ68mm × 奥行き68mm</dd>
+          <dt>重量</dt>
+          <dd>540g</dd>
+          <dt>素材</dt>
+          <dd>アルミニウム合金（本体）、シリコン（底面）</dd>
+          <dt>防水・防塵</dt>
+          <dd>IP67（水深1mに30分間耐える）</dd>
+          <dt>連続再生時間</dt>
+          <dd>最大20時間（音量60%時）</dd>
+          <dt>充電端子</dt>
+          <dd>USB-C（最大18W急速充電対応）</dd>
+          <dt>対応コーデック</dt>
+          <dd>SBC、AAC、aptX</dd>
+          <dt>カラー展開</dt>
+          <dd>マットブラック、シルバー、フォレストグリーン</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="dads-tab__panel" id="ex-qa">
+      <div class="prose">
+        <dl>
+          <dt>充電しながら再生できますか？</dt>
+          <dd>はい、USB-Cケーブルを接続したまま再生可能です。ただし、充電中は本体が若干温かくなる場合があります。</dd>
+          <dt>スマートフォン以外の機器とも接続できますか？</dt>
+          <dd>Bluetooth対応のパソコン、タブレット、ゲーム機などと接続できます。AUX入力（3.5mmジャック）にも対応しているため、非Bluetooth機器とも有線で接続可能です。</dd>
+          <dt>複数台のスピーカーをまとめて鳴らせますか？</dt>
+          <dd>同シリーズの製品を2台使ったステレオペアリングに対応しています。3台以上の同時接続は現在サポートしておりません。</dd>
+          <dt>保証期間はどのくらいですか？</dt>
+          <dd>製品登録後2年間のメーカー保証が付きます。保証登録は<a class="dads-link" href="#">公式サイトの登録フォーム</a>から行ってください。</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</dads-tab>
+
+<h2>レビュー</h2>
+<div class="prose">
+  <p>総合評価：★★★★☆（4.2 / 5.0）　レビュー件数：247件</p>
+  <blockquote>
+    <p>キャンプに持っていきましたが、雨の中でも問題なく使えました。音質も価格帯を考えると十分で、低音がしっかり出るのが気に入っています。（30代・男性）</p>
+  </blockquote>
+  <blockquote>
+    <p>コンパクトでバッグに入れやすいサイズ感が◎。テレワーク中のBGM用として毎日使っています。もう少しボリュームが上がれば完璧でした。（20代・女性）</p>
+  </blockquote>
+  <blockquote>
+    <p>ペアリングが非常に安定していて、一度つないだスマホはほぼ自動で接続されます。2台同時接続も試しましたが、遅延もなく快適です。（40代・男性）</p>
+  </blockquote>
+  <p><a class="dads-link" href="#">レビューをすべて見る</a></p>
+</div>
+
+</body>
+</html>

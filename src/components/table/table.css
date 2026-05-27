@@ -79,8 +79,24 @@
   --_border-color: var(--color-neutral-solid-gray-500);
 }
 
-.dads-table[data-selectable] tr:has(:checked) {
-  background-color: var(--color-primitive-blue-100);
+.dads-table[data-selectable] tr:has(:checked) :where(td, th) {
+  background:
+    linear-gradient(#fff, #fff) top / 100% 1px no-repeat,
+    linear-gradient(90deg, #fff, #fff) left / var(--_gap-x, 0) 100% no-repeat,
+    var(--color-primitive-blue-100);
+  background-origin: padding-box;
+}
+
+.dads-table [data-border=""] :is(td, th):first-child,
+.dads-table [data-border~="left"] :is(td, th):first-child,
+.dads-table [data-cell-border=""] :is(td, th),
+.dads-table [data-cell-border~="left"] :is(td, th),
+.dads-table [data-cell-border~="right"] :is(td, th) + :is(td, th),
+.dads-table [data-border=""]:is(td, th),
+.dads-table [data-border~="left"]:is(td, th),
+.dads-table [data-border=""] + :is(td, th),
+.dads-table [data-border~="right"] + :is(td, th) {
+  --_gap-x: 1px;
 }
 
 @supports (selector(:has(.x))) {

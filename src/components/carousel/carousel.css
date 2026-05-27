@@ -250,6 +250,7 @@
   border: 1px solid var(--color-neutral-solid-gray-420);
   background-color: var(--color-neutral-white);
   padding: 0;
+  color: inherit;
   font: inherit;
   text-align: left;
   text-decoration: underline;
@@ -390,6 +391,7 @@
 
 @media (hover: hover) {
   .dads-carousel__step:not([aria-selected="true"]):hover {
+    outline: calc(2 / 16 * 1rem) solid;
     text-decoration-thickness: calc(3 / 16 * 1rem);
     cursor: pointer;
   }
@@ -440,6 +442,18 @@
   width: calc(44 / 16 * 1rem);
   height: calc(44 / 16 * 1rem);
   content: "";
+}
+
+@media (hover: hover) {
+  .dads-carousel__page-nav > button:hover {
+    outline: calc(2 / 16 * 1rem) solid;
+    background-color: var(--color-primitive-blue-200);
+  }
+}
+
+.dads-carousel__page-nav > button:active {
+  background-color: var(--color-primitive-blue-300);
+  color: var(--color-primitive-blue-1200);
 }
 
 .dads-carousel__page-nav > button:focus-visible {
