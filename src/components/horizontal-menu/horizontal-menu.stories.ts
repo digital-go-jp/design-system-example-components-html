@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 import type { HTMLElement } from "node-html-parser";
 
-import "./global-menu.css";
+import "./horizontal-menu.css";
 import playground from "./playground.html?raw";
 
 const meta = {
-  title: "Components/グローバルメニュー",
+  title: "Components/水平メニュー",
 } satisfies Meta;
 
 export default meta;
 
-interface GlobalMenuPlaygroundProps {
+interface HorizontalMenuPlaygroundProps {
   items: number;
   label: string;
   hasFrontIcon: boolean;
@@ -20,11 +20,11 @@ interface GlobalMenuPlaygroundProps {
   isExpanded: boolean;
 }
 
-export const Playground: StoryObj<GlobalMenuPlaygroundProps> = {
+export const Playground: StoryObj<HorizontalMenuPlaygroundProps> = {
   render(args) {
-    const fragment = new HtmlFragment(playground, ".dads-global-menu");
+    const fragment = new HtmlFragment(playground, ".dads-horizontal-menu");
     const menu = fragment.root;
-    const menuItem = menu.querySelector(".dads-global-menu__item");
+    const menuItem = menu.querySelector(".dads-horizontal-menu__item");
     const whiteSpace = menuItem?.previousSibling;
 
     if (!menuItem) throw new Error();
@@ -36,11 +36,13 @@ export const Playground: StoryObj<GlobalMenuPlaygroundProps> = {
         htmlToInsert.push(whiteSpace.toString());
         const newMenuItem = menuItem.clone() as HTMLElement;
         const newFrontIcon = newMenuItem.querySelector(
-          ".dads-global-menu__front-icon",
+          ".dads-horizontal-menu__front-icon",
         );
-        const newLabel = newMenuItem.querySelector(".dads-global-menu__label");
+        const newLabel = newMenuItem.querySelector(
+          ".dads-horizontal-menu__label",
+        );
         const newChevron = newMenuItem.querySelector(
-          ".dads-global-menu__chevron",
+          ".dads-horizontal-menu__chevron",
         );
 
         if (!newLabel) throw new Error();
@@ -56,11 +58,13 @@ export const Playground: StoryObj<GlobalMenuPlaygroundProps> = {
     }
 
     const menuItemInner = menuItem.querySelector(
-      ".dads-global-menu__item-inner",
+      ".dads-horizontal-menu__item-inner",
     );
-    const frontIcon = menuItem.querySelector(".dads-global-menu__front-icon");
-    const label = menuItem.querySelector(".dads-global-menu__label");
-    const chevron = menuItem.querySelector(".dads-global-menu__chevron");
+    const frontIcon = menuItem.querySelector(
+      ".dads-horizontal-menu__front-icon",
+    );
+    const label = menuItem.querySelector(".dads-horizontal-menu__label");
+    const chevron = menuItem.querySelector(".dads-horizontal-menu__chevron");
 
     if (!menuItemInner) throw new Error();
     if (!frontIcon) throw new Error();

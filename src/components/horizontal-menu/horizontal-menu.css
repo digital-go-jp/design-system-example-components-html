@@ -1,4 +1,4 @@
-.dads-global-menu {
+.dads-horizontal-menu {
   margin: 0;
   display: flex;
   align-items: stretch;
@@ -13,14 +13,14 @@
   letter-spacing: 0;
 }
 
-.dads-global-menu__item {
+.dads-horizontal-menu__item {
   display: flex;
   align-items: stretch;
   position: relative;
 }
 
-.dads-global-menu__item-inner,
-.dads-global-menu__item-inner:any-link {
+.dads-horizontal-menu__item-inner,
+.dads-horizontal-menu__item-inner:any-link {
   position: relative;
   display: flex;
   align-items: center;
@@ -36,13 +36,13 @@
   cursor: pointer;
 }
 
-.dads-global-menu__front-icon {
+.dads-horizontal-menu__front-icon {
   flex-shrink: 0;
   width: calc(24 / 16 * 1rem);
   height: calc(24 / 16 * 1rem);
 }
 
-.dads-global-menu__chevron {
+.dads-horizontal-menu__chevron {
   margin-top: calc(4 / 16 * 1rem);
   box-sizing: content-box;
   flex-shrink: 0;
@@ -51,11 +51,11 @@
 }
 
 @media (hover: hover) {
-  .dads-global-menu__item-inner:hover {
+  .dads-horizontal-menu__item-inner:hover {
     background-color: var(--color-neutral-solid-gray-50);
   }
 
-  .dads-global-menu__item-inner:hover::after {
+  .dads-horizontal-menu__item-inner:hover::after {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -65,12 +65,12 @@
   }
 }
 
-.dads-global-menu__item-inner[aria-current] {
+.dads-horizontal-menu__item-inner[aria-current] {
   background-color: var(--color-neutral-white);
   color: var(--color-primitive-blue-1000);
 }
 
-.dads-global-menu__item-inner[aria-current]::after {
+.dads-horizontal-menu__item-inner[aria-current]::after {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -80,7 +80,7 @@
 }
 
 @media (hover: hover) {
-  .dads-global-menu__item-inner[aria-current]:hover {
+  .dads-horizontal-menu__item-inner[aria-current]:hover {
     color: var(--color-primitive-blue-900);
     text-decoration: underline;
     text-decoration-thickness: calc(1 / 16 * 1rem);
@@ -88,7 +88,7 @@
   }
 }
 
-.dads-global-menu__item-inner:focus-visible {
+.dads-horizontal-menu__item-inner:focus-visible {
   outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
   outline-offset: calc(2 / 16 * 1rem);
   border-radius: calc(4 / 16 * 1rem);
@@ -96,10 +96,11 @@
   box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
 }
 
-.dads-global-menu__item-inner[aria-current]:focus-visible {
+.dads-horizontal-menu__item-inner[aria-current]:focus-visible {
   background-color: var(--color-neutral-white);
 }
 
-.dads-global-menu__item-inner[aria-expanded="true"] .dads-global-menu__chevron {
+.dads-horizontal-menu__item-inner[aria-expanded="true"]
+  .dads-horizontal-menu__chevron {
   transform: rotate(180deg);
 }
