@@ -182,6 +182,19 @@
   --color-semantic-warning-yellow-2: var(--color-primitive-yellow-900);
   --color-semantic-warning-orange-1: var(--color-primitive-orange-600);
   --color-semantic-warning-orange-2: var(--color-primitive-orange-800);
+  --color-key-50: var(--color-primitive-blue-50);
+  --color-key-100: var(--color-primitive-blue-100);
+  --color-key-200: var(--color-primitive-blue-200);
+  --color-key-300: var(--color-primitive-blue-300);
+  --color-key-400: var(--color-primitive-blue-400);
+  --color-key-500: var(--color-primitive-blue-500);
+  --color-key-600: var(--color-primitive-blue-600);
+  --color-key-700: var(--color-primitive-blue-700);
+  --color-key-800: var(--color-primitive-blue-800);
+  --color-key-900: var(--color-primitive-blue-900);
+  --color-key-1000: var(--color-primitive-blue-1000);
+  --color-key-1100: var(--color-primitive-blue-1100);
+  --color-key-1200: var(--color-primitive-blue-1200);
 }
 
 html {
