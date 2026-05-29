@@ -100,7 +100,7 @@
 
 .dads-calendar__date[data-selected] {
   border: 1px solid transparent;
-  background-color: var(--color-primitive-blue-900);
+  background-color: var(--color-key-900);
   color: var(--color-neutral-white);
 }
 

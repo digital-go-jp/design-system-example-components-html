@@ -60,8 +60,8 @@
 
 .dads-radio__input {
   --_base-color: var(--color-neutral-white);
-  --_accent-color: var(--color-primitive-blue-900);
-  --_accent-hover-color: var(--color-primitive-blue-1100);
+  --_accent-color: var(--color-key-900);
+  --_accent-hover-color: var(--color-key-1100);
   --_border-color: var(--color-neutral-solid-gray-600);
   --_border-hover-color: var(--color-neutral-black);
 

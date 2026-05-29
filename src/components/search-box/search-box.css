@@ -124,14 +124,14 @@
 
 .dads-search-box__select option:checked {
   font-weight: bold;
-  background-color: var(--color-primitive-blue-100);
-  color: var(--color-primitive-blue-1000);
+  background-color: var(--color-key-100);
+  color: var(--color-key-1000);
 }
 
 @media (hover: hover) {
   .dads-search-box__select option:checked:hover {
-    background-color: var(--color-primitive-blue-50);
-    color: var(--color-primitive-blue-900);
+    background-color: var(--color-key-50);
+    color: var(--color-key-900);
   }
 }
 

@@ -69,7 +69,7 @@
 
 @media (hover: hover) {
   .dads-table[data-row-hover-highlight] tr:hover {
-    background-color: var(--color-primitive-blue-50);
+    background-color: var(--color-key-50);
   }
 }
 
@@ -83,7 +83,7 @@
   background:
     linear-gradient(#fff, #fff) top / 100% 1px no-repeat,
     linear-gradient(90deg, #fff, #fff) left / var(--_gap-x, 0) 100% no-repeat,
-    var(--color-primitive-blue-100);
+    var(--color-key-100);
   background-origin: padding-box;
 }
 

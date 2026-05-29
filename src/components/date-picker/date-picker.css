@@ -257,7 +257,7 @@
   background-color: var(--color-neutral-white);
   padding-right: calc(12 / 16 * 1rem);
   padding-left: calc(12 / 16 * 1rem);
-  color: var(--color-primitive-blue-900);
+  color: var(--color-key-900);
 }
 
 .dads-date-picker__controls[data-size="sm"] .dads-date-picker__calendar-button {
@@ -275,14 +275,14 @@
 @media (hover: hover) {
   .dads-date-picker__calendar-button:enabled:hover {
     border-width: calc(3 / 16 * 1rem);
-    background-color: var(--color-primitive-blue-200);
+    background-color: var(--color-key-200);
     padding-right: calc(10 / 16 * 1rem);
     padding-left: calc(10 / 16 * 1rem);
   }
 }
 
 .dads-date-picker__calendar-button:enabled:active {
-  background-color: var(--color-primitive-blue-300);
+  background-color: var(--color-key-300);
 }
 
 .dads-date-picker__calendar-button:focus-visible {

@@ -68,14 +68,14 @@
 }
 
 .dads-menu-list__item[data-current] {
-  background-color: var(--color-primitive-blue-100);
-  color: var(--color-primitive-blue-1000);
+  background-color: var(--color-key-100);
+  color: var(--color-key-1000);
   font-weight: bold;
 }
 
 .dads-menu-list__item:has(+ * [data-current]) {
-  background-color: var(--color-primitive-blue-50);
-  color: var(--color-primitive-blue-1000);
+  background-color: var(--color-key-50);
+  color: var(--color-key-1000);
 }
 
 @media (hover: hover) {
@@ -87,8 +87,8 @@
 
   .dads-menu-list__item[data-current]:hover,
   .dads-menu-list__item:has(+ * [data-current]):hover {
-    background-color: var(--color-primitive-blue-50);
-    color: var(--color-primitive-blue-900);
+    background-color: var(--color-key-50);
+    color: var(--color-key-900);
   }
 }
 
@@ -111,11 +111,11 @@
 }
 
 .dads-menu-list__item[data-current]:focus-visible {
-  background-color: var(--color-primitive-blue-100);
+  background-color: var(--color-key-100);
 }
 
 .dads-menu-list__item:has(+ * [data-current]):focus-visible {
-  background-color: var(--color-primitive-blue-50);
+  background-color: var(--color-key-50);
 }
 
 .dads-menu-list__front-icon {
