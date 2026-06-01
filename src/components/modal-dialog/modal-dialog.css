@@ -1,0 +1,220 @@
+.dads-modal-dialog {
+  --modal-dialog-width: fit-content;
+  inset: 0;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background-color: transparent;
+  padding: 0 calc(16 / 16 * 1rem);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+  color-scheme: dark;
+}
+
+.dads-modal-dialog:modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dads-modal-dialog::before,
+.dads-modal-dialog::after {
+  display: block;
+  flex-shrink: 9999;
+  width: 1px;
+  height: calc(120 / 16 * 1rem);
+  min-height: calc(16 / 16 * 1rem);
+  content: "";
+}
+
+.dads-modal-dialog::backdrop {
+  background-color: var(--color-neutral-opacity-gray-600);
+}
+
+.dads-modal-dialog__dialog {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(12 / 16 * 1rem);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--modal-dialog-width);
+  min-width: min(calc(480 / 16 * 1rem), calc(100cqw - 32 / 16 * 1rem));
+  max-width: 100%;
+  min-height: 0;
+  border-radius: calc(8 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-black);
+  background-color: var(--color-neutral-white);
+  box-shadow: var(--elevation-3);
+  color: var(--color-neutral-solid-gray-800);
+  color-scheme: light;
+}
+
+.dads-modal-dialog__header {
+  display: flex;
+  align-items: start;
+  flex-shrink: 0;
+  column-gap: calc(16 / 16 * 1rem);
+  min-width: 0;
+  padding: calc(8 / 16 * 1rem) calc(16 / 16 * 1rem) 0;
+}
+
+.dads-modal-dialog__heading {
+  margin: 0;
+  flex-grow: 1;
+  min-width: 0;
+  font-weight: bold;
+  font-size: calc(24 / 16 * 1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.dads-modal-dialog__heading:focus-visible {
+  outline: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.dads-modal-dialog__close {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  column-gap: calc(4 / 16 * 1rem);
+  width: fit-content;
+  border: 0;
+  border-radius: calc(6 / 16 * 1rem);
+  background: transparent;
+  padding: calc(4 / 16 * 1rem) calc(12 / 16 * 1rem) calc(6 / 16 * 1rem)
+    calc(12 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .dads-modal-dialog__close:hover {
+    background-color: var(--color-neutral-solid-gray-50);
+    text-decoration: underline;
+    text-underline-offset: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-modal-dialog__close:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-modal-dialog__close-icon {
+  margin-top: calc(2 / 16 * 1rem);
+  width: calc(24 / 16 * 1rem);
+  height: calc(24 / 16 * 1rem);
+  flex-shrink: 0;
+  color: var(--color-neutral-black);
+}
+
+.dads-modal-dialog__body {
+  flex-shrink: 0;
+  min-width: 0;
+  padding: 0 calc(16 / 16 * 1rem) calc(32 / 16 * 1rem);
+}
+
+.dads-modal-dialog__actions {
+  flex-shrink: 0;
+  min-width: 0;
+  padding: 0 calc(16 / 16 * 1rem) calc(16 / 16 * 1rem);
+}
+
+.dads-modal-dialog__scroll-area {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(12 / 16 * 1rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.dads-modal-dialog__scroll-area:not(:first-child) {
+  margin-top: calc(-4 / 16 * 1rem);
+  border-top: 1px solid var(--color-neutral-solid-gray-600);
+}
+
+.dads-modal-dialog__scroll-area:not(:last-child) {
+  margin-bottom: calc(4 / 16 * 1rem);
+  border-bottom: 1px solid var(--color-neutral-solid-gray-600);
+}
+
+.dads-modal-dialog:not([data-scroll]),
+.dads-modal-dialog[data-scroll="outer"] {
+  scrollbar-gutter: stable;
+}
+
+.dads-modal-dialog[data-scroll="inner"] .dads-modal-dialog__dialog {
+  flex-shrink: 1;
+  scrollbar-width: thin;
+}
+
+.dads-modal-dialog[data-scroll="inner"]:not(
+    :has(.dads-modal-dialog__scroll-area)
+  )
+  .dads-modal-dialog__dialog {
+  overflow-y: auto;
+}
+
+@media (min-width: 48rem) {
+  .dads-modal-dialog__dialog {
+    row-gap: calc(16 / 16 * 1rem);
+  }
+
+  .dads-modal-dialog__scroll-area {
+    row-gap: calc(16 / 16 * 1rem);
+  }
+
+  .dads-modal-dialog__scroll-area:not(:first-child) {
+    margin-top: calc(8 / 16 * 1rem);
+  }
+
+  .dads-modal-dialog__scroll-area:not(:last-child) {
+    margin-bottom: calc(8 / 16 * 1rem);
+  }
+
+  .dads-modal-dialog__header {
+    padding: calc(24 / 16 * 1rem) calc(24 / 16 * 1rem) 0;
+  }
+
+  .dads-modal-dialog__heading {
+    font-weight: bold;
+    font-size: calc(28 / 16 * 1rem);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  .dads-modal-dialog__body {
+    padding: 0 calc(24 / 16 * 1rem) calc(32 / 16 * 1rem);
+  }
+
+  .dads-modal-dialog__actions {
+    padding: 0 calc(24 / 16 * 1rem) calc(24 / 16 * 1rem);
+  }
+}
+
+@media (forced-colors: active) {
+  .dads-modal-dialog::backdrop {
+    background-color: #000b;
+  }
+
+  .dads-modal-dialog__close-icon {
+    color: currentcolor;
+  }
+}
