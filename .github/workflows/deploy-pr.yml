@@ -147,7 +147,7 @@ jobs:
               `| 📦 Deployed | \`pr-${prNumber}/\` |`,
               `| 🕐 Last Updated | ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} JST |`,
               '',
-              '> Note: This preview environment will remain available until manually cleaned up.'
+              '> Note: This preview environment will be automatically deleted when the PR is closed.'
             ].join('\n');
 
             if (botComment) {
