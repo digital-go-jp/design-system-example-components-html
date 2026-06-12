@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Search Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="../checkbox/checkbox.css">
+<link rel="stylesheet" href="../disclosure/disclosure.css">
+<link rel="stylesheet" href="../form-control-label/form-control-label.css">
+<link rel="stylesheet" href="../radio/radio.css">
+<link rel="stylesheet" href="search-box.css">
+</head>
+<body>
+
+<div class="dads-search-box" data-size="lg">
+  <div class="dads-search-box__fields">
+    <label class="dads-search-box__select">
+      <span>検索対象</span>
+      <select name="scope">
+        <option value="">すべて</option>
+        <option value="images">画像</option>
+        <option value="files">ファイル</option>
+        <option value="map">地図</option>
+        <option value="videos">動画</option>
+      </select>
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
+      </svg>
+    </label>
+    <label class="dads-search-box__input">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+      </svg>
+      <span class="dads-u-visually-hidden">検索</span>
+      <input type="search" name="q">
+    </label>
+  </div>
+
+  <details class="dads-search-box__detail dads-disclosure">
+    <summary class="dads-disclosure__summary">
+      <svg class="dads-disclosure__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" fill="currentcolor"/>
+        <circle class="dads-disclosure__icon-circle" cx="12" cy="12" r="8" fill="currentcolor"/>
+        <path class="dads-disclosure__icon-triangle" d="M17 10H7L12 15L17 10Z" fill="Canvas"/>
+      </svg>
+      詳細検索
+    </summary>
+    <div class="dads-disclosure__content">
+      <div style="margin-bottom: calc(32 / 16 * 1rem); display: flex; flex-direction: column; gap: calc(24 / 16 * 1rem);">
+
+        <fieldset class="dads-form-control-label" data-size="sm">
+          <legend class="dads-form-control-label__label">検索対象</legend>
+          <div style="display: flex; gap: calc(16 / 16 * 1rem); flex-wrap: wrap;">
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="search-target" value="current" checked>
+              </span>
+              <span class="dads-radio__label">現行法令</span>
+            </label>
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="search-target" value="point-in-time">
+              </span>
+              <span class="dads-radio__label">時点指定</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="dads-form-control-label" data-size="sm" data-js-indeterminate-example>
+          <legend class="dads-form-control-label__label">法令種別</legend>
+          <div style="display: flex; gap: calc(16 / 16 * 1rem); flex-wrap: wrap;">
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="all" data-js-check-all>
+              </span>
+              <span class="dads-checkbox__label">すべて</span>
+            </label>
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="law" checked data-js-check>
+              </span>
+              <span class="dads-checkbox__label">法令</span>
+            </label>
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="cabinet-order" data-js-check>
+              </span>
+              <span class="dads-checkbox__label">政令</span>
+            </label>
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="imperial-order" checked data-js-check>
+              </span>
+              <span class="dads-checkbox__label">勅令</span>
+            </label>
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="ministerial-order" data-js-check>
+              </span>
+              <span class="dads-checkbox__label">府省令</span>
+            </label>
+            <label class="dads-checkbox" data-size="sm">
+              <span class="dads-checkbox__checkbox">
+                <input class="dads-checkbox__input" type="checkbox" name="law-type" value="regulation" checked data-js-check>
+              </span>
+              <span class="dads-checkbox__label">規則</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="dads-form-control-label" data-size="sm">
+          <legend class="dads-form-control-label__label">並び順</legend>
+          <div style="display: flex; gap: calc(16 / 16 * 1rem); flex-wrap: wrap;">
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="sort-order" value="relevance" checked>
+              </span>
+              <span class="dads-radio__label">関連度順</span>
+            </label>
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="sort-order" value="updated">
+              </span>
+              <span class="dads-radio__label">更新日時順</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="dads-form-control-label" data-size="sm">
+          <legend class="dads-form-control-label__label">表示件数</legend>
+          <div style="display: flex; gap: calc(16 / 16 * 1rem); flex-wrap: wrap;">
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="display-count" value="10" checked>
+              </span>
+              <span class="dads-radio__label">10件</span>
+            </label>
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="display-count" value="50">
+              </span>
+              <span class="dads-radio__label">50件</span>
+            </label>
+            <label class="dads-radio" data-size="sm">
+              <span class="dads-radio__radio">
+                <input class="dads-radio__input" type="radio" name="display-count" value="100">
+              </span>
+              <span class="dads-radio__label">100件</span>
+            </label>
+          </div>
+        </fieldset>
+
+      </div>
+      <div class="dads-search-box__detail-actions">
+        <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">
+          <svg class="dads-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m21 20.5-6-6a7.4 7.4 0 0 0 1.9-5A7.4 7.4 0 0 0 9.5 2 7.5 7.5 0 1 0 14 15.5l6 6 1-1ZM3.5 9.5a6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6Z" fill="currentcolor"/>
+          </svg>
+          検索
+        </button>
+        <button class="dads-button" type="reset" data-type="text" data-size="sm">検索条件をクリア</button>
+      </div>
+    </div>
+  </details>
+
+  <button class="dads-button" type="submit" data-type="solid-fill" data-size="lg">検索</button>
+</div>
+
+<script type="module">
+  document.querySelectorAll("[data-js-indeterminate-example]").forEach((el) => {
+    const checkAll = el.querySelector("[data-js-check-all]");
+    const checks = [...el.querySelectorAll("[data-js-check]")];
+
+    function checkOrUncheckAll(e) {
+      const checked = e.target.checked;
+      checks.forEach((check) => check.checked = checked);
+    }
+
+    function updateCheckAll() {
+      const allChecked = checks.every((check) => check.checked);
+      const noneChecked = checks.every((check) => !check.checked);
+      checkAll.checked = allChecked;
+      checkAll.indeterminate = !allChecked && !noneChecked;
+    }
+
+    checkAll.addEventListener("change", checkOrUncheckAll);
+    checks.forEach((check) => check.addEventListener("change", updateCheckAll));
+
+    updateCheckAll();
+  });
+</script>
+
+</body>
+</html>

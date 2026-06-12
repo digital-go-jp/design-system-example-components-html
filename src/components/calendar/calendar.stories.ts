@@ -8,7 +8,7 @@ import "../select/select.css";
 import playground from "./playground.html?raw";
 
 const meta = {
-  title: "Components/カレンダー",
+  title: "Components/日付ピッカー/カレンダー",
 } satisfies Meta;
 
 export default meta;
