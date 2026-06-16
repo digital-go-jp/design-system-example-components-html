@@ -35,7 +35,7 @@
 }
 
 .dads-card-example-6:has(:checked) {
-  background-color: var(--color-primitive-blue-50);
+  background-color: var(--color-key-50);
 }
 
 .dads-card-example-6__main {

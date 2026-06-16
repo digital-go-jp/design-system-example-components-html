@@ -67,7 +67,7 @@
 
 .dads-horizontal-menu__item-inner[aria-current] {
   background-color: var(--color-neutral-white);
-  color: var(--color-primitive-blue-1000);
+  color: var(--color-key-1000);
 }
 
 .dads-horizontal-menu__item-inner[aria-current]::after {
@@ -75,13 +75,13 @@
   right: 0;
   bottom: 0;
   left: 0;
-  border-bottom: 4px solid var(--color-primitive-blue-900);
+  border-bottom: 4px solid var(--color-key-900);
   content: "";
 }
 
 @media (hover: hover) {
   .dads-horizontal-menu__item-inner[aria-current]:hover {
-    color: var(--color-primitive-blue-900);
+    color: var(--color-key-900);
     text-decoration: underline;
     text-decoration-thickness: calc(1 / 16 * 1rem);
     text-underline-offset: calc(3 / 16 * 1rem);

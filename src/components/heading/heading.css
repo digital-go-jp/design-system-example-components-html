@@ -114,7 +114,7 @@
   bottom: 0.1em;
   left: 0;
   width: calc(1em / 3);
-  background-color: var(--color-primitive-blue-900);
+  background-color: var(--color-key-900);
   content: "";
 }
 
@@ -136,7 +136,7 @@
 }
 
 .dads-heading[data-rule] {
-  border-bottom: solid var(--color-primitive-blue-900);
+  border-bottom: solid var(--color-key-900);
 }
 
 .dads-heading[data-rule="8"] {

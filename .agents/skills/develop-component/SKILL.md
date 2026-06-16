@@ -161,6 +161,7 @@ UAスタイルシートやリセットCSSによって異なるmarginが適用さ
 
 ```css
 /* カラー */
+var(--color-key-900)                  /* キーカラー */
 var(--color-primitive-blue-900)       /* プリミティブカラー */
 var(--color-neutral-solid-gray-800)   /* ニュートラルカラー */
 var(--color-neutral-white)
@@ -196,13 +197,13 @@ var(--elevation-1) 〜 var(--elevation-5)
 
 /* パブリック: 利用者がテーマカラーを変更できるAPI */
 .dads-button {
-  --button-color: var(--color-primitive-blue-900);
-  --button-hover-color: var(--color-primitive-blue-1000);
+  --button-color: var(--color-key-900);
+  --button-hover-color: var(--color-key-1000);
 }
 
 /* DON'T: 全プロパティをCustom Propertiesに間接化 */
 .dads-button {
-  --dads-button-bg-color: var(--color-primitive-blue-900);
+  --dads-button-bg-color: var(--color-key-900);
   --dads-button-text-decoration: none;
   background-color: var(--dads-button-bg-color);
   text-decoration: var(--dads-button-text-decoration);

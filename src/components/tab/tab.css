@@ -99,7 +99,7 @@
 }
 
 .dads-tab__tab:is([aria-selected="true"], [aria-current]) > span::before {
-  background-color: var(--color-primitive-blue-900);
+  background-color: var(--color-key-900);
 }
 
 .dads-tab__panels {

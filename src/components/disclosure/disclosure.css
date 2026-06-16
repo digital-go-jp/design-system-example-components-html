@@ -34,7 +34,7 @@
 .dads-disclosure__icon {
   flex-shrink: 0;
   margin-top: calc((1lh - 24px) / 2);
-  color: var(--color-primitive-blue-1000);
+  color: var(--color-key-1000);
 }
 
 @media (forced-colors: active) {

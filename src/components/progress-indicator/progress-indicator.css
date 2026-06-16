@@ -51,16 +51,16 @@ dads-progress-indicator:not([active]) * {
 
 .dads-progress-indicator__track {
   stroke: currentcolor;
-  color: var(--color-primitive-blue-100);
+  color: var(--color-key-100);
 }
 
 .dads-progress-indicator__bar {
-  color: var(--color-primitive-blue-1200);
+  color: var(--color-key-1200);
   stroke-dashoffset: calc(100 - clamp(0, var(--value, 35), 100));
 }
 
 .dads-progress-indicator__border {
-  color: var(--color-primitive-blue-1200);
+  color: var(--color-key-1200);
 }
 
 /* Spinner type */
@@ -157,7 +157,7 @@ dads-progress-indicator:not([active]) * {
 /* Static type */
 
 .dads-progress-indicator__static {
-  color: var(--color-primitive-blue-1200);
+  color: var(--color-key-1200);
 }
 
 @keyframes dads-linear-rotate {

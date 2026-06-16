@@ -14,7 +14,7 @@
 
 @media (hover: hover) {
   .dads-carousel-single__link:any-link:hover {
-    outline: calc(4 / 16 * 1rem) solid var(--color-primitive-blue-900);
+    outline: calc(4 / 16 * 1rem) solid var(--color-key-900);
     outline-offset: calc(-2 / 16 * 1rem);
   }
 

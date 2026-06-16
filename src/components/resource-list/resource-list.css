@@ -22,7 +22,7 @@
 }
 
 .dads-resource-list:has(:checked:enabled) {
-  background: var(--color-primitive-blue-50);
+  background: var(--color-key-50);
   --_border-color: var(--color-neutral-solid-gray-500);
 }
 

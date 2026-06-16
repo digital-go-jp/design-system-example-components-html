@@ -1,9 +1,9 @@
 .dads-button {
-  --button-color: var(--color-primitive-blue-900);
-  --button-hover-color: var(--color-primitive-blue-1000);
-  --button-active-color: var(--color-primitive-blue-1200);
-  --button-outline-hover-bg-color: var(--color-primitive-blue-200);
-  --button-outline-active-bg-color: var(--color-primitive-blue-300);
+  --button-color: var(--color-key-900);
+  --button-hover-color: var(--color-key-1000);
+  --button-active-color: var(--color-key-1200);
+  --button-outline-hover-bg-color: var(--color-key-200);
+  --button-outline-active-bg-color: var(--color-key-300);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,14 +117,14 @@
 
 @media (hover: hover) {
   .dads-button[data-type="text"]:hover {
-    background-color: var(--color-primitive-blue-50);
+    background-color: var(--color-key-50);
     color: var(--button-hover-color);
     text-decoration-thickness: calc(3 / 16 * 1rem);
   }
 }
 
 .dads-button[data-type="text"]:active {
-  background-color: var(--color-primitive-blue-100);
+  background-color: var(--color-key-100);
   color: var(--button-active-color);
 }
 

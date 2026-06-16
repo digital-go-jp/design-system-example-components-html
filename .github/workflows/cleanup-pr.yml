@@ -1,0 +1,86 @@
+name: Cleanup PR Preview
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+
+env:
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  cleanup-preview:
+    name: Cleanup PR Preview
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'preview')
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.STG_ROLE_TO_ASSUME }}
+          role-session-name: GitHubActions-Cleanup-PR-${{ env.PR_NUMBER }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: Delete S3 objects
+        run: |
+          aws s3 rm --recursive \
+            s3://${{ secrets.STG_BUCKET_NAME }}/dads/html/pr-${{ env.PR_NUMBER }}/
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.STG_CF_DIST_ID }} \
+            --paths "/dads/html/pr-${{ env.PR_NUMBER }}/*"
+
+      - name: Comment PR with cleanup notice
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = ${{ env.PR_NUMBER }};
+
+            // 既存のプレビューコメントを検索
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo,
+              issue_number: prNumber,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('🚀 Preview Environment')
+            );
+
+            const commentBody = [
+              '## 🧹 Preview Environment Cleanup',
+              '',
+              'Your PR preview environment has been cleaned up!',
+              '',
+              '| Status | Details |',
+              '|--------|---------|',
+              '| 🗑️ Cleaned up | S3 files removed |',
+              '| ♻️ Cache | CloudFront invalidated |',
+              `| 🕐 Cleaned at | ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} JST |`,
+            ].join('\n');
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            }
