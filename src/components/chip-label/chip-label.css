@@ -22,6 +22,7 @@
 
 .dads-chip-label[data-style="outline"] {
   border: 1px solid var(--_non-text, #000);
+  background-color: var(--color-neutral-white);
   color: var(--_text, #000);
 }
 
