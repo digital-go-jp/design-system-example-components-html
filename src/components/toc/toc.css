@@ -1,0 +1,55 @@
+.dads-toc {
+  width: fit-content;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
+
+.dads-toc[data-border] {
+  border: 1px var(--color-neutral-solid-gray-420);
+  padding-top: calc(12 / 16 * 1rem);
+  padding-right: calc(24 / 16 * 1rem);
+  padding-bottom: calc(24 / 16 * 1rem);
+  padding-left: calc(20 / 16 * 1rem);
+}
+
+.dads-toc[data-border="dotted"] {
+  border-style: dotted;
+}
+
+.dads-toc[data-border="solid"] {
+  border-style: solid;
+}
+
+.dads-toc__heading {
+  margin-top: 0;
+  margin-bottom: calc(8 / 16 * 1rem);
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.dads-toc .dads-link:any-link {
+  color: inherit;
+}
+
+.dads-toc > .dads-list:has(.dads-list) {
+  padding-left: 0;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+.dads-toc > .dads-list .dads-list {
+  list-style-type: disc;
+}
+
+.dads-toc > .dads-list > li > .dads-list {
+  margin-top: 0;
+  font-weight: normal;
+}
+
+.dads-toc > .dads-list .dads-list .dads-list {
+  list-style-type: circle;
+}

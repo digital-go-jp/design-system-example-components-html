@@ -1,0 +1,124 @@
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+ 
+import * as TocStories from "./toc.stories";
+import tocCss from "./toc.css?raw";
+import linkCss from "../link/link.css?raw";
+import listCss from "../list/list.css?raw";
+
+<Meta of={TocStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+<Canvas of={TocStories.Playground} withToolbar />
+<Controls of={TocStories.Playground} />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<nav class="dads-toc" aria-labelledby="toc-heading">
+  <h2 id="toc-heading" class="dads-toc__heading">このページの目次</h2>
+  <ul class="dads-list" data-spacing="8">
+    <li><a class="dads-link" href="#">コントラスト要件</a></li>
+    <li><a class="dads-link" href="#">ボタンの重要度を色の違いのみで区別しない</a></li>
+    <li><a class="dads-link" href="#">ターゲットサイズの確保</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+<details>
+  <summary>toc.css</summary>
+  <Source code={tocCss} language="css" />
+</details>
+
+### 依存ファイル
+
+<details>
+  <summary>link.css</summary>
+  <Source code={linkCss} language="css" />
+</details>
+
+<details>
+  <summary>list.css</summary>
+  <Source code={listCss} language="css" />
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-border` | なし（デフォルト）, `dotted`, `solid` | 枠線のスタイル |
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- `toc.css`
+- `link.css`（リンクスタイル）
+- `list.css`（リストスタイル）
+
+### セクション階層をネストリストで表現する
+
+ページのセクション階層を表現する場合は、リストをネストして使用できます。親リスト項目もリンクにすることができます。
+
+```html
+<nav class="dads-toc" aria-labelledby="toc-heading">
+  <h2 id="toc-heading" class="dads-toc__heading">このページの目次</h2>
+  <ul class="dads-list" data-spacing="8">
+    <li>
+      <a class="dads-link" href="#">仕様</a>
+      <ul class="dads-list" data-spacing="8">
+        <li><a class="dads-link" href="#">ボタンのサイズ</a></li>
+        <li><a class="dads-link" href="#">ボタンの幅</a></li>
+      </ul>
+    </li>
+    <li>
+      <a class="dads-link" href="#">使い方</a>
+      <ul class="dads-list" data-spacing="8">
+        <li><a class="dads-link" href="#">ボタンの重要度に合わせたスタイルの使用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+```
+
+### マークアップ
+
+#### `id`属性の重複を避ける
+
+`aria-labelledby`属性によってナビゲーションのラベルを`id="toc-heading"`で指定しています。同一ページ内に複数の目次を配置する場合は、`id`値が重複しないようにユニークな値を付けてください。
+
+```html
+<!-- 例: 複数ある場合 -->
+<nav class="dads-toc" aria-labelledby="toc-2-heading">
+  <h2 id="toc-2-heading" class="dads-toc__heading">このページの目次</h2>
+  …
+</nav>
+```
+
+#### 見出しレベルを適切に設定する
+
+`dads-toc__heading`は`font: inherit`でページのフォントを継承するため、どの見出しレベル（`h2`〜`h6`）でも同じ見た目になります。ページの見出し階層に合わせて適切なレベルを使用してください。
+
+```html
+<!-- h3を使う場合 -->
+<h3 id="toc-heading" class="dads-toc__heading">このページの目次</h3>
+```
+
+<Stories title="デモ" includePrimary={false} />
+
+</div>
+</Unstyled>
