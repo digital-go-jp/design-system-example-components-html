@@ -42,7 +42,7 @@ import chipLabelCss from "./chip-label.css?raw";
 
 | 属性 | 値 | 説明 |
 | --- | --- | --- |
-| `data-style` | `text`, `outline`, `filled-outline`, `fill` | チップラベルのスタイル |
+| `data-style` | `text`, `outlined`, `filled-1`, `filled-2` | チップラベルのスタイル |
 | `data-color` | `gray`, `blue`, `light-blue`, `cyan`, `green`, `lime`, `yellow`, `orange`, `red`, `magenta`, `purple` | チップラベルの色 |
 
 ## 使い方
@@ -75,7 +75,7 @@ import chipLabelCss from "./chip-label.css?raw";
 所定のCSSカスタムプロパティを使用することで、チップラベルに任意の色を指定できます。
 
 ```html
-<span class="dads-chip-label" data-style="filled-outline" style="
+<span class="dads-chip-label" data-style="filled-1" style="
   --_non-text: #854f91;
   --_bg: #f4dff9;
   --_text-dark: #72447d;
@@ -91,10 +91,10 @@ import chipLabelCss from "./chip-label.css?raw";
 
 | プロパティ | 用途 |
 | --- | --- |
-| `--_non-text` | `outline`と`filled-outline`タイプの外枠、`fill`タイプの背景、アイコン |
-| `--_bg` | `filled-outline`タイプの背景 |
-| `--_text` | `text`と`outline`タイプのテキスト |
-| `--_text-dark` | `filled-outline`タイプのテキスト |
+| `--_non-text` | `outlined`と`filled-1`タイプの外枠、`filled-2`タイプの背景、アイコン |
+| `--_bg` | `filled-1`タイプの背景 |
+| `--_text` | `text`と`outlined`タイプのテキスト |
+| `--_text-dark` | `filled-1`タイプのテキスト |
 
 <Stories title="デモ" includePrimary={false} />
 

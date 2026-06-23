@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 
 interface ChipLabelPlaygroundProps {
-  style: "text" | "outline" | "filled-outline" | "fill";
+  style: "text" | "outlined" | "filled-1" | "filled-2";
   color:
     | "gray"
     | "blue"
@@ -57,7 +57,7 @@ export const Playground: StoryObj<ChipLabelPlaygroundProps> = {
   argTypes: {
     style: {
       control: "radio",
-      options: ["text", "outline", "filled-outline", "fill"],
+      options: ["text", "outlined", "filled-1", "filled-2"],
     },
     color: {
       control: "inline-radio",
