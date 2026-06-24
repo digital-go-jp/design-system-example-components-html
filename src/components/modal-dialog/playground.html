@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modal Dialog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="modal-dialog.css">
+<script src="https://unpkg.com/invokers-polyfill@1.0.1/invoker.min.js" integrity="sha384-aZb5DOFTM5AZn4l7stnC4iaTkIULs5rdBFVuLKvMd9XQwZ5pRWncexM9CAUDBuCo" crossorigin="anonymous"></script>
+<script type="module">
+  window["dialog"].showModal();
+</script>
+</head>
+<body>
+
+<button class="dads-button" type="button" data-size="lg" data-type="solid-fill" command="show-modal" commandfor="dialog">ダイアログを開く</button>
+
+<dialog id="dialog" class="dads-modal-dialog" aria-labelledby="dialog-title">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__header">
+      <h2 id="dialog-title" class="dads-modal-dialog__heading" tabindex="-1" autofocus>タイトル</h2>
+      <button class="dads-modal-dialog__close" type="button" command="close" commandfor="dialog">
+        <svg class="dads-modal-dialog__close-icon" width="24" height="24" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M32 95L25 88L53 60L25 32L32 25L60 53L88 25L95 32L67 60L95 88L88 95L60 67L32 95Z" fill="currentcolor"/>
+        </svg>
+        閉じる
+      </button>
+    </div>
+    <div class="dads-modal-dialog__body">
+      コンテンツ
+    </div>
+    <div class="dads-modal-dialog__actions" style="display: flex; justify-content: end;">
+      <button class="dads-button" type="button" data-size="lg" data-type="solid-fill" command="close" commandfor="dialog">OK</button>
+    </div>
+  </div>
+</dialog>
+
+</body>
+</html>

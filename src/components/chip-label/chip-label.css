@@ -20,18 +20,19 @@
   color: var(--_text, #000);
 }
 
-.dads-chip-label[data-style="outline"] {
+.dads-chip-label[data-style="outlined"] {
   border: 1px solid var(--_non-text, #000);
+  background-color: var(--color-neutral-white);
   color: var(--_text, #000);
 }
 
-.dads-chip-label[data-style="filled-outline"] {
+.dads-chip-label[data-style="filled-1"] {
   border: 1px solid var(--_non-text, #000);
   background-color: var(--_bg, #eee);
   color: var(--_text-dark, #000);
 }
 
-.dads-chip-label[data-style="fill"] {
+.dads-chip-label[data-style="filled-2"] {
   border: 1px solid transparent;
   background-color: var(--_non-text, #000);
   color: var(--color-neutral-white, #fff);
@@ -131,6 +132,6 @@
   }
 }
 
-.dads-chip-label[data-style="filled-outline"] .dads-chip-label__icon {
+.dads-chip-label[data-style="filled-1"] .dads-chip-label__icon {
   color: var(--_non-text, #000);
 }

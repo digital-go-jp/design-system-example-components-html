@@ -1,0 +1,300 @@
+import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
+
+import * as ModalDialogStories from "./modal-dialog.stories";
+import modalDialogCss from "./modal-dialog.css?raw";
+import buttonCss from "../button/button.css?raw";
+
+<Meta of={ModalDialogStories} />
+
+<Unstyled>
+<div className="prose">
+
+<Title />
+<Subtitle />
+<Description />
+
+<Canvas of={ModalDialogStories.Playground} withToolbar />
+<Controls of={ModalDialogStories.Playground} />
+
+## ソースコード
+
+<details>
+  <summary>HTML</summary>
+
+```html
+<dialog id="dialog" class="dads-modal-dialog" aria-labelledby="dialog-title">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__header">
+      <h2 id="dialog-title" class="dads-modal-dialog__heading" tabindex="-1" autofocus>タイトル</h2>
+      <button class="dads-modal-dialog__close" type="button" command="close" commandfor="dialog">
+        <svg class="dads-modal-dialog__close-icon" width="24" height="24" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M32 95L25 88L53 60L25 32L32 25L60 53L88 25L95 32L67 60L95 88L88 95L60 67L32 95Z" fill="currentcolor"/>
+        </svg>
+        閉じる
+      </button>
+    </div>
+    <div class="dads-modal-dialog__body">
+      コンテンツ
+    </div>
+    <div class="dads-modal-dialog__actions">
+      <button class="dads-button" type="button" data-size="lg" data-type="solid-fill">OK</button>
+    </div>
+  </div>
+</dialog>
+```
+
+</details>
+
+<details>
+  <summary>modal-dialog.css</summary>
+  <Source code={modalDialogCss} language="css" />
+</details>
+
+### 依存ファイル
+
+<details>
+  <summary>button.css</summary>
+  <Source code={buttonCss} language="css" />
+</details>
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- `modal-dialog.css`
+- `button.css`（アクションエリアにボタンを使用する場合）
+
+上記に加え、本コードスニペットではモーダルダイアログの開閉にInvoker Commands APIを使用しています。公開時点において、サポートが行き渡っていない新しいウェブ標準であるため、ポリフィルの導入を推奨します。導入方法は[Invoker Commands APIポリフィルを使用する](#invoker-commands-apiポリフィルを使用する)を参照してください。
+
+### マークアップ
+
+#### アクセシブルな名前
+
+`<dialog>`要素には`aria-labelledby`属性を使用して、モーダルダイアログにアクセシブルな名前を付与してください。
+
+```html
+<dialog id="dialog" class="dads-modal-dialog" aria-labelledby="dialog-heading">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__header">
+      <h2 id="dialog-heading" class="dads-modal-dialog__heading" tabindex="-1" autofocus>タイトル</h2>
+      ...
+    </div>
+    ...
+  </div>
+</dialog>
+```
+
+#### スクロールおよびリフローの制御
+
+本コードスニペットでは、モーダルダイアログの実装に`<dialog>`要素を使用しています。モーダルダイアログを適切な形で提示するために、以下に対応する必要があります。
+
+1. モーダルダイアログが表示されている間、メインコンテンツのスクロールを抑制する
+2. モーダルダイアログの表示／非表示に伴うスクロールバーの有無の変化が引き起こすリフローを抑制する
+
+具体的には、グローバルCSSに以下のようなスタイルを追加します。
+
+```css
+html {
+  scrollbar-gutter: stable; /* 2 */
+}
+
+html:has(:modal) {
+  overflow: clip; /* 1 */
+  scrollbar-gutter: auto; /* 2 */
+}
+
+body:has(:modal) {
+  overflow: auto; /* 1 */
+  scrollbar-gutter: stable; /* 2 */
+}
+```
+
+コードスニペット（HTML版）では上記のコードが含まれた状態のグローバルCSSを提供しています。プロダクトの状況に応じて適宜書き換えて使用してください。
+
+### ダイアログを開く
+
+#### Invoker Commands APIを使用する
+
+Invoker Commands APIを使用すると追加のJavaScriptコード無しでモーダルダイアログを開閉できます。
+
+```html
+<button type="button" command="show-modal" commandfor="dialog">開く</button>
+
+<dialog id="dialog" class="dads-modal-dialog">
+  <!-- ... -->
+  <button class="dads-modal-dialog__close" type="button" command="close" commandfor="dialog">閉じる</button>
+</dialog>
+```
+
+#### JavaScriptで制御する
+
+JavaScriptで`<dialog>`要素の`showModal()`や`close()`メソッドを呼び出して開閉を制御することもできます。
+
+```javascript
+// <dialog>要素を取得
+const dialog = document.querySelector("#dialog");
+
+// ダイアログを開く
+dialog.showModal();
+
+// ダイアログを閉じる
+dialog.close();
+```
+
+### スクロール領域の設定
+
+コンテンツが長い場合のスクロール領域を `data-scroll` 属性で制御します。
+
+**outer（デフォルト、属性なし）**: ダイアログ全体がビューポートに収まらない場合、ページ自体がスクロールします。ヘッダーまたはアクションを固定しない場合は原則としてこちらを使用します。
+
+```html
+<dialog class="dads-modal-dialog">
+  <!-- ... -->
+</dialog>
+```
+
+**inner**: ダイアログの高さを画面内に収め、`.dads-modal-dialog__dialog` 内でスクロールします。ヘッダーまたはアクションを固定したい場合は `.dads-modal-dialog__scroll-area` 要素を使用します。
+
+```html
+<dialog class="dads-modal-dialog" data-scroll="inner">
+  <!-- ... -->
+</dialog>
+```
+
+### ヘッダーまたはアクションの固定表示
+
+`data-scroll="inner"` と組み合わせて、ヘッダーまたはアクションエリアをスクロール中も固定表示できます。`.dads-modal-dialog__scroll-area` 要素で囲まれた要素がスクロールし、`.dads-modal-dialog__scroll-area` の外（`.dads-modal-dialog__dialog` の直接の子）に置かれた要素は固定されます。
+
+#### ヘッダーを固定する
+
+`.dads-modal-dialog__header` を `.dads-modal-dialog__scroll-area` の外に出し、ボディとアクションを `.dads-modal-dialog__scroll-area` で囲みます。
+
+```html
+<dialog class="dads-modal-dialog" data-scroll="inner">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__header">
+      <!-- ヘッダーが上部に固定 -->
+    </div>
+    <div class="dads-modal-dialog__scroll-area">
+      <div class="dads-modal-dialog__body">
+        <!-- スクロールするコンテンツ -->
+      </div>
+      <div class="dads-modal-dialog__actions">
+        <!-- アクションもスクロール -->
+      </div>
+    </div>
+  </div>
+</dialog>
+```
+
+#### アクションを固定する
+
+`.dads-modal-dialog__actions` を `.dads-modal-dialog__scroll-area` の外に出し、ヘッダーとボディを `.dads-modal-dialog__scroll-area` で囲みます。
+
+```html
+<dialog class="dads-modal-dialog" data-scroll="inner">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__scroll-area">
+      <div class="dads-modal-dialog__header">
+        <!-- ヘッダーもスクロール -->
+      </div>
+      <div class="dads-modal-dialog__body">
+        <!-- スクロールするコンテンツ -->
+      </div>
+    </div>
+    <div class="dads-modal-dialog__actions">
+      <!-- アクションが下部に固定 -->
+    </div>
+  </div>
+</dialog>
+```
+
+#### ヘッダーとアクションの両方を固定する
+
+`.dads-modal-dialog__header` と `.dads-modal-dialog__actions` を `.dads-modal-dialog__scroll-area` の外に出し、ボディのみを `.dads-modal-dialog__scroll-area` で囲みます。
+
+```html
+<dialog class="dads-modal-dialog" data-scroll="inner">
+  <div class="dads-modal-dialog__dialog">
+    <div class="dads-modal-dialog__header">
+      <!-- ヘッダーが上部に固定 -->
+    </div>
+    <div class="dads-modal-dialog__scroll-area">
+      <div class="dads-modal-dialog__body">
+        <!-- スクロールするコンテンツ -->
+      </div>
+    </div>
+    <div class="dads-modal-dialog__actions">
+      <!-- アクションが下部に固定 -->
+    </div>
+  </div>
+</dialog>
+```
+
+### 幅を指定する
+
+`--modal-dialog-width` カスタムプロパティを使用してダイアログの幅を指定できます。デフォルトでは、幅はコンテンツに応じて変化します。
+
+固定幅を指定する場合：
+
+```html
+<dialog class="dads-modal-dialog" style="--modal-dialog-width: 800px;">
+  <!-- ... -->
+</dialog>
+```
+
+`100%` を指定すると、ダイアログが画面全体の幅に広がります：
+
+```html
+<dialog class="dads-modal-dialog" style="--modal-dialog-width: 100%;">
+  <!-- ... -->
+</dialog>
+```
+
+### Invoker Commands APIポリフィルを使用する
+
+本コードスニペットではモーダルダイアログの開閉にInvoker Commands APIを使用しています。公開時点において、サポートが行き渡っていない新しいウェブ標準であるため、ポリフィルの導入を推奨します。
+
+将来的に、未対応ブラウザを使用するユーザーが十分に少なくなったと判断できたタイミングで、ポリフィルの読み込みを削除して構いません。
+
+以下に代表的なポリフィルの使用方法を記載します。
+
+#### 1. パッケージをダウンロードし使用する
+
+以下のコマンドでライブラリをダウンロードし、静的配信されるディレクトリに配置します。
+
+```
+curl -LO https://unpkg.com/invokers-polyfill/invoker.min.js
+```
+
+`<script>`タグでライブラリを読み込みます。
+
+```html
+<script src="path/to/invoker.min.js"></script>
+```
+
+#### 2. npmパッケージを使用する
+
+以下のコマンドでライブラリをインストールします。
+
+```sh
+npm install invokers-polyfill
+```
+
+エントリーポイントのJavaScriptから読み込みます。
+
+```js
+import "invokers-polyfill";
+```
+
+<Stories title="デモ" includePrimary={false} />
+
+## 参考情報
+
+- [dialog 要素 - MDN Web Docs](https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Elements/dialog)
+- [Invoker Commands - Open UI](https://open-ui.org/components/invokers.explainer/)
+
+</div>
+</Unstyled>
