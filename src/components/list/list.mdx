@@ -39,10 +39,10 @@ import listCss from "./list.css?raw";
 
 ```html
 <ul class="dads-list" data-marker="number" data-spacing="4">
-  <li><span>1. </span><span>リストアイテム1</span></li>
-  <li><span>2. </span><span>リストアイテム2</span></li>
+  <li><span>1. </span>リストアイテム1</li>
+  <li><span>2. </span>リストアイテム2</li>
   <li>
-    <span>3. </span><span>リストアイテム3</span>
+    <span>3. </span>リストアイテム3
     <ul class="dads-list" data-spacing="4">
       <li>ネストされたアイテム</li>
     </ul>
@@ -70,21 +70,21 @@ import listCss from "./list.css?raw";
 
 ### 番号付きリスト
 
-番号付きリストを使用する場合は、`data-marker="number"`を設定し、各リスト項目内に番号用の`<span>`要素とテキスト用の`<span>`要素を配置します。
+番号付きリストを使用する場合は、`data-marker="number"`を設定し、各リスト項目内に番号用の`<span>`要素を配置します。番号の`<span>`要素は、`<li>`要素の最初の子要素である必要があります。
 
 ```html
 <ul class="dads-list" data-marker="number" data-spacing="4">
-  <li><span>１　</span><span>番号はテキストとして記述します</span></li>
-  <li><span>２　</span><span>丸数字や括弧付きなど任意の形式が使用可能です</span></li>
+  <li><span>１　</span>番号はテキストとして記述します</li>
+  <li><span>２　</span>丸数字や括弧付きなど任意の形式が使用可能です</li>
 </ul>
 ```
 
 ### リンク付きリスト項目
 
-番号付きリストでリスト項目全体をリンクにする場合は、`<li>`要素の直下に`<a>`要素を配置し、その中に番号とテキストの`<span>`要素を含めます。
+番号付きリストでリスト項目全体をリンクにする場合は、`<li>`要素の直下に`<a>`要素を配置し、その中に番号の`<span>`要素を含めます。番号の`<span>`要素は、`<a>`要素の最初の子要素である必要があります。
 
 ```html
-<li><a class="dads-link" href="#"><span>3. </span><span>リンク付きアイテム</span></a></li>
+<li><a class="dads-link" href="#"><span>3. </span>リンク付きアイテム</a></li>
 ```
 
 ### ネストされたリスト
