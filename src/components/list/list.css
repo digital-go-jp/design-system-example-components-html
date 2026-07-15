@@ -24,33 +24,29 @@
 }
 
 .dads-list[data-marker="number"] {
-  display: grid;
-  grid-template-columns: minmax(calc(32 / 16 * 1rem), auto) 1fr;
   padding-left: 0;
   list-style-type: none;
 }
 
-.dads-list[data-marker="number"] > li,
-.dads-list[data-marker="number"] > li > a {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: inherit;
-  align-items: baseline;
+.dads-list[data-marker="number"] > li {
+  padding-left: calc(32 / 16 * 1rem);
 }
 
-.dads-list[data-marker="number"] > li > a > span {
-  text-decoration-thickness: inherit;
+.dads-list[data-marker="number"] > li > a:only-child {
+  margin-left: calc(-32 / 16 * 1rem);
+  padding-left: calc(32 / 16 * 1rem);
 }
 
-.dads-list[data-marker="number"] > li > :not(a, span) {
-  grid-column: 2;
+.dads-list[data-marker="number"] > li > span:first-child,
+.dads-list[data-marker="number"] > li > a:only-child > span:first-child {
+  margin-left: calc(-32 / 16 * 1rem);
+  display: inline-block;
+  min-width: calc(32 / 16 * 1rem);
+  white-space: nowrap;
 }
 
-@supports (grid-template-columns: subgrid) {
-  .dads-list[data-marker="number"] > li,
-  .dads-list[data-marker="number"] > li > a {
-    grid-template-columns: subgrid;
-  }
+.dads-list[data-marker="number"] > li > a:only-child > span:first-child {
+  text-decoration: inherit;
 }
 
 .dads-list .dads-list {
