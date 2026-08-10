@@ -1,0 +1,59 @@
+name: Create Release
+
+# develop -> main のマージをリリースポイントとみなし、マージ時点のコミットに
+# vYYYYMMDD 形式のタグを付与し、GitHub Release を自動生成する。
+# タグ・リリースノートの内容は .github/release.yml の設定に従う。
+#
+# 同日に複数回リリースした場合は vYYYYMMDD-2, vYYYYMMDD-3 ... のように
+# 連番サフィックスを付与する。
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.ref == 'develop'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Compute release tag
+        id: tag
+        run: |
+          set -e
+          date="$(date -u +%Y%m%d)"
+          base="v${date}"
+
+          if ! git rev-parse -q --verify "refs/tags/${base}" >/dev/null; then
+            tag="${base}"
+          else
+            n=2
+            while git rev-parse -q --verify "refs/tags/${base}-${n}" >/dev/null; do
+              n=$((n + 1))
+            done
+            tag="${base}-${n}"
+          fi
+
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --target "${{ github.event.pull_request.merge_commit_sha }}" \
+            --title "${{ steps.tag.outputs.tag }}" \
+            --generate-notes

@@ -1,0 +1,23 @@
+changelog:
+  exclude:
+    labels:
+      - duplicate
+      - invalid
+      - wontfix
+      - question
+  categories:
+    - title: 🚀 新機能・改善
+      labels:
+        - enhancement
+    - title: 🐛 不具合修正
+      labels:
+        - bug
+    - title: 📝 ドキュメント
+      labels:
+        - documentation
+    - title: 📦 依存関係の更新
+      labels:
+        - dependencies
+    - title: その他の変更
+      labels:
+        - "*"
