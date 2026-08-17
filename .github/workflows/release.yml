@@ -1,0 +1,116 @@
+name: Create Release
+
+# develop -> main のマージをリリースポイントとみなし、マージ後の main の
+# 最新コミットに vYYYYMMDD 形式のタグを付与し、GitHub Release を自動生成する。
+# リリースノートは GitHub の自動生成機能（--generate-notes）に任せる。
+#
+# 同日に複数回リリースした場合は vYYYYMMDD-2, vYYYYMMDD-3 ... のように
+# 連番サフィックスを付与する。
+#
+# 短時間に develop -> main のマージが連続すると、concurrency グループは
+# 実行中のジョブの後ろに保留できる実行を1つしか保持できず、間に発生した
+# マージのイベントは待機列から弾かれてしまう。そのため個々のマージイベント
+# ごとに厳密に1回ずつリリースを作るのではなく、実行されたジョブは常にその
+# 時点の main の最新コミットを対象にする設計にすることで、取りこぼされた
+# マージがあっても次に実行されたジョブでまとめてリリース対象に含まれる
+# ようにしている。
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+# 複数のマージが同時に発生してもタグ採番・リリース作成処理自体が並行実行
+# されないよう直列化する（実行中のジョブはキャンセルせずキューイングする）。
+concurrency:
+  group: create-release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.ref == 'develop' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          # 実行時点の main 最新コミットを対象にする（トリガーとなった
+          # PR のマージコミットに固定しない）。concurrency によりキュー
+          # から弾かれたマージがあっても、次に実行されたジョブが main の
+          # 最新状態をまとめてリリース対象にできるようにするため。
+          ref: main
+
+      - name: Compute release tag
+        id: tag
+        env:
+          TZ: Asia/Tokyo
+        run: |
+          set -e
+          git fetch --tags --force
+
+          target="$(git rev-parse HEAD)"
+
+          # 再実行等でこのコミットが既にリリース済みなら、重複したリリースを
+          # 作成しないようにスキップする。
+          existing_tag="$(git tag --points-at HEAD -l 'v*' | head -n 1 || true)"
+          if [ -n "${existing_tag}" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "このコミットは既に ${existing_tag} としてリリース済みのためスキップします"
+            exit 0
+          fi
+
+          # リリース対象コミット自体の日時(JST)を基準にする
+          # （ワークフロー実行時刻ではない）
+          date="$(git log -1 --date=format-local:%Y%m%d --format=%cd HEAD)"
+          base="v${date}"
+
+          if ! git rev-parse -q --verify "refs/tags/${base}" >/dev/null; then
+            tag="${base}"
+          else
+            n=2
+            while git rev-parse -q --verify "refs/tags/${base}-${n}" >/dev/null; do
+              n=$((n + 1))
+            done
+            tag="${base}-${n}"
+          fi
+
+          # vYYYYMMDD[-n] は連番部分が2桁以上になると文字列比較では順序が崩れる
+          # （例: v20260816-9 が v20260816-10 より後になる）ため、バージョン
+          # ソート(-V)で時系列順に並べる。
+          prev_tag="$(git tag -l 'v*' | sort -V | tail -n 1 || true)"
+
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "prev_tag=${prev_tag}" >> "$GITHUB_OUTPUT"
+          echo "target=${target}" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and GitHub Release
+        if: steps.tag.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.tag }}
+          PREV_TAG: ${{ steps.tag.outputs.prev_tag }}
+          TARGET: ${{ steps.tag.outputs.target }}
+        run: |
+          set -e
+
+          # タグ名はリポジトリ内の git tag 由来だが、シェルメタ文字を含む
+          # 不正なタグが紛れ込んだ場合でもコマンドとして解釈されないよう、
+          # run スクリプトへの直接展開ではなく env 経由の変数参照にする。
+          notes_args=(--generate-notes)
+          if [ -n "${PREV_TAG}" ]; then
+            notes_args+=(--notes-start-tag "${PREV_TAG}")
+          fi
+
+          gh release create "${TAG}" \
+            --target "${TARGET}" \
+            --title "${TAG}" \
+            "${notes_args[@]}"
