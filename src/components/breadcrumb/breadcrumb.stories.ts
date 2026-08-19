@@ -7,7 +7,7 @@ import withVisibleLabel from "./with-visible-label.html?raw";
 import withHomeIcon from "./with-home-icon.html?raw";
 
 const meta = {
-  title: "Components/パンくずリスト",
+  title: "Components/パンくずナビゲーション",
 } satisfies Meta;
 
 export default meta;
