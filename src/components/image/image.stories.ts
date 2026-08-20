@@ -3,19 +3,33 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./image.css";
 
+import borderless from "./borderless.html?raw";
+import captionSolid from "./caption-solid.html?raw";
+import fullWidth from "./full-width.html?raw";
 import playground from "./playground.html?raw";
-import withPictureElement from "./with-picture-element.html?raw";
-
-import sample from "./sample.png";
 import sample2x from "./sample@2x.png";
-import sampleMobile from "./sample-mobile.png";
+import sample from "./sample.png";
 import sampleMobile2x from "./sample-mobile@2x.png";
+import sampleMobile from "./sample-mobile.png";
+import withLink from "./with-link.html?raw";
+import withPictureElement from "./with-picture-element.html?raw";
+import withoutCaption from "./without-caption.html?raw";
 
 const meta = {
   title: "Components/画像",
 } satisfies Meta;
 
 export default meta;
+
+function setSampleImage(
+  img: ReturnType<HtmlFragment["root"]["querySelector"]>,
+) {
+  if (!img) throw new Error();
+  img.setAttribute("src", sample);
+  if (img.getAttribute("srcset")) {
+    img.setAttribute("srcset", `${sample2x} 2x`);
+  }
+}
 
 interface ImagePlaygroundProps {
   type: string;
@@ -96,6 +110,27 @@ export const Playground: StoryObj<ImagePlaygroundProps> = {
   },
 };
 
+export const Borderless = () => {
+  const fragment = new HtmlFragment(borderless, ".dads-image");
+  setSampleImage(fragment.root.querySelector(".dads-image__img"));
+
+  return fragment.toString({ trimBlankLines: true });
+};
+
+export const WithLink = () => {
+  const fragment = new HtmlFragment(withLink, ".dads-image");
+  setSampleImage(fragment.root.querySelector(".dads-image__img"));
+
+  return fragment.toString({ trimBlankLines: true });
+};
+
+export const FullWidth = () => {
+  const fragment = new HtmlFragment(fullWidth, ".dads-image");
+  setSampleImage(fragment.root.querySelector(".dads-image__img"));
+
+  return fragment.toString({ trimBlankLines: true });
+};
+
 export const WithPictureElement = () => {
   const fragment = new HtmlFragment(withPictureElement, ".dads-image");
   const component = fragment.root;
@@ -115,4 +150,18 @@ export const WithPictureElement = () => {
   }
 
   return fragment.toString();
+};
+
+export const WithoutCaption = () => {
+  const fragment = new HtmlFragment(withoutCaption, ".dads-image");
+  setSampleImage(fragment.root.querySelector(".dads-image__img"));
+
+  return fragment.toString({ trimBlankLines: true });
+};
+
+export const CaptionSolid = () => {
+  const fragment = new HtmlFragment(captionSolid, ".dads-image");
+  setSampleImage(fragment.root.querySelector(".dads-image__img"));
+
+  return fragment.toString({ trimBlankLines: true });
 };
