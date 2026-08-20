@@ -2,8 +2,10 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./chip-label.css";
-import playground from "./playground.html?raw";
 import allChipLabels from "./all-chip-labels.html?raw";
+import customColor from "./custom-color.html?raw";
+import playground from "./playground.html?raw";
+import withoutIcon from "./without-icon.html?raw";
 
 const meta = {
   title: "Components/チップラベル",
@@ -84,6 +86,16 @@ export const Playground: StoryObj<ChipLabelPlaygroundProps> = {
     icon: true,
     text: "ラベル",
   },
+};
+
+export const WithoutIcon = () => {
+  const fragment = new HtmlFragment(withoutIcon, ".dads-chip-label");
+  return fragment.toString({ trimBlankLines: true });
+};
+
+export const CustomColor = () => {
+  const fragment = new HtmlFragment(customColor, ".dads-chip-label");
+  return fragment.toString({ trimBlankLines: true });
 };
 
 export const AllChipLabels: StoryObj = {
