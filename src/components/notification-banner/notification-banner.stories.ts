@@ -3,6 +3,7 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../button/button.css";
 import "./notification-banner.css";
+import colorChip from "./color-chip.html?raw";
 import info1 from "./info-1.html?raw";
 import info2 from "./info-2.html?raw";
 import success from "./success.html?raw";
@@ -186,6 +187,21 @@ export const Info2: StoryObj<NotificationBannerProps> = {
     style: "standard",
     dismissible: true,
     actionable: true,
+  },
+};
+
+/** 左側にカラーチップを表示する data-style="color-chip" の例 */
+export const ColorChip: StoryObj = {
+  render() {
+    return new HtmlFragment(
+      colorChip,
+      ".dads-notification-banner",
+    ).toString();
+  },
+  argTypes: {
+    style: {
+      table: { disable: true },
+    },
   },
 };
 
