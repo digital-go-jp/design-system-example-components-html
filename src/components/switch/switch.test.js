@@ -109,7 +109,7 @@ describe("SwitchOnOff", () => {
 const switchModeHTML = (extraAttrs = "") => `
 <dads-switch-mode class="dads-switch-mode" ${extraAttrs}>
   <button type="button" class="dads-switch-mode__option" role="switch" aria-checked="true" data-js-option>
-    <span class="dads-switch-mode__label">ライト</span>
+    <span class="dads-switch-mode__label">モード1</span>
   </button>
   <span class="dads-switch-mode__control" aria-hidden="true">
     <span class="dads-switch-mode__rail">
@@ -117,7 +117,7 @@ const switchModeHTML = (extraAttrs = "") => `
     </span>
   </span>
   <button type="button" class="dads-switch-mode__option" role="switch" aria-checked="false" data-js-option>
-    <span class="dads-switch-mode__label">ダーク</span>
+    <span class="dads-switch-mode__label">モード2</span>
   </button>
 </dads-switch-mode>`;
 
@@ -137,9 +137,9 @@ describe("SwitchMode", () => {
       expect(el.constructor.name).toBe("SwitchMode");
     });
 
-    test("初期状態では左側（ライト）が選択されているべき", () => {
+    test("初期状態では左側（モード1）が選択されているべき", () => {
       mountSwitchMode();
-      expect(checkedOption().textContent.trim()).toBe("ライト");
+      expect(checkedOption().textContent.trim()).toBe("モード1");
     });
   });
 
@@ -147,13 +147,13 @@ describe("SwitchMode", () => {
     test("反対側の選択肢をクリックすると切り替わるべき", async () => {
       mountSwitchMode();
       await userEvent.click(options()[1]);
-      expect(checkedOption().textContent.trim()).toBe("ダーク");
+      expect(checkedOption().textContent.trim()).toBe("モード2");
     });
 
     test("選択中の選択肢をクリックしても切り替わるべき", async () => {
       mountSwitchMode();
       await userEvent.click(options()[0]);
-      expect(checkedOption().textContent.trim()).toBe("ダーク");
+      expect(checkedOption().textContent.trim()).toBe("モード2");
     });
 
     test("クリック後は選択されていない側のaria-checkedがfalseになるべき", async () => {
@@ -189,7 +189,7 @@ describe("SwitchMode", () => {
       mountSwitchMode();
       options()[1].focus();
       await userEvent.keyboard("{ }");
-      expect(checkedOption().textContent.trim()).toBe("ダーク");
+      expect(checkedOption().textContent.trim()).toBe("モード2");
     });
   });
 
@@ -197,7 +197,7 @@ describe("SwitchMode", () => {
     const ariaDisabledHTML = `
 <dads-switch-mode class="dads-switch-mode">
   <button type="button" class="dads-switch-mode__option" role="switch" aria-checked="true" aria-disabled="true" data-js-option>
-    <span class="dads-switch-mode__label">ライト</span>
+    <span class="dads-switch-mode__label">モード1</span>
   </button>
   <span class="dads-switch-mode__control" aria-hidden="true">
     <span class="dads-switch-mode__rail">
@@ -205,20 +205,20 @@ describe("SwitchMode", () => {
     </span>
   </span>
   <button type="button" class="dads-switch-mode__option" role="switch" aria-checked="false" data-js-option>
-    <span class="dads-switch-mode__label">ダーク</span>
+    <span class="dads-switch-mode__label">モード2</span>
   </button>
 </dads-switch-mode>`;
 
     test("aria-disabled='true'が付いている選択肢はクリックしても切り替わらないべき", () => {
       document.body.innerHTML = ariaDisabledHTML;
       options()[0].click();
-      expect(checkedOption().textContent.trim()).toBe("ライト");
+      expect(checkedOption().textContent.trim()).toBe("モード1");
     });
 
     test("aria-disabled='true'ではない選択肢は、反対側がaria-disabledでもクリックで切り替わるべき", () => {
       document.body.innerHTML = ariaDisabledHTML;
       options()[1].click();
-      expect(checkedOption().textContent.trim()).toBe("ダーク");
+      expect(checkedOption().textContent.trim()).toBe("モード2");
     });
   });
 });

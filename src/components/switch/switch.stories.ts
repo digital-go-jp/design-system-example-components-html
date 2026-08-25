@@ -100,8 +100,8 @@ export const PlaygroundMode: StoryObj<SwitchModePlaygroundProps> = {
     disabled: { control: "boolean" },
   },
   args: {
-    leftLabel: "ライト",
-    rightLabel: "ダーク",
+    leftLabel: "モード1",
+    rightLabel: "モード2",
     disabled: false,
   },
 };
