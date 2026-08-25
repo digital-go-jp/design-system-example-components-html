@@ -3,8 +3,6 @@ name: Deploy Storybook to PR Preview
 on:
   pull_request:
     types: [opened, synchronize, reopened, labeled]
-    branches:
-      - develop
   workflow_dispatch:
     inputs:
       pr_number:
