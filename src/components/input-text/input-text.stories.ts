@@ -3,9 +3,11 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./input-text.css";
 import "../form-control-label/form-control-label.css";
-import playground from "./playground.html?raw";
-import withFormControlLabel from "./with-form-control-label.html?raw";
+import basic from "./basic.html?raw";
+import disabled from "./disabled.html?raw";
+import errored from "./errored.html?raw";
 import readonly from "./readonly.html?raw";
+import withFormControlLabel from "./with-form-control-label.html?raw";
 
 type InputTextSize = "sm" | "md" | "lg";
 
@@ -15,43 +17,19 @@ const meta = {
 
 export default meta;
 
-interface InputTextPlaygroundProps {
+interface InputTextBasicProps {
   size: InputTextSize;
-  errored: boolean;
-  readonly: boolean;
-  disabled: boolean;
-  value?: string;
 }
 
-export const Playground: StoryObj<InputTextPlaygroundProps> = {
+export const Basic: StoryObj<InputTextBasicProps> = {
   render: (args) => {
-    const fragment = new HtmlFragment(playground, ".dads-input-text");
+    const fragment = new HtmlFragment(basic, ".dads-input-text");
     const inputText = fragment.root;
     const input = inputText.querySelector(".dads-input-text__input");
-    const errorText = inputText.querySelector(".dads-input-text__error-text");
 
     if (!input) throw new Error();
-    if (!errorText) throw new Error();
 
     input.setAttribute("data-size", args.size);
-
-    if (!args.errored) {
-      input.removeAttribute("aria-describedby");
-      input.removeAttribute("aria-invalid");
-      errorText.remove();
-    }
-
-    if (args.readonly) {
-      input.setAttribute("readonly", "");
-    }
-
-    if (args.disabled) {
-      input.setAttribute("disabled", "");
-    }
-
-    if (args.value) {
-      input.setAttribute("value", args.value);
-    }
 
     return fragment.toString({ trimBlankLines: true });
   },
@@ -63,15 +41,17 @@ export const Playground: StoryObj<InputTextPlaygroundProps> = {
   },
   args: {
     size: "sm",
-    errored: false,
-    readonly: false,
-    disabled: false,
-    value: "",
   },
 };
 
 export const WithFormControlLabel = () =>
   new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();
 
+export const Errored = () =>
+  new HtmlFragment(errored, ".dads-form-control-label").toString();
+
 export const Readonly = () =>
   new HtmlFragment(readonly, ".dads-form-control-label").toString();
+
+export const Disabled = () =>
+  new HtmlFragment(disabled, ".dads-form-control-label").toString();
