@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./menu-list.css";
-import playground from "./playground.html?raw";
+import basic from "./basic.html?raw";
 import hasChildren from "./has-children.html?raw";
+import playground from "./playground.html?raw";
 
 const meta = {
   title: "Components/メニューリスト",
@@ -100,6 +101,9 @@ export const Playground: StoryObj<MenuListPlaygroundProps> = {
     indent: 0,
   },
 };
+
+export const Basic = () =>
+  new HtmlFragment(basic, "body > .dads-menu-list").toString();
 
 export const HasChildren = () =>
   new HtmlFragment(hasChildren, "body > .dads-menu-list").toString();
