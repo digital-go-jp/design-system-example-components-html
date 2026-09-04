@@ -2,8 +2,10 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./utility-link.css";
-import playground from "./playground.html?raw";
+import basic from "./basic.html?raw";
 import multiple from "./multiple.html?raw";
+import playground from "./playground.html?raw";
+import withLeadIcon from "./with-lead-icon.html?raw";
 
 const meta = {
   title: "Components/ユーティリティーリンク",
@@ -53,10 +55,20 @@ export const Playground: StoryObj<PlaygroundProps> = {
   },
   args: {
     hasLeadIcon: true,
-    target: "_self",
+    target: "_blank",
     label: "リンクテキスト",
   },
 };
+
+export const Basic = () =>
+  new HtmlFragment(basic, ".dads-utility-link").toString({
+    trimBlankLines: true,
+  });
+
+export const WithLeadIcon = () =>
+  new HtmlFragment(withLeadIcon, ".dads-utility-link").toString({
+    trimBlankLines: true,
+  });
 
 export const MultipleLinks = () =>
   new HtmlFragment(multiple, "body > div").toString();
