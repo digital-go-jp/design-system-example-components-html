@@ -193,10 +193,7 @@ export const Info2: StoryObj<NotificationBannerProps> = {
 /** 左側にカラーチップを表示する data-style="color-chip" の例 */
 export const ColorChip: StoryObj = {
   render() {
-    return new HtmlFragment(
-      colorChip,
-      ".dads-notification-banner",
-    ).toString();
+    return new HtmlFragment(colorChip, ".dads-notification-banner").toString();
   },
   argTypes: {
     style: {
