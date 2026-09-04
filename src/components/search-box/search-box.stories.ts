@@ -9,6 +9,7 @@ import "../radio/radio.css";
 import "./search-box.css";
 import playground from "./playground.html?raw";
 import withDetail from "./with-detail.html?raw";
+import withoutSelect from "./without-select.html?raw";
 
 const meta = {
   title: "Components/検索ボックス",
@@ -55,3 +56,8 @@ export const Playground: StoryObj<SearchBoxPlaygroundProps> = {
 
 export const WithDetail = () =>
   new HtmlFragment(withDetail, "body > *").toString({ trimBlankLines: true });
+
+export const WithoutSelect = () =>
+  new HtmlFragment(withoutSelect, ".dads-search-box").toString({
+    trimBlankLines: true,
+  });
