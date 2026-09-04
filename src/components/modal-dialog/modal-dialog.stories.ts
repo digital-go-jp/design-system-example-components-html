@@ -10,6 +10,7 @@ import innerScrollWithFixedHeader from "./inner-scroll-with-fixed-header.html?ra
 import innerScrollWithFixedActions from "./inner-scroll-with-fixed-actions.html?raw";
 import innerScrollWithFixedBoth from "./inner-scroll-with-fixed-both.html?raw";
 import fixedWidth from "./fixed-width.html?raw";
+import fullWidth from "./full-width.html?raw";
 
 interface ModalDialogCommonProps {
   hasCloseButton: boolean;
@@ -137,6 +138,18 @@ export const InnerScrollWithFixedBoth: StoryObj<ModalDialogCommonProps> = {
 export const FixedWidth: StoryObj = {
   render: () => {
     return new HtmlFragment(fixedWidth, "body > *").toString();
+  },
+  play: async ({ canvasElement }) => {
+    const button = canvasElement.querySelector<HTMLButtonElement>(
+      'button[command="show-modal"]',
+    );
+    button?.click();
+  },
+};
+
+export const FullWidth: StoryObj = {
+  render: () => {
+    return new HtmlFragment(fullWidth, "body > *").toString();
   },
   play: async ({ canvasElement }) => {
     const button = canvasElement.querySelector<HTMLButtonElement>(
