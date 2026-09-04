@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>左側に表示する｜ドロワー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="drawer.css">
+<link rel="stylesheet" href="../hamburger-menu-button/hamburger-menu-button.css">
+<script src="https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js" integrity="sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<button class="dads-hamburger-menu-button" type="button" command="show-modal" commandfor="dads-drawer-left">
+  <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 18V16H21V18H3ZM3 13V11H21V13H3ZM3 8V6H21V8H3Z" fill="currentcolor"/>
+  </svg>
+  メニュー
+</button>
+
+<dialog id="dads-drawer-left" class="dads-drawer" data-placement="left" aria-labelledby="dads-drawer-left-heading">
+  <h2 id="dads-drawer-left-heading" class="dads-u-visually-hidden">メニュー</h2>
+  <div class="dads-drawer__header">
+    <button class="dads-hamburger-menu-button" type="button" command="close" commandfor="dads-drawer-left">
+      <svg class="dads-hamburger-menu-button__icon" width="24" height="24" viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M32 95L25 88L53 60L25 32L32 25L60 53L88 25L95 32L67 60L95 88L88 95L60 67L32 95Z" fill="currentcolor"/>
+      </svg>
+      閉じる
+    </button>
+  </div>
+  <div class="dads-drawer__body">
+    <!-- ドロワーのコンテンツ -->
+  </div>
+</dialog>
+
+</body>
+</html>
