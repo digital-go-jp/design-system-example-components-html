@@ -1,5 +1,9 @@
 [WithoutMarker](./description-list.stories.ts?controls#WithoutMarker)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/description-list/" target="_blank">説明リスト（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

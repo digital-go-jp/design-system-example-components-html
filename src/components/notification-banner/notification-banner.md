@@ -1,5 +1,9 @@
 [Success](./notification-banner.stories.ts?controls#Success)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/notification-banner/" target="_blank">ノティフィケーションバナー（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

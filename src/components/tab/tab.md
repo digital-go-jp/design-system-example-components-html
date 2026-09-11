@@ -1,5 +1,9 @@
 [Playground](./tab.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/tab/" target="_blank">タブ（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## タイプ概要
 
 タブコンポーネントには3つのタイプがあります。

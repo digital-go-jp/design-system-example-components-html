@@ -1,5 +1,9 @@
 [Bullet](./list.stories.ts?controls#Bullet)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/list/" target="_blank">箇条書きリスト（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

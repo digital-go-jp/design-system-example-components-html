@@ -1,5 +1,9 @@
 [Text](./page-navigation.stories.ts?controls#Text)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/page-navigation/" target="_blank">ページナビゲーション（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

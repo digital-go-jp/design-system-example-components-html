@@ -1,5 +1,9 @@
 [Playground](./search-box.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/search-box/" target="_blank">検索ボックス（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

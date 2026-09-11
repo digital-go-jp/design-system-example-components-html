@@ -1,5 +1,9 @@
 [Consolidated](./date-picker.stories.ts?controls#Consolidated)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/date-picker/" target="_blank">日付ピッカー／カレンダー（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

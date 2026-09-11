@@ -1,5 +1,9 @@
 [Playground](./toc.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/toc/" target="_blank">目次（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

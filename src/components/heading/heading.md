@@ -1,5 +1,9 @@
 [Playground](./heading.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/heading/" target="_blank">見出し（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

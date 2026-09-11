@@ -1,5 +1,9 @@
 [Playground](./select.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/select/" target="_blank">セレクトボックス（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

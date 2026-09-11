@@ -1,5 +1,9 @@
 [Basic](./input-text.stories.ts?controls#Basic)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/input-text/" target="_blank">インプットテキスト（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

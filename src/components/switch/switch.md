@@ -6,6 +6,10 @@
 
 [Playground (Mode)](./switch.stories.ts?controls#PlaygroundMode)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/switch/" target="_blank">スイッチ（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 ### オン／オフスイッチ

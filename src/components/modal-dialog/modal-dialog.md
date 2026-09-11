@@ -1,5 +1,9 @@
 [Playground](./modal-dialog.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/modal-dialog/" target="_blank">モーダルダイアログ（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

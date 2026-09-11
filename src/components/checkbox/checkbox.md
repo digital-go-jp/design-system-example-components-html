@@ -1,5 +1,9 @@
 [Playground](./checkbox.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/checkbox/" target="_blank">チェックボックス（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

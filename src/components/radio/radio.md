@@ -1,5 +1,9 @@
 [Playground](./radio.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/radio/" target="_blank">ラジオボタン（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

@@ -1,3 +1,7 @@
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/card/" target="_blank">カード（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## カード作例 1
 
 全体がリンクのクリッカブルエリアになっているカードです。メインエリアの角を丸くしています。

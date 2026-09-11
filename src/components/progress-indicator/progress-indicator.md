@@ -1,5 +1,9 @@
 [Spinner (Loop)](./progress-indicator.stories.ts?controls#SpinnerLoop)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/progress-indicator/" target="_blank">プログレスインジケーター（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>

@@ -1,5 +1,9 @@
 [Playground](./table.stories.ts?controls#Playground)
 
+## コンポーネントのガイドライン
+
+<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/table/" target="_blank">テーブル／データテーブル（概要）｜デジタル庁デザインシステムβ版</a>
+
 ## ソースコード
 
 <details>
