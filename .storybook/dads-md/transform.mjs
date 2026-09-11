@@ -154,8 +154,6 @@ export function transformMarkdown(source, filename) {
 
   const footer = [
     "",
-    '<Stories title="デモ" includePrimary={false} />',
-    "",
     "</div>",
     "</Unstyled>",
     "",
