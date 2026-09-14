@@ -3,6 +3,9 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../form-control-label/form-control-label.css";
 import "./select.css";
+import disabled from "./disabled.html?raw";
+import error from "./error.html?raw";
+import optgroup from "./optgroup.html?raw";
 import playground from "./playground.html?raw";
 import withFormControlLabel from "./with-form-control-label.html?raw";
 
@@ -22,18 +25,21 @@ export const Playground: StoryObj<SelectPlaygroundProps> = {
   render: (args) => {
     const fragment = new HtmlFragment(playground, ".dads-select");
     const select = fragment.root;
+    const selectControl = select.querySelector(".dads-select__control");
     const selectSelect = select.querySelector(".dads-select__select");
-    const errorText = select.querySelector(".dads-select__error-text");
 
+    if (!selectControl) throw new Error();
     if (!selectSelect) throw new Error();
-    if (!errorText) throw new Error();
 
     selectSelect.setAttribute("data-size", args.size);
 
-    if (!args.error) {
-      selectSelect.removeAttribute("aria-describedby");
-      selectSelect.removeAttribute("aria-invalid");
-      errorText.remove();
+    if (args.error) {
+      selectSelect.setAttribute("aria-invalid", "true");
+      selectSelect.setAttribute("aria-describedby", "playground-error-text");
+      selectControl.insertAdjacentHTML(
+        "afterend",
+        '<span id="playground-error-text" class="dads-select__error-text">＊エラーテキストが入ります。</span>',
+      );
     }
 
     if (args.disabled) {
@@ -81,3 +87,11 @@ export const WithFormControlLabel: StoryObj<{ size: string }> = {
     size: "md",
   },
 };
+
+export const Errored = () => new HtmlFragment(error, ".dads-select").toString();
+
+export const Disabled = () =>
+  new HtmlFragment(disabled, ".dads-select").toString();
+
+export const Optgroup = () =>
+  new HtmlFragment(optgroup, ".dads-select").toString();

@@ -7,6 +7,8 @@ import "./page-navigation.css";
 import textButton from "./text-button.html?raw";
 import outlinedButton from "./outlined-button.html?raw";
 import arrowButton from "./arrow-button.html?raw";
+import firstPage from "./first-page.html?raw";
+import lastPage from "./last-page.html?raw";
 
 const meta = {
   title: "Components/ページナビゲーション",
@@ -149,3 +151,11 @@ export const Arrow: StoryObj<ArrowProps> = {
     ...pageArgs,
   },
 };
+
+/** 最初のページで「前のページ」ボタンを出力しない例 */
+export const FirstPage = () =>
+  new HtmlFragment(firstPage, ".dads-page-navigation").toString();
+
+/** 最後のページで「次のページ」ボタンを出力しない例 */
+export const LastPage = () =>
+  new HtmlFragment(lastPage, ".dads-page-navigation").toString();

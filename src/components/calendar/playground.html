@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Calendar</title>
+<title>Playground｜カレンダー</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<dads-calendar class="dads-calendar" role="application" data-js-calendar>
+<dads-calendar class="dads-calendar" role="application">
   <div class="dads-u-visually-hidden"><h2 data-js-calendar-heading aria-live="polite"></h2></div>
   <div class="dads-calendar__controls">
     <span class="dads-select">
@@ -71,7 +71,7 @@
 <script type="module">
   // 動作デモのためのスクリプト
   const output = document.querySelector("#playground-output");
-  const calendar = document.querySelector("[data-js-calendar]");
+  const calendar = document.querySelector("dads-calendar");
   calendar.addEventListener("date-selected", (e) => {
     const date = e.detail.date;
     if (date) {

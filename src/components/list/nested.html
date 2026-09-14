@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ネストされたリスト｜箇条書きリスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../link/link.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+
+<ul class="dads-list" data-spacing="4">
+  <li><a class="dads-link" href="#">親アイテム1</a></li>
+  <li>
+    親アイテム2
+    <ul class="dads-list" data-marker="number" data-spacing="4">
+      <li><a class="dads-link" href="#"><span>1. </span>子アイテム1</a></li>
+      <li>
+        <span>2. </span>子アイテム2
+        <ul class="dads-list" data-marker="number" data-spacing="4">
+          <li><span>①　</span>孫アイテム1</li>
+          <li><span>②　</span>孫アイテム2</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</body>
+</html>

@@ -5,8 +5,8 @@ import "../link/link.css";
 import "../list/list.css";
 import "./toc.css";
 
-import playground from "./playground.html?raw";
 import nested from "./nested.html?raw";
+import playground from "./playground.html?raw";
 
 const meta = {
   title: "Components/目次",

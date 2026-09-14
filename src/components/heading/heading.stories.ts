@@ -2,7 +2,12 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./heading.css";
+import basic from "./basic.html?raw";
 import playground from "./playground.html?raw";
+import withChip from "./with-chip.html?raw";
+import withIcon from "./with-icon.html?raw";
+import withRule from "./with-rule.html?raw";
+import withShoulder from "./with-shoulder.html?raw";
 
 const meta = {
   title: "Components/見出し",
@@ -108,3 +113,26 @@ export const Playground: StoryObj<HeadingPlaygroundProps> = {
     text: "見出しテキスト",
   },
 };
+
+export const Basic = () =>
+  new HtmlFragment(basic, ".dads-heading").toString({ trimBlankLines: true });
+
+export const WithChip = () =>
+  new HtmlFragment(withChip, ".dads-heading").toString({
+    trimBlankLines: true,
+  });
+
+export const WithRule = () =>
+  new HtmlFragment(withRule, ".dads-heading").toString({
+    trimBlankLines: true,
+  });
+
+export const WithIcon = () =>
+  new HtmlFragment(withIcon, ".dads-heading").toString({
+    trimBlankLines: true,
+  });
+
+export const WithShoulder = () =>
+  new HtmlFragment(withShoulder, ".dads-heading").toString({
+    trimBlankLines: true,
+  });

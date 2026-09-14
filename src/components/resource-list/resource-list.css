@@ -49,6 +49,9 @@
   outline-offset: calc(-1 / 16 * 1rem);
   border-radius: inherit;
   padding: var(--_padding-block) var(--_padding-inline);
+}
+
+.dads-resource-list__body:any-link {
   color: inherit;
   text-decoration: none;
 }

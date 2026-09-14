@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>基本形（Tabキーナビゲーション）｜タブ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="tab.css">
+<script type="module" src="tab.js"></script>
+</head>
+<body>
+
+<h2 id="basic-tab-heading">タブ見出し</h2>
+
+<dads-tab class="dads-tab">
+  <ul class="dads-tab__list" data-js-tab-list aria-labelledby="basic-tab-heading">
+    <li><a class="dads-tab__tab" href="#basic-sp-1" data-js-tab aria-current="true"><span>タブラベル</span></a></li>
+    <li><a class="dads-tab__tab" href="#basic-sp-2" data-js-tab><span>タブラベル</span></a></li>
+    <li><a class="dads-tab__tab" href="#basic-sp-3" data-js-tab><span>タブラベル</span></a></li>
+  </ul>
+  <div class="dads-tab__panels">
+    <div id="basic-sp-1" class="dads-tab__panel">
+      タブパネルの内容（1番目）
+    </div>
+    <div id="basic-sp-2" class="dads-tab__panel">
+      タブパネルの内容（2番目）
+    </div>
+    <div id="basic-sp-3" class="dads-tab__panel">
+      タブパネルの内容（3番目）
+    </div>
+  </div>
+</dads-tab>
+
+</body>
+</html>

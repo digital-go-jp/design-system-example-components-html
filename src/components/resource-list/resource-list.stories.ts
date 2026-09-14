@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/html-vite";
-import { parse, HTMLElement } from "node-html-parser";
+import { HTMLElement } from "node-html-parser";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./resource-list.css";
 import "../checkbox/checkbox.css";
-import "../radio/radio.css";
-import playground from "./playground.html?raw";
-import withControl from "./with-control.html?raw";
 import multipleItems from "./multiple-items.html?raw";
+import plain from "./plain.html?raw";
+import plainWithInlineLink from "./plain-with-inline-link.html?raw";
+import plainWithWholeLink from "./plain-with-whole-link.html?raw";
+import selectableWithInlineInteraction from "./selectable-with-inline-interaction.html?raw";
+import selectableWithWholeInteraction from "./selectable-with-whole-interaction.html?raw";
 
 const meta = {
   title: "Components/リソースリスト",
@@ -15,10 +17,8 @@ const meta = {
 
 export default meta;
 
-interface ResourceListPlaygroundProps {
+interface ResourceListPlainProps {
   style: "list" | "frame";
-  link: boolean;
-  interactionType: "inline" | "whole";
   headingLevel: "h2" | "h3" | "h4" | "h5" | "h6";
   hasFrontIcon: boolean;
   hasLabel: boolean;
@@ -27,14 +27,13 @@ interface ResourceListPlaygroundProps {
   hasAction: boolean;
 }
 
-export const Playground: StoryObj<ResourceListPlaygroundProps> = {
-  name: "Playground (Plain)",
-  render(args: ResourceListPlaygroundProps) {
-    const fragment = new HtmlFragment(playground, "body > ul");
+export const Plain: StoryObj<ResourceListPlainProps> = {
+  name: "Plain",
+  render(args: ResourceListPlainProps) {
+    const fragment = new HtmlFragment(plain, "body > ul");
     const root = fragment.root.querySelector(
       ".dads-resource-list",
     ) as unknown as HTMLElement;
-    const body = root.querySelector(".dads-resource-list__body");
     const icon = root.querySelector(".dads-resource-list__body > svg");
     const label = root.querySelector(".dads-resource-list__label");
     const title = root.querySelector(".dads-resource-list__title");
@@ -42,7 +41,6 @@ export const Playground: StoryObj<ResourceListPlaygroundProps> = {
     const sub = root.querySelector(".dads-resource-list__sub");
     const action = root.querySelector(".dads-resource-list__action");
 
-    if (!body) throw new Error();
     if (!icon) throw new Error();
     if (!label) throw new Error();
     if (!title) throw new Error();
@@ -51,21 +49,6 @@ export const Playground: StoryObj<ResourceListPlaygroundProps> = {
     if (!action) throw new Error();
 
     root.setAttribute("data-style", args.style);
-
-    if (args.link) {
-      if (args.interactionType === "inline") {
-        const text = title.textContent;
-        const anchor = parse('<a href="#"></a>').querySelector("a");
-        if (anchor) {
-          anchor.textContent = text;
-          title.textContent = "";
-          title.appendChild(anchor);
-        }
-      } else if (args.interactionType === "whole") {
-        body.tagName = "A";
-        body.setAttribute("href", "#");
-      }
-    }
 
     title.tagName = args.headingLevel.toUpperCase();
 
@@ -96,14 +79,6 @@ export const Playground: StoryObj<ResourceListPlaygroundProps> = {
       control: { type: "inline-radio" },
       options: ["list", "frame"],
     },
-    link: {
-      control: { type: "boolean" },
-    },
-    interactionType: {
-      control: { type: "inline-radio" },
-      options: ["inline", "whole"],
-      if: { arg: "link" },
-    },
     headingLevel: {
       control: { type: "inline-radio" },
       options: ["h2", "h3", "h4", "h5", "h6"],
@@ -126,8 +101,6 @@ export const Playground: StoryObj<ResourceListPlaygroundProps> = {
   },
   args: {
     style: "list",
-    link: false,
-    interactionType: "inline",
     headingLevel: "h2",
     hasFrontIcon: true,
     hasLabel: true,
@@ -137,138 +110,152 @@ export const Playground: StoryObj<ResourceListPlaygroundProps> = {
   },
 };
 
-interface ResourceListWithControlProps {
+export const PlainWithInlineLink: StoryObj = {
+  render() {
+    return new HtmlFragment(plainWithInlineLink, "body > ul").toString({
+      trimBlankLines: true,
+    });
+  },
+};
+
+interface ResourceListPlainWithWholeLinkProps {
   style: "list" | "frame";
-  control: "checkbox" | "radio";
-  interactionType: "inline" | "whole";
-  disabled: boolean;
-  hasFrontIcon: boolean;
-  hasLabel: boolean;
-  hasSupportText: boolean;
-  hasSubLabel: boolean;
   hasAction: boolean;
 }
 
-export const WithControl: StoryObj<ResourceListWithControlProps> = {
-  name: "Playground (with Control)",
-  render(args: ResourceListWithControlProps) {
-    const fragment = new HtmlFragment(withControl, "body > ul");
-    const root = fragment.root.querySelector(
-      ".dads-resource-list",
-    ) as unknown as HTMLElement;
-    const checkbox = root.querySelector(".dads-checkbox");
-    const radio = root.querySelector(".dads-radio");
-    const icon = root.querySelector(".dads-resource-list__body > svg");
-    const title = root.querySelector(".dads-resource-list__title");
-    const controlLabel = root.querySelector(".dads-resource-list__title label");
-    const label = root.querySelector(".dads-resource-list__label");
-    const supportText = root.querySelector(".dads-resource-list__support");
-    const sub = root.querySelector(".dads-resource-list__sub");
-    const action = root.querySelector(".dads-resource-list__action");
-    const actionButton = root.querySelector(
-      ".dads-resource-list__action-button",
-    );
+export const PlainWithWholeLink: StoryObj<ResourceListPlainWithWholeLinkProps> =
+  {
+    render(args: ResourceListPlainWithWholeLinkProps) {
+      const fragment = new HtmlFragment(plainWithWholeLink, "body > ul");
+      const root = fragment.root.querySelector(
+        ".dads-resource-list",
+      ) as unknown as HTMLElement;
+      const action = root.querySelector(".dads-resource-list__action");
 
-    if (!checkbox) throw new Error();
-    if (!radio) throw new Error();
-    if (!icon) throw new Error();
-    if (!title) throw new Error();
-    if (!controlLabel) throw new Error();
-    if (!label) throw new Error();
-    if (!supportText) throw new Error();
-    if (!sub) throw new Error();
-    if (!action) throw new Error();
-    if (!actionButton) throw new Error();
+      if (!action) throw new Error();
 
-    root.setAttribute("data-style", args.style);
+      root.setAttribute("data-style", args.style);
 
-    if (args.disabled) {
-      checkbox.querySelector("input")?.setAttribute("disabled", "");
-      radio.querySelector("input")?.setAttribute("disabled", "");
+      if (!args.hasAction) {
+        action.remove();
+      }
 
-      if (args.interactionType === "whole") {
+      return fragment.toString({ trimBlankLines: true });
+    },
+    argTypes: {
+      style: {
+        control: { type: "inline-radio" },
+        options: ["list", "frame"],
+      },
+      hasAction: {
+        control: { type: "boolean" },
+      },
+    },
+    args: {
+      style: "list",
+      hasAction: true,
+    },
+  };
+
+interface ResourceListSelectableWithInlineInteractionProps {
+  style: "list" | "frame";
+  disabled: boolean;
+}
+
+export const SelectableWithInlineInteraction: StoryObj<ResourceListSelectableWithInlineInteractionProps> =
+  {
+    render(args: ResourceListSelectableWithInlineInteractionProps) {
+      const fragment = new HtmlFragment(
+        selectableWithInlineInteraction,
+        "body > ul",
+      );
+      const root = fragment.root.querySelector(
+        ".dads-resource-list",
+      ) as unknown as HTMLElement;
+      const checkbox = root.querySelector(".dads-checkbox");
+
+      if (!checkbox) throw new Error();
+
+      root.setAttribute("data-style", args.style);
+
+      if (args.disabled) {
+        checkbox.querySelector("input")?.setAttribute("disabled", "");
+      }
+
+      return fragment.toString({ trimBlankLines: true });
+    },
+    argTypes: {
+      style: {
+        control: { type: "inline-radio" },
+        options: ["list", "frame"],
+      },
+      disabled: {
+        control: { type: "boolean" },
+      },
+    },
+    args: {
+      style: "list",
+      disabled: false,
+    },
+  };
+
+interface ResourceListSelectableWithWholeInteractionProps {
+  style: "list" | "frame";
+  disabled: boolean;
+  hasAction: boolean;
+}
+
+export const SelectableWithWholeInteraction: StoryObj<ResourceListSelectableWithWholeInteractionProps> =
+  {
+    render(args: ResourceListSelectableWithWholeInteractionProps) {
+      const fragment = new HtmlFragment(
+        selectableWithWholeInteraction,
+        "body > ul",
+      );
+      const root = fragment.root.querySelector(
+        ".dads-resource-list",
+      ) as unknown as HTMLElement;
+      const checkbox = root.querySelector(".dads-checkbox");
+      const action = root.querySelector(".dads-resource-list__action");
+      const actionButton = root.querySelector(
+        ".dads-resource-list__action-button",
+      );
+
+      if (!checkbox) throw new Error();
+      if (!action) throw new Error();
+      if (!actionButton) throw new Error();
+
+      root.setAttribute("data-style", args.style);
+
+      if (args.disabled) {
+        checkbox.querySelector("input")?.setAttribute("disabled", "");
         actionButton.setAttribute("disabled", "");
       }
-    }
 
-    if (args.control === "checkbox") {
-      radio.remove();
-    } else if (args.control === "radio") {
-      checkbox.remove();
-    }
+      if (!args.hasAction) {
+        action.remove();
+      }
 
-    if (args.interactionType === "whole") {
-      root.setAttribute("data-interaction", "whole");
-    } else {
-      root.removeAttribute("data-interaction");
-    }
-
-    if (!args.hasFrontIcon) {
-      icon.remove();
-    }
-
-    if (!args.hasLabel) {
-      label.remove();
-    }
-
-    if (!args.hasSupportText) {
-      supportText.remove();
-    }
-
-    if (!args.hasSubLabel) {
-      sub.remove();
-    }
-
-    if (!args.hasAction) {
-      action.remove();
-    }
-
-    return fragment.toString({ trimBlankLines: true });
-  },
-  argTypes: {
-    style: {
-      control: { type: "inline-radio" },
-      options: ["list", "frame"],
+      return fragment.toString({ trimBlankLines: true });
     },
-    control: {
-      control: { type: "inline-radio" },
-      options: ["checkbox", "radio"],
+    argTypes: {
+      style: {
+        control: { type: "inline-radio" },
+        options: ["list", "frame"],
+      },
+      disabled: {
+        control: { type: "boolean" },
+      },
+      hasAction: {
+        control: { type: "boolean" },
+      },
     },
-    interactionType: {
-      control: { type: "inline-radio" },
-      options: ["inline", "whole"],
+    args: {
+      style: "list",
+      disabled: false,
+      hasAction: true,
     },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    hasFrontIcon: {
-      control: { type: "boolean" },
-    },
-    hasLabel: {
-      control: { type: "boolean" },
-    },
-    hasSupportText: {
-      control: { type: "boolean" },
-    },
-    hasSubLabel: {
-      control: { type: "boolean" },
-    },
-    hasAction: {
-      control: { type: "boolean" },
-    },
-  },
-  args: {
-    style: "list",
-    control: "checkbox",
-    interactionType: "inline",
-    disabled: false,
-    hasFrontIcon: true,
-    hasLabel: true,
-    hasSupportText: true,
-    hasSubLabel: true,
-    hasAction: true,
-  },
-};
+  };
 
 export const MultipleItems = () =>
   new HtmlFragment(multipleItems, "body > ul").toString();

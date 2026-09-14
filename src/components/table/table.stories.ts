@@ -8,6 +8,7 @@ import "./scroll-shadow";
 import "./table.css";
 
 import playground from "./playground.html?raw";
+import example from "./example.html?raw";
 import plain from "./plain.html?raw";
 import firstRowAsHeaderCell from "./first-row-as-header-cell.html?raw";
 import firstColumnAsHeaderCell from "./first-column-as-header-cell.html?raw";
@@ -238,6 +239,9 @@ export const Playground: StoryObj<TablePlaygroundProps> = {
     hoverHighlight: false,
   },
 };
+
+export const Example = () =>
+  new HtmlFragment(example, ".dads-table").toString();
 
 export const Plain = () => new HtmlFragment(plain, ".dads-table").toString();
 

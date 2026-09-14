@@ -105,4 +105,4 @@ export const Errored = () =>
   new HtmlFragment(errored, ".dads-form-control-label").toString();
 
 export const Indeterminate = () =>
-  new HtmlFragment(indeterminate, "body > *").toString();
+  new HtmlFragment(indeterminate, "body>*").toString();
