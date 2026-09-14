@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./divider.css";
-import playground from "./playground.html?raw";
 import allDividers from "./all-dividers.html?raw";
+import decorative from "./decorative.html?raw";
+import playground from "./playground.html?raw";
 
 const meta = {
   title: "Components/ディバイダー",
@@ -48,6 +49,11 @@ export const Playground: StoryObj<DividerPlaygroundProps> = {
     width: "1",
   },
 };
+
+export const Decorative = () =>
+  new HtmlFragment(decorative, ".dads-divider").toString({
+    trimBlankLines: true,
+  });
 
 export const AllDividers = () =>
   new HtmlFragment(allDividers, "body > div").toString();

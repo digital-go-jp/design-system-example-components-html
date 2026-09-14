@@ -1,8 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/html-vite";
+import type { Meta } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./description-list.css";
-import playground from "./playground.html?raw";
+import bullet from "./bullet.html?raw";
+import customIconMarker from "./custom-icon-marker.html?raw";
+import customMarker from "./custom-marker.html?raw";
+import withoutMarker from "./without-marker.html?raw";
 
 const meta = {
   title: "Components/説明リスト",
@@ -10,35 +13,22 @@ const meta = {
 
 export default meta;
 
-interface DescriptionListPlaygroundProps {
-  marker: "none" | "bullet" | "custom";
-}
+export const WithoutMarker = () => {
+  const fragment = new HtmlFragment(withoutMarker, ".dads-description-list");
+  return fragment.toString();
+};
 
-export const Playground: StoryObj<DescriptionListPlaygroundProps> = {
-  render: (args) => {
-    const fragment = new HtmlFragment(playground, ".dads-description-list");
-    const descriptionList = fragment.root;
-    const markers = descriptionList.querySelectorAll("dt > span:first-child");
+export const Bullet = () => {
+  const fragment = new HtmlFragment(bullet, ".dads-description-list");
+  return fragment.toString();
+};
 
-    if (args.marker === "none") {
-      descriptionList.removeAttribute("data-marker");
-      markers.forEach((marker) => marker.remove());
-    } else if (args.marker === "bullet") {
-      descriptionList.setAttribute("data-marker", "bullet");
-      markers.forEach((marker) => marker.remove());
-    } else {
-      descriptionList.setAttribute("data-marker", "custom");
-    }
+export const CustomMarker = () => {
+  const fragment = new HtmlFragment(customMarker, ".dads-description-list");
+  return fragment.toString();
+};
 
-    return fragment.toString();
-  },
-  argTypes: {
-    marker: {
-      control: "radio",
-      options: ["none", "bullet", "custom"],
-    },
-  },
-  args: {
-    marker: "none",
-  },
+export const CustomIconMarker = () => {
+  const fragment = new HtmlFragment(customIconMarker, ".dads-description-list");
+  return fragment.toString();
 };

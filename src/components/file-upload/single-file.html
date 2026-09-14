@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>単一ファイルのみ選択させる｜ファイルアップロード／ドロップエリア</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="../checkbox/checkbox.css">
+<link rel="stylesheet" href="../file-upload/file-upload.css">
+<script type="module" src="../file-upload/file-upload.js"></script>
+</head>
+<body>
+
+<dads-file-upload class="dads-file-upload" max-file-size="5MB">
+  <input class="dads-file-upload__input" type="file" name="file" accept=".png,.jpg,.jpeg,.gif,.pdf" data-js-input>
+
+  <div class="dads-u-visually-hidden" aria-live="polite" data-js-announcer></div>
+  <div class="dads-u-visually-hidden" aria-live="assertive" data-js-announcer-assertive></div>
+
+  <div class="dads-file-upload__inner">
+    <div class="dads-file-upload__drop-area" data-js-drop-area>
+      <div class="dads-file-upload__button-area">
+        <button class="dads-button" data-type="outline" data-size="md" type="button" data-js-select-button>
+          ファイルを選択
+        </button>
+        <p>または、このエリア内にドラッグ＆ドロップ</p>
+      </div>
+      <p class="dads-file-upload__select-summary" data-js-select-summary></p>
+      <ul class="dads-file-upload__error-messages" data-js-error-messages></ul>
+      <p class="dads-file-upload__expand-drop-area">
+        <label class="dads-checkbox" data-size="md">
+          <span class="dads-checkbox__checkbox">
+            <input class="dads-checkbox__input" type="checkbox" data-js-expand-drop-area>
+          </span>
+          <span class="dads-checkbox__label">ドラッグ＆ドロップの範囲をこのブラウザウィンドウ全体に広げる</span>
+        </label>
+      </p>
+    </div>
+    <p class="dads-file-upload__empty-message" data-js-empty-message>ファイルが選択されていません</p>
+    <ul class="dads-file-upload__file-list" data-js-file-list>
+      <li class="dads-file-upload__file-item">
+        <input type="hidden" name="file-existing" value="temp-file-abc123">
+        <div class="dads-file-upload__file-marker"></div>
+        <div class="dads-file-upload__file-info" data-js-file-info>
+          <p>
+            <span class="dads-file-upload__file-name" data-slot="fileName">運転免許証_表面.jpg</span>
+            <span class="dads-file-upload__file-meta">
+              <span data-slot="fileSize">1.8MB</span>（<span data-slot="fileSizeBytes">1,887,436</span>バイト）
+            </span>
+          </p>
+        </div>
+        <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dads-file-upload__viewport-overlay" data-js-viewport-overlay hidden>
+    <div class="dads-file-upload__viewport-overlay-message">
+      <span>このエリア内にファイルを</span><span>ドラッグ＆ドロップ</span>
+    </div>
+  </div>
+
+  <template data-js-template>
+    <li class="dads-file-upload__file-item">
+      <div class="dads-file-upload__file-marker"></div>
+      <div class="dads-file-upload__file-info" data-js-file-info>
+        <p>
+          <span class="dads-file-upload__file-name" data-slot="fileName"></span>
+          <span class="dads-file-upload__file-meta">
+            <span data-slot="fileSize"></span>（<span data-slot="fileSizeBytes"></span>バイト）
+          </span>
+        </p>
+      </div>
+      <button class="dads-file-upload__remove-button dads-button" data-type="text" data-size="xs" type="button" data-js-remove-button>解除</button>
+    </li>
+  </template>
+</dads-file-upload>
+
+</body>
+</html>

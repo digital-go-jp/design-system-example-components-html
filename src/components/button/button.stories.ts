@@ -2,9 +2,13 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./button.css";
-import playground from "./playground.html?raw";
 import allButtonsUsingButton from "./all-buttons-using-button.html?raw";
 import allButtonsUsingLink from "./all-buttons-using-link.html?raw";
+import asLink from "./as-link.html?raw";
+import disabledLink from "./disabled-link.html?raw";
+import disabled from "./disabled.html?raw";
+import playground from "./playground.html?raw";
+import withIcon from "./with-icon.html?raw";
 
 type ButtonVariant = "solid-fill" | "outline" | "text";
 type ButtonSize = "lg" | "md" | "sm" | "xs";
@@ -55,6 +59,24 @@ export const Playground: StoryObj<ButtonPlaygroundProps> = {
     label: "ボタン",
   },
 };
+
+export const AsLink = () =>
+  new HtmlFragment(asLink, ".dads-button").toString({ trimBlankLines: true });
+
+export const Disabled = () =>
+  new HtmlFragment(disabled, ".dads-button").toString({
+    trimBlankLines: true,
+  });
+
+export const DisabledLink = () =>
+  new HtmlFragment(disabledLink, ".dads-button").toString({
+    trimBlankLines: true,
+  });
+
+export const WithIcon = () =>
+  new HtmlFragment(withIcon, ".dads-button").toString({
+    trimBlankLines: true,
+  });
 
 export const AllButtonsUsingButton = () =>
   new HtmlFragment(allButtonsUsingButton, "body > div").toString();
