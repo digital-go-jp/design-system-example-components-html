@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { isStub, transformMarkdown, transformStub, } from "./transform.mjs";
+import { isStub, transformMarkdown, transformStub } from "./transform.mjs";
 
 const VIRTUAL_SUFFIX = ".md.mdx";
 
