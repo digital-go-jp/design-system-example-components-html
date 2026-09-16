@@ -1,6 +1,6 @@
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/card/" target="_blank">カード（概要）｜デジタル庁デザインシステムβ版</a>
+[カード（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/card/)
 
 ## カード作例 1
 

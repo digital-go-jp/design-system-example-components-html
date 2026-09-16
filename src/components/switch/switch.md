@@ -8,7 +8,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/switch/" target="_blank">スイッチ（概要）｜デジタル庁デザインシステムβ版</a>
+[スイッチ（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/switch/)
 
 ## ソースコード
 

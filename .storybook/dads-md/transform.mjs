@@ -48,9 +48,7 @@ function parseTarget(target) {
 /** 同ディレクトリの *.stories.ts を探す（規約） */
 function findSiblingStories(mdPath) {
   const dir = path.dirname(mdPath);
-  const hit = fs
-    .readdirSync(dir)
-    .find((f) => /\.stories\.(ts|js)$/.test(f));
+  const hit = fs.readdirSync(dir).find((f) => /\.stories\.(ts|js)$/.test(f));
   return hit ? `./${hit.replace(/\.(ts|js)$/, "")}` : null;
 }
 
@@ -85,7 +83,9 @@ export function transformMarkdown(source, filename) {
     // --- ストーリー参照 ---
     if (/\.stories\.(ts|js)$/.test(file)) {
       if (!storiesSpec) {
-        throw new Error(`[dads-md] ${filename}: stories ファイルが見つかりません`);
+        throw new Error(
+          `[dads-md] ${filename}: stories ファイルが見つかりません`,
+        );
       }
       const name = hash || "Playground";
       const params = new URLSearchParams(query);
@@ -152,12 +152,7 @@ export function transformMarkdown(source, filename) {
     "",
   ].join("\n");
 
-  const footer = [
-    "",
-    "</div>",
-    "</Unstyled>",
-    "",
-  ].join("\n");
+  const footer = ["", "</div>", "</Unstyled>", ""].join("\n");
 
   return header + out.join("\n") + footer;
 }

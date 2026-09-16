@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/emergency-banner/" target="_blank">緊急時バナー（概要）｜デジタル庁デザインシステムβ版</a>
+[緊急時バナー（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/emergency-banner/)
 
 ## ソースコード
 

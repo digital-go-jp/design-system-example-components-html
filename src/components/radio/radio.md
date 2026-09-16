@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/radio/" target="_blank">ラジオボタン（概要）｜デジタル庁デザインシステムβ版</a>
+[ラジオボタン（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/radio/)
 
 ## ソースコード
 

@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/file-upload/" target="_blank">ファイルアップロード／ドロップエリア（概要）｜デジタル庁デザインシステムβ版</a>
+[ファイルアップロード／ドロップエリア（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/file-upload/)
 
 ## ソースコード
 
