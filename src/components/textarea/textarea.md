@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/textarea/" target="_blank">テキストエリア（概要）｜デジタル庁デザインシステムβ版</a>
+[テキストエリア（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/textarea/)
 
 ## ソースコード
 

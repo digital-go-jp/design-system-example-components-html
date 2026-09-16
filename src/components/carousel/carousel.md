@@ -11,7 +11,7 @@ import carousel1024At2x from "./docs/carousel-1024@2x.webp";
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/carousel/" target="_blank">カルーセル（概要）｜デジタル庁デザインシステムβ版</a>
+[カルーセル（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/carousel/)
 
 ## ソースコード
 

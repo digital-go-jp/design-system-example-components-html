@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/drawer/" target="_blank">ドロワー（概要）｜デジタル庁デザインシステムβ版</a>
+[ドロワー（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/drawer/)
 
 ## ソースコード
 

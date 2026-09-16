@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/image/" target="_blank">画像（概要）｜デジタル庁デザインシステムβ版</a>
+[画像（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/image/)
 
 ## ソースコード
 

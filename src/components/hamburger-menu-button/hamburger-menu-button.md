@@ -2,7 +2,7 @@
 
 ## コンポーネントのガイドライン
 
-<a class="sbdocs-a" href="https://design.digital.go.jp/dads/components/hamburger-menu-button/" target="_blank">ハンバーガーメニューボタン（概要）｜デジタル庁デザインシステムβ版</a>
+[ハンバーガーメニューボタン（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/hamburger-menu-button/)
 
 ## ソースコード
 
