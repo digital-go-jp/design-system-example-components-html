@@ -2,9 +2,7 @@ name: Cleanup PR Preview
 
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - develop
+    types: [closed, unlabeled]
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
@@ -13,7 +11,13 @@ jobs:
   cleanup-preview:
     name: Cleanup PR Preview
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'preview')
+    if: >-
+      (github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview')) ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'preview')
+    # デプロイジョブと共通のグループで、同じPRの実行中のプレビュー操作をキャンセルする
+    concurrency:
+      group: pr-preview-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     permissions:
       id-token: write
       contents: read
