@@ -3,6 +3,7 @@
   grid-template-columns: auto auto;
   align-items: baseline;
   align-content: center;
+  flex-shrink: 0;
   box-sizing: border-box;
   min-height: calc(32 / 16 * 1rem);
   border-radius: calc(8 / 16 * 1rem);
