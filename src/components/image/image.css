@@ -45,10 +45,10 @@
 }
 
 .dads-image__caption {
-  margin: calc(8 / 16 * 1rem) 0 0;
+  margin: calc(8 / 16 * 1rem) 0 calc(40 / 16 * 1rem);
   contain: inline-size;
   padding: calc(8 / 16 * 1rem) calc(24 / 16 * 1rem);
-  color: var(--color-neutral-solid-gray-900);
+  color: var(--color-neutral-solid-gray-700);
   font-family: var(--font-family-sans);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
