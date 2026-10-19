@@ -12,10 +12,13 @@
   position: relative;
   display: block;
   width: fit-content;
+  max-width: 100%;
 }
 
 .dads-select__select {
-  vertical-align: middle;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
   box-sizing: border-box;
   border-radius: calc(8 / 16 * 1rem);
   border: 1px solid var(--color-neutral-solid-gray-600);

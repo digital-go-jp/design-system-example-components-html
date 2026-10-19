@@ -14,12 +14,14 @@
 <body>
 
 <fieldset class="dads-form-control-label" data-size="sm" aria-describedby="error-text support-text">
-  <legend class="dads-form-control-label__label">
-    東京23区
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      東京23区
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
   </legend>
   <p id="support-text" class="dads-form-control-label__support-text">該当する区を選択してください。</p>
-  <div>
+  <div class="dads-form-control-label__field">
     <label class="dads-radio" data-size="sm">
       <span class="dads-radio__radio">
         <input class="dads-radio__input" type="radio" name="errored" aria-invalid="true">
@@ -44,8 +46,8 @@
       </span>
       <span class="dads-radio__label">江戸川区</span>
     </label>
+    <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
   </div>
-  <p id="error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
 </fieldset>
 
 </body>

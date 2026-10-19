@@ -87,10 +87,12 @@ jobs:
           # ソート(-V)で時系列順に並べる。
           prev_tag="$(git tag -l 'v*' | sort -V | tail -n 1 || true)"
 
-          echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
-          echo "prev_tag=${prev_tag}" >> "$GITHUB_OUTPUT"
-          echo "target=${target}" >> "$GITHUB_OUTPUT"
+          {
+            echo "skip=false"
+            echo "tag=${tag}"
+            echo "prev_tag=${prev_tag}"
+            echo "target=${target}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create tag and GitHub Release
         if: steps.tag.outputs.skip == 'false'
