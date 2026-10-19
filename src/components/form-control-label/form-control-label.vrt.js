@@ -6,3 +6,8 @@ const { dirname } = import.meta;
 resetCssVrt("form-control-label-single", path.join(dirname, "single.html"));
 
 resetCssVrt("form-control-label-multiple", path.join(dirname, "multiple.html"));
+
+resetCssVrt(
+  "form-control-label-horizontal",
+  path.join(dirname, "horizontal.html"),
+);

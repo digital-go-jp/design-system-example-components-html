@@ -15,15 +15,17 @@
 <body>
 
 <fieldset class="dads-form-control-label" data-size="md" aria-describedby="error-support-text">
-  <legend class="dads-form-control-label__label">
-    生年月日
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      生年月日
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
   </legend>
   <p id="error-support-text" class="dads-form-control-label__support-text">
     西暦で記入してください。<br>
     例）2021年09月01日
   </p>
-  <div>
+  <div class="dads-form-control-label__field">
     <dads-date-picker class="dads-date-picker" data-type="consolidated">
       <div class="dads-date-picker__controls" data-size="md">
         <div class="dads-date-picker__inputs" data-error>

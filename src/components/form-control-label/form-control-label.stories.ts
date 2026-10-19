@@ -2,10 +2,15 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../checkbox/checkbox.css";
+import "../date-picker/date-picker.css";
 import "./form-control-label.css";
 import "../input-text/input-text.css";
+import "../radio/radio.css";
+import "../select/select.css";
+import "../textarea/textarea.css";
 import single from "./single.html?raw";
 import multiple from "./multiple.html?raw";
+import horizontal from "./horizontal.html?raw";
 
 const meta = {
   title: "Components/フォームコントロールラベル",
@@ -15,6 +20,7 @@ export default meta;
 
 interface FormControlLabelPlaygroundProps {
   size: string;
+  direction: "vertical" | "horizontal";
   required: boolean;
   supportText: boolean;
   error: boolean;
@@ -42,6 +48,12 @@ export const Single: StoryObj<FormControlLabelPlaygroundProps> = {
     if (!errorText) throw new Error();
 
     formControlLabel.setAttribute("data-size", args.size);
+
+    if (args.direction === "horizontal") {
+      formControlLabel.setAttribute("data-direction", "horizontal");
+    } else {
+      formControlLabel.removeAttribute("data-direction");
+    }
 
     if (!args.required) {
       requirement.setAttribute("data-required", "false");
@@ -75,9 +87,14 @@ export const Single: StoryObj<FormControlLabelPlaygroundProps> = {
       control: "radio",
       options: ["sm", "md", "lg"],
     },
+    direction: {
+      control: "radio",
+      options: ["vertical", "horizontal"],
+    },
   },
   args: {
     size: "md",
+    direction: "vertical",
     required: true,
     supportText: true,
     error: false,
@@ -105,6 +122,12 @@ export const Multiple: StoryObj<FormControlLabelPlaygroundProps> = {
     if (!errorText) throw new Error();
 
     formControlLabel.setAttribute("data-size", args.size);
+
+    if (args.direction === "horizontal") {
+      formControlLabel.setAttribute("data-direction", "horizontal");
+    } else {
+      formControlLabel.removeAttribute("data-direction");
+    }
 
     if (!args.required) {
       requirement.setAttribute("data-required", "false");
@@ -142,11 +165,19 @@ export const Multiple: StoryObj<FormControlLabelPlaygroundProps> = {
       control: "radio",
       options: ["sm", "md", "lg"],
     },
+    direction: {
+      control: "radio",
+      options: ["vertical", "horizontal"],
+    },
   },
   args: {
     size: "md",
+    direction: "vertical",
     required: true,
     supportText: true,
     error: false,
   },
 };
+
+export const Horizontal = () =>
+  new HtmlFragment(horizontal, "body > div").toString();

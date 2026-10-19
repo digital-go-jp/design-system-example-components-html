@@ -68,6 +68,12 @@
 
 エラーテキストは、フォームコントロールラベルが提供するパーツ（`.dads-form-control-label__error-text`）を使用できますが、各コントロールが提供するパーツを使用しても構いません。
 
+### 項目ラベルとコントロールを水平方向に並べる
+
+`data-direction="horizontal"`属性を使用して、項目ラベルとコントロールを水平方向に並べることができます。
+
+[horizontal.html](./horizontal.html#.dads-form-control-label)
+
 ### アクセシビリティ
 
 #### サポートテキストとエラーテキストの関連付け
