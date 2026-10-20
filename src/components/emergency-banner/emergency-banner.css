@@ -57,8 +57,9 @@
 @media (min-width: 48rem) {
   .dads-emergency-banner__body {
     row-gap: calc(16 / 16 * 1rem);
-    font-size: var(--font-size-20);
-    line-height: var(--line-height-150);
+    font-size: calc(20 / 16 * 1rem);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
   }
 }
 
