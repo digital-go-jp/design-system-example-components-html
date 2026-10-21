@@ -79,8 +79,9 @@ npm run format
 
 本コードスニペットに関する不具合や機能要望は、Issueを作成して報告してください。Pull Requestは現時点では受け付けておりません。
 
-## 求人情報
+## 採用情報
 
 デジタル庁デザインシステムのチームメンバーを募集しています。行政のデジタル環境を支える基盤づくりに、あなたのスキルや経験を活かしてみませんか？　求人ページからご応募ください。
 
-- [採用情報](https://herp.careers/v1/digitalsaiyo/requisition-groups/60ae4bf5-f6f8-4b21-9970-2c4ce4a0564f)
+- [【G_07】プロダクトデザイナー（デザインシステム）](https://herp.careers/v1/digitalsaiyo/aOOi7VfkWj7x)
+- [【G_08】デザインエンジニア（デザインシステム）](https://herp.careers/v1/digitalsaiyo/P5T1syjM8ulE)
