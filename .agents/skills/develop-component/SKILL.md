@@ -21,9 +21,12 @@ src/components/<component-name>/
 ├── <component-name>.vrt.js        # 必須: VRT（Visual Regression Test、Playwright）
 ├── <component-name>.test.js       # 任意: 機能テスト（Vitest browser mode、JSを含むコンポーネント）
 ├── <component-name>.unit.js       # 任意: ユニットテスト（Vitest jsdom、純粋関数のロジック検証）
-├── <component-name>.mdx           # 必須: ドキュメント（write-documentスキルを使用）
+├── <component-name>.mdx           # 必須: Storybookにインデックスさせるスタブ（write-documentスキルを使用）
+├── <component-name>.md            # 必須: ドキュメント本文（write-documentスキルを使用）
 └── <component-name>.js            # 任意: Custom Element（インタラクティブな場合）
 ```
+
+**注意:** ドキュメントは`.mdx`（4〜5行のスタブ）と`.md`（本文）の2ファイルに分かれる。執筆対象は`.md`のみで、詳細はwrite-documentスキルを参照する。
 
 ### ファイル名規則
 

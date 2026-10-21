@@ -62,6 +62,7 @@
 
 .dads-step-navigation__header:any-link,
 .dads-step-navigation__header:enabled {
+  color: inherit;
   text-decoration: underline;
   text-decoration-thickness: calc(1 / 16 * 1rem);
   text-underline-offset: calc(3 / 16 * 1rem);

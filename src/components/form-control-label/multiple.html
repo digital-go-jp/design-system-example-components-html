@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Form Control Label</title>
+<title>複数のコントロール（グループ）｜フォームコントロールラベル</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -14,12 +14,14 @@
 <body>
 
 <fieldset class="dads-form-control-label" data-size="md" aria-describedby="multiple-error-text multiple-support-text">
-  <legend class="dads-form-control-label__label">
-    東京23区
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      東京23区
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
   </legend>
   <p id="multiple-support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
-  <div>
+  <div class="dads-form-control-label__field">
     <label class="dads-checkbox" data-size="md">
       <span class="dads-checkbox__checkbox">
         <input class="dads-checkbox__input" type="checkbox" aria-invalid="true">
@@ -44,8 +46,8 @@
       </span>
       <span class="dads-checkbox__label">江戸川区</span>
     </label>
+    <p id="multiple-error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
   </div>
-  <p id="multiple-error-text" class="dads-form-control-label__error-text">＊エラーテキストが入ります。</p>
 </fieldset>
 
 </body>

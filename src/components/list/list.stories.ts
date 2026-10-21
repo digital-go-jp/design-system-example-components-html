@@ -1,9 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/html-vite";
+import type { Meta } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "../link/link.css";
 import "./list.css";
-import allLists from "./all-lists.html?raw";
+import bullet from "./bullet.html?raw";
+import customMarkerFormat from "./custom-marker-format.html?raw";
+import nested from "./nested.html?raw";
+import numbered from "./numbered.html?raw";
+import numberedWithLinks from "./numbered-with-links.html?raw";
 
 const meta = {
   title: "Components/箇条書きリスト",
@@ -11,32 +15,17 @@ const meta = {
 
 export default meta;
 
-interface ListAllListsProps {
-  spacing: string;
-}
+export const Bullet = () =>
+  new HtmlFragment(bullet, "body>.dads-list").toString();
 
-export const AllLists: StoryObj<ListAllListsProps> = {
-  render(args) {
-    const fragment = new HtmlFragment(allLists, "body > .dads-list");
+export const Numbered = () =>
+  new HtmlFragment(numbered, "body>.dads-list").toString();
 
-    for (const list of fragment.roots) {
-      list.setAttribute("data-spacing", args.spacing);
+export const CustomMarkerFormat = () =>
+  new HtmlFragment(customMarkerFormat, "body>.dads-list").toString();
 
-      const innerList = list.querySelectorAll(".dads-list");
-      for (const inner of innerList) {
-        inner.setAttribute("data-spacing", args.spacing);
-      }
-    }
+export const NumberedWithLinks = () =>
+  new HtmlFragment(numberedWithLinks, "body>.dads-list").toString();
 
-    return fragment.toString();
-  },
-  argTypes: {
-    spacing: {
-      control: "radio",
-      options: ["4", "8", "12"],
-    },
-  },
-  args: {
-    spacing: "4",
-  },
-};
+export const Nested = () =>
+  new HtmlFragment(nested, "body>.dads-list").toString();

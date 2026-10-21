@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Select</title>
+<title>ラベルの関連付け｜セレクトボックス</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -19,10 +19,10 @@
     <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
   </label>
   <p id="with-label-support-text" class="dads-form-control-label__support-text">該当する区を選択してください。</p>
-  <div>
+  <div class="dads-form-control-label__field">
     <span class="dads-select">
       <span class="dads-select__control">
-        <select id="with-label-select" class="dads-select__select" data-size="md" aria-invalid="true" aria-describedby="with-label-error-text with-label-support-text">
+        <select id="with-label-select" class="dads-select__select" data-size="md" aria-describedby="with-label-support-text">
           <option value="">選択してください</option>
           <option value="1">足立区</option>
           <option value="2">荒川区</option>
@@ -31,8 +31,8 @@
         </select>
         <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"/>
-        </svg>      </span>
-      <span id="with-label-error-text" class="dads-select__error-text">＊エラーテキストが入ります。</span>
+        </svg>
+      </span>
     </span>
   </div>
 </div>

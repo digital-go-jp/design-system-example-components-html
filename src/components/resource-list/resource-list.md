@@ -1,0 +1,176 @@
+[Plain](./resource-list.stories.ts?controls#Plain)
+
+## コンポーネントのガイドライン
+
+[リソースリスト（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/resource-list/)
+
+## ソースコード
+
+<details>
+<summary>HTML</summary>
+
+#### プレーンタイプ
+
+[plain.html](./plain.html#.dads-resource-list)
+
+#### チェックボックス／ラジオボタン付きタイプ
+
+[selectable-with-inline-interaction.html](./selectable-with-inline-interaction.html#.dads-resource-list)
+
+</details>
+
+<details>
+<summary>resource-list.css</summary>
+
+[resource-list.css](./resource-list.css)
+
+</details>
+
+### 依存ファイル
+
+<details>
+<summary>checkbox.css</summary>
+
+[checkbox.css](../checkbox/checkbox.css)
+
+</details>
+
+<details>
+<summary>radio.css</summary>
+
+[radio.css](../radio/radio.css)
+
+</details>
+
+## 仕様
+
+### バリエーション
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-style` | `list`, `frame` | リストアイテムのスタイル。`list`は下線のみ、`frame`は枠で囲む |
+| `data-interaction` | `whole` | 行全体をクリック可能にする場合に設定（チェックボックス／ラジオボタン付きの場合のみ） |
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **共通**
+  - `resource-list.css`
+- **追加で必要**
+  - `checkbox.css`（チェックボックス付きの場合）
+  - `radio.css`（ラジオボタン付きの場合）
+
+### 複数のリソースリストを並べる
+
+複数のリソースリストを並べる場合、`<ul>`要素および`<li>`要素でラップします。
+
+```html
+<ul>
+  <li>
+    <div class="dads-resource-list" data-style="list">
+      <!-- リソースリストの内容 -->
+    </div>
+  </li>
+  <li>
+    <div class="dads-resource-list" data-style="list">
+      <!-- リソースリストの内容 -->
+    </div>
+  </li>
+</ul>
+```
+
+### リンクの実装
+
+タイトルをリンクにする方法は2つあります。
+
+#### タイトル部分のみをリンクにする
+
+タイトルのテキストを`<a>`要素で囲みます。
+
+```html
+<h2 class="dads-resource-list__title">
+  <a href="#">リストタイトル</a>
+</h2>
+```
+
+#### 行全体をリンクにする
+
+`.dads-resource-list__body`を`<a>`要素に変更します。
+
+```html
+<a class="dads-resource-list__body" href="#">
+  <div class="dads-resource-list__contents">
+    <h2 class="dads-resource-list__title">リストタイトル</h2>
+    <!-- 他のコンテンツ -->
+  </div>
+</a>
+```
+
+### チェックボックス／ラジオボタンの実装
+
+チェックボックスまたはラジオボタンを追加する場合、`.dads-resource-list__body`内の先頭に配置します。タイトルは`<label>`要素でマークアップし、`for`属性でコントロールと関連付けます。
+
+```html
+<div class="dads-resource-list__body">
+  <label class="dads-checkbox" data-size="md">
+    <span class="dads-checkbox__checkbox">
+      <input id="item-1" class="dads-checkbox__input" type="checkbox">
+    </span>
+  </label>
+  <div class="dads-resource-list__contents">
+    <p class="dads-resource-list__title">
+      <label for="item-1">リストタイトル</label>
+    </p>
+    <!-- 他のコンテンツ -->
+  </div>
+</div>
+```
+
+#### 行全体をクリック可能にする
+
+チェックボックス／ラジオボタン付きの場合、行全体をクリック可能にするには`data-interaction="whole"`を設定します。
+
+```html
+<div class="dads-resource-list" data-style="list" data-interaction="whole">
+  <!-- コンテンツ -->
+</div>
+```
+
+### 見出しレベル
+
+タイトルはデフォルトで`<h2>`を使用していますが、ページ内の見出し構造に応じて適切なレベルに変更してください。チェックボックス／ラジオボタン付きの場合は、タイトルに見出し要素ではなく`<p>`要素を使用します。
+
+### オプション要素
+
+以下の要素は必要に応じて省略できます。
+
+- **アイコン**: `.dads-resource-list__body`直下の`<svg>`
+- **ラベル**: `.dads-resource-list__label`
+- **サポートテキスト**: `.dads-resource-list__support`
+- **サブラベル**: `.dads-resource-list__sub`
+- **アクションボタン**: `.dads-resource-list__action`
+
+### アクションボタン
+
+アクションボタンにはメニュー、ダウンロード、削除などの操作を割り当てます。ボタン内のアイコンには`role="img"`と`aria-label`で代替テキストを提供してください。
+
+```html
+<button class="dads-resource-list__action-button">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentcolor" role="img" aria-label="メニュー">
+    <!-- アイコンのpath -->
+  </svg>
+</button>
+```
+
+### 角丸のカスタマイズ
+
+`frame`スタイルの角丸は、インラインスタイルで`border-radius`を上書きすることでカスタマイズできます。
+
+```html
+<div class="dads-resource-list" data-style="frame" style="border-radius: 0;">
+  <!-- コンテンツ -->
+</div>
+```

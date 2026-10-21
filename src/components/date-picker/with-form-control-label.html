@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Date Picker</title>
+<title>フォームコントロールラベルと組み合わせる｜日付ピッカー</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -15,15 +15,17 @@
 <body>
 
 <fieldset class="dads-form-control-label" data-size="md" aria-describedby="support-text">
-  <legend class="dads-form-control-label__label">
-    生年月日
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      生年月日
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
   </legend>
   <p id="support-text" class="dads-form-control-label__support-text">
     西暦で記入してください。<br>
     例）2021年09月01日
   </p>
-  <div>
+  <div class="dads-form-control-label__field">
     <dads-date-picker class="dads-date-picker" data-type="consolidated">
       <div class="dads-date-picker__controls" data-size="md">
         <div class="dads-date-picker__inputs">

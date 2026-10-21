@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Resource List</title>
+<title>MultipleItems｜リソースリスト</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -214,8 +214,8 @@
 <ul style="margin: 4rem 0 0; display: grid; row-gap: calc(16 / 16 * 1rem); padding-left: 0; list-style-type: none;">
 
   <li>
-    <div class="dads-resource-list" data-style="frame">
-      <span class="dads-resource-list__body">
+    <div class="dads-resource-list" data-style="frame" data-interaction="whole">
+      <div class="dads-resource-list__body">
         <label class="dads-radio" data-size="md">
           <span class="dads-radio__radio">
             <input id="payment-method-1" class="dads-radio__input" type="radio" name="payment-method" checked>
@@ -223,7 +223,7 @@
         </label>
         <div class="dads-resource-list__contents">
           <p class="dads-resource-list__title">
-            <label for="payment-method-1" data-interaction="whole">クレジットカード払い</label>
+            <label for="payment-method-1">クレジットカード払い</label>
           </p>
           <div class="dads-resource-list__label">
             <p>おすすめ</p>
@@ -232,13 +232,13 @@
             <p>Visa、Master、JCB対応</p>
           </div>
         </div>
-      </span>
+      </div>
     </div>
   </li>
 
   <li>
-    <div class="dads-resource-list" data-style="frame">
-      <span class="dads-resource-list__body">
+    <div class="dads-resource-list" data-style="frame" data-interaction="whole">
+      <div class="dads-resource-list__body">
         <label class="dads-radio" data-size="md">
           <span class="dads-radio__radio">
             <input id="payment-method-2" class="dads-radio__input" type="radio" name="payment-method">
@@ -246,19 +246,19 @@
         </label>
         <div class="dads-resource-list__contents">
           <p class="dads-resource-list__title">
-            <label for="payment-method-2" data-interaction="whole">銀行振込</label>
+            <label for="payment-method-2">銀行振込</label>
           </p>
           <div class="dads-resource-list__support">
             <p>入金確認後の商品発送となります。<br>振り込み手数料はお客様負担となります。</p>
           </div>
         </div>
-      </span>
+      </div>
     </div>
   </li>
 
   <li>
-    <div class="dads-resource-list" data-style="frame">
-      <span class="dads-resource-list__body">
+    <div class="dads-resource-list" data-style="frame" data-interaction="whole">
+      <div class="dads-resource-list__body">
         <label class="dads-radio" data-size="md">
           <span class="dads-radio__radio">
             <input id="payment-method-3" class="dads-radio__input" type="radio" name="payment-method">
@@ -266,13 +266,13 @@
         </label>
         <div class="dads-resource-list__contents">
           <p class="dads-resource-list__title">
-            <label for="payment-method-3" data-interaction="whole">コンビニ決済</label>
+            <label for="payment-method-3">コンビニ決済</label>
           </p>
           <div class="dads-resource-list__support">
             <p>入金確認後の商品発送となります。<br>全国のコンビニで利用可能です。</p>
           </div>
         </div>
-      </span>
+      </div>
     </div>
   </li>
 

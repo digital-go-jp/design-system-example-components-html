@@ -4,10 +4,12 @@ import { HtmlFragment } from "../../helpers/html-fragment";
 import "../form-control-label/form-control-label.css";
 import "./textarea.css";
 import "./textarea-counter.js";
-import playground from "./playground.html?raw";
-import withFormControlLabel from "./with-form-control-label.html?raw";
+import basic from "./basic.html?raw";
+import disabled from "./disabled.html?raw";
+import errored from "./errored.html?raw";
 import readonly from "./readonly.html?raw";
 import withCounter from "./with-counter.html?raw";
+import withFormControlLabel from "./with-form-control-label.html?raw";
 
 const meta = {
   title: "Components/テキストエリア",
@@ -15,44 +17,7 @@ const meta = {
 
 export default meta;
 
-interface TextareaPlaygroundProps {
-  error: boolean;
-  readonly: boolean;
-  disabled: boolean;
-}
-
-export const Playground: StoryObj<TextareaPlaygroundProps> = {
-  render: (args) => {
-    const fragment = new HtmlFragment(playground, ".dads-textarea");
-    const textarea = fragment.root;
-    const textareaTextarea = textarea.querySelector(".dads-textarea__textarea");
-    const errorText = textarea.querySelector(".dads-textarea__error-text");
-
-    if (!textareaTextarea) throw new Error();
-    if (!errorText) throw new Error();
-
-    if (!args.error) {
-      textareaTextarea.removeAttribute("aria-describedby");
-      textareaTextarea.removeAttribute("aria-invalid");
-      errorText.remove();
-    }
-
-    if (args.readonly) {
-      textareaTextarea.setAttribute("readonly", "");
-    }
-
-    if (args.disabled) {
-      textareaTextarea.setAttribute("disabled", "");
-    }
-
-    return fragment.toString({ trimBlankLines: true });
-  },
-  args: {
-    error: false,
-    readonly: false,
-    disabled: false,
-  },
-};
+export const Basic = () => new HtmlFragment(basic, ".dads-textarea").toString();
 
 export const WithFormControlLabel: StoryObj<{ size: string }> = {
   render: (args) => {
@@ -82,3 +47,9 @@ export const Readonly = () =>
 
 export const WithCounter = () =>
   new HtmlFragment(withCounter, "body > div").toString();
+
+export const Errored = () =>
+  new HtmlFragment(errored, ".dads-form-control-label").toString();
+
+export const Disabled = () =>
+  new HtmlFragment(disabled, ".dads-form-control-label").toString();

@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/html-vite";
 
 import dadsTheme from "./dadsTheme";
+import { Link } from "./Link";
 import "invokers-polyfill";
 import "../src/global.css";
 import "./prose.css";
@@ -16,6 +17,9 @@ const preview: Preview = {
     docs: {
       theme: dadsTheme,
       codePanel: true,
+      components: {
+        a: Link,
+      },
     },
 
     a11y: {

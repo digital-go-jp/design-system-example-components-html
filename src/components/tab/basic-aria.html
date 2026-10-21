@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>基本形（矢印キーナビゲーション）｜タブ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="tab.css">
+<script type="module" src="tab-aria.js"></script>
+</head>
+<body>
+
+<dads-tab-aria class="dads-tab">
+  <div class="dads-tab__list" role="tablist">
+    <a class="dads-tab__tab" href="#ep-1" role="tab" aria-selected="true"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#ep-2" role="tab" aria-selected="false"><span>タブラベル</span></a>
+    <a class="dads-tab__tab" href="#ep-3" role="tab" aria-selected="false"><span>タブラベル</span></a>
+  </div>
+  <div class="dads-tab__panels">
+    <div id="ep-1" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      タブパネルの内容（1番目）
+    </div>
+    <div id="ep-2" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      タブパネルの内容（2番目）
+    </div>
+    <div id="ep-3" class="dads-tab__panel" role="tabpanel" tabindex="0">
+      タブパネルの内容（3番目）
+    </div>
+  </div>
+</dads-tab-aria>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 .dads-checkbox {
   display: flex;
-  align-items: start;
+  align-items: baseline;
   gap: var(--_gap);
   width: fit-content;
 }
@@ -15,7 +15,7 @@
   --_checkbox-size: calc(24 / 16 * 1rem);
   --_checkbox-border-width: calc(2 / 16 * 1rem);
   --_checkbox-scale: 1;
-  --_label-padding-top: calc(1 / 16 * 1rem);
+  --_checkbox-baseline-offset: calc(3 / 16 * 1rem);
   --_label-font-size: calc(16 / 16 * 1rem);
 }
 
@@ -24,7 +24,7 @@
   --_checkbox-size: calc(32 / 16 * 1rem);
   --_checkbox-border-width: calc(2 / 16 * 1rem);
   --_checkbox-scale: calc(20 / 14);
-  --_label-padding-top: calc(4 / 16 * 1rem);
+  --_checkbox-baseline-offset: calc(6 / 16 * 1rem);
   --_label-font-size: calc(16 / 16 * 1rem);
 }
 
@@ -33,7 +33,7 @@
   --_checkbox-size: calc(44 / 16 * 1rem);
   --_checkbox-border-width: calc(3 / 16 * 1rem);
   --_checkbox-scale: calc(27 / 14);
-  --_label-padding-top: calc(10 / 16 * 1rem);
+  --_checkbox-baseline-offset: calc(10 / 16 * 1rem);
   --_label-font-size: calc(17 / 16 * 1rem);
 }
 
@@ -45,6 +45,13 @@
   width: var(--_checkbox-size);
   height: var(--_checkbox-size);
   border-radius: 12.5%;
+}
+
+.dads-checkbox__checkbox:not(:only-child) {
+  position: relative;
+  top: var(--_checkbox-baseline-offset);
+  margin-top: calc(-1 * var(--_checkbox-baseline-offset));
+  margin-bottom: var(--_checkbox-baseline-offset);
 }
 
 @media (hover: hover) {
@@ -157,7 +164,6 @@
 }
 
 .dads-checkbox__label {
-  padding-top: var(--_label-padding-top);
   color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: var(--_label-font-size);

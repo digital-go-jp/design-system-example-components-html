@@ -1,6 +1,5 @@
 .dads-date-picker {
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   color: var(--color-neutral-solid-gray-800);
   font-weight: normal;
   font-size: calc(16 / 16 * 1rem);
@@ -88,6 +87,12 @@
   .dads-date-picker__inputs[data-readonly] {
     border-color: currentcolor;
   }
+}
+
+/* テキストの1行目が正しくベースラインとして認識されないSafariへの対応 */
+.dads-date-picker__inputs::before {
+  align-self: center;
+  content: "\200B";
 }
 
 .dads-date-picker__year,

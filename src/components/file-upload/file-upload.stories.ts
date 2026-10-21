@@ -12,8 +12,13 @@ import "./file-upload.stories.css";
 import "../input-text/input-text.css";
 import "../date-picker/date-picker.css";
 import "../date-picker/date-picker";
+import nonExpandable from "./non-expandable.html?raw";
 import playground from "./playground.html?raw";
+import singleFile from "./single-file.html?raw";
+import withError from "./with-error.html?raw";
 import withExistingFiles from "./with-existing-files.html?raw";
+import withFormControlLabel from "./with-form-control-label.html?raw";
+import withoutDropArea from "./without-drop-area.html?raw";
 
 const meta = {
   title: "Components/ファイルアップロード／ドロップエリア",
@@ -26,42 +31,16 @@ interface FileUploadPlaygroundProps {
   maxFileSize: string;
   maxTotalSize: string;
   accept: string;
-  droppable: boolean;
-  dropAreaExpandable?: boolean;
 }
 
 export const Playground: StoryObj<FileUploadPlaygroundProps> = {
   render: (args) => {
-    const fragment = new HtmlFragment(playground, ".dads-form-control-label");
-    const fileUpload = fragment.root.querySelector("dads-file-upload");
+    const fragment = new HtmlFragment(playground, "dads-file-upload");
+    const fileUpload = fragment.root;
     const input = fileUpload?.querySelector(".dads-file-upload__input");
-    const dropArea = fileUpload?.querySelector(".dads-file-upload__drop-area");
-    const buttonArea = fileUpload?.querySelector(
-      ".dads-file-upload__button-area",
-    );
-    const dropText = buttonArea?.querySelector("p");
-    const selectedFilesMessage = fileUpload?.querySelector(
-      ".dads-file-upload__select-summary",
-    );
-    const errorMessages = fileUpload?.querySelector(
-      ".dads-file-upload__error-messages",
-    );
-    const expand = fileUpload?.querySelector(
-      ".dads-file-upload__expand-drop-area",
-    );
-    const overlay = fileUpload?.querySelector(
-      ".dads-file-upload__viewport-overlay",
-    );
 
     if (!fileUpload) throw new Error();
     if (!input) throw new Error();
-    if (!dropArea) throw new Error();
-    if (!buttonArea) throw new Error();
-    if (!dropText) throw new Error();
-    if (!selectedFilesMessage) throw new Error();
-    if (!errorMessages) throw new Error();
-    if (!overlay) throw new Error();
-    if (!expand) throw new Error();
 
     if (args.maxFiles > 1) {
       fileUpload.setAttribute("max-files", args.maxFiles.toString());
@@ -84,31 +63,6 @@ export const Playground: StoryObj<FileUploadPlaygroundProps> = {
       input.removeAttribute("accept");
     }
 
-    if (!args.droppable) {
-      // whitespace text nodes may exist
-      if (buttonArea.previousSibling) {
-        dropArea.before(buttonArea.previousSibling);
-      }
-      dropArea.before(buttonArea);
-      // whitespace text nodes may exist
-      if (selectedFilesMessage.previousSibling) {
-        dropArea.before(selectedFilesMessage.previousSibling);
-      }
-      dropArea.before(selectedFilesMessage);
-      // whitespace text nodes may exist
-      if (errorMessages.previousSibling) {
-        dropArea.before(errorMessages.previousSibling);
-      }
-      dropArea.before(errorMessages);
-      dropArea.remove();
-      dropText.remove();
-      overlay.remove();
-    }
-
-    if (args.droppable && !args.dropAreaExpandable) {
-      expand.remove();
-    }
-
     return fragment.toString({ trimBlankLines: true });
   },
   argTypes: {
@@ -116,18 +70,29 @@ export const Playground: StoryObj<FileUploadPlaygroundProps> = {
     maxFileSize: { control: "text" },
     maxTotalSize: { control: "text" },
     accept: { control: "text" },
-    droppable: { control: "boolean" },
-    dropAreaExpandable: { control: "boolean", if: { arg: "droppable" } },
   },
   args: {
     maxFiles: 5,
     maxFileSize: "5MB",
     maxTotalSize: "10MB",
     accept: ".png,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt,.pdf",
-    droppable: true,
-    dropAreaExpandable: true,
   },
 };
 
+export const WithFormControlLabel = () =>
+  new HtmlFragment(withFormControlLabel, ".dads-form-control-label").toString();
+
 export const WithExistingFiles = () =>
-  new HtmlFragment(withExistingFiles, ".dads-form-control-label").toString();
+  new HtmlFragment(withExistingFiles, ".dads-file-upload").toString();
+
+export const WithoutDropArea = () =>
+  new HtmlFragment(withoutDropArea, ".dads-file-upload").toString();
+
+export const NonExpandable = () =>
+  new HtmlFragment(nonExpandable, ".dads-file-upload").toString();
+
+export const SingleFile = () =>
+  new HtmlFragment(singleFile, ".dads-file-upload").toString();
+
+export const WithError = () =>
+  new HtmlFragment(withError, ".dads-file-upload").toString();

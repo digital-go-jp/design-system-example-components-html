@@ -1,43 +1,5 @@
-import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";
- 
 import * as BlockquoteStories from "./blockquote.stories";
-import blockquoteCss from "./blockquote.css?raw";
+import Content from "./blockquote.md";
 
 <Meta of={BlockquoteStories} />
-
-<Unstyled>
-<div className="prose">
-
-<Title />
-<Subtitle />
-<Description />
-
-<Canvas of={BlockquoteStories.Playground} withToolbar />
-<Controls of={BlockquoteStories.Playground} />
-
-## コンポーネントのガイドライン
-
-[引用ブロック（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/blockquote/)
-
-## ソースコード
-
-<details>
-  <summary>HTML</summary>
-
-```html
-<blockquote class="dads-blockquote">
-  <p>引用文のテキスト</p>
-</blockquote>
-```
-
-</details>
-
-<details>
-  <summary>blockquote.css</summary>
-  <Source code={blockquoteCss} language="css" />
-</details>
-
-<Stories title="デモ" includePrimary={false} />
-
-</div>
-</Unstyled>
+<Content />

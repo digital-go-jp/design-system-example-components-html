@@ -1,0 +1,326 @@
+[Playground](./table.stories.ts?controls#Playground)
+
+## コンポーネントのガイドライン
+
+[テーブル／データテーブル（概要）｜デジタル庁デザインシステムβ版](https://design.digital.go.jp/dads/components/table/)
+
+## ソースコード
+
+<details>
+<summary>HTML</summary>
+
+[playground.html](./playground.html#.dads-table)
+
+</details>
+
+<details>
+<summary>table.css</summary>
+
+[table.css](./table.css)
+
+</details>
+
+<details>
+<summary>scroll-shadow.js</summary>
+
+[scroll-shadow.js](./scroll-shadow.js)
+
+</details>
+
+## 仕様
+
+### バリエーション
+
+#### サイズ・レイアウト
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-size` | `dense` | テーブルの行の高さを小さくし、データテーブルの表示にする |
+| `data-width` | `full` | テーブルの幅をコンテナ幅まで広げる |
+| `data-layout` | `fixed` | テーブルレイアウトを固定（`table-layout: fixed`）に設定する |
+
+#### 行のスタイリング
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-row-stripe` | （値なし） | 偶数行に背景色を付けてストライプ表示にする |
+| `data-row-hover-highlight` | （値なし） | 行にホバーした際のハイライト表示を有効にする |
+| `data-selectable` | （値なし） | チェックボックスで選択された行のハイライト表示を有効にする |
+
+#### 背景色
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-bg` | `white` | 背景色を白に設定する |
+| `data-bg` | `solid-gray-50` | 背景色をグレー50に設定する |
+| `data-bg` | `solid-gray-100` | 背景色をグレー100に設定する |
+| `data-bg` | `transparent` | 背景色を透明に設定する |
+
+#### ボーダー
+
+| 属性 | 値 | 説明 |
+| --- | --- | --- |
+| `data-border` | （値なし）, `top`, `bottom`, `left`, `right`, `hidden`, `*-hidden` | 指定した要素自体にボーダーを表示する |
+| `data-cell-border` | （値なし）, `top`, `bottom`, `left`, `right` | 指定した要素の子孫であるセル（`<td>`および`<th>`）にボーダーを表示する |
+
+## 使い方
+
+### インストール
+
+#### 必要なファイル
+
+- **共通**
+  - `table.css`
+- **追加で必要**（モバイル表示でスクロールシャドーを使用する場合）
+  - `scroll-shadow.js`
+
+スクリプトを読み込む際は必ず、`<script type="module">`を使用しES Moduleとして読み込んでください。
+
+### ボーダーの表示設定
+
+`.dads-table`はデフォルトでボーダーを表示しません。ボーダーを表示するには、`data-border`属性または`data-cell-border`属性を使用します。
+
+- `data-border`: 指定した要素自体にボーダーを表示する
+- `data-cell-border`: 指定した要素の子孫であるセル（`<td>`および`<th>`）にボーダーを表示する
+
+#### `data-border`属性値
+
+`data-border`属性は、表示するボーダーの位置を指定できます。複数の値はスペース区切りで指定します。
+
+```html
+<!-- 全辺にボーダーを表示 -->
+<td data-border>
+
+<!-- 右辺のみ -->
+<td data-border="right">
+
+<!-- 右辺と下辺 -->
+<td data-border="right bottom">
+
+<!-- 外枠を非表示 -->
+<table data-border="hidden">
+
+<!-- 特定の辺を非表示 -->
+<td data-border="top-hidden">
+```
+
+#### `data-cell-border`属性値
+
+`data-cell-border`属性は、要素内のセル（td、th）に対してボーダーを適用します。指定方法は`data-border`と同様です。
+
+```html
+<!-- 各セルの下辺にボーダー -->
+<table data-cell-border="bottom">
+
+<!-- 各ヘッダーセルの右辺にボーダー -->
+<thead data-cell-border="right">
+
+<!-- 各セルの全辺にボーダー -->
+<table data-cell-border>
+```
+
+なお、`data-cell-border`属性は、`<col>`要素または`<colgroup>`要素に対しては適用されません。
+
+#### 使用例
+
+```html
+<!-- 外枠およびセル下辺ボーダー -->
+<table data-border data-cell-border="bottom">
+
+<!-- テーブル外枠を除く、セル全辺ボーダー -->
+<table data-border="hidden" data-cell-border>
+
+<!-- ヘッダー部分のみ右辺ボーダー、本体部分は下辺ボーダー -->
+<table data-border>
+  <thead data-cell-border="right">
+  <tbody data-cell-border="bottom">
+</table>
+```
+
+### マークアップ
+
+#### 基本的なマークアップ
+
+ヘッダーセルを`<th>`要素でマークアップし、`scope`属性で適用範囲を明示します。
+
+次の例は、コース別の受講者数、出席率、平均点を示したテーブルです。各列のヘッダーセルを`<th scope="col">`で、各行のヘッダーセルを`<th scope="row">`でマークアップしています。これにより、各ヘッダーセルが対応する列および行のヘッダーとして設定され、支援技術での利用しやすさが高まります。
+
+[example.html](./example.html#.dads-table)
+
+#### キャプションを持つテーブル
+
+テーブルがキャプションを持つ場合、`<figure>`要素および`<figcaption>`要素を使用します。
+
+```html
+<figure class="dads-table">
+  <table class="dads-table__table">
+    ...中略...
+  </table>
+  <figcaption class="dads-table__caption">表3 令和6年度 仮想教育プログラム参加者統計（オンライン・ハイブリッド授業）</figcaption>
+</figure>
+```
+
+### チェックボックスを持つテーブル
+
+行の選択のために各行の先頭にチェックボックスを配置する場合、各チェックボックスに`aria-labelledby`属性を使用し、ラベルに該当するテキストに付与したIDを指定します。
+
+[SelectableTable](./table.stories.ts#SelectableTable)
+
+全てを選択するチェックボックスを配置する場合、`<thead>`内に配置し、チェックボックスに`aria-label="行を選択"`属性および`aria-description="すべての行を選択する"`属性を指定します。これにより、各チェックボックスの意図がスクリーンリーダー等の支援技術に適切に伝えられます。
+
+```html
+<div class="dads-table" data-size="dense" data-selectable>
+  <table class="dads-table__table" data-cell-border="bottom">
+    <thead>
+      <tr>
+        <th class="dads-table__col-header" scope="col">
+          <label class="dads-checkbox" data-size="sm">
+            <span class="dads-checkbox__checkbox">
+              <input class="dads-checkbox__input" type="checkbox" aria-label="行を選択" aria-description="すべての行を選択する">
+            </span>
+          </label>
+        </th>
+        <th class="dads-table__col-header" scope="col">タイトル</th>
+        <th class="dads-table__col-header" scope="col">状態</th>
+        <th class="dads-table__col-header" scope="col">コメント数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <label class="dads-checkbox" data-size="sm">
+            <span class="dads-checkbox__checkbox">
+              <input class="dads-checkbox__input" type="checkbox" aria-labelledby="selectable-table-title-1">
+            </span>
+          </label>
+        </td>
+        <td id="selectable-table-title-1">記事タイトル1</td>
+        <td>公開中</td>
+        <td>10</td>
+      </tr>
+      <!-- ...中略... -->
+    </tbody>
+  </table>
+</div>
+```
+
+### ソート機能を持つテーブル
+
+列のソート機能を持つテーブルでは、ヘッダーセルに`dads-table__sort-header`クラスを使用します。ソートボタンには現在のソート状態を示すアイコンを配置し、`aria-sort`属性でソート状態を支援技術に伝えます。
+
+[SortableHeader](./table.stories.ts#SortableHeader)
+
+`aria-sort`属性には以下の値を指定できます：
+
+- `ascending`: 昇順でソート中
+- `descending`: 降順でソート中
+- `none`: ソートされていない（または属性を省略）
+
+ソートボタンのクリックに応じて`aria-sort`属性とアイコンを更新するJavaScriptの実装が必要です。アイコンは`aria-sort`属性によって自動的に切り替わらないため、JavaScriptでアイコンのpath要素を書き換えてください。
+
+#### ソートアイコン
+
+```html
+<!-- ソートなし -->
+<svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+  <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+</svg>
+
+<!-- 昇順（ascending） -->
+<svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+  <path d="M17 18.12L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM14 8.92L11.73 11L9 8.52V20H6V8.52L3.27 11L1 8.93L7.5 3L14 8.93Z"/>
+</svg>
+
+<!-- 降順（descending） -->
+<svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+  <path d="M7 5.88L2.73 10L2 9.3L7.5 4L13 9.3L12.27 10L8 5.88V20H7V5.88ZM10 15.08L12.27 13L15 15.48V4H18V15.48L20.73 13L23 15.07L16.5 21L10 15.07Z"/>
+</svg>
+```
+
+#### ソートヘッダーのマークアップ
+
+```html
+<div class="dads-table">
+  <table class="dads-table__table" data-border data-cell-border>
+    <thead>
+      <tr>
+        <!-- ソートされていない列 -->
+        <th class="dads-table__sort-header" scope="col">
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button">
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.11L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM8 5.88L12.27 10L13 9.3L7.5 4L2 9.3L2.73 10L7 5.88V20H8V5.88Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <!-- 昇順でソート中の列 -->
+        <th class="dads-table__sort-header" scope="col" aria-sort="ascending">
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button">
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M17 18.12L21.27 14L22 14.7L16.5 20L11 14.7L11.73 14L16 18.12V4H17V18.12ZM14 8.92L11.73 11L9 8.52V20H6V8.52L3.27 11L1 8.93L7.5 3L14 8.93Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <!-- 降順でソート中の列 -->
+        <th class="dads-table__sort-header" scope="col" aria-sort="descending">
+          <div class="dads-table__sort-inner">
+            <div class="dads-table__sort-label">
+              <button class="dads-table__sort-button">
+                ラベル
+                <span class="dads-table__sort-icon">
+                  <svg class="dads-table__sort-svg" width="24" height="24" fill="currentcolor" aria-hidden="true">
+                    <path d="M7 5.88L2.73 10L2 9.3L7.5 4L13 9.3L12.27 10L8 5.88V20H7V5.88ZM10 15.08L12.27 13L15 15.48V4H18V15.48L20.73 13L23 15.07L16.5 21L10 15.07Z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </th>
+        <!-- ...中略... -->
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ...中略... -->
+    </tbody>
+  </table>
+</div>
+```
+
+### モバイル表示への対応
+
+テーブルの幅がコンテンツ幅より大きく、テーブルの領域内で横スクロールを設ける場合、スクロール可能な領域にはスクロールを促すシャドーを表示します。
+
+スクロールを促すシャドーを実装した`<dads-scroll-shadow>`カスタム要素を使用すると、スクロール可能な領域の両端にシャドーを表示できます。
+
+<div style={{ maxWidth: "400px" }}>
+
+[OverflowOnMobile](./table.stories.ts#OverflowOnMobile)
+
+</div>
+
+`<dads-scroll-shadow>`を使用するには、`scroll-shadow.js`スクリプトを読み込む必要があります。
+
+```html
+<script type="module" src="scroll-shadow.js"></script>
+
+<dads-scroll-shadow style="--scroll-shadow-padding: calc(16 / 16 * 1rem);">
+  <div class="dads-table">
+    <table class="dads-table__table" data-cell-border="bottom">
+      <!-- ...中略... -->
+    </table>
+  </div>
+</dads-scroll-shadow>
+```

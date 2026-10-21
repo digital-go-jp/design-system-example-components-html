@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Checkbox</title>
+<title>選択肢のグループ化｜チェックボックス</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -14,12 +14,14 @@
 <body>
 
 <fieldset class="dads-form-control-label" data-size="sm" aria-describedby="support-text">
-  <legend class="dads-form-control-label__label">
-    東京23区
-    <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+  <legend class="dads-form-control-label__legend">
+    <span class="dads-form-control-label__label">
+      東京23区
+      <span class="dads-form-control-label__requirement" data-required="true">※必須</span>
+    </span>
   </legend>
   <p id="support-text" class="dads-form-control-label__support-text">該当するすべての区を選択してください。</p>
-  <div>
+  <div class="dads-form-control-label__field">
     <label class="dads-checkbox" data-size="sm">
       <span class="dads-checkbox__checkbox">
         <input class="dads-checkbox__input" type="checkbox">
