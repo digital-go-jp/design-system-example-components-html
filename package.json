@@ -44,6 +44,13 @@
     "vite": "^8.1.4",
     "vitest": "^4.1.10"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^26.12.1",
+      "onFail": "error"
+    }
+  },
   "overrides": {
     "storybook": "$storybook"
   }
