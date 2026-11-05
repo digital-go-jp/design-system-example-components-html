@@ -1,6 +1,6 @@
 .dads-disclosure__summary {
   display: flex;
-  align-items: start;
+  align-items: baseline;
   justify-content: start;
   gap: calc(8 / 16 * 1rem);
   width: fit-content;
@@ -32,8 +32,11 @@
 }
 
 .dads-disclosure__icon {
+  position: relative;
+  top: calc(6 / 16 * 1rem);
+  margin-top: calc(-6 / 16 * 1rem);
+  margin-bottom: calc(6 / 16 * 1rem);
   flex-shrink: 0;
-  margin-top: calc((1lh - 24px) / 2);
   color: var(--color-key-1000);
 }
 
@@ -63,7 +66,7 @@
 
 .dads-disclosure__content {
   padding-left: calc(32 / 16 * 1rem);
-  margin: calc(16 / 16 * 1rem) 0;
+  margin: calc(24 / 16 * 1rem) 0 0;
 }
 
 .dads-disclosure__back-link:any-link {
