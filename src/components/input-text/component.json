@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "インプットテキスト",
+  "files": {
+    "css": ["input-text.css"],
+    "js": []
+  },
+  "dependencies": []
+}

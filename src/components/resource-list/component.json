@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "リソースリスト",
+  "files": {
+    "css": ["resource-list.css"],
+    "js": []
+  },
+  "dependencies": []
+}

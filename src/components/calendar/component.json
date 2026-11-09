@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "カレンダー",
+  "files": {
+    "css": ["calendar.css"],
+    "js": ["calendar.js"]
+  },
+  "dependencies": ["button", "select"]
+}

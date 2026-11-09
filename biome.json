@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "formatter": {
-    "includes": ["**", "!**/*.html"],
+    "includes": ["**", "!**/*.html", "!component-manifest.json"],
     "indentStyle": "space",
     "indentWidth": 2
   }

@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "メニューリスト",
+  "files": {
+    "css": ["menu-list.css"],
+    "js": []
+  },
+  "dependencies": []
+}

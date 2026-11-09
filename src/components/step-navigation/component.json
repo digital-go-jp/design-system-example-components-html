@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ステップナビゲーション",
+  "files": {
+    "css": ["step-navigation.css"],
+    "js": []
+  },
+  "dependencies": []
+}

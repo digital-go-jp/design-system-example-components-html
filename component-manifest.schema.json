@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DADS HTML Component Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "shared",
+    "github",
+    "storybook",
+    "components"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "./component-manifest.schema.json"
+    },
+    "schemaVersion": { "const": 1 },
+    "shared": { "$ref": "#/definitions/implementationFiles" },
+    "github": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseUrl"],
+      "properties": {
+        "baseUrl": { "type": "string", "pattern": "^https?://.+/$" }
+      }
+    },
+    "storybook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseUrl"],
+      "properties": {
+        "baseUrl": { "type": "string", "pattern": "^https?://.+/$" }
+      }
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/definitions/id" },
+      "additionalProperties": { "$ref": "#/definitions/component" }
+    }
+  },
+  "definitions": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$" },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+"
+    },
+    "paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/path" }
+    },
+    "dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/id" }
+    },
+    "implementationFiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["css", "js"],
+      "properties": {
+        "css": { "$ref": "#/definitions/paths" },
+        "js": { "$ref": "#/definitions/paths" },
+        "assets": { "$ref": "#/definitions/paths" }
+      }
+    },
+    "additionalFiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["css", "js", "assets"],
+      "properties": {
+        "css": { "$ref": "#/definitions/paths" },
+        "js": { "$ref": "#/definitions/paths" },
+        "assets": { "$ref": "#/definitions/paths" }
+      }
+    },
+    "externalUrl": {
+      "type": "string",
+      "pattern": "^(?:https?:)?//[^/\\s]+[^\\s]*$"
+    },
+    "externalResources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["css", "js"],
+      "properties": {
+        "css": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["href"],
+            "properties": {
+              "href": { "$ref": "#/definitions/externalUrl" },
+              "integrity": { "type": "string" },
+              "crossorigin": { "type": "string" }
+            }
+          }
+        },
+        "js": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["src"],
+            "properties": {
+              "src": { "$ref": "#/definitions/externalUrl" },
+              "integrity": { "type": "string" },
+              "crossorigin": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "reference": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "exampleId"],
+          "properties": {
+            "type": { "const": "example" },
+            "exampleId": { "$ref": "#/definitions/id" },
+            "selector": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "entryId", "exportName", "parameters"],
+          "properties": {
+            "type": { "const": "story" },
+            "entryId": { "type": "string", "minLength": 1 },
+            "exportName": { "type": "string", "minLength": 1 },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "entryId"],
+          "properties": {
+            "type": { "const": "storybook" },
+            "entryId": { "type": "string", "minLength": 1 },
+            "fragment": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "documentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["markdown", "assets", "references"],
+      "properties": {
+        "markdown": { "$ref": "#/definitions/path" },
+        "assets": { "$ref": "#/definitions/paths" },
+        "references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/reference" }
+        }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "html",
+        "dependencies",
+        "additionalFiles",
+        "externalResources"
+      ],
+      "properties": {
+        "html": { "$ref": "#/definitions/path" },
+        "dependencies": { "$ref": "#/definitions/dependencies" },
+        "additionalFiles": { "$ref": "#/definitions/additionalFiles" },
+        "externalResources": { "$ref": "#/definitions/externalResources" }
+      }
+    },
+    "componentStorybook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "defaultEntryId",
+        "defaultEntryPath",
+        "docs",
+        "stories"
+      ],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "defaultEntryId": { "type": "string", "minLength": 1 },
+        "defaultEntryPath": {
+          "type": "string",
+          "pattern": "^/(?:docs|story)/[^/?#\\s]+$"
+        },
+        "docs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id"],
+          "properties": { "id": { "type": "string", "minLength": 1 } }
+        },
+        "stories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name", "exportName"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "exportName": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sourceDir",
+        "files",
+        "dependencies",
+        "documentation",
+        "examples",
+        "storybook"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "sourceDir": { "$ref": "#/definitions/path" },
+        "files": { "$ref": "#/definitions/implementationFiles" },
+        "dependencies": { "$ref": "#/definitions/dependencies" },
+        "documentation": { "$ref": "#/definitions/documentation" },
+        "examples": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/definitions/id" },
+          "additionalProperties": { "$ref": "#/definitions/example" }
+        },
+        "storybook": { "$ref": "#/definitions/componentStorybook" }
+      }
+    }
+  }
+}

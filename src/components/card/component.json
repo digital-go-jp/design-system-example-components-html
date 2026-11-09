@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "カード",
+  "files": {
+    "css": [],
+    "js": []
+  },
+  "dependencies": []
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "アコーディオン",
+  "files": {
+    "css": ["accordion.css"],
+    "js": []
+  },
+  "dependencies": []
+}

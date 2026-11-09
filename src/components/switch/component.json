@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "スイッチ",
+  "files": {
+    "css": ["switch-mode.css", "switch-on-off.css"],
+    "js": ["switch-mode.js", "switch-on-off.js"]
+  },
+  "dependencies": []
+}

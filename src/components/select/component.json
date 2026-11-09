@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "セレクトボックス",
+  "files": {
+    "css": ["select.css"],
+    "js": []
+  },
+  "dependencies": []
+}

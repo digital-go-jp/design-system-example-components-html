@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "チップラベル",
+  "files": {
+    "css": ["chip-label.css"],
+    "js": []
+  },
+  "dependencies": []
+}

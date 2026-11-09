@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ハンバーガーメニューボタン",
+  "files": {
+    "css": ["hamburger-menu-button.css", "hamburger-menu-icon-button.css"],
+    "js": []
+  },
+  "dependencies": []
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ラジオボタン",
+  "files": {
+    "css": ["radio.css"],
+    "js": []
+  },
+  "dependencies": []
+}

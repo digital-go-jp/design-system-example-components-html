@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ディスクロージャー",
+  "files": {
+    "css": ["disclosure.css"],
+    "js": []
+  },
+  "dependencies": []
+}

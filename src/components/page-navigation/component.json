@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ページナビゲーション",
+  "files": {
+    "css": ["page-navigation.css"],
+    "js": []
+  },
+  "dependencies": []
+}

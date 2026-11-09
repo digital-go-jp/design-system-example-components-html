@@ -71,6 +71,20 @@ npm test
 npm run format
 ```
 
+## コンポーネントマニフェスト
+
+[component-manifest.json](./component-manifest.json) は、付属CSS・JS、必須依存、HTMLサンプルと追加依存、Markdown、画像などのアセット、Storybookの個別ページを一覧できる機械可読なカタログです。AIエージェントによる参照や、コンポーネントのファイル取得、Storybookへのリンク生成に利用できます。
+
+同じファイルを [Storybookの公開ディレクトリ](https://design.digital.go.jp/dads/html/component-manifest.json)にも配置しています。構造・取得方法・更新方法は[マニフェストの仕様](./docs/component-manifest.md)を参照してください。
+
+```bash
+# ビルド済みのStorybook indexからマニフェストを再生成
+npm run manifest:generate
+
+# マニフェスト生成ロジックのテスト
+npm run test:manifest
+```
+
 ## ライセンス
 
 本コードスニペットはMITライセンスの下で公開されています。
