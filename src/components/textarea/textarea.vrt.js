@@ -3,7 +3,7 @@ import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
 
 const { dirname } = import.meta;
 
-resetCssVrt("textarea-playground", path.join(dirname, "playground.html"));
+resetCssVrt("textarea-basic", path.join(dirname, "basic.html"));
 
 resetCssVrt(
   "textarea-with-form-control-label",

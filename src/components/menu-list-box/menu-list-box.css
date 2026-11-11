@@ -19,6 +19,7 @@
   background: transparent;
   padding-top: calc(4 / 16 * 1rem);
   padding-bottom: calc(4 / 16 * 1rem);
+  color: var(--color-neutral-solid-gray-900);
   font: inherit;
   letter-spacing: inherit;
 }
