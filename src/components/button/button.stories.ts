@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from "@storybook/html-vite";
 import { HtmlFragment } from "../../helpers/html-fragment";
 
 import "./button.css";
-import allButtonsUsingButton from "./all-buttons-using-button.html?raw";
-import allButtonsUsingLink from "./all-buttons-using-link.html?raw";
 import asLink from "./as-link.html?raw";
 import disabledLink from "./disabled-link.html?raw";
 import disabled from "./disabled.html?raw";
 import playground from "./playground.html?raw";
+import usingButtonElement from "./using-button-element.html?raw";
+import usingLink from "./using-link.html?raw";
 import withIcon from "./with-icon.html?raw";
 
 type ButtonVariant = "solid-fill" | "outline" | "text";
@@ -79,7 +79,11 @@ export const WithIcon = () =>
   });
 
 export const AllButtonsUsingButton = () =>
-  new HtmlFragment(allButtonsUsingButton, "body > div").toString();
+  new HtmlFragment(usingButtonElement, "body > div").toString();
+
+AllButtonsUsingButton.storyName = "Using Button Element";
 
 export const AllButtonsUsingLink = () =>
-  new HtmlFragment(allButtonsUsingLink, "body > div").toString();
+  new HtmlFragment(usingLink, "body > div").toString();
+
+AllButtonsUsingLink.storyName = "Using Link";
