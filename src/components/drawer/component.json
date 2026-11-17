@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ドロワー",
+  "files": {
+    "css": ["drawer.css"],
+    "js": []
+  },
+  "dependencies": ["hamburger-menu-button"]
+}

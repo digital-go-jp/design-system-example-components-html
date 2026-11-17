@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "テーブル／データテーブル",
+  "files": {
+    "css": ["table.css"],
+    "js": ["scroll-shadow.js"]
+  },
+  "dependencies": []
+}

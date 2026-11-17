@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "見出し",
+  "files": {
+    "css": ["heading.css"],
+    "js": []
+  },
+  "dependencies": []
+}

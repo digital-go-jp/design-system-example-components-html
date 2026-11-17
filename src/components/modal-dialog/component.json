@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "モーダルダイアログ",
+  "files": {
+    "css": ["modal-dialog.css"],
+    "js": []
+  },
+  "dependencies": []
+}

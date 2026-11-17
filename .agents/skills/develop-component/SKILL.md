@@ -1,6 +1,6 @@
 ---
 name: develop-component
-description: コンポーネントを新規作成・更新する。CSS、HTML、Storybook Stories、テスト、JavaScript（Custom Elements）の実装を含む。
+description: コンポーネントを新規作成・更新する。CSS、HTML、Storybook Stories、テスト、JavaScript（Custom Elements）の実装と、コンポーネントマニフェスト用メタデータの管理・検証を含む。
 ---
 
 # コンポーネント開発スキル
@@ -13,6 +13,7 @@ description: コンポーネントを新規作成・更新する。CSS、HTML、
 
 ```
 src/components/<component-name>/
+├── component.json                 # 必須: マニフェスト用メタデータ（名前・付属ファイル・必須依存）
 ├── <component-name>.css           # 必須: スタイル
 ├── playground.html                # 必須: Playground用の基本HTML
 ├── <variation>.html               # 任意: 使い方が異なるバリエーション用HTML
@@ -45,7 +46,7 @@ src/components/<component-name>/
 
 ### 更新時
 
-1. **対象コンポーネントの全ファイルを読み込む**: CSS、全HTML、Stories、テスト、JS（存在する場合）
+1. **対象コンポーネントの全ファイルを読み込む**: `component.json`、CSS、全HTML、Stories、テスト、Markdown・MDX、JS（存在する場合）
 2. **既存のパターンを維持**: 既存コンポーネントのコーディングスタイルに合わせる
 
 ## CSS
@@ -1034,6 +1035,36 @@ describe("parseSize", () => {
 });
 ```
 
+## コンポーネントマニフェスト
+
+マニフェストはコンポーネントを取得するための機械可読なカタログ。コンポーネントごとに `component.json` を必ず持つ。
+
+### component.json（必須）
+
+新規作成時に必ず用意する。コンポーネントIDはディレクトリ名から決まる。
+
+```json
+{
+  "$schema": "../component.schema.json",
+  "name": "コンポーネント名（日本語）",
+  "files": {
+    "css": ["component-name.css"],
+    "js": []
+  },
+  "dependencies": []
+}
+```
+
+- `name`、`files.css`、`files.js`、`dependencies` は必須。JSや必須依存がなければ空配列にする。
+- `files.css` / `files.js` はコンポーネント直下のファイル名で、付属実装をすべて列挙する。`*.stories.css` / `*.stories.js` やテストファイルは含めない。
+- `files.assets` は任意。実装に必要な画像等をコンポーネントディレクトリ相対で登録する（例: `"assets": ["assets/icon.svg"]`）。
+- `dependencies` は動作に必須の**直接依存**コンポーネントIDを登録する。サンプルで併用するだけのコンポーネントは登録しない。
+- `defaultStory` は任意で、代表リンク先のストーリーexport名を指定する（例: `"defaultStory": "Playground"`）。省略時はDocsになる。
+
+### component-manifest.json への反映
+
+`component.json` を新規作成または更新した場合、`npm run build-storybook` で最新のStorybook indexとマニフェストを生成する。生成された `component-manifest.json` はコンポーネントの作成／更新とは分けてコミットする。
+
 ## アクセシビリティ
 
 ### 目標
@@ -1067,8 +1098,17 @@ WCAG 2.2のレベルAおよびレベルAA達成基準を全て満たすことを
 # Storybookの起動（開発サーバー）
 npm run storybook
 
-# 全テストの実行（Vitest + Playwright VRT）
+# 全テストの実行（マニフェスト + Vitest + Playwright VRT）
 npm test
+
+# Storybookをビルドし、マニフェストと公開用JSON・Schemaを生成
+npm run build-storybook
+
+# 最新のビルド済みstorybook-static/index.jsonからマニフェストを再生成
+npm run manifest:generate
+
+# マニフェスト生成ロジックのテスト
+npm run test:manifest
 
 # VRTテストのみ実行（Playwright）
 npm run test:vrt
@@ -1156,6 +1196,14 @@ npx @biomejs/biome format --write src/components/<component-name>/
 - [ ] 言語依存のメッセージはdata属性で上書き可能にしている
 - [ ] 公開APIは最小限に絞り、内部メソッド・ゲッターは `#` でprivate化している
 - [ ] 他クラスから呼ばれる、または有用なプロパティおよびメソッドのみをpublicとして残している
+
+### マニフェスト
+
+- [ ] `component.json` を用意し、`src/components/component.schema.json` に従っている
+- [ ] 付属CSS・JS・実装用アセットの追加・削除・改名を `files` に反映し、Stories専用ファイルやテストファイルを含めていない
+- [ ] 動作に必須の直接依存だけを `dependencies` に登録し、サンプルだけの併用を含めていない
+- [ ] `defaultStory` を指定する場合は実在するexport名であり、タイトル・export変更時の参照先と外部リンクへの影響を確認している
+- [ ] `component-manifest.json` を手編集していない
 
 ### フォーマット
 

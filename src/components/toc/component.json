@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "目次",
+  "files": {
+    "css": ["toc.css"],
+    "js": []
+  },
+  "dependencies": ["link", "list"]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DADS HTML Component Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "files", "dependencies"],
+  "properties": {
+    "$schema": { "const": "../component.schema.json" },
+    "name": { "type": "string", "minLength": 1 },
+    "files": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["css", "js"],
+      "properties": {
+        "css": { "$ref": "#/definitions/strings" },
+        "js": { "$ref": "#/definitions/strings" },
+        "assets": { "$ref": "#/definitions/strings" }
+      }
+    },
+    "dependencies": { "$ref": "#/definitions/strings" },
+    "defaultStory": { "type": "string", "minLength": 1 }
+  },
+  "definitions": {
+    "strings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

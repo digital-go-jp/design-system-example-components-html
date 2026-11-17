@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "テキストエリア",
+  "files": {
+    "css": ["textarea.css"],
+    "js": ["textarea-counter.js"]
+  },
+  "dependencies": []
+}

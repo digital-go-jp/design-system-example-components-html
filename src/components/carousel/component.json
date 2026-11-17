@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "カルーセル",
+  "files": {
+    "css": ["carousel-single.css", "carousel.css"],
+    "js": ["carousel.js"]
+  },
+  "dependencies": []
+}

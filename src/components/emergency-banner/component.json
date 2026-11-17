@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "緊急時バナー",
+  "files": {
+    "css": ["emergency-banner.css"],
+    "js": []
+  },
+  "dependencies": []
+}

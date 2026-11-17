@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "引用ブロック",
+  "files": {
+    "css": ["blockquote.css"],
+    "js": []
+  },
+  "dependencies": []
+}

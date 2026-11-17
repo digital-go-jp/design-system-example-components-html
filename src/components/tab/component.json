@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "タブ",
+  "files": {
+    "css": ["tab.css"],
+    "js": ["tab-aria.js", "tab.js"]
+  },
+  "dependencies": []
+}

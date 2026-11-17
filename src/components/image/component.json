@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "画像",
+  "files": {
+    "css": ["image.css"],
+    "js": []
+  },
+  "dependencies": []
+}

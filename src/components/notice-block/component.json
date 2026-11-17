@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "注釈ブロック",
+  "files": {
+    "css": ["notice-block.css"],
+    "js": []
+  },
+  "dependencies": []
+}

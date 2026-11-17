@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ディバイダー",
+  "files": {
+    "css": ["divider.css"],
+    "js": []
+  },
+  "dependencies": []
+}

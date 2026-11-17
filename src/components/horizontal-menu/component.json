@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "水平メニュー",
+  "files": {
+    "css": ["horizontal-menu.css"],
+    "js": []
+  },
+  "dependencies": []
+}

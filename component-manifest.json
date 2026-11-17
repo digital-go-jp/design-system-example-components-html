@@ -1,0 +1,6614 @@
+{
+  "$schema": "./component-manifest.schema.json",
+  "schemaVersion": 1,
+  "shared": {
+    "css": [
+      "src/global.css"
+    ],
+    "js": []
+  },
+  "github": {
+    "baseUrl": "https://github.com/digital-go-jp/design-system-example-components-html/tree/main/"
+  },
+  "storybook": {
+    "baseUrl": "https://design.digital.go.jp/dads/html/"
+  },
+  "components": {
+    "accordion": {
+      "name": "アコーディオン",
+      "sourceDir": "src/components/accordion",
+      "files": {
+        "css": [
+          "src/components/accordion/accordion.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/accordion/accordion.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-アコーディオン--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-accordion"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/accordion/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "stacked": {
+          "html": "src/components/accordion/stacked.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/アコーディオン",
+        "defaultEntryId": "components-アコーディオン--docs",
+        "defaultEntryPath": "/docs/components-アコーディオン--docs",
+        "docs": {
+          "id": "components-アコーディオン--docs"
+        },
+        "stories": [
+          {
+            "id": "components-アコーディオン--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-アコーディオン--stacked",
+            "name": "Stacked",
+            "exportName": "Stacked"
+          }
+        ]
+      }
+    },
+    "blockquote": {
+      "name": "引用ブロック",
+      "sourceDir": "src/components/blockquote",
+      "files": {
+        "css": [
+          "src/components/blockquote/blockquote.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/blockquote/blockquote.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-引用ブロック--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-blockquote"
+          },
+          {
+            "type": "example",
+            "exampleId": "multiple-paragraphs",
+            "selector": ".dads-blockquote"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-list",
+            "selector": ".dads-blockquote"
+          }
+        ]
+      },
+      "examples": {
+        "multiple-paragraphs": {
+          "html": "src/components/blockquote/multiple-paragraphs.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/blockquote/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-list": {
+          "html": "src/components/blockquote/with-list.html",
+          "dependencies": [
+            "list"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/引用ブロック",
+        "defaultEntryId": "components-引用ブロック--docs",
+        "defaultEntryPath": "/docs/components-引用ブロック--docs",
+        "docs": {
+          "id": "components-引用ブロック--docs"
+        },
+        "stories": [
+          {
+            "id": "components-引用ブロック--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-引用ブロック--multiple-paragraphs",
+            "name": "Multiple Paragraphs",
+            "exportName": "MultipleParagraphs"
+          },
+          {
+            "id": "components-引用ブロック--with-list",
+            "name": "With List",
+            "exportName": "WithList"
+          }
+        ]
+      }
+    },
+    "breadcrumb": {
+      "name": "パンくずナビゲーション",
+      "sourceDir": "src/components/breadcrumb",
+      "files": {
+        "css": [
+          "src/components/breadcrumb/breadcrumb.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/breadcrumb/breadcrumb.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-パンくずナビゲーション--plain",
+            "exportName": "Plain",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "plain",
+            "selector": ".dads-breadcrumb"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-visible-label",
+            "selector": ".dads-breadcrumb"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-home-icon",
+            "selector": ".dads-breadcrumb"
+          }
+        ]
+      },
+      "examples": {
+        "plain": {
+          "html": "src/components/breadcrumb/plain.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-home-icon": {
+          "html": "src/components/breadcrumb/with-home-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-visible-label": {
+          "html": "src/components/breadcrumb/with-visible-label.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/パンくずナビゲーション",
+        "defaultEntryId": "components-パンくずナビゲーション--docs",
+        "defaultEntryPath": "/docs/components-パンくずナビゲーション--docs",
+        "docs": {
+          "id": "components-パンくずナビゲーション--docs"
+        },
+        "stories": [
+          {
+            "id": "components-パンくずナビゲーション--plain",
+            "name": "Plain",
+            "exportName": "Plain"
+          },
+          {
+            "id": "components-パンくずナビゲーション--with-visible-label",
+            "name": "With Visible Label",
+            "exportName": "WithVisibleLabel"
+          },
+          {
+            "id": "components-パンくずナビゲーション--with-home-icon",
+            "name": "With Home Icon",
+            "exportName": "WithHomeIcon"
+          }
+        ]
+      }
+    },
+    "button": {
+      "name": "ボタン",
+      "sourceDir": "src/components/button",
+      "files": {
+        "css": [
+          "src/components/button/button.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/button/button.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ボタン--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-button"
+          },
+          {
+            "type": "example",
+            "exampleId": "as-link",
+            "selector": ".dads-button"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled",
+            "selector": ".dads-button"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled-link",
+            "selector": ".dads-button"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-icon",
+            "selector": ".dads-button"
+          }
+        ]
+      },
+      "examples": {
+        "all-buttons-using-button": {
+          "html": "src/components/button/all-buttons-using-button.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "all-buttons-using-link": {
+          "html": "src/components/button/all-buttons-using-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "as-link": {
+          "html": "src/components/button/as-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "disabled-link": {
+          "html": "src/components/button/disabled-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "disabled": {
+          "html": "src/components/button/disabled.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/button/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-icon": {
+          "html": "src/components/button/with-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ボタン",
+        "defaultEntryId": "components-ボタン--docs",
+        "defaultEntryPath": "/docs/components-ボタン--docs",
+        "docs": {
+          "id": "components-ボタン--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ボタン--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ボタン--as-link",
+            "name": "As Link",
+            "exportName": "AsLink"
+          },
+          {
+            "id": "components-ボタン--disabled",
+            "name": "Disabled",
+            "exportName": "Disabled"
+          },
+          {
+            "id": "components-ボタン--disabled-link",
+            "name": "Disabled Link",
+            "exportName": "DisabledLink"
+          },
+          {
+            "id": "components-ボタン--with-icon",
+            "name": "With Icon",
+            "exportName": "WithIcon"
+          },
+          {
+            "id": "components-ボタン--all-buttons-using-button",
+            "name": "All Buttons Using Button",
+            "exportName": "AllButtonsUsingButton"
+          },
+          {
+            "id": "components-ボタン--all-buttons-using-link",
+            "name": "All Buttons Using Link",
+            "exportName": "AllButtonsUsingLink"
+          }
+        ]
+      }
+    },
+    "calendar": {
+      "name": "カレンダー",
+      "sourceDir": "src/components/calendar",
+      "files": {
+        "css": [
+          "src/components/calendar/calendar.css"
+        ],
+        "js": [
+          "src/components/calendar/calendar.js"
+        ]
+      },
+      "dependencies": [
+        "button",
+        "select"
+      ],
+      "documentation": {
+        "markdown": "src/components/calendar/calendar.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー-カレンダー--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-calendar"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/calendar/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/日付ピッカー/カレンダー",
+        "defaultEntryId": "components-日付ピッカー-カレンダー--docs",
+        "defaultEntryPath": "/docs/components-日付ピッカー-カレンダー--docs",
+        "docs": {
+          "id": "components-日付ピッカー-カレンダー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-日付ピッカー-カレンダー--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          }
+        ]
+      }
+    },
+    "card": {
+      "name": "カード",
+      "sourceDir": "src/components/card",
+      "files": {
+        "css": [],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/card/card.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-カード--example-1",
+            "exportName": "Example1",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-1",
+            "selector": ".dads-card-example-1-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カード--example-2",
+            "exportName": "Example2",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-2",
+            "selector": ".dads-card-example-2-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カード--example-3",
+            "exportName": "Example3",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-3",
+            "selector": ".dads-card-example-3-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カード--example-4",
+            "exportName": "Example4",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-4",
+            "selector": ".dads-card-example-4-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カード--example-5",
+            "exportName": "Example5",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-5",
+            "selector": ".dads-card-example-5-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カード--example-6",
+            "exportName": "Example6",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "example-6",
+            "selector": ".dads-card-example-6-list"
+          }
+        ]
+      },
+      "examples": {
+        "example-1": {
+          "html": "src/components/card/example-1.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-1.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example-2": {
+          "html": "src/components/card/example-2.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-2.css"
+            ],
+            "js": [],
+            "assets": [
+              "src/components/card/card-2.jpg"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example-3": {
+          "html": "src/components/card/example-3.html",
+          "dependencies": [
+            "button",
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-3.css"
+            ],
+            "js": [],
+            "assets": [
+              "src/components/card/card-3-1.png",
+              "src/components/card/card-3-2.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example-4": {
+          "html": "src/components/card/example-4.html",
+          "dependencies": [
+            "button",
+            "checkbox",
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-4.css"
+            ],
+            "js": [],
+            "assets": [
+              "src/components/card/card-4.jpg"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example-5": {
+          "html": "src/components/card/example-5.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-5.css"
+            ],
+            "js": [],
+            "assets": [
+              "src/components/card/card-5.jpg"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example-6": {
+          "html": "src/components/card/example-6.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/card/card-example-6.css"
+            ],
+            "js": [],
+            "assets": [
+              "src/components/card/card-6.jpg"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/カード",
+        "defaultEntryId": "components-カード--docs",
+        "defaultEntryPath": "/docs/components-カード--docs",
+        "docs": {
+          "id": "components-カード--docs"
+        },
+        "stories": [
+          {
+            "id": "components-カード--example-1",
+            "name": "Example 1",
+            "exportName": "Example1"
+          },
+          {
+            "id": "components-カード--example-2",
+            "name": "Example 2",
+            "exportName": "Example2"
+          },
+          {
+            "id": "components-カード--example-3",
+            "name": "Example 3",
+            "exportName": "Example3"
+          },
+          {
+            "id": "components-カード--example-4",
+            "name": "Example 4",
+            "exportName": "Example4"
+          },
+          {
+            "id": "components-カード--example-5",
+            "name": "Example 5",
+            "exportName": "Example5"
+          },
+          {
+            "id": "components-カード--example-6",
+            "name": "Example 6",
+            "exportName": "Example6"
+          }
+        ]
+      }
+    },
+    "carousel": {
+      "name": "カルーセル",
+      "sourceDir": "src/components/carousel",
+      "files": {
+        "css": [
+          "src/components/carousel/carousel-single.css",
+          "src/components/carousel/carousel.css"
+        ],
+        "js": [
+          "src/components/carousel/carousel.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/carousel/carousel.md",
+        "assets": [
+          "src/components/carousel/docs/carousel-1024.webp",
+          "src/components/carousel/docs/carousel-1024@2x.webp"
+        ],
+        "references": [
+          {
+            "type": "storybook",
+            "entryId": "components-カルーセル--container"
+          },
+          {
+            "type": "example",
+            "exampleId": "container",
+            "selector": "dads-carousel"
+          },
+          {
+            "type": "example",
+            "exampleId": "key-visual-single",
+            "selector": ".dads-carousel-single"
+          },
+          {
+            "type": "story",
+            "entryId": "components-カルーセル--container",
+            "exportName": "Container",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "story",
+            "entryId": "components-カルーセル--key-visual",
+            "exportName": "KeyVisual",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "story",
+            "entryId": "components-カルーセル--container-without-link",
+            "exportName": "ContainerWithoutLink",
+            "parameters": {
+              "controls": ""
+            }
+          }
+        ]
+      },
+      "examples": {
+        "container": {
+          "html": "src/components/carousel/container.html",
+          "dependencies": [
+            "disclosure"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/carousel/image-1.webp",
+              "src/components/carousel/image-1@2x.webp",
+              "src/components/carousel/image-2.webp",
+              "src/components/carousel/image-2@2x.webp",
+              "src/components/carousel/image-3.webp",
+              "src/components/carousel/image-3@2x.webp",
+              "src/components/carousel/image-4.webp",
+              "src/components/carousel/image-4@2x.webp"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "key-visual-multi": {
+          "html": "src/components/carousel/key-visual-multi.html",
+          "dependencies": [
+            "disclosure",
+            "heading"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/carousel/image-5.webp",
+              "src/components/carousel/image-5@2x.webp",
+              "src/components/carousel/image-6.webp",
+              "src/components/carousel/image-6@2x.webp",
+              "src/components/carousel/image-7.webp",
+              "src/components/carousel/image-7@2x.webp",
+              "src/components/carousel/image-8.webp",
+              "src/components/carousel/image-8@2x.webp"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "key-visual-single": {
+          "html": "src/components/carousel/key-visual-single.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/carousel/image-9.webp",
+              "src/components/carousel/image-9@2x.webp"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/カルーセル",
+        "defaultEntryId": "components-カルーセル--docs",
+        "defaultEntryPath": "/docs/components-カルーセル--docs",
+        "docs": {
+          "id": "components-カルーセル--docs"
+        },
+        "stories": [
+          {
+            "id": "components-カルーセル--container",
+            "name": "Container (Multi Slides)",
+            "exportName": "Container"
+          },
+          {
+            "id": "components-カルーセル--container-without-link",
+            "name": "Container (Multi Slides without Links)",
+            "exportName": "ContainerWithoutLink"
+          },
+          {
+            "id": "components-カルーセル--key-visual",
+            "name": "Key Visual (Multi Slides without Link)",
+            "exportName": "KeyVisual"
+          },
+          {
+            "id": "components-カルーセル--key-visual-without-link",
+            "name": "Key Visual (Single Slide without Link)",
+            "exportName": "KeyVisualWithoutLink"
+          }
+        ]
+      }
+    },
+    "checkbox": {
+      "name": "チェックボックス",
+      "sourceDir": "src/components/checkbox",
+      "files": {
+        "css": [
+          "src/components/checkbox/checkbox.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/checkbox/checkbox.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-チェックボックス--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-checkbox"
+          },
+          {
+            "type": "example",
+            "exampleId": "standalone",
+            "selector": ".dads-checkbox"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs",
+            "fragment": "複数のコントロールにラベルを付ける"
+          },
+          {
+            "type": "example",
+            "exampleId": "stacked",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "errored",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "indeterminate",
+            "selector": "body>*"
+          }
+        ]
+      },
+      "examples": {
+        "all-checkboxes": {
+          "html": "src/components/checkbox/all-checkboxes.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "errored": {
+          "html": "src/components/checkbox/errored.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "indeterminate": {
+          "html": "src/components/checkbox/indeterminate.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/checkbox/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "stacked": {
+          "html": "src/components/checkbox/stacked.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "standalone": {
+          "html": "src/components/checkbox/standalone.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/チェックボックス",
+        "defaultEntryId": "components-チェックボックス--docs",
+        "defaultEntryPath": "/docs/components-チェックボックス--docs",
+        "docs": {
+          "id": "components-チェックボックス--docs"
+        },
+        "stories": [
+          {
+            "id": "components-チェックボックス--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-チェックボックス--standalone",
+            "name": "Standalone",
+            "exportName": "Standalone"
+          },
+          {
+            "id": "components-チェックボックス--all-checkboxes",
+            "name": "All Checkboxes",
+            "exportName": "AllCheckboxes"
+          },
+          {
+            "id": "components-チェックボックス--stacked",
+            "name": "Stacked",
+            "exportName": "Stacked"
+          },
+          {
+            "id": "components-チェックボックス--errored",
+            "name": "Errored",
+            "exportName": "Errored"
+          },
+          {
+            "id": "components-チェックボックス--indeterminate",
+            "name": "Indeterminate",
+            "exportName": "Indeterminate"
+          }
+        ]
+      }
+    },
+    "chip-label": {
+      "name": "チップラベル",
+      "sourceDir": "src/components/chip-label",
+      "files": {
+        "css": [
+          "src/components/chip-label/chip-label.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/chip-label/chip-label.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-チップラベル--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-chip-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-icon",
+            "selector": ".dads-chip-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "without-icon",
+            "selector": ".dads-chip-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "custom-color",
+            "selector": ".dads-chip-label"
+          }
+        ]
+      },
+      "examples": {
+        "all-chip-labels": {
+          "html": "src/components/chip-label/all-chip-labels.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "custom-color": {
+          "html": "src/components/chip-label/custom-color.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/chip-label/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-icon": {
+          "html": "src/components/chip-label/with-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "without-icon": {
+          "html": "src/components/chip-label/without-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/チップラベル",
+        "defaultEntryId": "components-チップラベル--docs",
+        "defaultEntryPath": "/docs/components-チップラベル--docs",
+        "docs": {
+          "id": "components-チップラベル--docs"
+        },
+        "stories": [
+          {
+            "id": "components-チップラベル--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-チップラベル--without-icon",
+            "name": "Without Icon",
+            "exportName": "WithoutIcon"
+          },
+          {
+            "id": "components-チップラベル--custom-color",
+            "name": "Custom Color",
+            "exportName": "CustomColor"
+          },
+          {
+            "id": "components-チップラベル--all-chip-labels",
+            "name": "All Chip Labels",
+            "exportName": "AllChipLabels"
+          }
+        ]
+      }
+    },
+    "date-picker": {
+      "name": "日付ピッカー",
+      "sourceDir": "src/components/date-picker",
+      "files": {
+        "css": [
+          "src/components/date-picker/date-picker.css"
+        ],
+        "js": [
+          "src/components/date-picker/date-picker.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/date-picker/date-picker.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー--consolidated",
+            "exportName": "Consolidated",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-consolidated",
+            "selector": ".dads-date-picker"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-separated",
+            "selector": ".dads-date-picker"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-consolidated-with-calendar",
+            "selector": ".dads-date-picker"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-separated-with-calendar",
+            "selector": ".dads-date-picker"
+          },
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー--consolidated",
+            "exportName": "Consolidated",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー--separated",
+            "exportName": "Separated",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー--consolidated-with-calendar",
+            "exportName": "ConsolidatedWithCalendar",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-日付ピッカー--separated-with-calendar",
+            "exportName": "SeparatedWithCalendar",
+            "parameters": {}
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "error",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "readonly",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled",
+            "selector": ".dads-form-control-label"
+          }
+        ]
+      },
+      "examples": {
+        "disabled": {
+          "html": "src/components/date-picker/disabled.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "error": {
+          "html": "src/components/date-picker/error.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-consolidated-with-calendar": {
+          "html": "src/components/date-picker/playground-consolidated-with-calendar.html",
+          "dependencies": [
+            "button",
+            "calendar",
+            "select"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-consolidated": {
+          "html": "src/components/date-picker/playground-consolidated.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-separated-with-calendar": {
+          "html": "src/components/date-picker/playground-separated-with-calendar.html",
+          "dependencies": [
+            "button",
+            "calendar",
+            "select"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-separated": {
+          "html": "src/components/date-picker/playground-separated.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "readonly": {
+          "html": "src/components/date-picker/readonly.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label": {
+          "html": "src/components/date-picker/with-form-control-label.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/日付ピッカー",
+        "defaultEntryId": "components-日付ピッカー--docs",
+        "defaultEntryPath": "/docs/components-日付ピッカー--docs",
+        "docs": {
+          "id": "components-日付ピッカー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-日付ピッカー--consolidated",
+            "name": "Consolidated",
+            "exportName": "Consolidated"
+          },
+          {
+            "id": "components-日付ピッカー--separated",
+            "name": "Separated",
+            "exportName": "Separated"
+          },
+          {
+            "id": "components-日付ピッカー--consolidated-with-calendar",
+            "name": "Consolidated With Calendar",
+            "exportName": "ConsolidatedWithCalendar"
+          },
+          {
+            "id": "components-日付ピッカー--separated-with-calendar",
+            "name": "Separated With Calendar",
+            "exportName": "SeparatedWithCalendar"
+          },
+          {
+            "id": "components-日付ピッカー--with-form-control-label",
+            "name": "With Form Control Label",
+            "exportName": "WithFormControlLabel"
+          },
+          {
+            "id": "components-日付ピッカー--readonly",
+            "name": "Readonly",
+            "exportName": "Readonly"
+          },
+          {
+            "id": "components-日付ピッカー--error-story",
+            "name": "Error",
+            "exportName": "ErrorStory"
+          },
+          {
+            "id": "components-日付ピッカー--disabled",
+            "name": "Disabled",
+            "exportName": "Disabled"
+          }
+        ]
+      }
+    },
+    "description-list": {
+      "name": "説明リスト",
+      "sourceDir": "src/components/description-list",
+      "files": {
+        "css": [
+          "src/components/description-list/description-list.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/description-list/description-list.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-説明リスト--without-marker",
+            "exportName": "WithoutMarker",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "without-marker",
+            "selector": ".dads-description-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "bullet",
+            "selector": ".dads-description-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "custom-marker",
+            "selector": ".dads-description-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-説明リスト--bullet",
+            "exportName": "Bullet",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-説明リスト--custom-marker",
+            "exportName": "CustomMarker",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-説明リスト--custom-icon-marker",
+            "exportName": "CustomIconMarker",
+            "parameters": {}
+          }
+        ]
+      },
+      "examples": {
+        "bullet": {
+          "html": "src/components/description-list/bullet.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "custom-icon-marker": {
+          "html": "src/components/description-list/custom-icon-marker.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "custom-marker": {
+          "html": "src/components/description-list/custom-marker.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "without-marker": {
+          "html": "src/components/description-list/without-marker.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/説明リスト",
+        "defaultEntryId": "components-説明リスト--docs",
+        "defaultEntryPath": "/docs/components-説明リスト--docs",
+        "docs": {
+          "id": "components-説明リスト--docs"
+        },
+        "stories": [
+          {
+            "id": "components-説明リスト--without-marker",
+            "name": "Without Marker",
+            "exportName": "WithoutMarker"
+          },
+          {
+            "id": "components-説明リスト--bullet",
+            "name": "Bullet",
+            "exportName": "Bullet"
+          },
+          {
+            "id": "components-説明リスト--custom-marker",
+            "name": "Custom Marker",
+            "exportName": "CustomMarker"
+          },
+          {
+            "id": "components-説明リスト--custom-icon-marker",
+            "name": "Custom Icon Marker",
+            "exportName": "CustomIconMarker"
+          }
+        ]
+      }
+    },
+    "disclosure": {
+      "name": "ディスクロージャー",
+      "sourceDir": "src/components/disclosure",
+      "files": {
+        "css": [
+          "src/components/disclosure/disclosure.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/disclosure/disclosure.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ディスクロージャー--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-disclosure"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/disclosure/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ディスクロージャー",
+        "defaultEntryId": "components-ディスクロージャー--docs",
+        "defaultEntryPath": "/docs/components-ディスクロージャー--docs",
+        "docs": {
+          "id": "components-ディスクロージャー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ディスクロージャー--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          }
+        ]
+      }
+    },
+    "divider": {
+      "name": "ディバイダー",
+      "sourceDir": "src/components/divider",
+      "files": {
+        "css": [
+          "src/components/divider/divider.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/divider/divider.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ディバイダー--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-divider"
+          },
+          {
+            "type": "example",
+            "exampleId": "decorative",
+            "selector": ".dads-divider"
+          }
+        ]
+      },
+      "examples": {
+        "all-dividers": {
+          "html": "src/components/divider/all-dividers.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "decorative": {
+          "html": "src/components/divider/decorative.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/divider/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ディバイダー",
+        "defaultEntryId": "components-ディバイダー--docs",
+        "defaultEntryPath": "/docs/components-ディバイダー--docs",
+        "docs": {
+          "id": "components-ディバイダー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ディバイダー--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ディバイダー--decorative",
+            "name": "Decorative",
+            "exportName": "Decorative"
+          },
+          {
+            "id": "components-ディバイダー--all-dividers",
+            "name": "All Dividers",
+            "exportName": "AllDividers"
+          }
+        ]
+      }
+    },
+    "drawer": {
+      "name": "ドロワー",
+      "sourceDir": "src/components/drawer",
+      "files": {
+        "css": [
+          "src/components/drawer/drawer.css"
+        ],
+        "js": []
+      },
+      "dependencies": [
+        "hamburger-menu-button"
+      ],
+      "documentation": {
+        "markdown": "src/components/drawer/drawer.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ドロワー--left",
+            "exportName": "Left",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "left",
+            "selector": "body>*"
+          },
+          {
+            "type": "example",
+            "exampleId": "right",
+            "selector": "body>*"
+          }
+        ]
+      },
+      "examples": {
+        "left": {
+          "html": "src/components/drawer/left.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "right": {
+          "html": "src/components/drawer/right.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ドロワー",
+        "defaultEntryId": "components-ドロワー--docs",
+        "defaultEntryPath": "/docs/components-ドロワー--docs",
+        "docs": {
+          "id": "components-ドロワー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ドロワー--left",
+            "name": "Left",
+            "exportName": "Left"
+          },
+          {
+            "id": "components-ドロワー--right",
+            "name": "Right",
+            "exportName": "Right"
+          }
+        ]
+      }
+    },
+    "emergency-banner": {
+      "name": "緊急時バナー",
+      "sourceDir": "src/components/emergency-banner",
+      "files": {
+        "css": [
+          "src/components/emergency-banner/emergency-banner.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/emergency-banner/emergency-banner.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-緊急時バナー--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-emergency-banner"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/emergency-banner/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/緊急時バナー",
+        "defaultEntryId": "components-緊急時バナー--docs",
+        "defaultEntryPath": "/docs/components-緊急時バナー--docs",
+        "docs": {
+          "id": "components-緊急時バナー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-緊急時バナー--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          }
+        ]
+      }
+    },
+    "file-upload": {
+      "name": "ファイルアップロード／ドロップエリア",
+      "sourceDir": "src/components/file-upload",
+      "files": {
+        "css": [
+          "src/components/file-upload/file-upload.css"
+        ],
+        "js": [
+          "src/components/file-upload/file-upload.js"
+        ]
+      },
+      "dependencies": [
+        "button"
+      ],
+      "documentation": {
+        "markdown": "src/components/file-upload/file-upload.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ファイルアップロード／ドロップエリア--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-file-upload"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "without-drop-area",
+            "selector": ".dads-file-upload"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-existing-files",
+            "selector": ".dads-file-upload"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-error",
+            "selector": ".dads-file-upload"
+          }
+        ]
+      },
+      "examples": {
+        "non-expandable": {
+          "html": "src/components/file-upload/non-expandable.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/file-upload/playground.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "single-file": {
+          "html": "src/components/file-upload/single-file.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-error": {
+          "html": "src/components/file-upload/with-error.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-existing-files": {
+          "html": "src/components/file-upload/with-existing-files.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label": {
+          "html": "src/components/file-upload/with-form-control-label.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "without-drop-area": {
+          "html": "src/components/file-upload/without-drop-area.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ファイルアップロード／ドロップエリア",
+        "defaultEntryId": "components-ファイルアップロード／ドロップエリア--docs",
+        "defaultEntryPath": "/docs/components-ファイルアップロード／ドロップエリア--docs",
+        "docs": {
+          "id": "components-ファイルアップロード／ドロップエリア--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--with-form-control-label",
+            "name": "With Form Control Label",
+            "exportName": "WithFormControlLabel"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--with-existing-files",
+            "name": "With Existing Files",
+            "exportName": "WithExistingFiles"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--without-drop-area",
+            "name": "Without Drop Area",
+            "exportName": "WithoutDropArea"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--non-expandable",
+            "name": "Non Expandable",
+            "exportName": "NonExpandable"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--single-file",
+            "name": "Single File",
+            "exportName": "SingleFile"
+          },
+          {
+            "id": "components-ファイルアップロード／ドロップエリア--with-error",
+            "name": "With Error",
+            "exportName": "WithError"
+          }
+        ]
+      }
+    },
+    "form-control-label": {
+      "name": "フォームコントロールラベル",
+      "sourceDir": "src/components/form-control-label",
+      "files": {
+        "css": [
+          "src/components/form-control-label/form-control-label.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/form-control-label/form-control-label.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-フォームコントロールラベル--single",
+            "exportName": "Single",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "single",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "multiple",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "horizontal",
+            "selector": ".dads-form-control-label"
+          }
+        ]
+      },
+      "examples": {
+        "horizontal": {
+          "html": "src/components/form-control-label/horizontal.html",
+          "dependencies": [
+            "checkbox",
+            "date-picker",
+            "input-text",
+            "radio",
+            "select",
+            "textarea"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "multiple": {
+          "html": "src/components/form-control-label/multiple.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "single": {
+          "html": "src/components/form-control-label/single.html",
+          "dependencies": [
+            "input-text"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/フォームコントロールラベル",
+        "defaultEntryId": "components-フォームコントロールラベル--docs",
+        "defaultEntryPath": "/docs/components-フォームコントロールラベル--docs",
+        "docs": {
+          "id": "components-フォームコントロールラベル--docs"
+        },
+        "stories": [
+          {
+            "id": "components-フォームコントロールラベル--single",
+            "name": "Single",
+            "exportName": "Single"
+          },
+          {
+            "id": "components-フォームコントロールラベル--multiple",
+            "name": "Multiple",
+            "exportName": "Multiple"
+          },
+          {
+            "id": "components-フォームコントロールラベル--horizontal",
+            "name": "Horizontal",
+            "exportName": "Horizontal"
+          }
+        ]
+      }
+    },
+    "hamburger-menu-button": {
+      "name": "ハンバーガーメニューボタン",
+      "sourceDir": "src/components/hamburger-menu-button",
+      "files": {
+        "css": [
+          "src/components/hamburger-menu-button/hamburger-menu-button.css",
+          "src/components/hamburger-menu-button/hamburger-menu-icon-button.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/hamburger-menu-button/hamburger-menu-button.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ハンバーガーメニューボタン--desktop-and-mobile",
+            "exportName": "DesktopAndMobile",
+            "parameters": {
+              "no-toolbar": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "text-button",
+            "selector": ".dads-hamburger-menu-button"
+          },
+          {
+            "type": "example",
+            "exampleId": "icon-button",
+            "selector": ".dads-hamburger-menu-icon-button"
+          },
+          {
+            "type": "story",
+            "entryId": "components-ハンバーガーメニューボタン--mobile-conditional",
+            "exportName": "MobileConditional",
+            "parameters": {
+              "no-toolbar": ""
+            }
+          },
+          {
+            "type": "story",
+            "entryId": "components-ハンバーガーメニューボタン--mobile-conditional-en",
+            "exportName": "MobileConditionalEn",
+            "parameters": {
+              "no-toolbar": ""
+            }
+          }
+        ]
+      },
+      "examples": {
+        "desktop-and-mobile": {
+          "html": "src/components/hamburger-menu-button/desktop-and-mobile.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "icon-button": {
+          "html": "src/components/hamburger-menu-button/icon-button.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "mobile-conditional-en": {
+          "html": "src/components/hamburger-menu-button/mobile-conditional-en.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "mobile-conditional": {
+          "html": "src/components/hamburger-menu-button/mobile-conditional.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "text-button": {
+          "html": "src/components/hamburger-menu-button/text-button.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ハンバーガーメニューボタン",
+        "defaultEntryId": "components-ハンバーガーメニューボタン--docs",
+        "defaultEntryPath": "/docs/components-ハンバーガーメニューボタン--docs",
+        "docs": {
+          "id": "components-ハンバーガーメニューボタン--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ハンバーガーメニューボタン--desktop-and-mobile",
+            "name": "Desktop And Mobile",
+            "exportName": "DesktopAndMobile"
+          },
+          {
+            "id": "components-ハンバーガーメニューボタン--mobile-conditional",
+            "name": "Mobile Conditional",
+            "exportName": "MobileConditional"
+          },
+          {
+            "id": "components-ハンバーガーメニューボタン--mobile-conditional-en",
+            "name": "Mobile Conditional (En)",
+            "exportName": "MobileConditionalEn"
+          },
+          {
+            "id": "components-ハンバーガーメニューボタン--text-button",
+            "name": "Text Button",
+            "exportName": "TextButton"
+          },
+          {
+            "id": "components-ハンバーガーメニューボタン--icon-button",
+            "name": "Icon Button",
+            "exportName": "IconButton"
+          }
+        ]
+      }
+    },
+    "heading": {
+      "name": "見出し",
+      "sourceDir": "src/components/heading",
+      "files": {
+        "css": [
+          "src/components/heading/heading.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/heading/heading.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-見出し--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": ".dads-heading"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-shoulder",
+            "selector": ".dads-heading"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-chip",
+            "selector": ".dads-heading"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-rule",
+            "selector": ".dads-heading"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-icon",
+            "selector": ".dads-heading"
+          }
+        ]
+      },
+      "examples": {
+        "basic": {
+          "html": "src/components/heading/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/heading/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-chip": {
+          "html": "src/components/heading/with-chip.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-icon": {
+          "html": "src/components/heading/with-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-rule": {
+          "html": "src/components/heading/with-rule.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-shoulder": {
+          "html": "src/components/heading/with-shoulder.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/見出し",
+        "defaultEntryId": "components-見出し--docs",
+        "defaultEntryPath": "/docs/components-見出し--docs",
+        "docs": {
+          "id": "components-見出し--docs"
+        },
+        "stories": [
+          {
+            "id": "components-見出し--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-見出し--basic",
+            "name": "Basic",
+            "exportName": "Basic"
+          },
+          {
+            "id": "components-見出し--with-chip",
+            "name": "With Chip",
+            "exportName": "WithChip"
+          },
+          {
+            "id": "components-見出し--with-rule",
+            "name": "With Rule",
+            "exportName": "WithRule"
+          },
+          {
+            "id": "components-見出し--with-icon",
+            "name": "With Icon",
+            "exportName": "WithIcon"
+          },
+          {
+            "id": "components-見出し--with-shoulder",
+            "name": "With Shoulder",
+            "exportName": "WithShoulder"
+          }
+        ]
+      }
+    },
+    "horizontal-menu": {
+      "name": "水平メニュー",
+      "sourceDir": "src/components/horizontal-menu",
+      "files": {
+        "css": [
+          "src/components/horizontal-menu/horizontal-menu.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/horizontal-menu/horizontal-menu.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-水平メニュー--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "links-only",
+            "selector": ".dads-horizontal-menu"
+          },
+          {
+            "type": "example",
+            "exampleId": "submenu-button",
+            "selector": ".dads-horizontal-menu"
+          }
+        ]
+      },
+      "examples": {
+        "links-only": {
+          "html": "src/components/horizontal-menu/links-only.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/horizontal-menu/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "submenu-button": {
+          "html": "src/components/horizontal-menu/submenu-button.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/水平メニュー",
+        "defaultEntryId": "components-水平メニュー--docs",
+        "defaultEntryPath": "/docs/components-水平メニュー--docs",
+        "docs": {
+          "id": "components-水平メニュー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-水平メニュー--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-水平メニュー--links-only",
+            "name": "Links Only",
+            "exportName": "LinksOnly"
+          },
+          {
+            "id": "components-水平メニュー--submenu-button",
+            "name": "Submenu Button",
+            "exportName": "SubmenuButton"
+          }
+        ]
+      }
+    },
+    "image": {
+      "name": "画像",
+      "sourceDir": "src/components/image",
+      "files": {
+        "css": [
+          "src/components/image/image.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/image/image.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-画像--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "borderless",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-link",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "full-width",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-picture-element",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "without-caption",
+            "selector": ".dads-image"
+          },
+          {
+            "type": "example",
+            "exampleId": "caption-solid",
+            "selector": ".dads-image"
+          }
+        ]
+      },
+      "examples": {
+        "borderless": {
+          "html": "src/components/image/borderless.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "caption-solid": {
+          "html": "src/components/image/caption-solid.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "full-width": {
+          "html": "src/components/image/full-width.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/image/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png",
+              "src/components/image/sample@2x.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-link": {
+          "html": "src/components/image/with-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-picture-element": {
+          "html": "src/components/image/with-picture-element.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample-mobile.png",
+              "src/components/image/sample-mobile@2x.png",
+              "src/components/image/sample.png",
+              "src/components/image/sample@2x.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "without-caption": {
+          "html": "src/components/image/without-caption.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": [
+              "src/components/image/sample.png"
+            ]
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/画像",
+        "defaultEntryId": "components-画像--docs",
+        "defaultEntryPath": "/docs/components-画像--docs",
+        "docs": {
+          "id": "components-画像--docs"
+        },
+        "stories": [
+          {
+            "id": "components-画像--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-画像--borderless",
+            "name": "Borderless",
+            "exportName": "Borderless"
+          },
+          {
+            "id": "components-画像--with-link",
+            "name": "With Link",
+            "exportName": "WithLink"
+          },
+          {
+            "id": "components-画像--full-width",
+            "name": "Full Width",
+            "exportName": "FullWidth"
+          },
+          {
+            "id": "components-画像--with-picture-element",
+            "name": "With Picture Element",
+            "exportName": "WithPictureElement"
+          },
+          {
+            "id": "components-画像--without-caption",
+            "name": "Without Caption",
+            "exportName": "WithoutCaption"
+          },
+          {
+            "id": "components-画像--caption-solid",
+            "name": "Caption Solid",
+            "exportName": "CaptionSolid"
+          }
+        ]
+      }
+    },
+    "input-text": {
+      "name": "インプットテキスト",
+      "sourceDir": "src/components/input-text",
+      "files": {
+        "css": [
+          "src/components/input-text/input-text.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/input-text/input-text.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-インプットテキスト--basic",
+            "exportName": "Basic",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": ".dads-input-text"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "errored",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "readonly",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled",
+            "selector": ".dads-form-control-label"
+          }
+        ]
+      },
+      "examples": {
+        "basic": {
+          "html": "src/components/input-text/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "disabled": {
+          "html": "src/components/input-text/disabled.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "errored": {
+          "html": "src/components/input-text/errored.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "readonly": {
+          "html": "src/components/input-text/readonly.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label": {
+          "html": "src/components/input-text/with-form-control-label.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/インプットテキスト",
+        "defaultEntryId": "components-インプットテキスト--docs",
+        "defaultEntryPath": "/docs/components-インプットテキスト--docs",
+        "docs": {
+          "id": "components-インプットテキスト--docs"
+        },
+        "stories": [
+          {
+            "id": "components-インプットテキスト--basic",
+            "name": "Basic",
+            "exportName": "Basic"
+          },
+          {
+            "id": "components-インプットテキスト--with-form-control-label",
+            "name": "With Form Control Label",
+            "exportName": "WithFormControlLabel"
+          },
+          {
+            "id": "components-インプットテキスト--errored",
+            "name": "Errored",
+            "exportName": "Errored"
+          },
+          {
+            "id": "components-インプットテキスト--readonly",
+            "name": "Readonly",
+            "exportName": "Readonly"
+          },
+          {
+            "id": "components-インプットテキスト--disabled",
+            "name": "Disabled",
+            "exportName": "Disabled"
+          }
+        ]
+      }
+    },
+    "language-selector": {
+      "name": "ランゲージセレクター",
+      "sourceDir": "src/components/language-selector",
+      "files": {
+        "css": [
+          "src/components/language-selector/language-selector.css"
+        ],
+        "js": [
+          "src/components/language-selector/language-selector.js"
+        ]
+      },
+      "dependencies": [
+        "menu-list-box"
+      ],
+      "documentation": {
+        "markdown": "src/components/language-selector/language-selector.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ランゲージセレクター--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-language-selector"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/language-selector/playground.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ランゲージセレクター",
+        "defaultEntryId": "components-ランゲージセレクター--docs",
+        "defaultEntryPath": "/docs/components-ランゲージセレクター--docs",
+        "docs": {
+          "id": "components-ランゲージセレクター--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ランゲージセレクター--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          }
+        ]
+      }
+    },
+    "link": {
+      "name": "リンク",
+      "sourceDir": "src/components/link",
+      "files": {
+        "css": [
+          "src/components/link/link.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/link/link.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-リンク--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-link"
+          },
+          {
+            "type": "example",
+            "exampleId": "new-tab",
+            "selector": ".dads-link"
+          }
+        ]
+      },
+      "examples": {
+        "new-tab": {
+          "html": "src/components/link/new-tab.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/link/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/リンク",
+        "defaultEntryId": "components-リンク--docs",
+        "defaultEntryPath": "/docs/components-リンク--docs",
+        "docs": {
+          "id": "components-リンク--docs"
+        },
+        "stories": [
+          {
+            "id": "components-リンク--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-リンク--new-tab",
+            "name": "New Tab",
+            "exportName": "NewTab"
+          }
+        ]
+      }
+    },
+    "list": {
+      "name": "箇条書きリスト",
+      "sourceDir": "src/components/list",
+      "files": {
+        "css": [
+          "src/components/list/list.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/list/list.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-箇条書きリスト--bullet",
+            "exportName": "Bullet",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "bullet",
+            "selector": "body>.dads-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "numbered",
+            "selector": "body>.dads-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "custom-marker-format",
+            "selector": "body>.dads-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "numbered-with-links",
+            "selector": "body>.dads-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "nested",
+            "selector": "body>.dads-list"
+          }
+        ]
+      },
+      "examples": {
+        "bullet": {
+          "html": "src/components/list/bullet.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "custom-marker-format": {
+          "html": "src/components/list/custom-marker-format.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "nested": {
+          "html": "src/components/list/nested.html",
+          "dependencies": [
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "numbered-with-links": {
+          "html": "src/components/list/numbered-with-links.html",
+          "dependencies": [
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "numbered": {
+          "html": "src/components/list/numbered.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/箇条書きリスト",
+        "defaultEntryId": "components-箇条書きリスト--docs",
+        "defaultEntryPath": "/docs/components-箇条書きリスト--docs",
+        "docs": {
+          "id": "components-箇条書きリスト--docs"
+        },
+        "stories": [
+          {
+            "id": "components-箇条書きリスト--bullet",
+            "name": "Bullet",
+            "exportName": "Bullet"
+          },
+          {
+            "id": "components-箇条書きリスト--numbered",
+            "name": "Numbered",
+            "exportName": "Numbered"
+          },
+          {
+            "id": "components-箇条書きリスト--custom-marker-format",
+            "name": "Custom Marker Format",
+            "exportName": "CustomMarkerFormat"
+          },
+          {
+            "id": "components-箇条書きリスト--numbered-with-links",
+            "name": "Numbered With Links",
+            "exportName": "NumberedWithLinks"
+          },
+          {
+            "id": "components-箇条書きリスト--nested",
+            "name": "Nested",
+            "exportName": "Nested"
+          }
+        ]
+      }
+    },
+    "menu-list": {
+      "name": "メニューリスト",
+      "sourceDir": "src/components/menu-list",
+      "files": {
+        "css": [
+          "src/components/menu-list/menu-list.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/menu-list/menu-list.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-メニューリスト--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": "body>.dads-menu-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": "body>.dads-menu-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "has-children",
+            "selector": "body>.dads-menu-list"
+          },
+          {
+            "type": "story",
+            "entryId": "components-メニューリスト--has-children",
+            "exportName": "HasChildren",
+            "parameters": {
+              "controls": ""
+            }
+          }
+        ]
+      },
+      "examples": {
+        "basic": {
+          "html": "src/components/menu-list/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "has-children": {
+          "html": "src/components/menu-list/has-children.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/menu-list/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/メニューリスト",
+        "defaultEntryId": "components-メニューリスト--docs",
+        "defaultEntryPath": "/docs/components-メニューリスト--docs",
+        "docs": {
+          "id": "components-メニューリスト--docs"
+        },
+        "stories": [
+          {
+            "id": "components-メニューリスト--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-メニューリスト--basic",
+            "name": "Basic",
+            "exportName": "Basic"
+          },
+          {
+            "id": "components-メニューリスト--has-children",
+            "name": "Has Children",
+            "exportName": "HasChildren"
+          }
+        ]
+      }
+    },
+    "menu-list-box": {
+      "name": "メニューリストボックス",
+      "sourceDir": "src/components/menu-list-box",
+      "files": {
+        "css": [
+          "src/components/menu-list-box/menu-list-box.css"
+        ],
+        "js": [
+          "src/components/menu-list-box/menu-list-box.js"
+        ]
+      },
+      "dependencies": [
+        "menu-list"
+      ],
+      "documentation": {
+        "markdown": "src/components/menu-list-box/menu-list-box.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-メニューリストボックス--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/menu-list-box/playground.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/メニューリストボックス",
+        "defaultEntryId": "components-メニューリストボックス--docs",
+        "defaultEntryPath": "/docs/components-メニューリストボックス--docs",
+        "docs": {
+          "id": "components-メニューリストボックス--docs"
+        },
+        "stories": [
+          {
+            "id": "components-メニューリストボックス--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          }
+        ]
+      }
+    },
+    "modal-dialog": {
+      "name": "モーダルダイアログ",
+      "sourceDir": "src/components/modal-dialog",
+      "files": {
+        "css": [
+          "src/components/modal-dialog/modal-dialog.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/modal-dialog/modal-dialog.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-モーダルダイアログ--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "inner-scroll",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "inner-scroll-with-fixed-header",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "inner-scroll-with-fixed-actions",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "inner-scroll-with-fixed-both",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "fixed-width",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          },
+          {
+            "type": "example",
+            "exampleId": "full-width",
+            "selector": "[command=\"show-modal\"],.dads-modal-dialog"
+          }
+        ]
+      },
+      "examples": {
+        "fixed-width": {
+          "html": "src/components/modal-dialog/fixed-width.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "full-width": {
+          "html": "src/components/modal-dialog/full-width.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "inner-scroll-with-fixed-actions": {
+          "html": "src/components/modal-dialog/inner-scroll-with-fixed-actions.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "inner-scroll-with-fixed-both": {
+          "html": "src/components/modal-dialog/inner-scroll-with-fixed-both.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "inner-scroll-with-fixed-header": {
+          "html": "src/components/modal-dialog/inner-scroll-with-fixed-header.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "inner-scroll": {
+          "html": "src/components/modal-dialog/inner-scroll.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        },
+        "playground": {
+          "html": "src/components/modal-dialog/playground.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": [
+              {
+                "src": "https://unpkg.com/invokers-polyfill@1.0.3/invoker.min.js",
+                "integrity": "sha384-5LhJgzIxwYwMQ7m7JXX5W03j3oeG0VV6w8UhAB19DnKDwreDWdBIOdS1y8DUZ4vC",
+                "crossorigin": "anonymous"
+              }
+            ]
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/モーダルダイアログ",
+        "defaultEntryId": "components-モーダルダイアログ--docs",
+        "defaultEntryPath": "/docs/components-モーダルダイアログ--docs",
+        "docs": {
+          "id": "components-モーダルダイアログ--docs"
+        },
+        "stories": [
+          {
+            "id": "components-モーダルダイアログ--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-モーダルダイアログ--inner-scroll",
+            "name": "Inner Scroll",
+            "exportName": "InnerScroll"
+          },
+          {
+            "id": "components-モーダルダイアログ--inner-scroll-with-fixed-header",
+            "name": "Inner Scroll With Fixed Header",
+            "exportName": "InnerScrollWithFixedHeader"
+          },
+          {
+            "id": "components-モーダルダイアログ--inner-scroll-with-fixed-actions",
+            "name": "Inner Scroll With Fixed Actions",
+            "exportName": "InnerScrollWithFixedActions"
+          },
+          {
+            "id": "components-モーダルダイアログ--inner-scroll-with-fixed-both",
+            "name": "Inner Scroll With Fixed Both",
+            "exportName": "InnerScrollWithFixedBoth"
+          },
+          {
+            "id": "components-モーダルダイアログ--fixed-width",
+            "name": "Fixed Width",
+            "exportName": "FixedWidth"
+          },
+          {
+            "id": "components-モーダルダイアログ--full-width",
+            "name": "Full Width",
+            "exportName": "FullWidth"
+          }
+        ]
+      }
+    },
+    "notice-block": {
+      "name": "注釈ブロック",
+      "sourceDir": "src/components/notice-block",
+      "files": {
+        "css": [
+          "src/components/notice-block/notice-block.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/notice-block/notice-block.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-注釈ブロック--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-notice-block"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-チップラベル--docs"
+          },
+          {
+            "type": "story",
+            "entryId": "components-注釈ブロック--with-chip-label-in-title",
+            "exportName": "WithChipLabelInTitle",
+            "parameters": {}
+          },
+          {
+            "type": "example",
+            "exampleId": "with-chip-label-in-title",
+            "selector": ".dads-notice-block"
+          },
+          {
+            "type": "story",
+            "entryId": "components-注釈ブロック--with-chip-label-in-body",
+            "exportName": "WithChipLabelInBody",
+            "parameters": {}
+          },
+          {
+            "type": "example",
+            "exampleId": "with-chip-label-in-body",
+            "selector": ".dads-notice-block"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-ディスクロージャー--docs"
+          },
+          {
+            "type": "story",
+            "entryId": "components-注釈ブロック--with-disclosure-and-chip-label",
+            "exportName": "WithDisclosureAndChipLabel",
+            "parameters": {}
+          },
+          {
+            "type": "example",
+            "exampleId": "with-disclosure-and-chip-label",
+            "selector": ".dads-notice-block"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/notice-block/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-chip-label-in-body": {
+          "html": "src/components/notice-block/with-chip-label-in-body.html",
+          "dependencies": [
+            "chip-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-chip-label-in-title": {
+          "html": "src/components/notice-block/with-chip-label-in-title.html",
+          "dependencies": [
+            "chip-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-disclosure-and-chip-label": {
+          "html": "src/components/notice-block/with-disclosure-and-chip-label.html",
+          "dependencies": [
+            "chip-label",
+            "disclosure",
+            "link",
+            "list"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/注釈ブロック",
+        "defaultEntryId": "components-注釈ブロック--docs",
+        "defaultEntryPath": "/docs/components-注釈ブロック--docs",
+        "docs": {
+          "id": "components-注釈ブロック--docs"
+        },
+        "stories": [
+          {
+            "id": "components-注釈ブロック--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-注釈ブロック--with-chip-label-in-title",
+            "name": "With Chip Label In Title",
+            "exportName": "WithChipLabelInTitle"
+          },
+          {
+            "id": "components-注釈ブロック--with-chip-label-in-body",
+            "name": "With Chip Label In Body",
+            "exportName": "WithChipLabelInBody"
+          },
+          {
+            "id": "components-注釈ブロック--with-disclosure-and-chip-label",
+            "name": "With Disclosure And Chip Label",
+            "exportName": "WithDisclosureAndChipLabel"
+          }
+        ]
+      }
+    },
+    "notification-banner": {
+      "name": "ノティフィケーションバナー",
+      "sourceDir": "src/components/notification-banner",
+      "files": {
+        "css": [
+          "src/components/notification-banner/notification-banner.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/notification-banner/notification-banner.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ノティフィケーションバナー--success",
+            "exportName": "Success",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "success",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "error",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "warning",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "info-1",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "info-2",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "color-chip",
+            "selector": ".dads-notification-banner"
+          },
+          {
+            "type": "example",
+            "exampleId": "mobile-compact",
+            "selector": ".dads-notification-banner"
+          }
+        ]
+      },
+      "examples": {
+        "color-chip": {
+          "html": "src/components/notification-banner/color-chip.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "error": {
+          "html": "src/components/notification-banner/error.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "info-1": {
+          "html": "src/components/notification-banner/info-1.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "info-2": {
+          "html": "src/components/notification-banner/info-2.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "mobile-compact": {
+          "html": "src/components/notification-banner/mobile-compact.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "success": {
+          "html": "src/components/notification-banner/success.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "warning": {
+          "html": "src/components/notification-banner/warning.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ノティフィケーションバナー",
+        "defaultEntryId": "components-ノティフィケーションバナー--docs",
+        "defaultEntryPath": "/docs/components-ノティフィケーションバナー--docs",
+        "docs": {
+          "id": "components-ノティフィケーションバナー--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ノティフィケーションバナー--success",
+            "name": "Success",
+            "exportName": "Success"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--error-story",
+            "name": "Error",
+            "exportName": "ErrorStory"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--warning",
+            "name": "Warning",
+            "exportName": "Warning"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--info-1",
+            "name": "Info 1",
+            "exportName": "Info1"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--info-2",
+            "name": "Info 2",
+            "exportName": "Info2"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--color-chip",
+            "name": "Color Chip",
+            "exportName": "ColorChip"
+          },
+          {
+            "id": "components-ノティフィケーションバナー--mobile-compact",
+            "name": "Mobile Compact",
+            "exportName": "MobileCompact"
+          }
+        ]
+      }
+    },
+    "page-navigation": {
+      "name": "ページナビゲーション",
+      "sourceDir": "src/components/page-navigation",
+      "files": {
+        "css": [
+          "src/components/page-navigation/page-navigation.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/page-navigation/page-navigation.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ページナビゲーション--text",
+            "exportName": "Text",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "text-button",
+            "selector": ".dads-page-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "outlined-button",
+            "selector": ".dads-page-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "arrow-button",
+            "selector": ".dads-page-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "first-page",
+            "selector": ".dads-page-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "last-page",
+            "selector": ".dads-page-navigation"
+          }
+        ]
+      },
+      "examples": {
+        "arrow-button": {
+          "html": "src/components/page-navigation/arrow-button.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "first-page": {
+          "html": "src/components/page-navigation/first-page.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "last-page": {
+          "html": "src/components/page-navigation/last-page.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "outlined-button": {
+          "html": "src/components/page-navigation/outlined-button.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "text-button": {
+          "html": "src/components/page-navigation/text-button.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ページナビゲーション",
+        "defaultEntryId": "components-ページナビゲーション--docs",
+        "defaultEntryPath": "/docs/components-ページナビゲーション--docs",
+        "docs": {
+          "id": "components-ページナビゲーション--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ページナビゲーション--text",
+            "name": "Text",
+            "exportName": "Text"
+          },
+          {
+            "id": "components-ページナビゲーション--outlined",
+            "name": "Outlined",
+            "exportName": "Outlined"
+          },
+          {
+            "id": "components-ページナビゲーション--arrow",
+            "name": "Arrow",
+            "exportName": "Arrow"
+          },
+          {
+            "id": "components-ページナビゲーション--first-page",
+            "name": "First Page",
+            "exportName": "FirstPage"
+          },
+          {
+            "id": "components-ページナビゲーション--last-page",
+            "name": "Last Page",
+            "exportName": "LastPage"
+          }
+        ]
+      }
+    },
+    "progress-indicator": {
+      "name": "プログレスインジケーター",
+      "sourceDir": "src/components/progress-indicator",
+      "files": {
+        "css": [
+          "src/components/progress-indicator/progress-indicator.css"
+        ],
+        "js": [
+          "src/components/progress-indicator/progress-indicator.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/progress-indicator/progress-indicator.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-プログレスインジケーター--spinner-loop",
+            "exportName": "SpinnerLoop",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "spinner-loop",
+            "selector": "dads-progress-indicator[data-type=\"stacked\"]"
+          }
+        ]
+      },
+      "examples": {
+        "interactive-demo": {
+          "html": "src/components/progress-indicator/interactive-demo.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "linear-fill": {
+          "html": "src/components/progress-indicator/linear-fill.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              "src/components/progress-indicator/progress-indicator.stories.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "linear-loop": {
+          "html": "src/components/progress-indicator/linear-loop.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/progress-indicator/progress-indicator.stories.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "spinner-fill": {
+          "html": "src/components/progress-indicator/spinner-fill.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              "src/components/progress-indicator/progress-indicator.stories.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "spinner-loop": {
+          "html": "src/components/progress-indicator/spinner-loop.html",
+          "dependencies": [
+            "button"
+          ],
+          "additionalFiles": {
+            "css": [
+              "src/components/progress-indicator/progress-indicator.stories.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "static": {
+          "html": "src/components/progress-indicator/static.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              "src/components/progress-indicator/progress-indicator.stories.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/プログレスインジケーター",
+        "defaultEntryId": "components-プログレスインジケーター--docs",
+        "defaultEntryPath": "/docs/components-プログレスインジケーター--docs",
+        "docs": {
+          "id": "components-プログレスインジケーター--docs"
+        },
+        "stories": [
+          {
+            "id": "components-プログレスインジケーター--spinner-loop",
+            "name": "Spinner (Loop)",
+            "exportName": "SpinnerLoop"
+          },
+          {
+            "id": "components-プログレスインジケーター--spinner-fill",
+            "name": "Spinner (Fill)",
+            "exportName": "SpinnerFill"
+          },
+          {
+            "id": "components-プログレスインジケーター--linear-loop",
+            "name": "Linear (Loop)",
+            "exportName": "LinearLoop"
+          },
+          {
+            "id": "components-プログレスインジケーター--linear-fill",
+            "name": "Linear (Fill)",
+            "exportName": "LinearFill"
+          },
+          {
+            "id": "components-プログレスインジケーター--static",
+            "name": "Static",
+            "exportName": "Static"
+          },
+          {
+            "id": "components-プログレスインジケーター--interactive-demo",
+            "name": "Interactive Demo",
+            "exportName": "InteractiveDemo"
+          }
+        ]
+      }
+    },
+    "radio": {
+      "name": "ラジオボタン",
+      "sourceDir": "src/components/radio",
+      "files": {
+        "css": [
+          "src/components/radio/radio.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/radio/radio.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ラジオボタン--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-radio"
+          },
+          {
+            "type": "example",
+            "exampleId": "standalone",
+            "selector": ".dads-radio"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs",
+            "fragment": "複数のコントロールにラベルを付ける"
+          },
+          {
+            "type": "example",
+            "exampleId": "stacked",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "errored",
+            "selector": ".dads-form-control-label"
+          }
+        ]
+      },
+      "examples": {
+        "all-radios": {
+          "html": "src/components/radio/all-radios.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "errored": {
+          "html": "src/components/radio/errored.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/radio/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "stacked": {
+          "html": "src/components/radio/stacked.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "standalone": {
+          "html": "src/components/radio/standalone.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ラジオボタン",
+        "defaultEntryId": "components-ラジオボタン--docs",
+        "defaultEntryPath": "/docs/components-ラジオボタン--docs",
+        "docs": {
+          "id": "components-ラジオボタン--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ラジオボタン--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ラジオボタン--standalone",
+            "name": "Standalone",
+            "exportName": "Standalone"
+          },
+          {
+            "id": "components-ラジオボタン--all-radios",
+            "name": "All Radios",
+            "exportName": "AllRadios"
+          },
+          {
+            "id": "components-ラジオボタン--stacked",
+            "name": "Stacked",
+            "exportName": "Stacked"
+          },
+          {
+            "id": "components-ラジオボタン--errored",
+            "name": "Errored",
+            "exportName": "Errored"
+          }
+        ]
+      }
+    },
+    "resource-list": {
+      "name": "リソースリスト",
+      "sourceDir": "src/components/resource-list",
+      "files": {
+        "css": [
+          "src/components/resource-list/resource-list.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/resource-list/resource-list.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-リソースリスト--plain",
+            "exportName": "Plain",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "plain",
+            "selector": ".dads-resource-list"
+          },
+          {
+            "type": "example",
+            "exampleId": "selectable-with-inline-interaction",
+            "selector": ".dads-resource-list"
+          }
+        ]
+      },
+      "examples": {
+        "multiple-items": {
+          "html": "src/components/resource-list/multiple-items.html",
+          "dependencies": [
+            "radio"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "plain-with-inline-link": {
+          "html": "src/components/resource-list/plain-with-inline-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "plain-with-whole-link": {
+          "html": "src/components/resource-list/plain-with-whole-link.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "plain": {
+          "html": "src/components/resource-list/plain.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "selectable-with-inline-interaction": {
+          "html": "src/components/resource-list/selectable-with-inline-interaction.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "selectable-with-whole-interaction": {
+          "html": "src/components/resource-list/selectable-with-whole-interaction.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/リソースリスト",
+        "defaultEntryId": "components-リソースリスト--docs",
+        "defaultEntryPath": "/docs/components-リソースリスト--docs",
+        "docs": {
+          "id": "components-リソースリスト--docs"
+        },
+        "stories": [
+          {
+            "id": "components-リソースリスト--plain",
+            "name": "Plain",
+            "exportName": "Plain"
+          },
+          {
+            "id": "components-リソースリスト--plain-with-inline-link",
+            "name": "Plain With Inline Link",
+            "exportName": "PlainWithInlineLink"
+          },
+          {
+            "id": "components-リソースリスト--plain-with-whole-link",
+            "name": "Plain With Whole Link",
+            "exportName": "PlainWithWholeLink"
+          },
+          {
+            "id": "components-リソースリスト--selectable-with-inline-interaction",
+            "name": "Selectable With Inline Interaction",
+            "exportName": "SelectableWithInlineInteraction"
+          },
+          {
+            "id": "components-リソースリスト--selectable-with-whole-interaction",
+            "name": "Selectable With Whole Interaction",
+            "exportName": "SelectableWithWholeInteraction"
+          },
+          {
+            "id": "components-リソースリスト--multiple-items",
+            "name": "Multiple Items",
+            "exportName": "MultipleItems"
+          }
+        ]
+      }
+    },
+    "search-box": {
+      "name": "検索ボックス",
+      "sourceDir": "src/components/search-box",
+      "files": {
+        "css": [
+          "src/components/search-box/search-box.css"
+        ],
+        "js": []
+      },
+      "dependencies": [
+        "button",
+        "disclosure"
+      ],
+      "documentation": {
+        "markdown": "src/components/search-box/search-box.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-検索ボックス--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-search-box"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-detail",
+            "selector": ".dads-search-box"
+          },
+          {
+            "type": "example",
+            "exampleId": "without-select",
+            "selector": ".dads-search-box"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-ラジオボタン--docs"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-チェックボックス--docs"
+          }
+        ]
+      },
+      "examples": {
+        "playground": {
+          "html": "src/components/search-box/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-detail": {
+          "html": "src/components/search-box/with-detail.html",
+          "dependencies": [
+            "checkbox",
+            "form-control-label",
+            "radio"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "without-select": {
+          "html": "src/components/search-box/without-select.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/検索ボックス",
+        "defaultEntryId": "components-検索ボックス--docs",
+        "defaultEntryPath": "/docs/components-検索ボックス--docs",
+        "docs": {
+          "id": "components-検索ボックス--docs"
+        },
+        "stories": [
+          {
+            "id": "components-検索ボックス--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-検索ボックス--with-detail",
+            "name": "With Detail",
+            "exportName": "WithDetail"
+          },
+          {
+            "id": "components-検索ボックス--without-select",
+            "name": "Without Select",
+            "exportName": "WithoutSelect"
+          }
+        ]
+      }
+    },
+    "select": {
+      "name": "セレクトボックス",
+      "sourceDir": "src/components/select",
+      "files": {
+        "css": [
+          "src/components/select/select.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/select/select.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-セレクトボックス--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-select"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "error",
+            "selector": ".dads-select"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled",
+            "selector": ".dads-select"
+          },
+          {
+            "type": "example",
+            "exampleId": "optgroup",
+            "selector": ".dads-select"
+          }
+        ]
+      },
+      "examples": {
+        "disabled": {
+          "html": "src/components/select/disabled.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "error": {
+          "html": "src/components/select/error.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "optgroup": {
+          "html": "src/components/select/optgroup.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/select/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label": {
+          "html": "src/components/select/with-form-control-label.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/セレクトボックス",
+        "defaultEntryId": "components-セレクトボックス--docs",
+        "defaultEntryPath": "/docs/components-セレクトボックス--docs",
+        "docs": {
+          "id": "components-セレクトボックス--docs"
+        },
+        "stories": [
+          {
+            "id": "components-セレクトボックス--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-セレクトボックス--with-form-control-label",
+            "name": "With Form Control Label",
+            "exportName": "WithFormControlLabel"
+          },
+          {
+            "id": "components-セレクトボックス--errored",
+            "name": "Errored",
+            "exportName": "Errored"
+          },
+          {
+            "id": "components-セレクトボックス--disabled",
+            "name": "Disabled",
+            "exportName": "Disabled"
+          },
+          {
+            "id": "components-セレクトボックス--optgroup",
+            "name": "Optgroup",
+            "exportName": "Optgroup"
+          }
+        ]
+      }
+    },
+    "step-navigation": {
+      "name": "ステップナビゲーション",
+      "sourceDir": "src/components/step-navigation",
+      "files": {
+        "css": [
+          "src/components/step-navigation/step-navigation.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/step-navigation/step-navigation.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ステップナビゲーション--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-step-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "as-navigation",
+            "selector": ".dads-step-navigation"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-default",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-reached",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-completed",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-editing",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-error",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "step-skipped",
+            "selector": ".dads-step-navigation__step"
+          },
+          {
+            "type": "example",
+            "exampleId": "number-only",
+            "selector": ".dads-step-navigation"
+          }
+        ]
+      },
+      "examples": {
+        "as-navigation": {
+          "html": "src/components/step-navigation/as-navigation.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "number-only": {
+          "html": "src/components/step-navigation/number-only.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/step-navigation/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "set-step-width": {
+          "html": "src/components/step-navigation/set-step-width.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-completed": {
+          "html": "src/components/step-navigation/step-completed.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-default": {
+          "html": "src/components/step-navigation/step-default.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-editing": {
+          "html": "src/components/step-navigation/step-editing.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-error": {
+          "html": "src/components/step-navigation/step-error.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-reached": {
+          "html": "src/components/step-navigation/step-reached.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "step-skipped": {
+          "html": "src/components/step-navigation/step-skipped.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ステップナビゲーション",
+        "defaultEntryId": "components-ステップナビゲーション--docs",
+        "defaultEntryPath": "/docs/components-ステップナビゲーション--docs",
+        "docs": {
+          "id": "components-ステップナビゲーション--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ステップナビゲーション--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ステップナビゲーション--as-navigation",
+            "name": "As Navigation",
+            "exportName": "AsNavigation"
+          },
+          {
+            "id": "components-ステップナビゲーション--number-only",
+            "name": "Number Only",
+            "exportName": "NumberOnly"
+          },
+          {
+            "id": "components-ステップナビゲーション--set-step-width",
+            "name": "Set Step Width",
+            "exportName": "SetStepWidth"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-default",
+            "name": "Step / Default",
+            "exportName": "StepDefault"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-reached",
+            "name": "Step / Reached",
+            "exportName": "StepReached"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-completed",
+            "name": "Step / Completed",
+            "exportName": "StepCompleted"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-editing",
+            "name": "Step / Editing",
+            "exportName": "StepEditing"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-error",
+            "name": "Step / Error",
+            "exportName": "StepError"
+          },
+          {
+            "id": "components-ステップナビゲーション--step-skipped",
+            "name": "Step / Skipped",
+            "exportName": "StepSkipped"
+          }
+        ]
+      }
+    },
+    "switch": {
+      "name": "スイッチ",
+      "sourceDir": "src/components/switch",
+      "files": {
+        "css": [
+          "src/components/switch/switch-mode.css",
+          "src/components/switch/switch-on-off.css"
+        ],
+        "js": [
+          "src/components/switch/switch-mode.js",
+          "src/components/switch/switch-on-off.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/switch/switch.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-スイッチ--playground-on-off",
+            "exportName": "PlaygroundOnOff",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "story",
+            "entryId": "components-スイッチ--playground-mode",
+            "exportName": "PlaygroundMode",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-on-off",
+            "selector": ".dads-switch-on-off"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground-mode",
+            "selector": ".dads-switch-mode"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label-on-off",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label-mode",
+            "selector": ".dads-form-control-label"
+          }
+        ]
+      },
+      "examples": {
+        "playground-mode": {
+          "html": "src/components/switch/playground-mode.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-on-off": {
+          "html": "src/components/switch/playground-on-off.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label-mode": {
+          "html": "src/components/switch/with-form-control-label-mode.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label-on-off": {
+          "html": "src/components/switch/with-form-control-label-on-off.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/スイッチ",
+        "defaultEntryId": "components-スイッチ--docs",
+        "defaultEntryPath": "/docs/components-スイッチ--docs",
+        "docs": {
+          "id": "components-スイッチ--docs"
+        },
+        "stories": [
+          {
+            "id": "components-スイッチ--playground-on-off",
+            "name": "Playground (On/Off)",
+            "exportName": "PlaygroundOnOff"
+          },
+          {
+            "id": "components-スイッチ--with-form-control-label-on-off",
+            "name": "With Form Control Label (On/Off)",
+            "exportName": "WithFormControlLabelOnOff"
+          },
+          {
+            "id": "components-スイッチ--playground-mode",
+            "name": "Playground (Mode)",
+            "exportName": "PlaygroundMode"
+          },
+          {
+            "id": "components-スイッチ--with-form-control-label-mode",
+            "name": "With Form Control Label (Mode)",
+            "exportName": "WithFormControlLabelMode"
+          }
+        ]
+      }
+    },
+    "tab": {
+      "name": "タブ",
+      "sourceDir": "src/components/tab",
+      "files": {
+        "css": [
+          "src/components/tab/tab.css"
+        ],
+        "js": [
+          "src/components/tab/tab-aria.js",
+          "src/components/tab/tab.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/tab/tab.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-タブ--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": "body>*"
+          },
+          {
+            "type": "example",
+            "exampleId": "basic-aria",
+            "selector": ".dads-tab"
+          },
+          {
+            "type": "example",
+            "exampleId": "basic-static",
+            "selector": ".dads-tab"
+          },
+          {
+            "type": "story",
+            "entryId": "components-タブ--playground-aria",
+            "exportName": "PlaygroundAria",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "story",
+            "entryId": "components-タブ--playground-static",
+            "exportName": "PlaygroundStatic",
+            "parameters": {
+              "controls": ""
+            }
+          }
+        ]
+      },
+      "examples": {
+        "basic-aria": {
+          "html": "src/components/tab/basic-aria.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "basic-static": {
+          "html": "src/components/tab/basic-static.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "basic": {
+          "html": "src/components/tab/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example": {
+          "html": "src/components/tab/example.html",
+          "dependencies": [
+            "heading",
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [
+              ".storybook/prose.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-aria": {
+          "html": "src/components/tab/playground-aria.html",
+          "dependencies": [
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [
+              ".storybook/prose.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground-static": {
+          "html": "src/components/tab/playground-static.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [
+              ".storybook/prose.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/tab/playground.html",
+          "dependencies": [
+            "heading",
+            "link"
+          ],
+          "additionalFiles": {
+            "css": [
+              ".storybook/prose.css"
+            ],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/タブ",
+        "defaultEntryId": "components-タブ--docs",
+        "defaultEntryPath": "/docs/components-タブ--docs",
+        "docs": {
+          "id": "components-タブ--docs"
+        },
+        "stories": [
+          {
+            "id": "components-タブ--playground",
+            "name": "Playground (Tab key navigation)",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-タブ--playground-aria",
+            "name": "Playground (Arrow key navigation)",
+            "exportName": "PlaygroundAria"
+          },
+          {
+            "id": "components-タブ--playground-static",
+            "name": "Playground (Classic link list)",
+            "exportName": "PlaygroundStatic"
+          },
+          {
+            "id": "components-タブ--example",
+            "name": "商品紹介ページの例",
+            "exportName": "Example"
+          }
+        ]
+      }
+    },
+    "table": {
+      "name": "テーブル／データテーブル",
+      "sourceDir": "src/components/table",
+      "files": {
+        "css": [
+          "src/components/table/table.css"
+        ],
+        "js": [
+          "src/components/table/scroll-shadow.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/table/table.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-テーブル／データテーブル--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-table"
+          },
+          {
+            "type": "example",
+            "exampleId": "example",
+            "selector": ".dads-table"
+          },
+          {
+            "type": "story",
+            "entryId": "components-テーブル／データテーブル--selectable-table",
+            "exportName": "SelectableTable",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-テーブル／データテーブル--sortable-header",
+            "exportName": "SortableHeader",
+            "parameters": {}
+          },
+          {
+            "type": "story",
+            "entryId": "components-テーブル／データテーブル--overflow-on-mobile",
+            "exportName": "OverflowOnMobile",
+            "parameters": {}
+          }
+        ]
+      },
+      "examples": {
+        "border-on-row-and-column": {
+          "html": "src/components/table/border-on-row-and-column.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "condensed-table": {
+          "html": "src/components/table/condensed-table.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "example": {
+          "html": "src/components/table/example.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "first-column-as-header-cell": {
+          "html": "src/components/table/first-column-as-header-cell.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "first-row-and-column-as-header-cell": {
+          "html": "src/components/table/first-row-and-column-as-header-cell.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "first-row-as-header-cell": {
+          "html": "src/components/table/first-row-as-header-cell.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "highlight-hovered-row": {
+          "html": "src/components/table/highlight-hovered-row.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "indented-rows": {
+          "html": "src/components/table/indented-rows.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "linked-text-in-cell": {
+          "html": "src/components/table/linked-text-in-cell.html",
+          "dependencies": [
+            "link",
+            "list"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "overflow-on-mobile": {
+          "html": "src/components/table/overflow-on-mobile.html",
+          "dependencies": [
+            "list"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "plain": {
+          "html": "src/components/table/plain.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/table/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "selectable-table": {
+          "html": "src/components/table/selectable-table.html",
+          "dependencies": [
+            "checkbox"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "sortable-header-dense": {
+          "html": "src/components/table/sortable-header-dense.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "sortable-header": {
+          "html": "src/components/table/sortable-header.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "stripe-table": {
+          "html": "src/components/table/stripe-table.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "table-header-with-colspan": {
+          "html": "src/components/table/table-header-with-colspan.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "table-header-with-rowspan": {
+          "html": "src/components/table/table-header-with-rowspan.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-caption": {
+          "html": "src/components/table/with-caption.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/テーブル／データテーブル",
+        "defaultEntryId": "components-テーブル／データテーブル--docs",
+        "defaultEntryPath": "/docs/components-テーブル／データテーブル--docs",
+        "docs": {
+          "id": "components-テーブル／データテーブル--docs"
+        },
+        "stories": [
+          {
+            "id": "components-テーブル／データテーブル--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-テーブル／データテーブル--example",
+            "name": "Example",
+            "exportName": "Example"
+          },
+          {
+            "id": "components-テーブル／データテーブル--plain",
+            "name": "Plain",
+            "exportName": "Plain"
+          },
+          {
+            "id": "components-テーブル／データテーブル--first-row-as-header-cell",
+            "name": "First Row As Header Cell",
+            "exportName": "FirstRowAsHeaderCell"
+          },
+          {
+            "id": "components-テーブル／データテーブル--first-column-as-header-cell",
+            "name": "First Column As Header Cell",
+            "exportName": "FirstColumnAsHeaderCell"
+          },
+          {
+            "id": "components-テーブル／データテーブル--first-row-and-column-as-header-cell",
+            "name": "First Row And Column As Header Cell",
+            "exportName": "FirstRowAndColumnAsHeaderCell"
+          },
+          {
+            "id": "components-テーブル／データテーブル--condensed-table",
+            "name": "Condensed Table",
+            "exportName": "CondensedTable"
+          },
+          {
+            "id": "components-テーブル／データテーブル--border-on-row-and-column",
+            "name": "Border On Row And Column",
+            "exportName": "BorderOnRowAndColumn"
+          },
+          {
+            "id": "components-テーブル／データテーブル--table-header-with-colspan",
+            "name": "Table Header With Colspan",
+            "exportName": "TableHeaderWithColspan"
+          },
+          {
+            "id": "components-テーブル／データテーブル--table-header-with-rowspan",
+            "name": "Table Header With Rowspan",
+            "exportName": "TableHeaderWithRowspan"
+          },
+          {
+            "id": "components-テーブル／データテーブル--indented-rows",
+            "name": "Indented Rows",
+            "exportName": "IndentedRows"
+          },
+          {
+            "id": "components-テーブル／データテーブル--stripe-table",
+            "name": "Stripe Table",
+            "exportName": "StripeTable"
+          },
+          {
+            "id": "components-テーブル／データテーブル--highlight-hovered-row",
+            "name": "Highlight Hovered Row",
+            "exportName": "HighlightHoveredRow"
+          },
+          {
+            "id": "components-テーブル／データテーブル--selectable-table",
+            "name": "Selectable Table",
+            "exportName": "SelectableTable"
+          },
+          {
+            "id": "components-テーブル／データテーブル--sortable-header",
+            "name": "Sortable Header",
+            "exportName": "SortableHeader"
+          },
+          {
+            "id": "components-テーブル／データテーブル--sortable-header-dense",
+            "name": "Sortable Header Dense",
+            "exportName": "SortableHeaderDense"
+          },
+          {
+            "id": "components-テーブル／データテーブル--linked-text-in-cell",
+            "name": "Linked Text In Cell",
+            "exportName": "LinkedTextInCell"
+          },
+          {
+            "id": "components-テーブル／データテーブル--with-caption",
+            "name": "With Caption",
+            "exportName": "WithCaption"
+          },
+          {
+            "id": "components-テーブル／データテーブル--overflow-on-mobile",
+            "name": "Overflow On Mobile",
+            "exportName": "OverflowOnMobile"
+          }
+        ]
+      }
+    },
+    "textarea": {
+      "name": "テキストエリア",
+      "sourceDir": "src/components/textarea",
+      "files": {
+        "css": [
+          "src/components/textarea/textarea.css"
+        ],
+        "js": [
+          "src/components/textarea/textarea-counter.js"
+        ]
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/textarea/textarea.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-テキストエリア--basic",
+            "exportName": "Basic",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": ".dads-textarea"
+          },
+          {
+            "type": "storybook",
+            "entryId": "components-フォームコントロールラベル--docs"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-form-control-label",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "errored",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "readonly",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "disabled",
+            "selector": ".dads-form-control-label"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-counter",
+            "selector": ".dads-form-control-label:first-child"
+          }
+        ]
+      },
+      "examples": {
+        "basic": {
+          "html": "src/components/textarea/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "disabled": {
+          "html": "src/components/textarea/disabled.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "errored": {
+          "html": "src/components/textarea/errored.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "readonly": {
+          "html": "src/components/textarea/readonly.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-counter": {
+          "html": "src/components/textarea/with-counter.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-form-control-label": {
+          "html": "src/components/textarea/with-form-control-label.html",
+          "dependencies": [
+            "form-control-label"
+          ],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/テキストエリア",
+        "defaultEntryId": "components-テキストエリア--docs",
+        "defaultEntryPath": "/docs/components-テキストエリア--docs",
+        "docs": {
+          "id": "components-テキストエリア--docs"
+        },
+        "stories": [
+          {
+            "id": "components-テキストエリア--basic",
+            "name": "Basic",
+            "exportName": "Basic"
+          },
+          {
+            "id": "components-テキストエリア--with-form-control-label",
+            "name": "With Form Control Label",
+            "exportName": "WithFormControlLabel"
+          },
+          {
+            "id": "components-テキストエリア--readonly",
+            "name": "Readonly",
+            "exportName": "Readonly"
+          },
+          {
+            "id": "components-テキストエリア--with-counter",
+            "name": "With Counter",
+            "exportName": "WithCounter"
+          },
+          {
+            "id": "components-テキストエリア--errored",
+            "name": "Errored",
+            "exportName": "Errored"
+          },
+          {
+            "id": "components-テキストエリア--disabled",
+            "name": "Disabled",
+            "exportName": "Disabled"
+          }
+        ]
+      }
+    },
+    "toc": {
+      "name": "目次",
+      "sourceDir": "src/components/toc",
+      "files": {
+        "css": [
+          "src/components/toc/toc.css"
+        ],
+        "js": []
+      },
+      "dependencies": [
+        "link",
+        "list"
+      ],
+      "documentation": {
+        "markdown": "src/components/toc/toc.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-目次--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-toc"
+          },
+          {
+            "type": "example",
+            "exampleId": "nested",
+            "selector": ".dads-toc"
+          }
+        ]
+      },
+      "examples": {
+        "nested": {
+          "html": "src/components/toc/nested.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/toc/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/目次",
+        "defaultEntryId": "components-目次--docs",
+        "defaultEntryPath": "/docs/components-目次--docs",
+        "docs": {
+          "id": "components-目次--docs"
+        },
+        "stories": [
+          {
+            "id": "components-目次--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-目次--nested",
+            "name": "Nested",
+            "exportName": "Nested"
+          }
+        ]
+      }
+    },
+    "utility-link": {
+      "name": "ユーティリティーリンク",
+      "sourceDir": "src/components/utility-link",
+      "files": {
+        "css": [
+          "src/components/utility-link/utility-link.css"
+        ],
+        "js": []
+      },
+      "dependencies": [],
+      "documentation": {
+        "markdown": "src/components/utility-link/utility-link.md",
+        "assets": [],
+        "references": [
+          {
+            "type": "story",
+            "entryId": "components-ユーティリティーリンク--playground",
+            "exportName": "Playground",
+            "parameters": {
+              "controls": ""
+            }
+          },
+          {
+            "type": "example",
+            "exampleId": "basic",
+            "selector": ".dads-utility-link"
+          },
+          {
+            "type": "example",
+            "exampleId": "with-lead-icon",
+            "selector": ".dads-utility-link"
+          },
+          {
+            "type": "example",
+            "exampleId": "playground",
+            "selector": ".dads-utility-link"
+          }
+        ]
+      },
+      "examples": {
+        "basic": {
+          "html": "src/components/utility-link/basic.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "multiple": {
+          "html": "src/components/utility-link/multiple.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "playground": {
+          "html": "src/components/utility-link/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "with-lead-icon": {
+          "html": "src/components/utility-link/with-lead-icon.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        }
+      },
+      "storybook": {
+        "title": "Components/ユーティリティーリンク",
+        "defaultEntryId": "components-ユーティリティーリンク--docs",
+        "defaultEntryPath": "/docs/components-ユーティリティーリンク--docs",
+        "docs": {
+          "id": "components-ユーティリティーリンク--docs"
+        },
+        "stories": [
+          {
+            "id": "components-ユーティリティーリンク--playground",
+            "name": "Playground",
+            "exportName": "Playground"
+          },
+          {
+            "id": "components-ユーティリティーリンク--basic",
+            "name": "Basic",
+            "exportName": "Basic"
+          },
+          {
+            "id": "components-ユーティリティーリンク--with-lead-icon",
+            "name": "With Lead Icon",
+            "exportName": "WithLeadIcon"
+          },
+          {
+            "id": "components-ユーティリティーリンク--multiple-links",
+            "name": "Multiple Links",
+            "exportName": "MultipleLinks"
+          }
+        ]
+      }
+    }
+  }
+}
