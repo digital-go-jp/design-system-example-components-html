@@ -356,32 +356,6 @@
         ]
       },
       "examples": {
-        "all-buttons-using-button": {
-          "html": "src/components/button/all-buttons-using-button.html",
-          "dependencies": [],
-          "additionalFiles": {
-            "css": [],
-            "js": [],
-            "assets": []
-          },
-          "externalResources": {
-            "css": [],
-            "js": []
-          }
-        },
-        "all-buttons-using-link": {
-          "html": "src/components/button/all-buttons-using-link.html",
-          "dependencies": [],
-          "additionalFiles": {
-            "css": [],
-            "js": [],
-            "assets": []
-          },
-          "externalResources": {
-            "css": [],
-            "js": []
-          }
-        },
         "as-link": {
           "html": "src/components/button/as-link.html",
           "dependencies": [],
@@ -423,6 +397,32 @@
         },
         "playground": {
           "html": "src/components/button/playground.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "using-button-element": {
+          "html": "src/components/button/using-button-element.html",
+          "dependencies": [],
+          "additionalFiles": {
+            "css": [],
+            "js": [],
+            "assets": []
+          },
+          "externalResources": {
+            "css": [],
+            "js": []
+          }
+        },
+        "using-link": {
+          "html": "src/components/button/using-link.html",
           "dependencies": [],
           "additionalFiles": {
             "css": [],
@@ -483,12 +483,12 @@
           },
           {
             "id": "components-ボタン--all-buttons-using-button",
-            "name": "All Buttons Using Button",
+            "name": "Using Button Element",
             "exportName": "AllButtonsUsingButton"
           },
           {
             "id": "components-ボタン--all-buttons-using-link",
-            "name": "All Buttons Using Link",
+            "name": "Using Link",
             "exportName": "AllButtonsUsingLink"
           }
         ]
