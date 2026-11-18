@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "フォームコントロールラベル",
+  "files": {
+    "css": ["form-control-label.css"],
+    "js": []
+  },
+  "dependencies": []
+}

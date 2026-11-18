@@ -1,33 +1,95 @@
-name: Deploy Storybook to Staging
+name: Build Component Manifest and Deploy Storybook to Staging
 
 on:
   push:
     branches:
       - develop
 
+concurrency:
+  group: component-manifest-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
 
 jobs:
+  build:
+    name: Build and validate manifest
+    if: vars.ENV == 'staging'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "^26.12.1"
+          cache: npm
+      - run: npm ci
+      - run: npm run test:manifest
+      # 同じビルドのindex.jsonから生成し、Storybookと一緒に公開する。
+      - run: npm run build-storybook
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook
+          path: storybook-static/
+          if-no-files-found: error
+
+  commit-manifest:
+    name: Update generated manifest on develop
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: storybook
+          path: manifest-build/
+      - name: Commit only the generated manifest
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          git fetch origin develop
+          if [ "$(git rev-parse origin/develop)" != "$SOURCE_SHA" ]; then
+            echo "develop has advanced; the newer workflow will update the manifest."
+            exit 0
+          fi
+          cp manifest-build/component-manifest.json component-manifest.json
+          git add -- component-manifest.json
+          if git diff --cached --quiet; then
+            echo "Manifest is already up to date."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: update component manifest'
+          if ! git push origin HEAD:develop; then
+            git fetch origin develop
+            if [ "$(git rev-parse origin/develop)" != "$SOURCE_SHA" ]; then
+              echo "develop advanced during push; skipping this older manifest."
+              exit 0
+            fi
+            echo "Could not push the manifest. Check workflow permissions and branch protection."
+            exit 1
+          fi
+          # GITHUB_TOKENによるpushは別のpushワークフローを起動しない。
+          # デプロイはbotコミットに依存せず、buildの成果物を使う。
+
   deploy:
-    if: ${{ vars.ENV == 'staging' }}
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/download-artifact@v4
         with:
-          node-version: 24
-          cache: "npm"
-      - name: Install packages
-        run: |
-          npm ci
-      - name: Build
-        run: |
-          npm run build-storybook
+          name: storybook
+          path: storybook-static/
       - name: Define deploy_id
         run: |
           echo "deploy_id=${{ github.job }}-${{ github.run_id }}-${{ github.run_attempt }}" >> "$GITHUB_ENV"

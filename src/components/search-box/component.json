@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "検索ボックス",
+  "files": {
+    "css": ["search-box.css"],
+    "js": []
+  },
+  "dependencies": ["button", "disclosure"]
+}

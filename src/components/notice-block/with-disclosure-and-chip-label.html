@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>With Disclosure and Chip Label｜注釈ブロック</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../global.css">
+<link rel="stylesheet" href="../chip-label/chip-label.css">
+<link rel="stylesheet" href="../disclosure/disclosure.css">
+<link rel="stylesheet" href="../link/link.css">
+<link rel="stylesheet" href="../list/list.css">
+<link rel="stylesheet" href="notice-block.css">
+</head>
+<body>
+
+<div class="dads-notice-block" role="note" data-style="border-solid" data-color="light-blue">
+  <div class="dads-notice-block__body">
+    <details class="dads-disclosure">
+      <summary class="dads-disclosure__summary">
+        <svg class="dads-disclosure__icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" fill="currentcolor"/>
+          <circle class="dads-disclosure__icon-circle" cx="12" cy="12" r="8" fill="currentcolor"/>
+          <path class="dads-disclosure__icon-triangle" d="M17 10H7L12 15L17 10Z" fill="Canvas"/>
+        </svg>
+        <span class="dads-chip-label" data-style="outlined" data-color="gray">補足</span>
+        委任状が無い場合はテンプレートから作成してください
+      </summary>
+      <div class="dads-disclosure__content">
+        <ul class="dads-list" data-spacing="4">
+          <li><a class="dads-link" href="#">委任状 (PDF: 100KB)</a></li>
+          <li><a class="dads-link" href="#">委任状 (Word: 90KB)</a></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</div>
+
+</body>
+</html>

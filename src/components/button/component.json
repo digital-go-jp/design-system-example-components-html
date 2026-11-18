@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ボタン",
+  "files": {
+    "css": ["button.css"],
+    "js": []
+  },
+  "dependencies": []
+}

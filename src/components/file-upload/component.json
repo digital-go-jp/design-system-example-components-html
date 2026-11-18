@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ファイルアップロード／ドロップエリア",
+  "files": {
+    "css": ["file-upload.css"],
+    "js": ["file-upload.js"]
+  },
+  "dependencies": ["button"]
+}

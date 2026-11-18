@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "日付ピッカー",
+  "files": {
+    "css": ["date-picker.css"],
+    "js": ["date-picker.js"]
+  },
+  "dependencies": []
+}

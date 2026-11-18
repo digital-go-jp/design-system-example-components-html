@@ -3,4 +3,4 @@ import { resetCssVrt } from "../../../tests/helpers/reset-css-vrt";
 
 const { dirname } = import.meta;
 
-resetCssVrt("drawer-playground", path.join(dirname, "playground.html"));
+resetCssVrt("drawer-playground", path.join(dirname, "left.html"));

@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "パンくずナビゲーション",
+  "files": {
+    "css": ["breadcrumb.css"],
+    "js": []
+  },
+  "dependencies": []
+}

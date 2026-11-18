@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { LINK_ONLY_LINE, parseTarget } from "./references.mjs";
 
 /**
  * 正味のコンテンツは .md（素のMarkdown）に置く。
@@ -30,20 +31,7 @@ const LANG_BY_EXT = {
 const BLOCKS_IMPORT =
   'import { Canvas, Controls, Description, Meta, Source, Stories, Subtitle, Title, Unstyled } from "@storybook/addon-docs/blocks";';
 
-const LINK_ONLY_LINE = /^\[([^\]]*)\]\((\.[^)\s]+)\)\s*$/;
 const FENCE = /^\s*(```|~~~)/;
-
-function parseTarget(target) {
-  const hashAt = target.indexOf("#");
-  const hash = hashAt === -1 ? "" : target.slice(hashAt + 1);
-  const head = hashAt === -1 ? target : target.slice(0, hashAt);
-  const qAt = head.indexOf("?");
-  return {
-    file: qAt === -1 ? head : head.slice(0, qAt),
-    query: qAt === -1 ? "" : head.slice(qAt + 1),
-    hash,
-  };
-}
 
 /** 同ディレクトリの *.stories.ts を探す（規約） */
 function findSiblingStories(mdPath) {

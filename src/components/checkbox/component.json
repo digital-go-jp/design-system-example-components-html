@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "チェックボックス",
+  "files": {
+    "css": ["checkbox.css"],
+    "js": []
+  },
+  "dependencies": []
+}

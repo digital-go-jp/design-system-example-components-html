@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ノティフィケーションバナー",
+  "files": {
+    "css": ["notification-banner.css"],
+    "js": []
+  },
+  "dependencies": []
+}

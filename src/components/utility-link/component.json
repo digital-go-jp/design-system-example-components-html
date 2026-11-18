@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ユーティリティーリンク",
+  "files": {
+    "css": ["utility-link.css"],
+    "js": []
+  },
+  "dependencies": []
+}

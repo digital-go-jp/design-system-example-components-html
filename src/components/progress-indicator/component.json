@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "プログレスインジケーター",
+  "files": {
+    "css": ["progress-indicator.css"],
+    "js": ["progress-indicator.js"]
+  },
+  "dependencies": []
+}

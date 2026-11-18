@@ -1,0 +1,9 @@
+{
+  "$schema": "../component.schema.json",
+  "name": "ランゲージセレクター",
+  "files": {
+    "css": ["language-selector.css"],
+    "js": ["language-selector.js"]
+  },
+  "dependencies": ["menu-list-box"]
+}
